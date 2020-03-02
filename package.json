@@ -1,0 +1,24 @@
+{
+  "name": "@feed-components/root",
+  "version:": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "dependencies": {
+    "@babel/preset-env": "^7.8.6",
+    "@changesets/changelog-github": "^0.2.1",
+    "@changesets/cli": "^2.5.2",
+    "@manypkg/cli": "^0.10.0",
+    "@preconstruct/cli": "^1.1.8"
+  },
+  "scripts": {
+    "postinstall": "preconstruct dev && manypkg check",
+    "build": "preconstruct build"
+  },
+  "preconstruct": {
+    "packages": [
+      "packages/*"
+    ]
+  }
+}

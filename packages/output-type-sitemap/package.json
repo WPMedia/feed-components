@@ -1,0 +1,20 @@
+{
+  "name": "@wpmedia/output-type-sitemap",
+  "version": "0.0.1",
+  "description": "Fusion output type to generate a sitemap",
+  "main": "dist/output-type-sitemap.cjs.js",
+  "module": "dist/output-type-sitemap.esm.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/wapopartners/feed-components.git",
+    "directory": "packages/output-type-sitemap"
+  },
+  "author": "Cameron Woodmansee",
+  "homepage": "https://github.com/wapopartners/feed-components#readme",
+  "dependencies": {
+    "xmlbuilder2": "^1.4.2"
+  }
+}
