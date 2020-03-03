@@ -8,23 +8,23 @@ const makeElement = (el) => ({
   ...(el.last_updated_date && { lastmode: el.last_updated_date }),
   changefeq: CHANGE_FREQ,
   priority: PRIORITY,
-  'image:image': getImages(el)
+  'image:image': getImages(el),
 })
 
 const getImages = (el) => {
-  let images = el.content_elements.filter(e => e.type === 'image')
-  return images.map(i => ({ 'image:loc': i.url }))
+  const images = el.content_elements.filter((e) => e.type === 'image')
+  return images.map((i) => ({ 'image:loc': i.url }))
 }
 
-const Json = ({ children, globalContent, ...props }) => {
+const Json = ({ globalContent, ...props }) => {
   const { content_elements: elements } = globalContent
 
   return builder.create({
     urlset: {
       '@xmlns': 'http://www.sitemaps.org/schemas/sitemap/0.9',
       '@xmlns:image': 'http://www.google.com/schemas/sitemap-image/1.1',
-      url: elements.map(makeElement)
-    }
+      url: elements.map(makeElement),
+    },
   })
 }
 
