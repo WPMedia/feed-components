@@ -1,4 +1,4 @@
-import builder from 'xmlbuilder2'
+import { create } from 'xmlbuilder2'
 
 const CHANGE_FREQ = 'always'
 const PRIORITY = '0.5'
@@ -19,7 +19,7 @@ const getImages = (el) => {
 const Json = ({ globalContent, ...props }) => {
   const { content_elements: elements } = globalContent
 
-  return builder.create({
+  return create({
     urlset: {
       '@xmlns': 'http://www.sitemaps.org/schemas/sitemap/0.9',
       '@xmlns:image': 'http://www.google.com/schemas/sitemap-image/1.1',

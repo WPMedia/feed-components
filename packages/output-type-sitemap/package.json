@@ -4,9 +4,7 @@
   "description": "Fusion output type to generate a sitemap",
   "main": "dist/output-type-sitemap.cjs.js",
   "module": "dist/output-type-sitemap.esm.js",
-  "scripts": {
-    "test": "test"
-  },
+  "license": "UNLICENSED",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/wapopartners/feed-components.git",

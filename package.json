@@ -32,17 +32,11 @@
     "lint:eslint": "yarn eslint . --ext .js",
     "lint:prettier": "prettier --list-different \"packages/**/*.js\"",
     "prettier": "prettier --write \"packages/**/*.js\"",
-    "test": "jest"
+    "test": "jest --config=jest.config.js"
   },
   "preconstruct": {
     "packages": [
       "packages/*"
-    ]
-  },
-  "jest": {
-    "watchPlugins": [
-      "jest-watch-typeahead/filename",
-      "jest-watch-typeahead/testname"
     ]
   }
 }
