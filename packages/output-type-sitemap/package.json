@@ -20,6 +20,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "ssh://git@github.com/WPMedia/feed-components.git"
+    "url": "ssh://git@github.com/WPMedia/feed-components.git",
+    "directory": "Packages/output-type-sitemap"
   }
 }
