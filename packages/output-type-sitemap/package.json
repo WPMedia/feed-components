@@ -14,5 +14,12 @@
   "homepage": "https://github.com/wapopartners/feed-components#readme",
   "dependencies": {
     "xmlbuilder2": "^1.4.2"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ssh://git@github.com/WPMedia/feed-components.git"
   }
 }
