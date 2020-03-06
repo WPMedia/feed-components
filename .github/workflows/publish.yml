@@ -6,22 +6,25 @@ on:
       - master
 
 jobs:
-  publish:
+  release:
+    name: Release
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [10.x, 12.x]
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v1
+      - name: Checkout Repo
+        uses: actions/checkout@master
+
+      - name: Setup Node.js 10.x
+        uses: actions/setup-node@master
         with:
-          node-version: ${{ matrix.node-version }}
-      - name: install
-        run: yarn install --check-files --frozen-lockfile --non-interactive
+          version: 10.x
+
+      - name: Install Dependencies
+        run: yarn
+
       - name: Create Release Pull Request or Publish to npm
         uses: changesets/action@master
         with:
+          # this expects you to have a script called release which does a build for your packages and calls changeset publish
           publish: yarn release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
