@@ -7,12 +7,15 @@
   "license": "UNLICENSED",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/wapopartners/feed-components.git",
+    "url": "git+ssh://git@github.com/WPMedia/feed-components.git",
     "directory": "packages/output-type-sitemap"
   },
   "author": "Cameron Woodmansee",
   "homepage": "https://github.com/wapopartners/feed-components#readme",
   "dependencies": {
     "xmlbuilder2": "^1.4.2"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com"
   }
 }
