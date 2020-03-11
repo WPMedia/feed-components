@@ -2,12 +2,16 @@
   "name": "@feed-components/root",
   "version:": "1.0.0",
   "private": true,
-  "workspaces": [
-    "packages/*"
-  ],
+  "workspaces": {
+    "packages": [
+      "packages/*",
+      "fusion-example"
+    ]
+  },
   "dependencies": {
     "@babel/core": "^7.8.6",
     "@babel/preset-env": "^7.8.6",
+    "@babel/preset-react": "^7.8.3",
     "@changesets/changelog-github": "^0.2.1",
     "@changesets/cli": "^2.5.2",
     "@manypkg/cli": "^0.10.0",
@@ -20,6 +24,7 @@
     "eslint-plugin-node": "^11.0.0",
     "eslint-plugin-prettier": "^3.1.2",
     "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-react": "^7.18.3",
     "eslint-plugin-standard": "^4.0.1",
     "jest": "^25.1.0",
     "jest-watch-typeahead": "^0.4.2",
@@ -29,9 +34,9 @@
     "postinstall": "preconstruct dev && manypkg check",
     "build": "preconstruct build",
     "lint": "yarn lint:eslint && yarn lint:prettier",
-    "lint:eslint": "yarn eslint . --ext .js",
+    "lint:eslint": "yarn eslint . --ext .js --ext .jsx",
     "lint:prettier": "prettier --list-different \"packages/**/*.js\"",
-    "prettier": "prettier --write \"packages/**/*.js\"",
+    "prettier": "prettier --write \"**/*.{js,jsx}\"",
     "test": "jest --config=jest.config.js"
   },
   "preconstruct": {
