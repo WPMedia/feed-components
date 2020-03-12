@@ -2,15 +2,6 @@
 # yarn lockfile v1
 
 
-"@arc-fusion/cli@^1.0.8":
-  version "1.0.8"
-  resolved "https://registry.yarnpkg.com/@arc-fusion/cli/-/cli-1.0.8.tgz#39775c3fdf4d5031c3740ecde1d9eeaa6d1405b2"
-  integrity sha512-cS0+X5ASBuNGmLM83NIVcV17ijzRgYDkiVb7wtS2+SikiYcFSZQeeeD+zZyog087Amd3fvtfKk9bV8HqHEfI7A==
-  dependencies:
-    dotenv "^6.2.0"
-    glob "^7.1.3"
-    yamljs "^0.3.0"
-
 "@babel/code-frame@^7.0.0", "@babel/code-frame@^7.5.5", "@babel/code-frame@^7.8.3":
   version "7.8.3"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.8.3.tgz#33e25903d7481181534e12ec0a25f16b6fcf419e"
@@ -2422,11 +2413,6 @@ domexception@^1.0.1:
   dependencies:
     webidl-conversions "^4.0.2"
 
-dotenv@^6.2.0:
-  version "6.2.0"
-  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-6.2.0.tgz#941c0410535d942c8becf28d3f357dbd9d476064"
-  integrity sha512-HygQCKUBSFl8wKQZBSemMywRWcEDNidvNbjGVyZu3nbZ8qq9ubiPoGLMdRDpfSrpkkm9BXYFkpKxxFX38o/76w==
-
 dotenv@^8.1.0:
   version "8.2.0"
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-8.2.0.tgz#97e619259ada750eea3e4ea3e26bceea5424b16a"
@@ -3172,7 +3158,7 @@ glob-to-regexp@^0.3.0:
   resolved "https://registry.yarnpkg.com/glob-to-regexp/-/glob-to-regexp-0.3.0.tgz#8c5a1494d2066c570cc3bfe4496175acc4d502ab"
   integrity sha1-jFoUlNIGbFcMw7/kSWF1rMTVAqs=
 
-glob@^7.0.5, glob@^7.1.1, glob@^7.1.2, glob@^7.1.3, glob@^7.1.4, glob@^7.1.6:
+glob@^7.1.1, glob@^7.1.2, glob@^7.1.3, glob@^7.1.4, glob@^7.1.6:
   version "7.1.6"
   resolved "https://registry.yarnpkg.com/glob/-/glob-7.1.6.tgz#141f33b81a7c2492e125594307480c46679278a6"
   integrity sha512-LwaxwyZ72Lk7vZINtNNrywX0ZuLyStrdDtabefZKAY5ZGJhVtgdznluResxNmPitE0SAO+O26sWTHeKSI2wMBA==
@@ -6388,9 +6374,9 @@ xml-name-validator@^3.0.0:
   integrity sha512-A5CUptxDsvxKJEU3yO6DuWBSJz/qizqzJKOMIfUJHETbBw/sFaDxgd6fxm1ewUaM0jZ444Fc5vC5ROYurg/4Pw==
 
 xmlbuilder2@^1.4.2:
-  version "1.4.2"
-  resolved "https://registry.yarnpkg.com/xmlbuilder2/-/xmlbuilder2-1.4.2.tgz#354f19118a4c2ff7bdf2022e004f11acedc55ece"
-  integrity sha512-65xENwAUVtHhsQi1WVtGQMztckkQnQHenPFTByy995U1EY/Xup6MNfdl1LPU7UU2Sk98YasBgRCIb7fgci1YNA==
+  version "1.4.3"
+  resolved "https://registry.yarnpkg.com/xmlbuilder2/-/xmlbuilder2-1.4.3.tgz#372b8e309a18d0e0dda99800b3116d56a29de79e"
+  integrity sha512-alioSUVkIgtYtEPSliFqYNfJ/RXuc3U50btJQzdwVcXixFweneWF/3A8iGBVwvDPRXvPDmGRdDQqlxUPyzj/fg==
   dependencies:
     "@oozcitak/dom" "1.15.2"
     "@oozcitak/infra" "1.0.5"
@@ -6415,14 +6401,6 @@ yallist@^2.1.2:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/yallist/-/yallist-2.1.2.tgz#1c11f9218f076089a47dd512f93c6699a6a81d52"
   integrity sha1-HBH5IY8HYImkfdUS+TxmmaaoHVI=
-
-yamljs@^0.3.0:
-  version "0.3.0"
-  resolved "https://registry.yarnpkg.com/yamljs/-/yamljs-0.3.0.tgz#dc060bf267447b39f7304e9b2bfbe8b5a7ddb03b"
-  integrity sha512-C/FsVVhht4iPQYXOInoxUM/1ELSf9EsgKH34FofQOp6hwCPrW4vG4w5++TED3xRUo8gD7l0P1J1dLlDYzODsTQ==
-  dependencies:
-    argparse "^1.0.7"
-    glob "^7.0.5"
 
 yargs-parser@^10.0.0:
   version "10.1.0"

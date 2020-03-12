@@ -46,6 +46,6 @@ Sitemap.propTypes = {
   }),
 }
 
-Sitemap.label = "Standard Sitemap"
+Sitemap.label = 'Standard Sitemap'
 
 export default Consumer(Sitemap)
