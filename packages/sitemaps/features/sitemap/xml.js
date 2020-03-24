@@ -5,44 +5,60 @@ import Consumer from 'fusion:consumer'
  * xmlbuilder object template for standard sitemaps
  * @param {ANS} elements list of content elements
  */
-export const sitemapTemplate = (elements, { changeFreq }) => ({
-  urlset: {
-    '@xmlns': 'http://www.sitemaps.org/schemas/sitemap/0.9',
-    '@xmlns:image': 'http://www.google.com/schemas/sitemap-image/1.1',
-    url: elements.map((s) => ({
-      loc: s.canonical_url,
-      ...(changeFreq && { changefeq: 'always' }),
-    })),
-  },
-})
+const sitemapTemplate = (elements, { changeFreq, includePromo, priority }) => {
+  return {
+    urlset: {
+      '@xmlns': 'http://www.sitemaps.org/schemas/sitemap/0.9',
+      ...(includePromo && {
+        '@xmlns:image': 'http://www.google.com/schemas/sitemap-image/1.1',
+      }),
+      url: elements.map((s) => {
+        const img =
+          s.promo_items && (s.promo_items.basic || s.promo_items.lead_art)
 
-class Sitemap {
-  constructor(props) {
-    this.props = props
-    const { customFields: { website } = {} } = props
-
-    this.fetchContent({
-      result: {
-        source: 'sitemap',
-        query: {
-          website,
-        },
-      },
-    })
+        return {
+          loc: s.canonical_url,
+          ...(changeFreq && { changefeq: 'always' }),
+          ...(s.last_updated_date && { lastmod: s.last_updated_date }),
+          ...(s.title && { title: s.title }),
+          ...(priority && { priority: '0.5' }),
+          ...(includePromo &&
+            img && {
+              'image:image': {
+                'image:loc': img.url,
+                ...(img.caption && { 'image:caption': { $: img.caption } }),
+                ...(img.title && { 'image:title': { $: img.title } }),
+              },
+            }),
+        }
+      }),
+    },
   }
+}
 
-  render() {
-    const { result } = this.state || {}
-    const elements = result ? result.content_elements : []
-    return sitemapTemplate(elements, { changeFreq: true })
-  }
+function Sitemap({ customFields, globalContent, ...props }) {
+  const elements = globalContent ? globalContent.content_elements : []
+  return sitemapTemplate(elements, customFields)
 }
 
 Sitemap.propTypes = {
   customFields: PropTypes.shape({
-    website: PropTypes.string.tag({
-      label: 'Website',
-    }).isRequired,
+    changeFreq: PropTypes.boolean.tag({
+      label: 'Include <changefreq>?',
+      group: 'Field Mapping',
+      defaultValue: true,
+    }),
+    includePromo: PropTypes.boolean.tag({
+      label: 'Include promo images?',
+      group: 'Field Mapping',
+      description: 'Include an image in the sitemap',
+      defaultValue: true,
+    }),
+    priority: PropTypes.boolean.tag({
+      label: 'Include <priority>?',
+      group: 'Field Mapping',
+      defaultValue: true,
+    }),
   }),
 }
 
