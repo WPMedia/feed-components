@@ -4,8 +4,7 @@
   "private": true,
   "workspaces": {
     "packages": [
-      "packages/*",
-      "fusion-example"
+      "packages/*"
     ]
   },
   "dependencies": {
@@ -28,7 +27,8 @@
     "eslint-plugin-standard": "^4.0.1",
     "jest": "^25.1.0",
     "jest-watch-typeahead": "^0.4.2",
-    "prettier": "^1.19.1"
+    "prettier": "^1.19.1",
+    "yarn": "^1.22.4"
   },
   "scripts": {
     "postinstall": "preconstruct dev && manypkg check",

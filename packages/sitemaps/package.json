@@ -7,7 +7,8 @@
   "files": [
     "dist",
     "features",
-    "output-types"
+    "output-types",
+    "sources"
   ],
   "license": "UNLICENSED",
   "repository": {
@@ -23,6 +24,7 @@
   "homepage": "https://github.com/WPMedia/feed-components#readme",
   "dependencies": {
     "xmlbuilder2": "^1.4.2"
+
   },
   "peerDependencies": {
     "fusion:consumer": "*",
