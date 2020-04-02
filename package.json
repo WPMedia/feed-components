@@ -4,8 +4,7 @@
   "private": true,
   "workspaces": {
     "packages": [
-      "packages/*",
-      "fusion-example"
+      "blocks/*"
     ]
   },
   "dependencies": {
@@ -41,7 +40,7 @@
   },
   "preconstruct": {
     "packages": [
-      "packages/*"
+      "blocks/*"
     ]
   }
 }
