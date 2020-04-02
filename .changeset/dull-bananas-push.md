@@ -2,4 +2,4 @@
 '@wpmedia/sitemaps': major
 ---
 
-initial release of sitemap fusion components
+initial setup of sitemap fusion components
