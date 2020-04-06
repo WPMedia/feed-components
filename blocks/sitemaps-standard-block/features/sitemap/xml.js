@@ -11,7 +11,7 @@ export class Sitemap {
     this.resizerURL = getProperties(arcSite).resizerURL
     this.fetchContent({
       site: {
-        source: 'site',
+        source: 'feeds-site-service',
         query: {
           website: arcSite,
         },
@@ -94,8 +94,6 @@ export class Sitemap {
     if(!site) {
       return this.sitemapTemplate([], customFields)
     }
-
-    console.log('list of properties', getProperties(arcSite).resizerURL)
     const elements = get(globalContent, 'content_elements', [])
     return this.sitemapTemplate(elements, { ...customFields, domain: site.base_path})
   }
