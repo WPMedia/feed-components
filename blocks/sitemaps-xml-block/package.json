@@ -2,10 +2,9 @@
   "name": "@wpmedia/sitemaps-xml-block",
   "version": "0.0.2",
   "description": "Fusion components for building sitemaps",
-  "main": "dist/sitemaps.cjs.js",
+  "main": "index.js",
   "module": "",
   "files": [
-    "dist",
     "output-types"
   ],
   "license": "UNLICENSED",

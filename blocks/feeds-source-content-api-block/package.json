@@ -2,10 +2,10 @@
   "name": "@wpmedia/feeds-source-content-api-block",
   "version": "0.0.2",
   "description": "Fusion components for building sitemaps",
-  "main": "dist/sitemaps.cjs.js",
-  "module": "",
+  "main": "index.js",
+
   "files": [
-    "dist",
+
     "sources"
   ],
   "license": "UNLICENSED",
