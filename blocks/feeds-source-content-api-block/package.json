@@ -1,19 +1,18 @@
 {
-  "name": "@wpmedia/sitemaps-standard-block",
+  "name": "@wpmedia/feeds-source-content-api-block",
   "version": "0.0.2",
   "description": "Fusion components for building sitemaps",
   "main": "dist/sitemaps.cjs.js",
   "module": "",
   "files": [
     "dist",
-    "features",
     "sources"
   ],
   "license": "UNLICENSED",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/WPMedia/feed-components.git",
-    "directory": "blocks/sitemaps-block2"
+    "directory": "blocks/feeds-source-content-api-block"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/",
