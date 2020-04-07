@@ -18,11 +18,13 @@
     "access": "restricted"
   },
   "author": "Cameron Woodmansee",
-  "contributors": ["Iyob Beyene <iyob.beyene@washpost.com>"],
+  "contributors": [
+    "Iyob Beyene <iyob.beyene@washpost.com>"
+  ],
   "homepage": "https://github.com/WPMedia/feed-components#readme",
   "dependencies": {
+    "thumbor-lite": "^0.1.8",
     "xmlbuilder2": "^1.4.2"
-
   },
   "peerDependencies": {
     "fusion:consumer": "*",

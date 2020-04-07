@@ -1,29 +1,60 @@
-import PropTypes from 'prop-types'
+import PropTypes from 'fusion:prop-types'
 import Consumer from 'fusion:consumer'
 import get from 'lodash/get'
-import getProperties from 'fusion:properties';
-import {resizerKey} from 'fusion:environment'
+import getProperties from 'fusion:properties'
+import { resizerKey } from 'fusion:environment'
 
-export class Sitemap {
-  constructor(props) {
-    this.props = props
-    const { arcSite } = props
-    this.resizerURL = getProperties(arcSite).resizerURL
-    this.fetchContent({
-      site: {
-        source: 'feeds-site-service',
-        query: {
-          website: arcSite,
-        },
-      },
-    })
-  }
+const sitemapTemplate = (
+  elements,
+  {
+    changeFreq,
+    includePromo,
+    priority,
+    imageTitle,
+    imageCaption,
+    getImgURL,
+    domain,
+  },
+) => ({
+  urlset: {
+    '@xmlns': 'http://www.sitemaps.org/schemas/sitemap/0.9',
+    ...(includePromo && {
+      '@xmlns:image': 'http://www.google.com/schemas/sitemap-image/1.1',
+    }),
+    url: elements.map((s) => {
+      const img =
+        s.promo_items && (s.promo_items.basic || s.promo_items.lead_art)
+      return {
+        loc: `${domain}${s.canonical_url}`,
+        ...(changeFreq && { changefeq: 'always' }),
+        ...(s.last_updated_date && { lastmod: s.last_updated_date }),
+        ...(s.title && { title: s.title }),
+        ...(priority && { priority: '0.5' }),
+        ...(includePromo &&
+          img && {
+            'image:image': {
+              'image:loc': getImgURL(s),
+              ...(img[imageCaption] && {
+                'image:caption': { $: img[imageCaption] },
+              }),
+              ...(img[imageTitle] && {
+                'image:title': { $: img[imageTitle] },
+              }),
+            },
+          }),
+      }
+    }),
+  },
+})
 
-  getImgURL(element)  {
-    const buildURL = _url => {
+export function Sitemap({ globalContent, customFields, arcSite }) {
+  const { resizerURL = '', feedDomainURL = '' } = getProperties(arcSite)
+
+  const getImgURL = (element) => {
+    const buildURL = (_url) => {
       if (typeof window === 'undefined') {
         const Thumbor = require('thumbor-lite')
-        const thumbor = new Thumbor(resizerKey, this.resizerURL)
+        const thumbor = new Thumbor(resizerKey, resizerURL)
         let imgSrc = _url.replace(/^http[s]?:\/\//, '').replace(' ', '%20')
         if (imgSrc.includes('?')) {
           imgSrc = imgSrc.replace('?', '%3F')
@@ -48,56 +79,12 @@ export class Sitemap {
     return ''
   }
 
-  sitemapTemplate  (
-    elements,
-    { domain, changeFreq, includePromo, priority, imageTitle, imageCaption }
-
-  )  {
-    return {
-      urlset: {
-        '@xmlns': 'http://www.sitemaps.org/schemas/sitemap/0.9',
-        ...(includePromo && {
-          '@xmlns:image': 'http://www.google.com/schemas/sitemap-image/1.1',
-        }),
-        url: elements.map(s => {
-          const img =
-            s.promo_items && (s.promo_items.basic || s.promo_items.lead_art)
-          return {
-            loc: `${domain}${s.canonical_url}`,
-            ...(changeFreq && { changefeq: 'always' }),
-            ...(s.last_updated_date && { lastmod: s.last_updated_date }),
-            ...(s.title && { title: s.title }),
-            ...(priority && { priority: '0.5' }),
-            ...(includePromo &&
-              img && {
-                'image:image': {
-                  'image:loc': this.getImgURL(s),
-                  ...(img[imageCaption] && {
-                    'image:caption': { $: img[imageCaption] },
-                  }),
-                  ...(img[imageTitle] && {
-                    'image:title': { $: img[imageTitle] },
-                  }),
-                },
-              }),
-          }
-        }),
-      },
-    }
-  }
-
-  render() {
-    const { site } = this.state || {}
-    const { globalContent, customFields , arcSite} = this.props
-
-    // can't return null for xml return type, must return valid xml template
-    if(!site) {
-      return this.sitemapTemplate([], customFields)
-    }
-    const elements = get(globalContent, 'content_elements', [])
-    return this.sitemapTemplate(elements, { ...customFields, domain: site.base_path})
-  }
-
+  // can't return null for xml return type, must return valid xml template
+  return sitemapTemplate(get(globalContent, 'content_elements', []), {
+    ...customFields,
+    getImgURL,
+    domain: feedDomainURL,
+  })
 }
 
 Sitemap.propTypes = {
