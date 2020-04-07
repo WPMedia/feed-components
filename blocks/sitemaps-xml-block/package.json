@@ -1,9 +1,8 @@
 {
   "name": "@wpmedia/sitemaps-xml-block",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Fusion components for building sitemaps",
   "main": "index.js",
-  "module": "",
   "files": [
     "output-types"
   ],

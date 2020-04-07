@@ -1,11 +1,10 @@
 {
   "name": "@wpmedia/sitemaps-feature-block",
-  "version": "0.0.2",
+  "version": "0.0.5",
   "description": "Fusion components for building sitemaps",
   "main": "index.js",
-  "module": "",
   "files": [
-    "sources"
+    "features"
   ],
   "license": "UNLICENSED",
   "repository": {
