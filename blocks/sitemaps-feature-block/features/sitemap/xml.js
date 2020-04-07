@@ -66,8 +66,8 @@ export class Sitemap {
           return {
             loc: `${domain}${s.canonical_url}`,
             ...({ lastmod: s[lastMod] }),
-            ...(changeFreq != 'Exclude from sitemap' && { changefeq: changeFreq }),
-            ...(priority != 'Exclude from sitemap' && { priority: priority }),
+            ...(changeFreq !== 'Exclude from sitemap' && { changefeq: changeFreq }),
+            ...(priority !== 'Exclude from sitemap' && { priority: priority }),
             ...(includePromo &&
               img && {
                 'image:image': {
@@ -88,7 +88,7 @@ export class Sitemap {
 
   render() {
     const { site } = this.state || {}
-    const { globalContent, customFields , arcSite} = this.props
+    const { globalContent, customFields } = this.props
 
     // can't return null for xml return type, must return valid xml template
     if(!site) {
