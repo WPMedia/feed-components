@@ -9,6 +9,7 @@ export class Sitemap {
     this.props = props
     const { arcSite } = props
     this.resizerURL = getProperties(arcSite).resizerURL
+    this.feedDomainURL = getProperties(arcSite).feedDomainURL
     this.fetchContent({
       site: {
         source: 'feeds-site-service',
@@ -94,7 +95,7 @@ export class Sitemap {
       return this.sitemapTemplate([], customFields)
     }
     const elements = get(globalContent, 'content_elements', [])
-    return this.sitemapTemplate(elements, { ...customFields, domain: site.base_path})
+    return this.sitemapTemplate(elements, { ...customFields, domain: this.feedDomainURL})
   }
 
 }
