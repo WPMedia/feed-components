@@ -34,7 +34,7 @@
     "build": "preconstruct build",
     "lint": "yarn lint:eslint && yarn lint:prettier",
     "lint:eslint": "yarn eslint . --ext .js --ext .jsx",
-    "lint:prettier": "prettier --list-different \"packages/**/*.js\"",
+    "lint:prettier": "prettier --list-different \\\"blocks/**/*.js\\\"",
     "prettier": "prettier --write \"**/*.{js,jsx}\"",
     "test": "jest --config=jest.config.js"
   },

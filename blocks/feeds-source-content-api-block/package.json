@@ -1,26 +1,25 @@
 {
-  "name": "@wpmedia/sitemaps",
+  "name": "@wpmedia/feeds-source-content-api-block",
   "version": "0.0.2",
   "description": "Fusion components for building sitemaps",
-  "main": "dist/sitemaps.cjs.js",
-  "module": "dist/sitemaps.esm.js",
+  "main": "index.js",
+
   "files": [
-    "dist",
-    "features",
-    "output-types",
+
     "sources"
   ],
   "license": "UNLICENSED",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/WPMedia/feed-components.git",
-    "directory": "packages/sitemaps"
+    "directory": "blocks/feeds-source-content-api-block"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/",
     "access": "restricted"
   },
   "author": "Cameron Woodmansee",
+  "contributors": ["Iyob Beyene <iyob.beyene@washpost.com>"],
   "homepage": "https://github.com/WPMedia/feed-components#readme",
   "dependencies": {
     "xmlbuilder2": "^1.4.2"
