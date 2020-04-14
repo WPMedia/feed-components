@@ -10,7 +10,7 @@ it('returns template with default values', () => {
       content_elements: [
         {
           last_updated_date: '2020-04-07T15:02:08.918Z',
-          canonical_url: '/food/2020/04/07/tips-for-safe-hand-washing',
+          website_url: '/food/2020/04/07/tips-for-safe-hand-washing',
           promo_items: {
             basic: {
               title: 'Hand Washing',
@@ -22,9 +22,10 @@ it('returns template with default values', () => {
       ],
     },
     customFields: {
-      priority: true,
+      priority: '0.5',
       includePromo: true,
-      changeFreq: true,
+      changeFreq: 'always',
+      lastMod: 'last_updated_date',
       imageTitle: 'title',
       imageCaption: 'caption',
     },

@@ -10,6 +10,7 @@ const sitemapTemplate = (
     changeFreq,
     includePromo,
     priority,
+    lastMod,
     imageTitle,
     imageCaption,
     getImgURL,
@@ -25,11 +26,10 @@ const sitemapTemplate = (
       const img =
         s.promo_items && (s.promo_items.basic || s.promo_items.lead_art)
       return {
-        loc: `${domain}${s.canonical_url}`,
-        ...(changeFreq && { changefeq: 'always' }),
-        ...(s.last_updated_date && { lastmod: s.last_updated_date }),
-        ...(s.title && { title: s.title }),
-        ...(priority && { priority: '0.5' }),
+        loc: `${domain}${s.website_url || s.canonical_url}`,
+        ...({ lastmod: s[lastMod] }),
+        ...(changeFreq !== 'Exclude from sitemap' && { changefeq: changeFreq }),
+        ...(priority !== 'Exclude from sitemap' && { priority: priority }),
         ...(includePromo &&
           img && {
             'image:image': {
@@ -103,11 +103,21 @@ Sitemap.propTypes = {
         'ANS value for associated story image used for the <image:caption> sitemap tag',
       defaultValue: 'caption',
     }),
-    changeFreq: PropTypes.boolean.tag({
-      label: 'Include <changefreq>?',
-      group: 'Format',
-      description: 'Should this field be included in the sitemap',
-      defaultValue: true,
+    lastMod: PropTypes.oneOf([
+          'created_date', 'display_date', 'first_publish_date', 'last_updated_date', 'publish_date'
+      ]).tag({
+          label: 'Last Modified Date',
+          group: 'Format',
+          description: 'Which date field should be used in the sitemap',
+          defaultValue: 'last_updated_date',
+    }),
+    changeFreq: PropTypes.oneOf([
+          'always', 'hourly', 'daily', 'weekly', 'monthly', 'yearly', 'never', 'Exclude from sitemap'
+      ]).tag({
+          label: 'change frequency',
+          group: 'Format',
+          description: 'What is the Change frequency of the sitemap',
+          defaultValue: 'always',
     }),
     includePromo: PropTypes.boolean.tag({
       label: 'Include promo images?',
@@ -115,10 +125,13 @@ Sitemap.propTypes = {
       description: 'Include an image in the sitemap',
       defaultValue: true,
     }),
-    priority: PropTypes.boolean.tag({
-      label: 'Include priority?',
+      priority: PropTypes.oneOf([
+          '0.0', '0.1', '0.2', '0.3', '0.4', '0.5', '0.6', '0.7', '0.8', '0.9', '1.0', 'Exclude from sitemap'
+      ]).tag({
+      label: 'priority',
       group: 'Format',
-      defaultValue: true,
+      description: 'What is the priority of the sitemap',
+      defaultValue: '0.5',
     }),
   }),
 }
