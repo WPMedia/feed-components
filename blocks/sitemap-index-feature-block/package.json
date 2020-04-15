@@ -1,0 +1,34 @@
+{
+  "name": "@wpmedia/sitemap-index-feature-block",
+  "version": "0.0.1",
+  "description": "Fusion components for building sitemap-index",
+  "main": "index.js",
+  "files": [
+    "features"
+  ],
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/WPMedia/feed-components.git",
+    "directory": "blocks/sitemap-index-feature-block"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/",
+    "access": "restricted"
+  },
+  "author": "Tim Kosmider",
+  "contributors": [
+    "Iyob Beyene <iyob.beyene@washpost.com>",
+    "Cameron Woodmansee <cameron.woodmansee@washpost.com>"
+  ],
+  "homepage": "https://github.com/WPMedia/feed-components#readme",
+  "dependencies": {
+    "xmlbuilder2": "^1.4.2"
+  },
+  "peerDependencies": {
+    "prop-types": "*"
+  },
+  "devDependencies": {
+    "prop-types": "*"
+  }
+}
