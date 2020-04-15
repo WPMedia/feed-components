@@ -21,6 +21,6 @@ export default {
     'Feed-Size': 'text',
     'Feed-Offset': 'text',
     'Source-Exclude': 'text',
-    Sort: 'text',
+     Sort: 'text',
   },
 }

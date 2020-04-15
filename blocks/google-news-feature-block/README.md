@@ -1,0 +1,3 @@
+# Sitemaps
+
+## Google news
