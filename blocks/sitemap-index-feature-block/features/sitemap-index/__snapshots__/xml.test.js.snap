@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`returns template with default values 1`] = `
+Object {
+  "sitemapindex": Object {
+    "@xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9",
+    "sitemap": Array [
+      Object {
+        "lastmod": "2020-04-07T15:02:08.918Z",
+        "loc": "http://demo-prod.origin.arcpublishing.comarcio/sitemap?from=0",
+      },
+      Object {
+        "lastmod": "2020-04-07T15:02:08.918Z",
+        "loc": "http://demo-prod.origin.arcpublishing.comarcio/sitemap?from=100",
+      },
+      Object {
+        "lastmod": "2020-04-07T15:02:08.918Z",
+        "loc": "http://demo-prod.origin.arcpublishing.comarcio/sitemap?from=200",
+      },
+      Object {
+        "lastmod": "2020-04-07T15:02:08.918Z",
+        "loc": "http://demo-prod.origin.arcpublishing.comarcio/sitemap?from=300",
+      },
+      Object {
+        "lastmod": "2020-04-07T15:02:08.918Z",
+        "loc": "http://demo-prod.origin.arcpublishing.comarcio/sitemap?from=400",
+      },
+    ],
+  },
+}
+`;

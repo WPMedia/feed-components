@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`returns template with default values 1`] = `
+Object {
+  "urlset": Object {
+    "@xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9",
+    "@xmlns:image": "http://www.google.com/schemas/sitemap-image/1.1",
+    "url": Array [
+      Object {
+        "changefeq": "always",
+        "image:image": Object {
+          "image:loc": null,
+          "image:title": Object {
+            "$": "Hand Washing",
+          },
+        },
+        "lastmod": "2020-04-07T15:02:08.918Z",
+        "loc": "http://demo-prod.origin.arcpublishing.com/food/2020/04/07/tips-for-safe-hand-washing",
+        "priority": "0.5",
+      },
+    ],
+  },
+}
+`;

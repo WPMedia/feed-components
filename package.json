@@ -4,8 +4,7 @@
   "private": true,
   "workspaces": {
     "packages": [
-      "packages/*",
-      "fusion-example"
+      "blocks/*"
     ]
   },
   "dependencies": {
@@ -15,7 +14,6 @@
     "@changesets/changelog-github": "^0.2.1",
     "@changesets/cli": "^2.5.2",
     "@manypkg/cli": "^0.10.0",
-    "@preconstruct/cli": "^1.1.8",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.10.0",
     "eslint-config-standard": "^14.1.0",
@@ -26,22 +24,25 @@
     "eslint-plugin-promise": "^4.2.1",
     "eslint-plugin-react": "^7.18.3",
     "eslint-plugin-standard": "^4.0.1",
+    "husky": "^4.2.5",
     "jest": "^25.1.0",
     "jest-watch-typeahead": "^0.4.2",
-    "prettier": "^1.19.1"
+    "prettier": "^1.19.1",
+    "pretty-quick": "^2.0.1",
+    "react": "^16.13.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
   },
   "scripts": {
-    "postinstall": "preconstruct dev && manypkg check",
-    "build": "preconstruct build",
+    "postinstall": "manypkg check",
     "lint": "yarn lint:eslint && yarn lint:prettier",
     "lint:eslint": "yarn eslint . --ext .js --ext .jsx",
-    "lint:prettier": "prettier --list-different \"packages/**/*.js\"",
+    "lint:prettier": "prettier --list-different \"./blocks/**/*.js\"",
     "prettier": "prettier --write \"**/*.{js,jsx}\"",
-    "test": "jest --config=jest.config.js"
-  },
-  "preconstruct": {
-    "packages": [
-      "packages/*"
-    ]
+    "test": "jest --config=jest.config.js",
+    "release": "yarn changeset publish"
   }
 }
