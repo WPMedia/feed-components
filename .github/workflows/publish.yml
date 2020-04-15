@@ -19,7 +19,7 @@ jobs:
           node-version: 10.x
 
       - name: Install Dependencies
-        run: yarn install --production
+        run: yarn install
 
       - name: Create Release Pull Request or Publish to npm
         uses: changesets/action@master

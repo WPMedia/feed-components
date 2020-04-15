@@ -20,14 +20,5 @@
   "homepage": "https://github.com/WPMedia/feed-components#readme",
   "dependencies": {
     "xmlbuilder2": "^1.4.2"
-
-  },
-  "peerDependencies": {
-    "fusion:consumer": "*",
-    "prop-types": "*"
-  },
-  "devDependencies": {
-    "fusion:consumer": "*",
-    "prop-types": "*"
   }
 }

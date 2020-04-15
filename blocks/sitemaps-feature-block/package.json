@@ -25,12 +25,7 @@
     "thumbor-lite": "^0.1.8",
     "xmlbuilder2": "^1.4.2"
   },
-  "peerDependencies": {
-    "fusion:consumer": "*",
-    "prop-types": "*"
-  },
   "devDependencies": {
-    "fusion:consumer": "*",
     "prop-types": "*"
   }
 }

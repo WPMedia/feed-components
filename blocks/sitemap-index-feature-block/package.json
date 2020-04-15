@@ -25,9 +25,6 @@
   "dependencies": {
     "xmlbuilder2": "^1.4.2"
   },
-  "peerDependencies": {
-    "prop-types": "*"
-  },
   "devDependencies": {
     "prop-types": "*"
   }

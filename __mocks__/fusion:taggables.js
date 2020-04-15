@@ -53,8 +53,6 @@ const taggable = (propType, typeName) => {
   return propType && propType.isRequired // (['shim', 'bound checkType'].includes(propType.name))
     ? taggablePrimitive(propType, typeName)
     : taggableComplex(propType, typeName)
-
-  console.log('invalid proptype', typeName)
 }
 
 module.exports = {
