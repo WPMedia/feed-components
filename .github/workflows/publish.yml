@@ -19,6 +19,8 @@ jobs:
           node-version: 10.x
 
       - name: Install Dependencies
+        run: rm .npmrc
+        run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" > ~/.npmrc
         run: yarn install
 
       - name: Create Release Pull Request or Publish to npm
