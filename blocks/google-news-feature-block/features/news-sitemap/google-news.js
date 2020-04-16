@@ -47,7 +47,7 @@ const sitemapTemplate = (
           'news:publication_date': s[lastMod],
           'news:title': {$: s.headlines.basic},
           ...(s.keywords && {'news:keywords': newsKeywords === 'seo_keywords' ? { $: s.taxonomy[newsKeywords].join(',') } : { $: s.taxonomy[newsKeywords].text.join(',')}}),
-          ...(s.stock_tickers && {'news:stock_tickers': s.stock_symobls.join(',') })
+          ...(s.stock_tickers && {'news:stock_tickers': s.taxonomy.stock_symobls.join(',') })
         },
         ...(includePromo &&
           img && {
