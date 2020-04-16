@@ -18,9 +18,10 @@ jobs:
         with:
           node-version: 10.x
 
-      - name: Install Dependencies
-        run: rm .npmrc
+      - name: Authenticate with GPR
         run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_TOKEN }}" > ~/.npmrc
+
+      - name: Install Dependencies
         run: yarn install
 
       - name: Create Release Pull Request or Publish to npm
