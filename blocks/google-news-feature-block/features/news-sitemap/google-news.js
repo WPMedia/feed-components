@@ -3,6 +3,7 @@ import Consumer from 'fusion:consumer'
 import get from 'lodash/get'
 import getProperties from 'fusion:properties'
 import { resizerKey } from 'fusion:environment'
+import getImgURL from '../../resizerUrl'
 
 const sitemapTemplate = (
   elements,
@@ -13,9 +14,13 @@ const sitemapTemplate = (
     lastMod,
     imageTitle,
     imageCaption,
-    getImgURL,
+    publicationName,
+    newsKeywords,
     domain,
-    feedTitle
+    feedTitle,
+    feedLanguage,
+    resizerURL
+
   },
 ) => ({
   urlset: {
@@ -24,44 +29,30 @@ const sitemapTemplate = (
     ...(includePromo && {
       '@xmlns:image': 'http://www.google.com/schemas/sitemap-image/1.1'
     }),
-    '@xmlns:video': 'http://www.google.com/schemas/sitemap-video/1.1',
 
     url: elements.map((s) => {
       const img =
         s.promo_items && (s.promo_items.basic || s.promo_items.lead_art)
-
-      const hasVideos = get(s, 'videos', [])
-      const videos = hasVideos.map(v => {
-        return {
-          'video:video': {
-            'video:content_loc': v.content_loc ,
-            'video:thumbnail_loc': v.thumbnail_loc,
-            'video:title': {$: v.title}
-          }
-        }
-      })
       return {
         loc: `${domain}${s.website_url ||s.canonical_url}`,
         ...({ lastmod: s[lastMod] }),
         ...(changeFreq !== 'Exclude from sitemap' && { changefeq: changeFreq }),
         ...(priority !== 'Exclude from sitemap' && { priority: priority }),
-        ...(videos),
         'news:news': {
           'news:publication': {
-            'news:name': (s.publication_name || feedTitle),
-            ...(s.language && {'news:language': s.language})
+            'news:name': (publicationName || feedTitle),
+            ...(s.language && {'news:language': s.language || feedLanguage})
 
           },
-          ...(s.access && {'news:access': s.access}),
-          'news:publication_date': s.last_updated_date,
+          'news:publication_date': s[lastMod],
           'news:title': {$: s.headlines.basic},
-          ...(s.keywords && {'news:keywords': { $: s.keywords.join(',') }}),
-          ...(s.stock_tickers && {'news:stock_tickers': s.stock_tickers.join(',') })
+          ...(s.keywords && {'news:keywords': newsKeywords === 'seo_keywords' ? { $: s.taxonomy[newsKeywords].join(',') } : { $: s.taxonomy[newsKeywords].text.join(',')}}),
+          ...(s.stock_tickers && {'news:stock_tickers': s.stock_symobls.join(',') })
         },
         ...(includePromo &&
           img && {
             'image:image': {
-              'image:loc': getImgURL(s),
+              'image:loc': getImgURL(s,resizerKey, resizerURL),
               ...(img[imageCaption] && {
                 'image:caption': { $: img[imageCaption] },
               }),
@@ -76,44 +67,17 @@ const sitemapTemplate = (
 })
 
 export function GoogleSitemap({ globalContent, customFields, arcSite }) {
-  const { resizerURL = '', feedDomainURL = '', feedTitle = '' } = getProperties(arcSite)
+  const { resizerURL = '', feedDomainURL = '', feedTitle = '', feedLanguage = '' } = getProperties(arcSite)
   console.log('getProperties', getProperties(arcSite))
 
-  const getImgURL = (element) => {
-    const buildURL = (_url) => {
-      if (typeof window === 'undefined') {
-        const Thumbor = require('thumbor-lite')
-        const thumbor = new Thumbor(resizerKey, resizerURL)
-        let imgSrc = _url.replace(/^http[s]?:\/\//, '').replace(' ', '%20')
-        if (imgSrc.includes('?')) {
-          imgSrc = imgSrc.replace('?', '%3F')
-        }
 
-        return thumbor
-          .setImagePath(imgSrc)
-          .resize(1200, 630)
-          .buildUrl()
-      }
-      return null
-    }
-
-    if (
-      element.promo_items &&
-      element.promo_items.basic &&
-      element.promo_items.basic.url
-    ) {
-      return buildURL(element.promo_items.basic.url)
-    }
-
-    return ''
-  }
-  console.log('custome fields are',customFields)
   // can't return null for xml return type, must return valid xml template
   return sitemapTemplate(get(globalContent, 'content_elements', []), {
     ...customFields,
-    getImgURL,
     domain: feedDomainURL,
-    feedTitle
+    feedTitle,
+    feedLanguage,
+    resizerURL
   })
 }
 
@@ -132,6 +96,28 @@ GoogleSitemap.propTypes = {
       description:
         'ANS value for associated story image used for the <image:caption> sitemap tag',
       defaultValue: 'caption',
+    }),
+    publicationName: PropTypes.string.tag({
+      label: 'Publication name',
+      group: 'Field Mapping',
+      description: 'What name should be used in <news:name> news-sitemap tag',
+      defaultValue: 'caption',
+    }),
+    newsTitle: PropTypes.oneOf([
+      'basic', 'title'
+    ]).tag({
+      label: 'publication title',
+      group: 'Field Mapping',
+      description: 'Which field should be used from headline',
+      defaultValue: 'basic',
+    }),
+    newsKeywords: PropTypes.oneOf([
+      'seo_keywords', 'tags'
+    ]).tag({
+      label: 'keywords',
+      group: 'Format',
+      description: 'Which field should be used from taxonomy',
+      defaultValue: 'seo_keywords',
     }),
     lastMod: PropTypes.oneOf([
       'created_date', 'display_date', 'first_publish_date', 'last_updated_date', 'publish_date'
