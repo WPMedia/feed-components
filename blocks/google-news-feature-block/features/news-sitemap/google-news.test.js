@@ -32,6 +32,8 @@ it('returns template with default values', () => {
       lastMod: 'last_updated_date',
       imageTitle: 'title',
       imageCaption: 'caption',
+      newsTitle: 'basic'
+
     },
   })
   expect(googleSitemap).toMatchSnapshot()
