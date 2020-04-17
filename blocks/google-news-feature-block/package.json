@@ -1,5 +1,5 @@
 {
-  "name": "@wpmedia/sitemaps-feature-block",
+  "name": "@wpmedia/sitemaps-news-feature-block",
   "version": "0.0.6",
   "description": "Fusion components for building sitemaps",
   "main": "index.js",
@@ -16,9 +16,10 @@
     "registry": "https://npm.pkg.github.com/",
     "access": "restricted"
   },
-  "author": "Cameron Woodmansee",
+  "author": "Iyob Beyene",
   "contributors": [
-    "Iyob Beyene <iyob.beyene@washpost.com>"
+    "Cameron Woodmansee <cameron.woodmansee@washpost.com>",
+    "Tim Kosmider <tim.kosmider@washpost.com"
   ],
   "homepage": "https://github.com/WPMedia/feed-components#readme",
   "dependencies": {

@@ -18,7 +18,8 @@
   },
   "author": "Cameron Woodmansee",
   "contributors": [
-    "Iyob Beyene <iyob.beyene@washpost.com>"
+    "Iyob Beyene <iyob.beyene@washpost.com>",
+    "Tim Kosmider <tim.kosmider@washpost.com>"
   ],
   "homepage": "https://github.com/WPMedia/feed-components#readme",
   "dependencies": {
