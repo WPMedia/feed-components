@@ -7,7 +7,7 @@ Object {
     "@xmlns:image": "http://www.google.com/schemas/sitemap-image/1.1",
     "url": Array [
       Object {
-        "changefeq": "always",
+        "changefreq": "always",
         "image:image": Object {
           "image:loc": null,
           "image:title": Object {

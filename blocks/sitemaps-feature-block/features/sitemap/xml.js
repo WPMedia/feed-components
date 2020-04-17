@@ -28,7 +28,7 @@ const sitemapTemplate = (
       return {
         loc: `${domain}${s.website_url || s.canonical_url}`,
         ...{ lastmod: s[lastMod] },
-        ...(changeFreq !== 'Exclude from sitemap' && { changefeq: changeFreq }),
+        ...(changeFreq !== 'Exclude from sitemap' && { changefreq: changeFreq }),
         ...(priority !== 'Exclude from sitemap' && { priority: priority }),
         ...(includePromo &&
           img && {
