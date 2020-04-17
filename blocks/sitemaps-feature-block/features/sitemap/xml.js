@@ -104,20 +104,31 @@ Sitemap.propTypes = {
       defaultValue: 'caption',
     }),
     lastMod: PropTypes.oneOf([
-          'created_date', 'display_date', 'first_publish_date', 'last_updated_date', 'publish_date'
-      ]).tag({
-          label: 'Last Modified Date',
-          group: 'Format',
-          description: 'Which date field should be used in the sitemap',
-          defaultValue: 'last_updated_date',
+      'created_date',
+      'display_date',
+      'first_publish_date',
+      'last_updated_date',
+      'publish_date',
+    ]).tag({
+      label: 'Last Modified Date',
+      group: 'Format',
+      description: 'Which date field should be used in the sitemap',
+      defaultValue: 'last_updated_date',
     }),
     changeFreq: PropTypes.oneOf([
-          'always', 'hourly', 'daily', 'weekly', 'monthly', 'yearly', 'never', 'Exclude from sitemap'
-      ]).tag({
-          label: 'change frequency',
-          group: 'Format',
-          description: 'What is the Change frequency of the sitemap',
-          defaultValue: 'always',
+      'always',
+      'hourly',
+      'daily',
+      'weekly',
+      'monthly',
+      'yearly',
+      'never',
+      'Exclude from sitemap',
+    ]).tag({
+      label: 'change frequency',
+      group: 'Format',
+      description: 'What is the Change frequency of the sitemap',
+      defaultValue: 'always',
     }),
     includePromo: PropTypes.boolean.tag({
       label: 'Include promo images?',
@@ -125,9 +136,20 @@ Sitemap.propTypes = {
       description: 'Include an image in the sitemap',
       defaultValue: true,
     }),
-      priority: PropTypes.oneOf([
-          '0.0', '0.1', '0.2', '0.3', '0.4', '0.5', '0.6', '0.7', '0.8', '0.9', '1.0', 'Exclude from sitemap'
-      ]).tag({
+    priority: PropTypes.oneOf([
+      '0.0',
+      '0.1',
+      '0.2',
+      '0.3',
+      '0.4',
+      '0.5',
+      '0.6',
+      '0.7',
+      '0.8',
+      '0.9',
+      '1.0',
+      'Exclude from sitemap',
+    ]).tag({
       label: 'priority',
       group: 'Format',
       description: 'What is the priority of the sitemap',

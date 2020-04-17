@@ -6,7 +6,7 @@ const resolve = function resolve(key) {
     `size=${key['Feed-Size'] || '8'}`,
     `from=${key['Feed-Offset'] || '0'}`,
     `_sourceExclude=${key['Source-Exclude'] ||
-      'content_elements,related_content,taxonomy'}`,
+    'content_elements,related_content,taxonomy'}`,
     `sort=${key.Sort || 'publish_date:desc'}`,
   ].join('&')
 

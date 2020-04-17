@@ -3,7 +3,7 @@ import Consumer from 'fusion:consumer'
 import get from 'lodash/get'
 import getProperties from 'fusion:properties'
 import { resizerKey } from 'fusion:environment'
-import getImgURL from '../../resizerUrl'
+import buildURL from '../../resizerUrl'
 
 const sitemapTemplate = (
   elements,
@@ -16,6 +16,7 @@ const sitemapTemplate = (
     imageCaption,
     publicationName,
     newsKeywords,
+    newsTitle,
     domain,
     feedTitle,
     feedLanguage,
@@ -33,6 +34,10 @@ const sitemapTemplate = (
     url: elements.map((s) => {
       const img =
         s.promo_items && (s.promo_items.basic || s.promo_items.lead_art)
+
+      if (s.language) {
+        console.log('lang', s.language)
+      }
       return {
         loc: `${domain}${s.website_url ||s.canonical_url}`,
         ...({ lastmod: s[lastMod] }),
@@ -41,18 +46,17 @@ const sitemapTemplate = (
         'news:news': {
           'news:publication': {
             'news:name': (publicationName || feedTitle),
-            ...(s.language && {'news:language': s.language || feedLanguage})
-
+            'news:language': (s.language !== '' ? s.language : feedLanguage)
           },
           'news:publication_date': s[lastMod],
-          'news:title': {$: s.headlines.basic},
-          ...(s.keywords && {'news:keywords': newsKeywords === 'seo_keywords' ? { $: s.taxonomy[newsKeywords].join(',') } : { $: s.taxonomy[newsKeywords].text.join(',')}}),
-          ...(s.stock_tickers && {'news:stock_tickers': s.taxonomy.stock_symobls.join(',') })
+          ...(s.headlines && s.headlines[newsTitle] && {'news:title': {$: s.headlines[newsTitle]}}),
+          ...(s.taxonomy && s.taxonomy[newsKeywords] && {'news:keywords':  { $: s.taxonomy[newsKeywords].join(',') }}),
+          ...(s.taxonomy && s.taxonomy.stock_symbols && {'news:stock_tickers': s.taxonomy.stock_symbols.join(',') })
         },
         ...(includePromo &&
           img && {
             'image:image': {
-              'image:loc': getImgURL(s,resizerKey, resizerURL),
+              ...(img.url && {'image:loc': buildURL(img.url, resizerKey, resizerURL)}),
               ...(img[imageCaption] && {
                 'image:caption': { $: img[imageCaption] },
               }),
@@ -68,8 +72,9 @@ const sitemapTemplate = (
 
 export function GoogleSitemap({ globalContent, customFields, arcSite }) {
   const { resizerURL = '', feedDomainURL = '', feedTitle = '', feedLanguage = '' } = getProperties(arcSite)
-  console.log('getProperties', getProperties(arcSite))
-
+  // console.log('getProperties', getProperties(arcSite))
+  // console.log('getProperties2', globalContent)
+  console.log('custom fields', customFields);
 
   // can't return null for xml return type, must return valid xml template
   return sitemapTemplate(get(globalContent, 'content_elements', []), {
@@ -91,14 +96,14 @@ GoogleSitemap.propTypes = {
       defaultValue: 'title',
     }),
     imageCaption: PropTypes.string.tag({
-      label: 'ANS image title key',
+      label: 'ANS image caption key',
       group: 'Field Mapping',
       description:
         'ANS value for associated story image used for the <image:caption> sitemap tag',
       defaultValue: 'caption',
     }),
     publicationName: PropTypes.string.tag({
-      label: 'Publication name',
+      label: 'Publication Name',
       group: 'Field Mapping',
       description: 'What name should be used in <news:name> news-sitemap tag',
       defaultValue: 'caption',
@@ -106,8 +111,8 @@ GoogleSitemap.propTypes = {
     newsTitle: PropTypes.oneOf([
       'basic', 'title'
     ]).tag({
-      label: 'publication title',
-      group: 'Field Mapping',
+      label: 'Publication Title',
+      group: 'Format',
       description: 'Which field should be used from headline',
       defaultValue: 'basic',
     }),

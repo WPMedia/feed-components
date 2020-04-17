@@ -1,12 +1,17 @@
 module.exports = {
   extends: ['standard', 'prettier', 'plugin:react/recommended'],
-  plugins: ['standard', 'prettier'],
+  plugins: ['standard', 'prettier', 'react'],
   rules: {
     'react/prop-types': 'warn',
   },
+  settings: {
+    react: {
+      version: 'detect',
+    },
+  },
   overrides: [
     {
-      files: ['*.test.js'],
+      files: ['*.test.js', '__mocks__/**'],
       env: {
         jest: true,
       },

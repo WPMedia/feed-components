@@ -17,9 +17,11 @@ jobs:
         uses: actions/setup-node@master
         with:
           node-version: 10.x
+          registry-url: https://npm.pkg.github.com
+          scope: '@wpmedia'
 
       - name: Install Dependencies
-        run: yarn install --production
+        run: yarn install
 
       - name: Create Release Pull Request or Publish to npm
         uses: changesets/action@master
@@ -28,3 +30,4 @@ jobs:
           publish: yarn release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

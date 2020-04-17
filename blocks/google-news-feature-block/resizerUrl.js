@@ -1,5 +1,5 @@
-function getImgURL (element, resizerKey, resizerURL)  {
-  const buildURL = (_url) => {
+
+  function  buildURL (_url, resizerKey, resizerURL) {
     if (typeof window === 'undefined') {
       const Thumbor = require('thumbor-lite')
       const thumbor = new Thumbor(resizerKey, resizerURL)
@@ -16,15 +16,6 @@ function getImgURL (element, resizerKey, resizerURL)  {
     return null
   }
 
-  if (
-    element.promo_items &&
-    element.promo_items.basic &&
-    element.promo_items.basic.url
-  ) {
-    return buildURL(element.promo_items.basic.url)
-  }
 
-  return ''
-}
 
-export default getImgURL
+export default buildURL
