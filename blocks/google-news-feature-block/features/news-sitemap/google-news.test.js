@@ -20,6 +20,7 @@ it('returns template with default values', () => {
           headlines: {
             basic:
               'Last Night’s Match: Tom Brady collects his 500th touchdown pass in the win',
+            meta_title: 'dog running outside enjoying the sunny day',
           },
           language: 'en',
           taxonomy: {
@@ -39,8 +40,8 @@ it('returns template with default values', () => {
       lastMod: 'last_updated_date',
       imageTitle: 'title',
       imageCaption: 'caption',
-      newsTitle: 'basic',
-      newsKeywords: 'tags'
+      newsTitle: 'headlines.meta_title',
+      newsKeywords: 'tags',
     },
   })
   expect(googleSitemap).toMatchSnapshot()

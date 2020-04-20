@@ -32,13 +32,18 @@ const sitemapTemplate = (
     }),
 
     url: elements.map((s) => {
-      let tagsText
       const img =
         s.promo_items && (s.promo_items.basic || s.promo_items.lead_art)
 
+      let keywords
       if (newsKeywords === 'tags') {
-        tagsText = jmespath.search(s, 'taxonomy.tags[*].text').join(',')
+        keywords = jmespath.search(s, 'taxonomy.tags[*].text').join(',')
+      } else {
+        keywords = jmespath.search(s, 'taxonomy.seo_keywords').join(',')
       }
+
+      const title = jmespath.search(s, newsTitle)
+
       return {
         loc: `${domain}${s.website_url || s.canonical_url}`,
         ...{ lastmod: s[lastMod] },
@@ -52,16 +57,12 @@ const sitemapTemplate = (
             'news:language': s.language !== '' ? s.language : feedLanguage,
           },
           'news:publication_date': s[lastMod],
-          ...(s.headlines &&
-            s.headlines[newsTitle] && {
-              'news:title': { $: s.headlines[newsTitle] },
-            }),
+          ...(newsTitle && {
+            'news:title': { $: title },
+          }),
           ...(s.taxonomy &&
             s.taxonomy[newsKeywords] && {
-              'news:keywords':
-                newsKeywords === 'seo_keywords'
-                  ? { $: s.taxonomy['seo_keywords'].join(',') }
-                  : { $: tagsText },
+              'news:keywords': { $: keywords },
             }),
           ...(s.taxonomy &&
             s.taxonomy.stock_symbols && {
@@ -129,9 +130,9 @@ GoogleSitemap.propTypes = {
     }),
     newsTitle: PropTypes.string.tag({
       label: 'article title',
-      group: 'Field mapping',
+      group: 'Field Mapping',
       description: 'Which field should be used from headline',
-      defaultValue: 'basic',
+      defaultValue: 'headlines.meta_title',
     }),
     newsKeywords: PropTypes.oneOf(['seo_keywords', 'tags']).tag({
       label: 'keywords',
