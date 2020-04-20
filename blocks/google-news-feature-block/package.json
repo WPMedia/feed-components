@@ -1,5 +1,6 @@
 {
   "name": "@wpmedia/sitemaps-news-feature-block",
+  "version": "0.0.0",
   "description": "Fusion components for building news sitemaps",
   "main": "index.js",
   "files": [
@@ -23,7 +24,6 @@
   "homepage": "https://github.com/WPMedia/feed-components#readme",
   "dependencies": {
     "jmespath": "^0.15.0",
-    "thumbor-lite": "^0.1.8",
-    "xmlbuilder2": "^1.4.2"
+    "thumbor-lite": "^0.1.8"
   }
 }

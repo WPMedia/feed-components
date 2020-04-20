@@ -37,9 +37,11 @@ const sitemapTemplate = (
 
       let keywords
       if (newsKeywords === 'tags') {
-        keywords = jmespath.search(s, 'taxonomy.tags[*].text').join(',')
+        keywords = jmespath.search(s, 'taxonomy.tags[*].text') || [].join(',')
       } else {
-        keywords = jmespath.search(s, 'taxonomy.seo_keywords[*]').join(',')
+        keywords = (jmespath.search(s, 'taxonomy.seo_keywords[*]') || []).join(
+          ',',
+        )
       }
 
       const title = jmespath.search(s, newsTitle)
