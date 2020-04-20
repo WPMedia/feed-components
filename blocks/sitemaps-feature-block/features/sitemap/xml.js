@@ -27,8 +27,10 @@ const sitemapTemplate = (
         s.promo_items && (s.promo_items.basic || s.promo_items.lead_art)
       return {
         loc: `${domain}${s.website_url || s.canonical_url}`,
-        ...({ lastmod: s[lastMod] }),
-        ...(changeFreq !== 'Exclude from sitemap' && { changefeq: changeFreq }),
+        ...{ lastmod: s[lastMod] },
+        ...(changeFreq !== 'Exclude from sitemap' && {
+          changefreq: changeFreq,
+        }),
         ...(priority !== 'Exclude from sitemap' && { priority: priority }),
         ...(includePromo &&
           img && {
