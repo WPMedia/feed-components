@@ -37,7 +37,7 @@ const sitemapTemplate = (
 
       let keywords
       if (newsKeywords === 'tags') {
-        keywords = jmespath.search(s, 'taxonomy.tags[*].text') || [].join(',')
+        keywords = (jmespath.search(s, 'taxonomy.tags[*].text') || []).join(',')
       } else {
         keywords = (jmespath.search(s, 'taxonomy.seo_keywords[*]') || []).join(
           ',',
@@ -134,7 +134,7 @@ GoogleSitemap.propTypes = {
       label: 'article title',
       group: 'Field Mapping',
       description: 'Which field should be used from headline',
-      defaultValue: 'headlines.meta_title',
+      defaultValue: 'headlines.basic',
     }),
     newsKeywords: PropTypes.oneOf(['seo_keywords', 'tags']).tag({
       label: 'keywords',
