@@ -62,10 +62,9 @@ const sitemapTemplate = (
           ...(newsTitle && {
             'news:title': { $: title },
           }),
-          ...(s.taxonomy &&
-            s.taxonomy[newsKeywords] && {
-              'news:keywords': { $: keywords },
-            }),
+          ...(keywords && {
+            'news:keywords': { $: keywords },
+          }),
           ...(s.taxonomy &&
             s.taxonomy.stock_symbols && {
               'news:stock_tickers': s.taxonomy.stock_symbols.join(','),
