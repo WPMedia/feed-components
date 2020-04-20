@@ -44,6 +44,5 @@
     "prettier": "prettier --write \"**/*.{js,jsx}\"",
     "test": "jest --config=jest.config.js",
     "release": "yarn changeset publish"
-
   }
 }

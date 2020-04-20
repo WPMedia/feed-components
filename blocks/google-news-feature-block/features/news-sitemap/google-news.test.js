@@ -1,7 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import Consumer from 'fusion:consumer'
 import { GoogleSitemap } from './google-news'
-
 jest.mock('thumbor-lite')
 it('returns template with default values', () => {
   const googleSitemap = GoogleSitemap({
@@ -19,9 +18,17 @@ it('returns template with default values', () => {
             },
           },
           headlines: {
-            basic: 'Last Night’s Match: Tom Brady collects his 500th touchdown pass in the win'
-             },
+            basic:
+              'Last Night’s Match: Tom Brady collects his 500th touchdown pass in the win',
+          },
           language: 'en',
+          taxonomy: {
+            tags: [
+              {
+                text: 'animal videos',
+              },
+            ],
+          },
         },
       ],
     },
@@ -32,8 +39,8 @@ it('returns template with default values', () => {
       lastMod: 'last_updated_date',
       imageTitle: 'title',
       imageCaption: 'caption',
-      newsTitle: 'basic'
-
+      newsTitle: 'basic',
+      newsKeywords: 'tags'
     },
   })
   expect(googleSitemap).toMatchSnapshot()

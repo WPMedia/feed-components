@@ -1,7 +1,7 @@
 {
   "name": "@wpmedia/sitemaps-news-feature-block",
   "version": "0.1.0.",
-  "description": "Fusion components for building sitemaps",
+  "description": "Fusion components for building news sitemaps",
   "main": "index.js",
   "files": [
     "features"
@@ -19,19 +19,12 @@
   "author": "Iyob Beyene",
   "contributors": [
     "Cameron Woodmansee <cameron.woodmansee@washpost.com>",
-    "Tim Kosmider <tim.kosmider@washpost.com"
+    "Tim Kosmider <tim.kosmider@washpost.com>"
   ],
   "homepage": "https://github.com/WPMedia/feed-components#readme",
   "dependencies": {
+    "jmespath": "^0.15.0",
     "thumbor-lite": "^0.1.8",
     "xmlbuilder2": "^1.4.2"
-  },
-  "peerDependencies": {
-    "fusion:consumer": "*",
-    "prop-types": "*"
-  },
-  "devDependencies": {
-    "fusion:consumer": "*",
-    "prop-types": "*"
   }
 }

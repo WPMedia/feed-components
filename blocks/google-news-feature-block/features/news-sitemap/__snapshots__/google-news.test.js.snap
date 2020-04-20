@@ -8,7 +8,7 @@ Object {
     "@xmlns:news": "http://www.google.com/schemas/sitemap-news/0.9",
     "url": Array [
       Object {
-        "changefeq": "always",
+        "changefreq": "always",
         "image:image": Object {
           "image:loc": null,
           "image:title": Object {
@@ -18,6 +18,9 @@ Object {
         "lastmod": "2018-10-05T14:28:25.674Z",
         "loc": "http://demo-prod.origin.arcpublishing.com/food/2020/04/07/tips-for-safe-hand-washing",
         "news:news": Object {
+          "news:keywords": Object {
+            "$": "animal videos",
+          },
           "news:publication": Object {
             "news:language": "en",
             "news:name": "google news",

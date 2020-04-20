@@ -4,6 +4,7 @@ import get from 'lodash/get'
 import getProperties from 'fusion:properties'
 import { resizerKey } from 'fusion:environment'
 import buildURL from '../../resizerUrl'
+const jmespath = require('jmespath')
 
 const sitemapTemplate = (
   elements,
@@ -20,43 +21,59 @@ const sitemapTemplate = (
     domain,
     feedTitle,
     feedLanguage,
-    resizerURL
-
+    resizerURL,
   },
 ) => ({
   urlset: {
     '@xmlns': 'http://www.sitemaps.org/schemas/sitemap/0.9',
     '@xmlns:news': 'http://www.google.com/schemas/sitemap-news/0.9',
     ...(includePromo && {
-      '@xmlns:image': 'http://www.google.com/schemas/sitemap-image/1.1'
+      '@xmlns:image': 'http://www.google.com/schemas/sitemap-image/1.1',
     }),
 
     url: elements.map((s) => {
+      let tagsText
       const img =
         s.promo_items && (s.promo_items.basic || s.promo_items.lead_art)
 
-      if (s.language) {
-        console.log('lang', s.language)
+      if (newsKeywords === 'tags') {
+        tagsText = jmespath.search(s, 'taxonomy.tags[*].text').join(',')
       }
       return {
-        loc: `${domain}${s.website_url ||s.canonical_url}`,
-        ...({ lastmod: s[lastMod] }),
-        ...(changeFreq !== 'Exclude from sitemap' && { changefeq: changeFreq }),
+        loc: `${domain}${s.website_url || s.canonical_url}`,
+        ...{ lastmod: s[lastMod] },
+        ...(changeFreq !== 'Exclude from sitemap' && {
+          changefreq: changeFreq,
+        }),
         ...(priority !== 'Exclude from sitemap' && { priority: priority }),
         'news:news': {
           'news:publication': {
-            'news:name': (publicationName || feedTitle),
-            'news:language': (s.language !== '' ? s.language : feedLanguage)
+            'news:name': publicationName || feedTitle,
+            'news:language': s.language !== '' ? s.language : feedLanguage,
           },
           'news:publication_date': s[lastMod],
-          ...(s.headlines && s.headlines[newsTitle] && {'news:title': {$: s.headlines[newsTitle]}}),
-          ...(s.taxonomy && s.taxonomy[newsKeywords] && {'news:keywords':  { $: s.taxonomy[newsKeywords].join(',') }}),
-          ...(s.taxonomy && s.taxonomy.stock_symbols && {'news:stock_tickers': s.taxonomy.stock_symbols.join(',') })
+          ...(s.headlines &&
+            s.headlines[newsTitle] && {
+              'news:title': { $: s.headlines[newsTitle] },
+            }),
+          ...(s.taxonomy &&
+            s.taxonomy[newsKeywords] && {
+              'news:keywords':
+                newsKeywords === 'seo_keywords'
+                  ? { $: s.taxonomy['seo_keywords'].join(',') }
+                  : { $: tagsText },
+            }),
+          ...(s.taxonomy &&
+            s.taxonomy.stock_symbols && {
+              'news:stock_tickers': s.taxonomy.stock_symbols.join(','),
+            }),
         },
         ...(includePromo &&
           img && {
             'image:image': {
-              ...(img.url && {'image:loc': buildURL(img.url, resizerKey, resizerURL)}),
+              ...(img.url && {
+                'image:loc': buildURL(img.url, resizerKey, resizerURL),
+              }),
               ...(img[imageCaption] && {
                 'image:caption': { $: img[imageCaption] },
               }),
@@ -71,10 +88,12 @@ const sitemapTemplate = (
 })
 
 export function GoogleSitemap({ globalContent, customFields, arcSite }) {
-  const { resizerURL = '', feedDomainURL = '', feedTitle = '', feedLanguage = '' } = getProperties(arcSite)
-  // console.log('getProperties', getProperties(arcSite))
-  // console.log('getProperties2', globalContent)
-  console.log('custom fields', customFields);
+  const {
+    resizerURL = '',
+    feedDomainURL = '',
+    feedTitle = '',
+    feedLanguage = '',
+  } = getProperties(arcSite)
 
   // can't return null for xml return type, must return valid xml template
   return sitemapTemplate(get(globalContent, 'content_elements', []), {
@@ -82,7 +101,7 @@ export function GoogleSitemap({ globalContent, customFields, arcSite }) {
     domain: feedDomainURL,
     feedTitle,
     feedLanguage,
-    resizerURL
+    resizerURL,
   })
 }
 
@@ -106,26 +125,26 @@ GoogleSitemap.propTypes = {
       label: 'Publication Name',
       group: 'Field Mapping',
       description: 'What name should be used in <news:name> news-sitemap tag',
-      defaultValue: 'caption',
+      defaultValue: '',
     }),
-    newsTitle: PropTypes.oneOf([
-      'basic', 'title'
-    ]).tag({
-      label: 'Publication Title',
-      group: 'Format',
+    newsTitle: PropTypes.string.tag({
+      label: 'article title',
+      group: 'Field mapping',
       description: 'Which field should be used from headline',
       defaultValue: 'basic',
     }),
-    newsKeywords: PropTypes.oneOf([
-      'seo_keywords', 'tags'
-    ]).tag({
+    newsKeywords: PropTypes.oneOf(['seo_keywords', 'tags']).tag({
       label: 'keywords',
       group: 'Format',
       description: 'Which field should be used from taxonomy',
       defaultValue: 'seo_keywords',
     }),
     lastMod: PropTypes.oneOf([
-      'created_date', 'display_date', 'first_publish_date', 'last_updated_date', 'publish_date'
+      'created_date',
+      'display_date',
+      'first_publish_date',
+      'last_updated_date',
+      'publish_date',
     ]).tag({
       label: 'Last Modified Date',
       group: 'Format',
@@ -133,7 +152,14 @@ GoogleSitemap.propTypes = {
       defaultValue: 'last_updated_date',
     }),
     changeFreq: PropTypes.oneOf([
-      'always', 'hourly', 'daily', 'weekly', 'monthly', 'yearly', 'never', 'Exclude from sitemap'
+      'always',
+      'hourly',
+      'daily',
+      'weekly',
+      'monthly',
+      'yearly',
+      'never',
+      'Exclude from sitemap',
     ]).tag({
       label: 'change frequency',
       group: 'Format',
@@ -147,14 +173,25 @@ GoogleSitemap.propTypes = {
       defaultValue: true,
     }),
     priority: PropTypes.oneOf([
-      '0.0', '0.1', '0.2', '0.3', '0.4', '0.5', '0.6', '0.7', '0.8', '0.9', '1.0', 'Exclude from sitemap'
+      '0.0',
+      '0.1',
+      '0.2',
+      '0.3',
+      '0.4',
+      '0.5',
+      '0.6',
+      '0.7',
+      '0.8',
+      '0.9',
+      '1.0',
+      'Exclude from sitemap',
     ]).tag({
       label: 'priority',
       group: 'Format',
       description: 'What is the priority of the sitemap',
       defaultValue: '0.5',
-    })
-  })
+    }),
+  }),
 }
 GoogleSitemap.label = 'Google News Sitemap'
 export default Consumer(GoogleSitemap)
