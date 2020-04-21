@@ -23,7 +23,7 @@
   "homepage": "https://github.com/WPMedia/feed-components#readme",
   "dependencies": {
     "thumbor-lite": "^0.1.8",
-    "xmlbuilder2": "^1.4.2"
+    "xmlbuilder2": "^2.1.2"
   },
   "devDependencies": {
     "prop-types": "*"

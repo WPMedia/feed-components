@@ -1354,10 +1354,10 @@
     "@nodelib/fs.scandir" "2.1.3"
     fastq "^1.6.0"
 
-"@oozcitak/dom@1.15.4":
-  version "1.15.4"
-  resolved "https://registry.yarnpkg.com/@oozcitak/dom/-/dom-1.15.4.tgz#b1e194e52a74a9f33cca20ab0f23318995f1178d"
-  integrity sha512-K8R+g7lJ9qKI9cSuLH1AwW518TkSMbmvi8rE43s4UTrvemgstVJl7V9JgvOEfF/3/froKGVIqRKFIFUwCZoUxw==
+"@oozcitak/dom@1.15.5":
+  version "1.15.5"
+  resolved "https://registry.yarnpkg.com/@oozcitak/dom/-/dom-1.15.5.tgz#f1ca1e9399b960a9b6061fce0936c82108190645"
+  integrity sha512-L6v3Mwb0TaYBYgeYlIeBaHnc+2ZEaDSbFiRm5KmqZQSoBlbPlf+l6aIH/sD5GUf2MYwULw00LT7+dOnEuAEC0A==
   dependencies:
     "@oozcitak/infra" "1.0.5"
     "@oozcitak/url" "1.0.0"
@@ -6478,12 +6478,12 @@ xml-name-validator@^3.0.0:
   resolved "https://registry.yarnpkg.com/xml-name-validator/-/xml-name-validator-3.0.0.tgz#6ae73e06de4d8c6e47f9fb181f78d648ad457c6a"
   integrity sha512-A5CUptxDsvxKJEU3yO6DuWBSJz/qizqzJKOMIfUJHETbBw/sFaDxgd6fxm1ewUaM0jZ444Fc5vC5ROYurg/4Pw==
 
-xmlbuilder2@^1.4.2:
-  version "1.8.1"
-  resolved "https://registry.yarnpkg.com/xmlbuilder2/-/xmlbuilder2-1.8.1.tgz#9fea1f6f4f4437e25a299287063c552e7857aed4"
-  integrity sha512-YFrQg+oQq2eSmsD+e2NWsVGapYBjgR+qEMc4VZni+9dDjF/XhdPztaZ+ZEaYxhhU0Nnj1ezuQ/8Hg2WYHisd8Q==
+xmlbuilder2@^2.1.2:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/xmlbuilder2/-/xmlbuilder2-2.1.2.tgz#02c948f4bc6e95b41d0ee09c2f800176a8133b72"
+  integrity sha512-PI710tmtVlQ5VmwzbRTuhmVhKnj9pM8Si+iOZCV2g2SNo3gCrpzR2Ka9wNzZtqfD+mnP+xkrqoNy0sjKZqP4Dg==
   dependencies:
-    "@oozcitak/dom" "1.15.4"
+    "@oozcitak/dom" "1.15.5"
     "@oozcitak/infra" "1.0.5"
     "@oozcitak/util" "8.3.3"
 
