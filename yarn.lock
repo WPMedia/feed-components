@@ -1280,10 +1280,10 @@
     "@types/yargs" "^15.0.0"
     chalk "^3.0.0"
 
-"@manypkg/cli@^0.10.0":
-  version "0.10.1"
-  resolved "https://registry.yarnpkg.com/@manypkg/cli/-/cli-0.10.1.tgz#5105df8932f90f882a562d107a6d438797e2086b"
-  integrity sha512-U8niAA7TmLwTrMAJsspuhOQgArryTIUmKKLHbj3aSS0XBT/gXZKG8zRZRDHiEm1rpKywun1Ex5HM/DSQL1PQ+w==
+"@manypkg/cli@^0.11.1":
+  version "0.11.1"
+  resolved "https://registry.yarnpkg.com/@manypkg/cli/-/cli-0.11.1.tgz#1be7f661e0e1b7132809ff485f19694db4f29ce0"
+  integrity sha512-Ya4kKY8+VW4L0UXn0MfX7x6pezT5hgZeIVwwCnDMCjcR0RlRrpIk3NV6kX6A4QkZVe9ifA8ZRX6kCbjeXTY0Mg==
   dependencies:
     "@babel/runtime" "^7.5.5"
     chalk "^2.4.2"
@@ -1293,7 +1293,9 @@
     fs-extra "^8.1.0"
     get-workspaces "^0.6.0"
     meow "^5.0.0"
+    normalize-path "^3.0.0"
     p-limit "^2.2.1"
+    parse-github-url "^1.0.2"
     sembear "^0.5.0"
     semver "^6.3.0"
     spawndamnit "^2.0.0"
@@ -4939,6 +4941,11 @@ parent-module@^1.0.0:
   integrity sha512-GQ2EWRpQV8/o+Aw8YqtfZZPfNRWZYkbidE9k5rpl/hC3vtHHBfGm2Ifi6qWV+coDGkrUKZAxE3Lot5kcsRlh+g==
   dependencies:
     callsites "^3.0.0"
+
+parse-github-url@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/parse-github-url/-/parse-github-url-1.0.2.tgz#242d3b65cbcdda14bb50439e3242acf6971db395"
+  integrity sha512-kgBf6avCbO3Cn6+RnzRGLkUsv4ZVqv/VfAYkRsyBcgkshNvVBkRn1FEZcW0Jb+npXQWm2vHPnnOqFteZxRRGNw==
 
 parse-json@^2.2.0:
   version "2.2.0"
