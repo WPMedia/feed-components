@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import Consumer from 'fusion:consumer'
-import { GoogleSitemap } from './google-news'
+import { GoogleSitemap } from './xml'
 jest.mock('thumbor-lite')
 it('returns template with default values', () => {
   const googleSitemap = GoogleSitemap({

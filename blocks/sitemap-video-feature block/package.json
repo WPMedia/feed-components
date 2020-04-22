@@ -1,0 +1,29 @@
+{
+  "name": "@wpmedia/sitemap-video-feature-block",
+  "version": "0.0.0",
+  "description": "Fusion components for building sitemaps",
+  "main": "index.js",
+  "files": [
+    "sources"
+  ],
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/WPMedia/feed-components.git",
+    "directory": "blocks/feeds-source-content-api-block"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/",
+    "access": "restricted"
+  },
+  "author": "Iyob Beyene",
+  "contributors": [
+    "Cameron Woodmansee <cameron.woodmansee@washpost.com>",
+    "Tim Kosmider <tim.kosmider@washpost.com>"
+  ],
+  "homepage": "https://github.com/WPMedia/feed-components#readme",
+  "dependencies": {
+    "jmespath": "^0.15.0",
+    "thumbor-lite": "^0.1.8"
+  }
+}
