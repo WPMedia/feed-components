@@ -1,0 +1,33 @@
+{
+  "name": "@wpmedia/rss-feature-block",
+  "version": "0.0.0",
+  "description": "Fusion components for building rss",
+  "main": "index.js",
+  "files": [
+    "features"
+  ],
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/WPMedia/feed-components.git",
+    "directory": "blocks/rss-feature-block"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/",
+    "access": "restricted"
+  },
+  "author": "Cameron Woodmansee",
+  "contributors": [
+    "Iyob Beyene <iyob.beyene@washpost.com>",
+    "Cameron Woodmansee <cameron.woodmansee@washpost.com>"
+  ],
+  "homepage": "https://github.com/WPMedia/feed-components#readme",
+  "dependencies": {
+    "thumbor-lite": "^0.1.8",
+    "xmlbuilder2": "^1.4.2",
+    "date-fns": "^2.12.0"
+  },
+  "devDependencies": {
+    "prop-types": "*"
+  }
+}

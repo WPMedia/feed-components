@@ -14,6 +14,7 @@
     "@changesets/changelog-github": "^0.2.1",
     "@changesets/cli": "^2.6.4",
     "@manypkg/cli": "^0.10.0",
+    "date-fns": "^2.12.0",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.10.0",
     "eslint-config-standard": "^14.1.0",
