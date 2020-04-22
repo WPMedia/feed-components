@@ -3,8 +3,8 @@ import Consumer from 'fusion:consumer'
 import get from 'lodash/get'
 import getProperties from 'fusion:properties'
 import { resizerKey } from 'fusion:environment'
-import buildURL from '../resizerUrl'
-import formatSearchObject from '../searchHelper'
+import buildURL from '../../resizerUrl'
+import formatSearchObject from '../../searchHelper'
 const jmespath = require('jmespath')
 
 const sitemapTemplate = (
