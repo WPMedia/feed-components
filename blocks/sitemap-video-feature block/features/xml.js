@@ -9,7 +9,14 @@ const jmespath = require('jmespath')
 
 const sitemapTemplate = (
   elements,
-  { lastMod, videoKeywords, videoTitle, domain, searchObject, resizerURL },
+  {
+    lastMod,
+    videoKeywords,
+    videoTitle,
+    domain,
+    sitemapVideoSelect,
+    resizerURL,
+  },
 ) => ({
   urlset: {
     '@xmlns': 'http://www.sitemaps.org/schemas/sitemap/0.9',
@@ -33,7 +40,7 @@ const sitemapTemplate = (
       const title = jmespath.search(v, videoTitle)
 
       // Find content_loc based on searchObject site property.
-      const searchArray = formatSearchObject(searchObject)
+      const searchArray = formatSearchObject(sitemapVideoSelect)
 
       let contentLoc = jmespath.search(
         v,
@@ -80,14 +87,14 @@ export function VideoSitemap({ globalContent, customFields, arcSite }) {
   const {
     resizerURL = '',
     feedDomainURL = '',
-    searchObject = { bitrate: 5400, stream_type: 'mp4' },
+    sitemapVideoSelect = { bitrate: 5400, stream_type: 'mp4' },
   } = getProperties(arcSite)
 
   // can't return null for xml return type, must return valid xml template
   return sitemapTemplate(get(globalContent, 'content_elements', []), {
     ...customFields,
     domain: feedDomainURL,
-    searchObject,
+    sitemapVideoSelect,
     resizerURL,
   })
 }
