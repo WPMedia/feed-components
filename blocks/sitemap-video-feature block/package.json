@@ -10,7 +10,7 @@
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/WPMedia/feed-components.git",
-    "directory": "blocks/feeds-source-content-api-block"
+    "directory": "blocks/sitemap-video-feature-block"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/",
