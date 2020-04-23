@@ -12,9 +12,9 @@ const sitemapTemplate = (
   {
     lastMod,
     videoKeywords,
+    sitemapVideoSelect,
     videoTitle,
     domain,
-    sitemapVideoSelect,
     resizerURL,
   },
 ) => ({
@@ -53,7 +53,9 @@ const sitemapTemplate = (
         loc: `${domain}${v.website_url || v.canonical_url}`,
         'video:video': {
           ...(contentLoc && { 'video:content_loc': contentLoc }),
-          ...(v.duration && { 'video:duration': v.duration / 1000 }),
+          ...(v.duration && {
+            'video:duration': Math.trunc(v.duration / 1000),
+          }),
           ...(img &&
             img.url && {
               'video:thumbnail_loc': buildURL(img.url, resizerKey, resizerURL),
@@ -84,17 +86,12 @@ const sitemapTemplate = (
 })
 
 export function VideoSitemap({ globalContent, customFields, arcSite }) {
-  const {
-    resizerURL = '',
-    feedDomainURL = '',
-    sitemapVideoSelect = { bitrate: 5400, stream_type: 'mp4' },
-  } = getProperties(arcSite)
+  const { resizerURL = '', feedDomainURL = '' } = getProperties(arcSite)
 
   // can't return null for xml return type, must return valid xml template
   return sitemapTemplate(get(globalContent, 'content_elements', []), {
     ...customFields,
     domain: feedDomainURL,
-    sitemapVideoSelect,
     resizerURL,
   })
 }
@@ -112,6 +109,12 @@ VideoSitemap.propTypes = {
       group: 'Format',
       description: 'Which field should be used from taxonomy',
       defaultValue: 'seo_keywords',
+    }),
+    sitemapVideoSelect: PropTypes.kvp.tag({
+      label: 'select content_loc using',
+      group: 'Format',
+      description: 'Which criteria should be used to fetch content_loc',
+      defaultValue: { bitrate: 5400, stream_type: 'mp4' },
     }),
     lastMod: PropTypes.oneOf([
       'created_date',

@@ -12,7 +12,7 @@ Object {
         "video:video": Object {
           "video:category": "Video",
           "video:content_loc": "https://d1tf6ure8fkb0l.cloudfront.net/wp-demo/2020/04/16/5e98b4a44cedfd00019ccd14/t_45faafc2013a4185b449ceb539e3df71_name_Inexact_Odyssey__A_Volcom_Snowboarding_Film/file_1920x1080-5400-v4.mp4",
-          "video:duration": 789.06,
+          "video:duration": 789,
           "video:thumbnail_loc": null,
           "video:title": Object {
             "$": "Inexact Odyssey, A Volcom Snowboarding Film",

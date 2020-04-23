@@ -23,6 +23,7 @@ it('returns template with default values', () => {
           display_date: '2020-04-16T19:55:25Z',
           headlines: {
             basic: 'Inexact Odyssey, A Volcom Snowboarding Film',
+            title: 'Ababe beso bela',
           },
           credits: {},
           taxonomy: {
@@ -166,6 +167,7 @@ it('returns template with default values', () => {
     customFields: {
       lastMod: 'last_updated_date',
       videoTitle: 'headlines.basic',
+      sitemapVideoSelect: { bitrate: 5400, stream_type: 'mp4' },
       videoKeywords: 'tags',
     },
   })
