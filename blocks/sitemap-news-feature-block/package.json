@@ -1,5 +1,5 @@
 {
-  "name": "@wpmedia/sitemaps-news-feature-block",
+  "name": "@wpmedia/sitemap-news-feature-block",
   "version": "0.0.0",
   "description": "Fusion components for building news sitemaps",
   "main": "index.js",
@@ -10,7 +10,7 @@
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/WPMedia/feed-components.git",
-    "directory": "blocks/sitemaps-feature-block"
+    "directory": "blocks/sitemap-news-feature-block"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/",

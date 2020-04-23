@@ -59,7 +59,7 @@ const sitemapTemplate = (
             'news:language': s.language !== '' ? s.language : feedLanguage,
           },
           'news:publication_date': s[lastMod],
-          ...(newsTitle && {
+          ...(title && {
             'news:title': { $: title },
           }),
           ...(keywords && {
