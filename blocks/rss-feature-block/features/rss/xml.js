@@ -3,7 +3,7 @@
 import PropTypes from 'fusion:prop-types'
 import Consumer from 'fusion:consumer'
 import get from 'lodash/get'
-import { format } from 'date-fns'
+import { utc } from 'moment'
 import getProperties from 'fusion:properties'
 import { resizerKey } from 'fusion:environment'
 import buildURL from '../../resizerUrl'
@@ -32,6 +32,7 @@ const rssTemplate = (
     domain,
     feedTitle,
     feedLanguage,
+    buildContent,
   },
 ) => ({
   rss: {
@@ -52,13 +53,13 @@ const rssTemplate = (
         '@type': 'application/rss+xml',
       },
       description: `${channelDescription || feedTitle + ' News Feed'}`,
-      lastBuildDate: format(new Date(), 'iii, dd MMM yyyy hh:mm:ss X'),
+      lastBuildDate: utc(new Date()).format('ddd, DD MMM YYYY HH:mm:ss Z'),
       ...(feedLanguage && { language: feedLanguage }),
       ...(channelCategory && { category: channelCategory }),
       ...(channelCopyright && {
         copyright: channelCopyright,
       }), // TODO Add default logic
-      ...(channelTTL && { ttl: channelTTL }), // TODO Why isnt defaultValue being used
+      ...(channelTTL && { ttl: channelTTL }),
       ...(channelUpdatePeriod && {
         'sy:updatePeriod': channelUpdatePeriod,
       }),
@@ -79,10 +80,13 @@ const rssTemplate = (
         return {
           title: `${jmespath.search(s, itemTitle)}`,
           link: `${domain}${s.website_url || s.canonical_url}`,
-          guid: `${domain}${s.website_url || s.canonical_url}`, // TODO Add isPermaLink=true
+          guid: {
+            '#text': `${domain}${s.website_url || s.canonical_url}`,
+            '@isPermaLink': true,
+          },
           description: `${jmespath.search(s, itemDescription)}`,
-          ...{ pubDate: s[pubDate] }, // TODO format RFC-822
-          ...(includeContent !== 'all' && {
+          pubDate: utc(s[pubDate]).format('ddd, DD MMM YYYY HH:mm:ss Z'),
+          ...(includeContent !== '0' && {
             'content:encoded': buildContent(s, includeContent),
           }),
           ...(includePromo &&
@@ -129,6 +133,7 @@ export function Rss({ globalContent, customFields, arcSite }) {
     domain: feedDomainURL,
     feedTitle,
     feedLanguage,
+    buildContent,
   })
 }
 
