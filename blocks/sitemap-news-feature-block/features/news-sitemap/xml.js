@@ -3,7 +3,7 @@ import Consumer from 'fusion:consumer'
 import get from 'lodash/get'
 import getProperties from 'fusion:properties'
 import { resizerKey } from 'fusion:environment'
-import buildURL from '../../resizerUrl'
+import { buildResizerURL } from '@wpmedia/feeds-resizer'
 const jmespath = require('jmespath')
 
 const sitemapTemplate = (
@@ -74,7 +74,7 @@ const sitemapTemplate = (
           img && {
             'image:image': {
               ...(img.url && {
-                'image:loc': buildURL(img.url, resizerKey, resizerURL),
+                'image:loc': buildResizerURL(img.url, resizerKey, resizerURL),
               }),
               ...(img[imageCaption] && {
                 'image:caption': { $: img[imageCaption] },
