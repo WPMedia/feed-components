@@ -1235,20 +1235,22 @@
     "@types/yargs" "^15.0.0"
     chalk "^3.0.0"
 
-"@manypkg/cli@^0.10.0":
-  version "0.10.1"
-  resolved "https://registry.yarnpkg.com/@manypkg/cli/-/cli-0.10.1.tgz#5105df8932f90f882a562d107a6d438797e2086b"
-  integrity sha512-U8niAA7TmLwTrMAJsspuhOQgArryTIUmKKLHbj3aSS0XBT/gXZKG8zRZRDHiEm1rpKywun1Ex5HM/DSQL1PQ+w==
+"@manypkg/cli@^0.12.0":
+  version "0.12.0"
+  resolved "https://registry.yarnpkg.com/@manypkg/cli/-/cli-0.12.0.tgz#4a9b82dcd3bd9434bb95876537c87e4d2ee27bdb"
+  integrity sha512-T04bCQiNdM9zO5URSjOASdxGj0xOrs47Y4j44+LVJzPiBrxGrL2426Q6mVSr12QnnzpocaIILRZbF5111T9hMw==
   dependencies:
     "@babel/runtime" "^7.5.5"
+    "@manypkg/get-packages" "^1.0.0"
     chalk "^2.4.2"
     detect-indent "^6.0.0"
     find-up "^4.1.0"
-    find-workspaces-root "^0.2.0"
     fs-extra "^8.1.0"
     get-workspaces "^0.6.0"
     meow "^5.0.0"
+    normalize-path "^3.0.0"
     p-limit "^2.2.1"
+    parse-github-url "^1.0.2"
     sembear "^0.5.0"
     semver "^6.3.0"
     spawndamnit "^2.0.0"
@@ -1264,7 +1266,7 @@
     find-up "^4.1.0"
     fs-extra "^8.1.0"
 
-"@manypkg/get-packages@^1.0.1":
+"@manypkg/get-packages@^1.0.0", "@manypkg/get-packages@^1.0.1":
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/@manypkg/get-packages/-/get-packages-1.0.1.tgz#0b46907555626ae773abb828e6c1cb313aa44777"
   integrity sha512-paGfOt9yW+4/kkK9pM5DlnZDfrP7pp75TDimA8VJQlfxxD7/yHpRsBQZh+soqArr9uqwnCw2XkDggG7BlPdQ3Q==
@@ -3000,16 +3002,6 @@ find-versions@^3.2.0:
   integrity sha512-P8WRou2S+oe222TOCHitLy8zj+SIsVJh52VP4lvXkaFVnOFFdoWv1H1Jjvel1aI6NCFOAaeAVm8qrI0odiLcww==
   dependencies:
     semver-regex "^2.0.0"
-
-find-workspaces-root@^0.2.0:
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/find-workspaces-root/-/find-workspaces-root-0.2.0.tgz#46e487deed4faa02b3e30007d3ce6d13f8deb69e"
-  integrity sha512-VvMqY2reYnYztgO0CBbxSFw/Cey2W0RrZnx6/4gl4m1okp0efnP0wxNQMtfj6aYMqmo0QQFl5Z+27WV0TVWgow==
-  dependencies:
-    "@babel/runtime" "^7.5.5"
-    "@types/node" "^12.7.1"
-    find-up "^4.1.0"
-    get-workspaces "^0.6.0"
 
 find-yarn-workspace-root2@^1.2.11:
   version "1.2.11"
@@ -4825,6 +4817,11 @@ parent-module@^1.0.0:
   integrity sha512-GQ2EWRpQV8/o+Aw8YqtfZZPfNRWZYkbidE9k5rpl/hC3vtHHBfGm2Ifi6qWV+coDGkrUKZAxE3Lot5kcsRlh+g==
   dependencies:
     callsites "^3.0.0"
+
+parse-github-url@^1.0.2:
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/parse-github-url/-/parse-github-url-1.0.2.tgz#242d3b65cbcdda14bb50439e3242acf6971db395"
+  integrity sha512-kgBf6avCbO3Cn6+RnzRGLkUsv4ZVqv/VfAYkRsyBcgkshNvVBkRn1FEZcW0Jb+npXQWm2vHPnnOqFteZxRRGNw==
 
 parse-json@^2.2.0:
   version "2.2.0"
