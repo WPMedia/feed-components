@@ -1,5 +1,7 @@
+import { CONTENT_BASE } from 'fusion:environment'
+
 const resolve = function resolve(key) {
-  const requestUri = '/content/v4/search/published'
+  const requestUri = `${CONTENT_BASE}/content/v4/search/published`
   const uriParams = [
     `q=${key['Feed-Query'] || 'type:story+AND+revision.published:true'}`,
     `website=${key['arc-site']}`,
