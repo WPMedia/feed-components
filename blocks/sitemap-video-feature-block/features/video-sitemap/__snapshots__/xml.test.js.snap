@@ -1,0 +1,25 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`returns template with default values 1`] = `
+Object {
+  "urlset": Object {
+    "@xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9",
+    "@xmlns:video": "http://www.google.com/schemas/sitemap-video/1.1",
+    "url": Array [
+      Object {
+        "lastmod": "2020-04-16T19:55:14Z",
+        "loc": "http://demo-prod.origin.arcpublishing.com/video/2020/04/16/inexact-odyssey-a-volcom-snowboarding-film/",
+        "video:video": Object {
+          "video:category": "Video",
+          "video:content_loc": "https://d1tf6ure8fkb0l.cloudfront.net/wp-demo/2020/04/16/5e98b4a44cedfd00019ccd14/t_45faafc2013a4185b449ceb539e3df71_name_Inexact_Odyssey__A_Volcom_Snowboarding_Film/file_1920x1080-5400-v4.mp4",
+          "video:duration": 789,
+          "video:thumbnail_loc": null,
+          "video:title": Object {
+            "$": "Inexact Odyssey, A Volcom Snowboarding Film",
+          },
+        },
+      },
+    ],
+  },
+}
+`;
