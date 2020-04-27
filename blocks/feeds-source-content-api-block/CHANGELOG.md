@@ -1,5 +1,11 @@
 # @wpmedia/feeds-source-content-api-block
 
+## 0.2.1
+
+### Patch Changes
+
+- [`779b521`](https://github.com/WPMedia/feed-components/commit/779b5214fc473832cd972f1cdff6d54c9500a90b) [#37](https://github.com/WPMedia/feed-components/pull/37) Thanks [@camdub](https://github.com/camdub)! - add content base property to ensure valid uri
+
 ## 0.2.0
 
 ### Minor Changes
