@@ -53,7 +53,7 @@ const rssTemplate = (
         '@type': 'application/rss+xml',
       },
       description: `${channelDescription || feedTitle + ' News Feed'}`,
-      lastBuildDate: utc(new Date()).format('ddd, DD MMM YYYY HH:mm:ss Z'),
+      lastBuildDate: utc(new Date()).format('ddd, DD MMM YYYY HH:mm:ss ZZ'),
       ...(feedLanguage && { language: feedLanguage }),
       ...(channelCategory && { category: channelCategory }),
       ...(channelCopyright && {
@@ -85,7 +85,7 @@ const rssTemplate = (
             '@isPermaLink': true,
           },
           description: `${jmespath.search(s, itemDescription)}`,
-          pubDate: utc(s[pubDate]).format('ddd, DD MMM YYYY HH:mm:ss Z'),
+          pubDate: utc(s[pubDate]).format('ddd, DD MMM YYYY HH:mm:ss ZZ'),
           ...(includeContent !== '0' && {
             'content:encoded': buildContent(s, includeContent),
           }),
