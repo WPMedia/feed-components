@@ -1,16 +1,16 @@
 {
-  "name": "@wpmedia/sitemaps-news-feature-block",
-  "version": "0.0.0",
-  "description": "Fusion components for building news sitemaps",
+  "name": "@wpmedia/sitemap-video-feature-block",
+  "version": "0.1.0",
+  "description": "Fusion components for building sitemaps",
   "main": "index.js",
   "files": [
-    "features"
+    "sources"
   ],
   "license": "UNLICENSED",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/WPMedia/feed-components.git",
-    "directory": "blocks/sitemaps-feature-block"
+    "directory": "blocks/sitemap-video-feature-block"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/",
