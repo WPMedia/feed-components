@@ -1,0 +1,21 @@
+{
+  "name": "@wpmedia/feeds-resizer",
+  "version": "0.1.0",
+  "description": "Utilities to manage image resizing",
+  "main": "dist/feeds-resizer.cjs.js",
+  "module": "dist/feeds-resizer.esm.js",
+  "source": "index.js",
+  "scripts": {
+    "clean": "rm -rf dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/WPMedia/feed-components.git",
+    "folder": "utils/resizer"
+  },
+  "author": "Cameron Woodmansee <cameron.woodmansee@washpost.com>",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "thumbor-lite": "^0.1.8"
+  }
+}
