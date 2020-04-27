@@ -19,6 +19,6 @@
   "author": "Iyob Beyene",
   "homepage": "https://github.com/WPMedia/feed-components#readme",
   "dependencies": {
-    "xmlbuilder2": "^1.4.2"
+    "xmlbuilder2": "^2.1.2"
   }
 }
