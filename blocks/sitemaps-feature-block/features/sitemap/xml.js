@@ -62,10 +62,7 @@ export function Sitemap({ globalContent, customFields, arcSite }) {
           imgSrc = imgSrc.replace('?', '%3F')
         }
 
-        return thumbor
-          .setImagePath(imgSrc)
-          .resize(1200, 630)
-          .buildUrl()
+        return thumbor.setImagePath(imgSrc).resize(1200, 630).buildUrl()
       }
       return null
     }

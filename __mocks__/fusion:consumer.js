@@ -8,7 +8,7 @@
  * trigger jest to mock the Consumer import below
  * */
 jest.mock('fusion:consumer', (component) => {
-  return function(component) {
+  return function (component) {
     class element extends component {
       constructor(props) {
         super(props)
