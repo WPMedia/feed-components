@@ -2,9 +2,9 @@
 
 The repo contains the work to migrate partner feeds to [arc-fusion compatible blocks](https://github.com/WPMedia/fusion)
 This [Monorepo](https://monorepo.guide)'s is versioning and changelogs are managed by tools from [changset](https://github.com/atlassian/changesets).
-`The changesets workflow is designed to help from when people are making changes, all the way through to publishing. It lets contributors declare how their changes should be released, then we automate updating package versions, and changelogs, and publishing new versions of packages based on the provided information.`
+The changesets workflow is designed to help from when people are making changes, all the way through to publishing. It lets contributors declare how their changes should be released, then we automate updating package versions, and changelogs, and publishing new versions of packages based on the provided information.
 
-`Changesets has a focus on solving these problems for multi-package repositories, and keeps packages that rely on each other within the multi-package repository up-to-date, as well as making it easy to make changes to groups of packages.`
+Changesets has a focus on solving these problems for multi-package repositories, and keeps packages that rely on each other within the multi-package repository up-to-date, as well as making it easy to make changes to groups of packages.
 
 ## Requirements
 
@@ -23,11 +23,20 @@ Make sure you have [`yarn` classic](https://classic.yarnpkg.com/en/) installed.
 For a currently unknown reason, the package linking **does not work** correctly when importing that module in any output type component. An error of the following kind gets thrown when tryjng to link the output component
 `Error: EROFS: read-only file system, open '/opt/engine/bundle/linked_modules/@wpmedia/sitemaps-xml-block/output-types/xml.js'`
 If you need to work on creating an output block, put the content of the output block within `skeleton-fusion-feeds` output component with a name that corresponds to the feature block's name.
-For example if you have a feature file with in your block named `xml.js` like 📂blocks
-∟📁Facebook-feed-block
-∟📁features
-∟📁facebook-feed
-∟xml.js create an output component called `f.js`
+For example if you have a feature file with in your block named `xml.js` like
+  
+ blocks
+│  
+ └───Facebook-feed-block
+│
+└───features
+│  
+ └───Facebook-feed
+xml.js
+  
+
+
+create an output component called `xml.js`
 
 ## Preferred Architecture
 
