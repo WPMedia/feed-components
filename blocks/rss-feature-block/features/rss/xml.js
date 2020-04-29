@@ -22,6 +22,7 @@ const rssTemplate = (
     channelLogo,
     imageTitle,
     imageCaption,
+    imageCredits,
     itemTitle,
     itemDescription,
     pubDate,
@@ -84,6 +85,9 @@ const rssTemplate = (
             '#text': `${domain}${s.website_url || s.canonical_url}`,
             '@isPermaLink': true,
           },
+          ...((jmespath.search(s, 'credits.by[].name') || []).length && {
+            'dc:creator': jmespath.search(s, 'credits.by[].name').join(','),
+          }),
           description: `${jmespath.search(s, itemDescription)}`,
           pubDate: utc(s[pubDate]).format('ddd, DD MMM YYYY HH:mm:ss ZZ'),
           ...(includeContent !== '0' && {
@@ -95,14 +99,22 @@ const rssTemplate = (
               'media:content': {
                 '@type': 'image/jpeg',
                 '@url': buildURL(img.url, resizerKey, resizerURL),
-                ...(img[imageCaption] && {
+                ...(jmespath.search(img, imageCaption) && {
                   'media:description': {
-                    $: img[imageCaption],
+                    '@type': 'plain',
+                    '#text': jmespath.search(img, imageCaption),
                   },
                 }),
-                ...(img[imageTitle] && {
+                ...(jmespath.search(img, imageTitle) && {
                   'media:title': {
-                    $: img[imageTitle],
+                    $: jmespath.search(img, imageTitle),
+                  },
+                }),
+                ...((jmespath.search(img, imageCredits) || []).length && {
+                  'media:credit': {
+                    '@role': 'author',
+                    '@scheme': 'ebu',
+                    '#text': jmespath.search(img, imageCredits).join(','),
                   },
                 }),
               },
@@ -225,23 +237,30 @@ Rss.propTypes = {
     }),
     includePromo: PropTypes.boolean.tag({
       label: 'Include promo images?',
-      group: 'Format',
+      group: 'Featured Image',
       description: 'Include the featured image',
       defaultValue: true,
     }),
     imageTitle: PropTypes.string.tag({
       label: 'ANS image title key',
-      group: 'Field Mapping',
+      group: 'Featured Image',
       description:
-        'ANS value for associated story used for the <image:title> sitemap tag',
+        'ANS value for associated story used for the <media:title> sitemap tag',
       defaultValue: 'title',
     }),
     imageCaption: PropTypes.string.tag({
       label: 'ANS image caption key',
-      group: 'Field Mapping',
+      group: 'Featured Image',
       description:
-        'ANS value for associated story image used for the <image:caption> sitemap tag',
+        'ANS value for associated story image used for the <media:caption> sitemap tag',
       defaultValue: 'caption',
+    }),
+    imageCredits: PropTypes.string.tag({
+      label: 'ANS image credits key',
+      group: 'Featured Image',
+      description:
+        'ANS value for associated story image credits for the <media:credits> sitemap tag',
+      defaultValue: 'credits.by[].name',
     }),
     includeContent: PropTypes.oneOf([
       '0',

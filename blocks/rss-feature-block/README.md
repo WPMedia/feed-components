@@ -22,7 +22,11 @@ itemTitle: jmespath for title mapping headlines.basic
 itemDescription: jmespath for description mapping description.basic
 pubDate: date field defaults to display_date
 itemCategory: jmespath for category mapping headlines.basic
-includePromo: bool to include promo image
 includeContent: number of paragraphs to include 0-10, all
+
+includePromo: bool to include promo image
+imageTitle defaults to title
+imageCaption defaults to caption
+ImageCredits defaults to credits.by[].name
 
 ### Usage
