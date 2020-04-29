@@ -133,7 +133,7 @@ export function Rss({ globalContent, customFields, arcSite }) {
     feedLanguage = '',
   } = getProperties(arcSite)
 
-  const buildContent = (content, num_rows) => {
+  const buildContent = (content, numRows) => {
     // TODO Build the content
     return ''
   }
