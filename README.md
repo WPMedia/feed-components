@@ -27,11 +27,11 @@ For example if you have a feature file with in your block named `xml.js` like
   
  blocks
 │  
- └───Facebook-feed-block
+ └───facebook-feed-block
 │
 └───features
 │  
- └───Facebook-feed
+ └───facebook-feed
 xml.js
   
 
