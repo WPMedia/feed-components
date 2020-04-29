@@ -24,17 +24,18 @@ For a currently unknown reason, the package linking **does not work** correctly 
 `Error: EROFS: read-only file system, open '/opt/engine/bundle/linked_modules/@wpmedia/sitemaps-xml-block/output-types/xml.js'`
 If you need to work on creating an output block, put the content of the output block within `skeleton-fusion-feeds` output component with a name that corresponds to the feature block's name.
 For example if you have a feature file with in your block named `xml.js` like
-  
- blocks
-│  
- └───facebook-feed-block
-│
-└───features
-│  
- └───facebook-feed
-xml.js
-  
 
+```
+blocks
+   │
+   └───facebook-feed-block
+   │
+   └───features
+   │
+   └───facebook-feed
+   |      xml.js
+
+```
 
 create an output component called `xml.js`
 
