@@ -18,7 +18,7 @@ The most commonly used feeds from partner-feeds will be migrated to fusion as bl
 
 Each feature will have customFields to configure the feeds to meet the most common customization requests. If a client needs a customization that is beyond what can be achieved with the customFields they will have to fork the repo and build a custom version.
 
-## Preferred Architecture
+## Block Architecture
 
 If possible, feed logic should be contained in a fusion `feature` component.
 
