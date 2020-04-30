@@ -1,10 +1,10 @@
 # Feeds
 
 The repo contains the work to migrate partner feeds to [arc-fusion](https://github.com/WPMedia/fusion) compatible [blocks](https://github.com/WPMedia/fusion-news-theme-blocks).
-This [Monorepo](https://monorepo.guide)'s versioning and changelogs are managed by tools from [changset](https://github.com/atlassian/changesets). Once a block's development is complete, it is published to wapo's private NPM registry where it can be used in clients feature pack repos.
+This [Monorepo](https://monorepo.guide)'s versioning and changelogs are managed by tools from [changset](https://github.com/atlassian/changesets). Once a block's development is complete, it is published to wapo's private github NPM registry where it can be used in clients feature pack repos.
 
 ## Standard Out Of the Box Feeds
-The most commonly used feeds from partner-feeds will be migrated to fusion. This is in progress and will roughly folllow this order.
+The most commonly used feeds from partner-feeds will be migrated to fusion as blocks. This work is in progress and each feed will be built in order of usage.
 - sitemap
 - news-sitemap
 - video-sitemap
@@ -18,7 +18,11 @@ The most commonly used feeds from partner-feeds will be migrated to fusion. This
 
 Each feature will have customFields to configure the feeds to meet the most common customization requests. If a client needs a customization that is beyond what can be achieved with the customFields they will have to fork the repo and build a custom version.
 
-## blocks
+## Preferred Architecture
+
+If possible, feed logic should be contained in a fusion `feature` component.
+
+Leverage the infrastructure setup by the themes team, by putting code in corresponding fusion component folders. See `blocks/sitemaps-feature-block` for an example.
 
 ```
 blocks
@@ -32,11 +36,6 @@ blocks
                xml.js
 ```
 
-## Preferred Architecture
-
-If possible, feed logic should be contained in a fusion `feature` component.
-
-Leverage the infrastructure setup by the themes team, by putting code in corresponding fusion component folders. See `blocks/sitemaps-feature-block` for an example.
 ## Requirements
 
 Make sure you have [`yarn` classic](https://classic.yarnpkg.com/en/) installed.
