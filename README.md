@@ -1,10 +1,12 @@
 # Feeds
 
 The repo contains the work to migrate partner feeds to [arc-fusion](https://github.com/WPMedia/fusion) compatible [blocks](https://github.com/WPMedia/fusion-news-theme-blocks).
-This [Monorepo](https://monorepo.guide)'s versioning and changelogs are managed by tools from [changset](https://github.com/atlassian/changesets). Once a block's development is complete, it is published to wapo's private github NPM registry where it can be used in clients feature pack repos.
+This [Monorepo](https://monorepo.guide)'s versioning and changelogs are managed by tools from [changset](https://github.com/atlassian/changesets) and [yarn](https://classic.yarnpkg.com/en/docs/cli/workspaces/). Once a block's development is complete, it is published to wapo's private github NPM registry where it can be used in clients feature pack repos.
 
 ## Standard Out Of the Box Feeds
+
 The most commonly used feeds from partner-feeds will be migrated to fusion as blocks. This work is in progress and each feed will be built in order of usage.
+
 - sitemap
 - news-sitemap
 - video-sitemap
