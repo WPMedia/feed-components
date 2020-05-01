@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`allows props to be tested 1`] = `
+Object {
+  "includePromo": Object {
+    "tags": Object {
+      "defaultValue": true,
+      "description": "Include an image in the sitemap",
+      "group": "Format",
+      "label": "Include promo images?",
+    },
+    "type": "string",
+  },
+  "lastMod": Object {
+    "args": Array [
+      "created_date",
+      "display_date",
+      "first_publish_date",
+      "last_updated_date",
+      "publish_date",
+    ],
+    "tags": Object {
+      "defaultValue": "last_updated_date",
+      "description": "Which date field should be used in the sitemap",
+      "group": "Format",
+      "label": "Last Modified Date",
+    },
+    "type": "oneOf",
+  },
+}
+`;

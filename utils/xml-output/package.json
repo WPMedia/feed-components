@@ -1,0 +1,21 @@
+{
+  "name": "@wpmedia/feeds-xml-output",
+  "version": "0.1.0",
+  "description": "For use in creating an XML output type",
+  "main": "dist/feeds-xml-output.cjs.js",
+  "module": "dist/feeds-xml-output.esm.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/WPMedia/feed-components.git",
+    "directory": "utils/xml-output"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/",
+    "access": "restricted"
+  },
+  "author": "Cameron Woodmansee",
+  "license": "UNLICENSED"
+}
