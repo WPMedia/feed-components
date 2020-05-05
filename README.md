@@ -48,7 +48,9 @@ Make sure you have [`yarn` classic](https://classic.yarnpkg.com/en/) installed.
 2. In this repository, `cd` into the package(s) you'd like to test, then run `yarn link`
 3. In `skeleton-fusion-feeds`, add the package you are testing to the `blocks.json` blocks array
 4. Set `useLocal` in `blocks.json` to `true`
-5. In `skeleton-fusion-feeds`, run `npx fusion start-theme --links`
+5. In `skeleton-fusion-feeds`, run `npx fusion start-theme --links` to test your changes
+6. Write tests for your block
+7. Create a changeset `yarn changeset`
 
 ## Caveats/Gotchas/Workaround
 
