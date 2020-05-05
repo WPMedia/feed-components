@@ -5,6 +5,9 @@
   "main": "dist/feeds-resizer.cjs.js",
   "module": "dist/feeds-resizer.esm.js",
   "source": "index.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "clean": "rm -rf dist"
   },
@@ -12,6 +15,10 @@
     "type": "git",
     "url": "git+ssh://git@github.com/WPMedia/feed-components.git",
     "folder": "utils/resizer"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/",
+    "access": "restricted"
   },
   "author": "Cameron Woodmansee <cameron.woodmansee@washpost.com>",
   "license": "UNLICENSED",
