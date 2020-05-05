@@ -3,7 +3,7 @@
 import PropTypes from 'fusion:prop-types'
 import Consumer from 'fusion:consumer'
 import get from 'lodash/get'
-import { utc } from 'moment'
+import moment from 'moment'
 import getProperties from 'fusion:properties'
 import { resizerKey } from 'fusion:environment'
 import buildURL from '../../resizerUrl'
@@ -54,7 +54,9 @@ const rssTemplate = (
         '@type': 'application/rss+xml',
       },
       description: `${channelDescription || feedTitle + ' News Feed'}`,
-      lastBuildDate: utc(new Date()).format('ddd, DD MMM YYYY HH:mm:ss ZZ'),
+      lastBuildDate: moment
+        .utc(new Date())
+        .format('ddd, DD MMM YYYY HH:mm:ss ZZ'),
       ...(feedLanguage && { language: feedLanguage }),
       ...(channelCategory && { category: channelCategory }),
       ...(channelCopyright && {
@@ -88,10 +90,14 @@ const rssTemplate = (
           ...((jmespath.search(s, 'credits.by[].name') || []).length && {
             'dc:creator': jmespath.search(s, 'credits.by[].name').join(','),
           }),
-          description: `${jmespath.search(s, itemDescription)}`,
-          pubDate: utc(s[pubDate]).format('ddd, DD MMM YYYY HH:mm:ss ZZ'),
+          description: { $: `${jmespath.search(s, itemDescription)}` },
+          pubDate: moment
+            .utc(s[pubDate])
+            .format('ddd, DD MMM YYYY HH:mm:ss ZZ'),
           ...(includeContent !== '0' && {
-            'content:encoded': buildContent(s, includeContent),
+            'content:encoded': {
+              $: buildContent(s.content_elements, includeContent),
+            },
           }),
           ...(includePromo &&
             img &&
@@ -102,7 +108,7 @@ const rssTemplate = (
                 ...(jmespath.search(img, imageCaption) && {
                   'media:description': {
                     '@type': 'plain',
-                    '#text': jmespath.search(img, imageCaption),
+                    $: jmespath.search(img, imageCaption),
                   },
                 }),
                 ...(jmespath.search(img, imageTitle) && {
@@ -113,7 +119,7 @@ const rssTemplate = (
                 ...((jmespath.search(img, imageCredits) || []).length && {
                   'media:credit': {
                     '@role': 'author',
-                    '@scheme': 'ebu',
+                    '@scheme': 'urn:ebu',
                     '#text': jmespath.search(img, imageCredits).join(','),
                   },
                 }),
@@ -133,9 +139,18 @@ export function Rss({ globalContent, customFields, arcSite }) {
     feedLanguage = '',
   } = getProperties(arcSite)
 
-  const buildContent = (content, numRows) => {
-    // TODO Build the content
-    return ''
+  const buildContent = (contentElements, numRows) => {
+    // TODO Add numRows logic
+    let body = ''
+    contentElements.map((elements) => {
+      switch (elements.type) {
+        case 'text':
+          body += `<p>${elements.content}</p>`
+          break
+      }
+    })
+
+    return body
   }
 
   // can't return null for xml return type, must return valid xml template
