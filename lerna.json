@@ -1,0 +1,4 @@
+{
+  "packages": ["blocks/*", "utils/*"],
+  "version": "independent"
+}
