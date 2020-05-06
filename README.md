@@ -1,7 +1,7 @@
 # Feeds
 
 The repo contains the work to migrate partner feeds to [arc-fusion](https://github.com/WPMedia/fusion) compatible [blocks](https://github.com/WPMedia/fusion-news-theme-blocks).
-This [Monorepo](https://monorepo.guide)'s versioning and changelogs are managed by tools from [changset](https://github.com/atlassian/changesets) and [yarn](https://classic.yarnpkg.com/en/docs/cli/workspaces/). Once a block's development is complete, it is published to wapo's private github NPM registry where it can be used in clients feature pack repos.
+This [Monorepo](https://monorepo.guide)'s versioning and changelogs are managed by tools from [changsets](https://github.com/atlassian/changesets) and [lerna](https://github.com/lerna/lerna). Once a block's development is complete, it is published to wapo's private github NPM registry where it can be used in clients feature pack repos.
 
 ## Standard Out Of the Box Feeds
 
@@ -44,15 +44,28 @@ Make sure you have [`yarn` classic](https://classic.yarnpkg.com/en/) installed.
 
 ## Local Development
 
-1. Clone the the [skeleton-fusion-feeds](https://github.com/WPMedia/skeleton-fusion-feeds) project and follow the setup instructions
-2. In this repository, `cd` into the package(s) you'd like to test, then run `yarn link`
+1. Clone the [skeleton-fusion-feeds](https://github.com/WPMedia/skeleton-fusion-feeds) project and follow the setup instructions
 3. In `skeleton-fusion-feeds`, add the package you are testing to the `blocks.json` blocks array
 4. Set `useLocal` in `blocks.json` to `true`
 5. In `skeleton-fusion-feeds`, run `npx fusion start-theme --links`
 
 ## Caveats/Gotchas/Workaround
 
-For a currently unknown reason, the package linking **does not work** correctly when importing that module in any output type component. An error of the following kind gets thrown when tryjng to link the output component
+For a currently unknown reason, the package linking **does not work** correctly when importing that module in any output type component. An error of the following kind gets thrown when trying to link the output component
 `Error: EROFS: read-only file system, open '/opt/engine/bundle/linked_modules/@wpmedia/sitemaps-xml-block/output-types/xml.js'`
 If you need to work on creating an output block, put the content of the output block within `skeleton-fusion-feeds` output component with a name that corresponds to the feature block's name.
-For example if you have a feature file with in your block named `xml.js` create an output component called `xml.js`
+For example if you have a feature file with in your block named `xml.js` create an output component called `xml.js`.
+
+This monorepo now provides an `xml-output` package to help create a valid output type in a fusion bundle.
+
+## Shared Modules
+
+Some features use the same logic, so we've added the ability to create shared modules in this monorepo. These modules live in `utils`. We keep them separate in order to distinguish which packages are fusion themes blocks.
+
+We weren't able to find a solution to use the `npm link` approach with shared modules. Instead, we'll use prerelease versions to denote "development" versions of these modules:
+
+- **Before you start work on a shared module, enter prerelease mode.** To enter prerelease mode, run `changesets pre enter {tag}` (see the [changesets prerelease documentation](https://github.com/atlassian/changesets/blob/master/docs/prereleases.md) for more information). To be clear who is doing the development, suggest using your initials as the tag. The packages will be published as `1.0.1-cw.0`.
+
+- Use changesets as normal (`changeset add`). When you are ready to publish a prerelease, use `changeset version` and then `changetset publish`. Once you have a prerelease version published, you can update block dependencies to use it. You may also need to run these commands with a `GITHUB_TOKEN` env variable (which should be a [personal Github token](https://github.com/settings/tokens)).
+
+- When you are done testing locally, run `changeset pre exit` to exit prerelease mode and create a new changeset set to capture the changes you have tested in locally.
