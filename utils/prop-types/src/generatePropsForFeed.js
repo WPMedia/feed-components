@@ -31,7 +31,7 @@ export const generatePropsForFeed = (feedType, PropTypes, omit = []) => {
       ...props,
       [key]: functionalPropTypes.includes(field.type)
         ? PropTypes[field.type](field.args).tag(field.tag)
-        : PropTypes.string.tag(field.tag),
+        : PropTypes[field.type].tag(field.tag),
     }
   }, {})
 }

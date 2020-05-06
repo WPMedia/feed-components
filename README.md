@@ -45,9 +45,9 @@ Make sure you have [`yarn` classic](https://classic.yarnpkg.com/en/) installed.
 ## Local Development
 
 1. Clone the [skeleton-fusion-feeds](https://github.com/WPMedia/skeleton-fusion-feeds) project and follow the setup instructions
-3. In `skeleton-fusion-feeds`, add the package you are testing to the `blocks.json` blocks array
-4. Set `useLocal` in `blocks.json` to `true`
-5. In `skeleton-fusion-feeds`, run `npx fusion start-theme --links`
+2. In `skeleton-fusion-feeds`, add the package you are testing to the `blocks.json` blocks array
+3. Set `useLocal` in `blocks.json` to `true`
+4. In `skeleton-fusion-feeds`, run `npx fusion start-theme --links`
 
 ## Caveats/Gotchas/Workaround
 
@@ -62,10 +62,14 @@ This monorepo now provides an `xml-output` package to help create a valid output
 
 Some features use the same logic, so we've added the ability to create shared modules in this monorepo. These modules live in `utils`. We keep them separate in order to distinguish which packages are fusion themes blocks.
 
+> Any feature that uses shared modules needs to have its own `.npmrc` file due to the way lerna resolves packages during installation
+
 We weren't able to find a solution to use the `npm link` approach with shared modules. Instead, we'll use prerelease versions to denote "development" versions of these modules:
 
 - **Before you start work on a shared module, enter prerelease mode.** To enter prerelease mode, run `changesets pre enter {tag}` (see the [changesets prerelease documentation](https://github.com/atlassian/changesets/blob/master/docs/prereleases.md) for more information). To be clear who is doing the development, suggest using your initials as the tag. The packages will be published as `1.0.1-cw.0`.
 
-- Use changesets as normal (`changeset add`). When you are ready to publish a prerelease, use `changeset version` and then `changetset publish`. Once you have a prerelease version published, you can update block dependencies to use it. You may also need to run these commands with a `GITHUB_TOKEN` env variable (which should be a [personal Github token](https://github.com/settings/tokens)).
+- Use changesets as normal (`changeset add`). When you are ready to publish a prerelease, use `changeset version` and then `changetset publish`. Once you have a prerelease version published, you can update block dependencies to use it. You may also need to run these commands with a `GITHUB_TOKEN` env variable (which should be a [personal Github token](https://github.com/settings/tokens)). **Before you publish, run `npm run build` from the monorepo root directory.**
 
-- When you are done testing locally, run `changeset pre exit` to exit prerelease mode and create a new changeset set to capture the changes you have tested in locally.
+- To test these prereleases in the skeleton, you need to run `npm install` in the block's directory. The block linking does not work properly unless the `package-lock.json` file is correctly updated.
+
+- When you are done testing locally, run `changeset pre exit` to exit prerelease mode. Commit the changesets you created during the prerelease mode. Avoid running `changeset version` once leaving prerelease mode.
