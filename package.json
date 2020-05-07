@@ -48,7 +48,7 @@
     "postinstall": "lerna bootstrap && manypkg check",
     "lint": "npm run lint:eslint && npm run lint:prettier",
     "lint:eslint": "eslint . --ext .js --ext .jsx",
-    "lint:prettier": "prettier --list-different \"./blocks/**/*.js\"",
+    "lint:prettier": "prettier --check \"./{blocks,utils}/**/*.js\"",
     "prettier": "prettier --write \"**/*.{js,jsx}\"",
     "test": "jest --config=jest.config.js",
     "build": "preconstruct build",
