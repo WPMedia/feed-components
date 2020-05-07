@@ -139,21 +139,22 @@ export function Rss({ globalContent, customFields, arcSite }) {
     feedLanguage = '',
   } = getProperties(arcSite)
 
-  const buildImageLink = (element) =>
+  const buildContentImage = (element) =>
     `<img src="${buildURL(element.url, resizerKey, resizerURL)}" alt="${
       element.caption || ''
-    }" />`
+    }" height="${element.height || ''}" width="${element.width || ''}" />`
 
-  const buildList = (element) => {
+  const buildContentList = (element) => {
     let listType = element.list_type === 'ordered' ? 'ol' : 'ul'
     let list = `<${listType}>`
     element.items.map((i) =>
       i.type === 'list' ? buildList(i) : (list += `<li>${i.content}</li>`),
     )
-
     list += `</${listType}>`
     return list
   }
+
+  const buildContentText = (element) => `<p>${element.content}</p>`
 
   const buildContent = (contentElements, numRows) => {
     // TODO Add numRows logic
@@ -161,13 +162,13 @@ export function Rss({ globalContent, customFields, arcSite }) {
     contentElements.map((element) => {
       switch (element.type) {
         case 'image':
-          body += buildImageLink(element)
+          body += buildContentImage(element)
           break
         case 'list':
-          body += buildList(element)
+          body += buildContentList(element)
           break
         case 'text':
-          body += `<p>${element.content}</p>`
+          body += buildContentText(element)
           break
       }
     })
