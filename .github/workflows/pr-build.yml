@@ -26,6 +26,8 @@ jobs:
           registry-url: https://npm.pkg.github.com
           scope: '@wpmedia'
       - run: npm install
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       - run: npm run lint
       - run: npm run test
         env:
