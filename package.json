@@ -45,7 +45,7 @@
     }
   },
   "scripts": {
-    "postinstall": "lerna bootstrap && manypkg check",
+    "postinstall": "lerna bootstrap",
     "lint": "npm run lint:eslint && npm run lint:prettier",
     "lint:eslint": "eslint . --ext .js --ext .jsx",
     "lint:prettier": "prettier --check \"./{blocks,utils}/**/*.js\"",
