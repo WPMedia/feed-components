@@ -8,6 +8,7 @@ import getProperties from 'fusion:properties'
 import { resizerKey } from 'fusion:environment'
 import buildURL from '../../resizerUrl'
 const jmespath = require('jmespath')
+const { fragment } = require('xmlbuilder2')
 
 const rssTemplate = (
   elements,
@@ -84,7 +85,7 @@ const rssTemplate = (
           title: `${jmespath.search(s, itemTitle)}`,
           link: `${domain}${s.website_url || s.canonical_url}`,
           guid: {
-            '#text': `${domain}${s.website_url || s.canonical_url}`,
+            '#': `${domain}${s.website_url || s.canonical_url}`,
             '@isPermaLink': true,
           },
           ...((jmespath.search(s, 'credits.by[].name') || []).length && {
@@ -120,7 +121,7 @@ const rssTemplate = (
                   'media:credit': {
                     '@role': 'author',
                     '@scheme': 'urn:ebu',
-                    '#text': jmespath.search(img, imageCredits).join(','),
+                    '#': jmespath.search(img, imageCredits).join(','),
                   },
                 }),
               },
@@ -139,41 +140,61 @@ export function Rss({ globalContent, customFields, arcSite }) {
     feedLanguage = '',
   } = getProperties(arcSite)
 
-  const buildContentImage = (element) =>
-    `<img src="${buildURL(element.url, resizerKey, resizerURL)}" alt="${
-      element.caption || ''
-    }" height="${element.height || ''}" width="${element.width || ''}" />`
+  const buildContentImage = (element) => {
+    return {
+      img: {
+        '@': {
+          src: buildURL(element.url, resizerKey, resizerURL),
+          ...(element.caption && { alt: element.caption }),
+          ...(element.height && { height: element.height }),
+          ...(element.width && { width: element.width }),
+        },
+      },
+      ...(element.caption && { br: '', caption: element.caption }),
+    }
+  }
 
   const buildContentList = (element) => {
-    let listType = element.list_type === 'ordered' ? 'ol' : 'ul'
-    let list = `<${listType}>`
-    element.items.map((i) =>
-      i.type === 'list' ? buildList(i) : (list += `<li>${i.content}</li>`),
-    )
-    list += `</${listType}>`
+    const listElement = (element) => {
+      const listType = element.list_type === 'ordered' ? 'ol' : 'ul'
+      const innerList = {}
+      innerList[listType] = { li: [] }
+      element.items.map((i) =>
+        i.type === 'list'
+          ? innerList[listType].li.push(listElement(i))
+          : innerList[listType].li.push(i.content),
+      )
+      return innerList
+    }
+    const list = []
+    list.push(listElement(element))
     return list
   }
 
-  const buildContentText = (element) => `<p>${element.content}</p>`
+  const buildContentText = (element) => {
+    return { p: element.content }
+  }
 
   const buildContent = (contentElements, numRows) => {
     // TODO Add numRows logic
-    let body = ''
+    const body = []
+    const maxRows = numRows === 'all' ? 9999 : parseInt(numRows)
     contentElements.map((element) => {
-      switch (element.type) {
-        case 'image':
-          body += buildContentImage(element)
-          break
-        case 'list':
-          body += buildContentList(element)
-          break
-        case 'text':
-          body += buildContentText(element)
-          break
+      if (body.length <= maxRows) {
+        switch (element.type) {
+          case 'image':
+            body.push(buildContentImage(element))
+            break
+          case 'list':
+            body.push(buildContentList(element))
+            break
+          case 'text':
+            body.push(buildContentText(element))
+            break
+        }
       }
     })
-
-    return body
+    return body.length ? fragment(body).toString() : ''
   }
 
   // can't return null for xml return type, must return valid xml template
