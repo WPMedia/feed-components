@@ -27,8 +27,10 @@ jobs:
           scope: '@wpmedia'
       - run: npm install
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.github_token }}
       - run: npm run lint
+        env:
+          github_token: ${{ secrets.github_token }}
       - run: npm run test
         env:
           CI: true

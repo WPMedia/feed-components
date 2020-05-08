@@ -22,6 +22,8 @@ jobs:
 
       - name: Install Dependencies
         run: npm install
+        env:
+          github_token: ${{ secrets.github_token }}
 
       - name: Create Release Pull Request or Publish to npm
         uses: changesets/action@master
