@@ -10,3 +10,9 @@ it('omits specified properties from sitemap propypes', () => {
   const shape = generatePropsForFeed('sitemap', PropTypes, ['includePromo'])
   expect(JSON.parse(PropTypes.stringify(shape))).toMatchSnapshot()
 })
+
+it('fails if not a valid feed type', () => {
+  expect(() => {
+    generatePropsForFeed('garbage', PropTypes)
+  }).toThrow('garbage')
+})

@@ -62,8 +62,6 @@ This monorepo now provides an `xml-output` package to help create a valid output
 
 Some features use the same logic, so we've added the ability to create shared modules in this monorepo. These modules live in `utils`. We keep them separate in order to distinguish which packages are fusion themes blocks.
 
-> Any feature that uses shared modules needs to have its own `.npmrc` file due to the way lerna resolves packages during installation
-
 We weren't able to find a solution to use the `npm link` approach with shared modules. Instead, we'll use prerelease versions to denote "development" versions of these modules:
 
 - **Before you start work on a shared module, enter prerelease mode.** To enter prerelease mode, run `changesets pre enter {tag}` (see the [changesets prerelease documentation](https://github.com/atlassian/changesets/blob/master/docs/prereleases.md) for more information). To be clear who is doing the development, suggest using your initials as the tag. The packages will be published as `1.0.1-cw.0`.

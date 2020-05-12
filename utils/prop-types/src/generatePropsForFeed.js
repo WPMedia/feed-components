@@ -11,7 +11,7 @@ import { propInfo } from './propInfo'
 export const generatePropsForFeed = (feedType, PropTypes, omit = []) => {
   const feed = propInfo[feedType]
   if (!feed) {
-    throw new Error(`${feed} is not a valid feed`)
+    throw new Error(`${feedType} is not a valid feed`)
   }
 
   const functionalPropTypes = [
