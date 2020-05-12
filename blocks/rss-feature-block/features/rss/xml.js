@@ -146,6 +146,7 @@ export function Rss({ globalContent, customFields, arcSite }) {
   } = getProperties(arcSite)
 
   const absoluteUrl = (url, domain) => {
+    // if url isn't fully qualified, try to make it one
     if (url && url.startsWith('//')) {
       url = `${domain.substring(0, domain.indexOf('//'))}${url}`
     } else if (url && !url.startsWith('http')) {
@@ -154,6 +155,9 @@ export function Rss({ globalContent, customFields, arcSite }) {
     return url
   }
 
+  const buildContentCorrection = (element) => {
+    return ''
+  }
   const buildContentGallery = (element) => {
     const gallery = []
     element.content_elements.map((image) => {
@@ -173,6 +177,10 @@ export function Rss({ globalContent, customFields, arcSite }) {
     },
   })
 
+  const buildContentLinkList = (element) => {
+    return ''
+  }
+
   const buildContentList = (element) => {
     const listElement = (element) => {
       const listType = element.list_type === 'ordered' ? 'ol' : 'ul'
@@ -190,10 +198,39 @@ export function Rss({ globalContent, customFields, arcSite }) {
     return list
   }
 
-  const buildContentText = (element) =>
-    element.content && typeof element.content === 'string'
-      ? { p: element.content }
-      : ''
+  const buildContentListElement = (element) => {
+    return ''
+  }
+
+  const buildContentListNumericRating = (element) => {
+    return ''
+  }
+
+  const buildContentTable = (element) => {
+    return ''
+  }
+
+  const buildContentText = (element) => {
+    // handle text, raw_html, header, blockquote
+    // all have a string in element.content
+    // this is also used by buildContentQuote
+    let item
+    if (element.content && typeof element.content === 'string') {
+      switch (element.type) {
+        case 'header':
+          item = {}
+          item[`h${element.level || 1}`] = element.content
+          break
+        case 'blockquote':
+          item = { q: element.content }
+          break
+        default:
+          item = { p: element.content }
+          break
+      }
+    }
+    return item
+  }
 
   const buildContentInterstitial = (element, domain) =>
     element.url && {
@@ -205,31 +242,118 @@ export function Rss({ globalContent, customFields, arcSite }) {
       },
     }
 
+  const buildContentOembed = (element) => {
+    let embed = element.raw_oembed.html
+
+    // twitter has <blockquote> + <script> remove the script tag
+    if (embed && element.subtype === 'twitter') {
+      const idx = embed.indexOf('</blockquote>')
+      embed = embed.substring(0, idx + 13)
+    }
+    return { '#': embed }
+  }
+
+  const buildContentQuote = (element) => {
+    const quote = []
+
+    element.content_elements.map((quoteItem) => {
+      switch (quoteItem.type) {
+        case 'list':
+          quote.push(buildContentList(quoteItem))
+          break
+        default:
+          quote.push(buildContentText(quoteItem))
+      }
+    })
+    const citation = jmespath.search(element, 'citation.content')
+    citation && quote.push({ p: { '@class': 'citation', '#': citation } })
+
+    return quote.length ? { blockquote: { '#': quote } } : ''
+  }
+
+  const buildContentVideo = (element) => {
+    return ''
+  }
+
   const buildContent = (contentElements, numRows, domain) => {
-    // TODO Add numRows logic
     let item
     const body = []
     const maxRows = numRows === 'all' ? 9999 : parseInt(numRows)
     contentElements.map((element) => {
       if (body.length <= maxRows) {
         switch (element.type) {
-          case 'image':
-            item = buildContentImage(element)
+          case 'blockquote':
+            item = buildContentText(element)
+            break
+          case 'code':
+            item = ''
+            break
+          case 'correction':
+            item = buildContentCorrection(element)
+            break
+          case 'custom_embed':
+            item = ''
+            break
+          case 'divider':
+            item = ''
+            break
+          case 'element_group':
+            item = ''
+            break
+          case 'endorsement':
+            item = ''
             break
           case 'gallery':
             item = buildContentGallery(element)
             break
-          case 'list':
-            item = buildContentList(element)
+          case 'header':
+            item = buildContentText(element)
+            break
+          case 'image':
+            item = buildContentImage(element)
             break
           case 'interstitial_link':
             item = buildContentInterstitial(element, domain)
+            break
+          case 'link_list':
+            item = buildContentLinkList(element, domain)
+            break
+          case 'list':
+            item = buildContentList(element)
+            break
+          case 'list_element':
+            item = buildContentListElement(element)
+            break
+          case 'numeric_rating':
+            item = buildContentListNumericRating(element)
+            break
+          case 'oembed_response':
+            item = buildContentOembed(element)
+            break
+          case 'quote':
+            item = buildContentQuote(element)
+            break
+          case 'raw_html':
+            item = buildContentText(element)
+            break
+          case 'story':
+            item = ''
+            break
+          case 'table':
+            item = buildContentTable(element)
+            break
+          case 'text':
+            item = buildContentText(element)
+            break
+          case 'video':
+            item = buildContentVideo(element)
             break
           default:
             item = buildContentText(element)
             break
         }
 
+        console.log(item)
         // empty array breaks xmlbuilder2, but empty '' is OK
         if (Array.isArray(item) && item.length === 0) {
           item = ''
