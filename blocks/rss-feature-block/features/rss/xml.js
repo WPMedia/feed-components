@@ -79,27 +79,35 @@ const rssTemplate = (
       }),
 
       item: elements.map((s) => {
+        let author, body, description
+        const url = `${domain}${s.website_url || s.canonical_url}`
         const img =
           s.promo_items && (s.promo_items.basic || s.promo_items.lead_art)
         return {
           title: `${jmespath.search(s, itemTitle)}`,
-          link: `${domain}${s.website_url || s.canonical_url}`,
+          link: url,
           guid: {
-            '#': `${domain}${s.website_url || s.canonical_url}`,
+            '#': url,
             '@isPermaLink': true,
           },
-          ...((jmespath.search(s, 'credits.by[].name') || []).length && {
-            'dc:creator': jmespath.search(s, 'credits.by[].name').join(','),
-          }),
-          description: { $: `${jmespath.search(s, itemDescription)}` },
+          ...((author = jmespath.search(s, 'credits.by[].name')) &&
+            author && {
+              'dc:creator': author.join(','),
+            }),
+          ...((description = jmespath.search(s, itemDescription)) &&
+            description && {
+              description: { $: description },
+            }),
           pubDate: moment
             .utc(s[pubDate])
             .format('ddd, DD MMM YYYY HH:mm:ss ZZ'),
-          ...(includeContent !== '0' && {
-            'content:encoded': {
-              $: buildContent(s.content_elements, includeContent),
-            },
-          }),
+          ...(includeContent !== '0' &&
+            (body = buildContent(s.content_elements, includeContent, domain)) &&
+            body && {
+              'content:encoded': {
+                $: body,
+              },
+            }),
           ...(includePromo &&
             img &&
             img.url && {
@@ -140,19 +148,34 @@ export function Rss({ globalContent, customFields, arcSite }) {
     feedLanguage = '',
   } = getProperties(arcSite)
 
-  const buildContentImage = (element) => {
-    return {
-      img: {
-        '@': {
-          src: buildURL(element.url, resizerKey, resizerURL),
-          ...(element.caption && { alt: element.caption }),
-          ...(element.height && { height: element.height }),
-          ...(element.width && { width: element.width }),
-        },
-      },
-      ...(element.caption && { br: '', caption: element.caption }),
+  const absoluteUrl = (url, domain) => {
+    if (url && url.startsWith('//')) {
+      url = `${domain.substring(0, domain.indexOf('//'))}${url}`
+    } else if (url && !url.startsWith('http')) {
+      url = `${domain}${url}`
     }
+    return url
   }
+
+  const buildContentGallery = (element) => {
+    const gallery = []
+    element.content_elements.map((image) => {
+      gallery.push(buildContentImage(image))
+    })
+    return gallery
+  }
+
+  const buildContentImage = (element) => ({
+    img: {
+      '@': {
+        src: buildURL(element.url, resizerKey, resizerURL),
+        ...(element.caption && { alt: element.caption }),
+        ...(element.height && { height: element.height }),
+        ...(element.width && { width: element.width }),
+      },
+    },
+    ...(element.caption && { br: '', caption: element.caption }),
+  })
 
   const buildContentList = (element) => {
     const listElement = (element) => {
@@ -171,27 +194,51 @@ export function Rss({ globalContent, customFields, arcSite }) {
     return list
   }
 
-  const buildContentText = (element) => {
-    return { p: element.content }
-  }
+  const buildContentText = (element) =>
+    element.content && typeof element.content === 'string'
+      ? { p: element.content }
+      : ''
 
-  const buildContent = (contentElements, numRows) => {
+  const buildContentInterstitial = (element, domain) =>
+    element.url && {
+      p: {
+        a: {
+          '@href': absoluteUrl(element.url, domain),
+          '#': element.content,
+        },
+      },
+    }
+
+  const buildContent = (contentElements, numRows, domain) => {
     // TODO Add numRows logic
+    let item
     const body = []
     const maxRows = numRows === 'all' ? 9999 : parseInt(numRows)
     contentElements.map((element) => {
       if (body.length <= maxRows) {
         switch (element.type) {
           case 'image':
-            body.push(buildContentImage(element))
+            item = buildContentImage(element)
+            break
+          case 'gallery':
+            item = buildContentGallery(element)
             break
           case 'list':
-            body.push(buildContentList(element))
+            item = buildContentList(element)
             break
-          case 'text':
-            body.push(buildContentText(element))
+          case 'interstitial_link':
+            item = buildContentInterstitial(element, domain)
+            break
+          default:
+            item = buildContentText(element)
             break
         }
+
+        // empty array breaks xmlbuilder2, but empty '' is OK
+        if (Array.isArray(item) && item.length === 0) {
+          item = ''
+        }
+        item && body.push(item)
       }
     })
     return body.length ? fragment(body).toString() : ''
@@ -213,25 +260,27 @@ Rss.propTypes = {
     channelTitle: PropTypes.string.tag({
       label: 'RSS Title',
       group: 'Channel',
-      description: 'RSS Channel Title',
+      description: 'RSS Channel Title, defaults to website name',
       defaultValue: '',
     }),
     channelDescription: PropTypes.string.tag({
       label: 'RSS Description',
       group: 'Channel',
-      description: 'RSS Channel Description',
+      description:
+        'RSS Channel Description, defaults to website name + " News Feed"',
       defaultValue: '',
     }),
     channelCopyright: PropTypes.string.tag({
       label: 'Copyright',
       group: 'Channel',
-      description: 'RSS Copyright',
+      description: 'RSS Copyright value otherwise it will be excluded',
       defaultValue: '',
     }),
     channelTTL: PropTypes.string.tag({
       label: 'Time To Live',
       group: 'Channel',
-      description: 'Number of minutes to wait to check for new content',
+      description:
+        'Number of minutes to wait to check for new content, defaults to 1',
       defaultValue: '1',
     }),
     channelUpdatePeriod: PropTypes.oneOf([
@@ -243,19 +292,21 @@ Rss.propTypes = {
     ]).tag({
       label: 'Update Period',
       group: 'Channel',
-      description: 'Which period of time should be used',
+      description: 'Which period of time should be used, defaults to hourly',
       defaultValue: 'hourly',
     }),
     channelUpdateFrequency: PropTypes.string.tag({
       label: 'Update Frequency',
       group: 'Channel',
-      description: 'Number of Update Periods to wait to check for new content',
+      description:
+        'Number of Update Periods to wait to check for new content, defaults to 1',
       defaultValue: '1',
     }),
     channelCategory: PropTypes.string.tag({
       label: 'Category',
       group: 'Channel',
-      description: 'Category that describes this RSS feed',
+      description:
+        'Category that describes this RSS feed, if blank it will be excluded',
       defaultValue: '',
     }),
     channelLogo: PropTypes.string.tag({
@@ -267,13 +318,15 @@ Rss.propTypes = {
     itemTitle: PropTypes.string.tag({
       label: 'Title',
       group: 'Item',
-      description: 'ANS fields to use for article title',
+      description:
+        'ANS fields to use for article title, defaults to headlines.basic',
       defaultValue: 'headlines.basic',
     }),
     itemDescription: PropTypes.string.tag({
       label: 'Description',
       group: 'Item',
-      description: 'ANS fields to use for article description',
+      description:
+        'ANS fields to use for article description, defaults to description.basic',
       defaultValue: 'description.basic',
     }),
     pubDate: PropTypes.oneOf([
@@ -285,40 +338,41 @@ Rss.propTypes = {
     ]).tag({
       label: 'Publication Date',
       group: 'Item',
-      description: 'Which date field should be used',
+      description: 'Which date field should be used, defaults to display_date',
       defaultValue: 'display_date',
     }),
     itemCategory: PropTypes.string.tag({
       label: 'Category',
       group: 'Item',
-      description: 'ANS field to use for article category',
+      description:
+        'ANS field to use for article category, if blank will be excluded',
       defaultValue: '',
     }),
     includePromo: PropTypes.boolean.tag({
       label: 'Include promo images?',
       group: 'Featured Image',
-      description: 'Include the featured image',
+      description: 'Include the featured image in RSS?',
       defaultValue: true,
     }),
     imageTitle: PropTypes.string.tag({
       label: 'ANS image title key',
       group: 'Featured Image',
       description:
-        'ANS value for associated story used for the <media:title> sitemap tag',
+        'ANS value for associated story used for the <media:title> sitemap tag, defaults to title',
       defaultValue: 'title',
     }),
     imageCaption: PropTypes.string.tag({
       label: 'ANS image caption key',
       group: 'Featured Image',
       description:
-        'ANS value for associated story image used for the <media:caption> sitemap tag',
+        'ANS value for associated story image used for the <media:caption> sitemap tag, defaults to caption',
       defaultValue: 'caption',
     }),
     imageCredits: PropTypes.string.tag({
       label: 'ANS image credits key',
       group: 'Featured Image',
       description:
-        'ANS value for associated story image credits for the <media:credits> sitemap tag',
+        'ANS value for associated story image credits for the <media:credits> sitemap tag, defaults to credits.by[].name',
       defaultValue: 'credits.by[].name',
     }),
     includeContent: PropTypes.oneOf([
@@ -337,7 +391,7 @@ Rss.propTypes = {
     ]).tag({
       label: 'Number of paragraphs to include',
       group: 'Item',
-      description: 'Number of paragraphs to include',
+      description: 'Number of paragraphs to include, defaults to all',
       defaultValue: '0',
     }),
   }),
