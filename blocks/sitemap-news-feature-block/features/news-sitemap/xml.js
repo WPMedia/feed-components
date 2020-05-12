@@ -3,7 +3,8 @@ import Consumer from 'fusion:consumer'
 import get from 'lodash/get'
 import getProperties from 'fusion:properties'
 import { resizerKey } from 'fusion:environment'
-import buildURL from '../../resizerUrl'
+import { buildResizerURL } from '@wpmedia/feeds-resizer'
+import { generatePropsForFeed } from '@wpmedia/feeds-prop-types'
 const jmespath = require('jmespath')
 
 const sitemapTemplate = (
@@ -74,7 +75,7 @@ const sitemapTemplate = (
           img && {
             'image:image': {
               ...(img.url && {
-                'image:loc': buildURL(img.url, resizerKey, resizerURL),
+                'image:loc': buildResizerURL(img.url, resizerKey, resizerURL),
               }),
               ...(img[imageCaption] && {
                 'image:caption': { $: img[imageCaption] },
@@ -141,58 +142,7 @@ GoogleSitemap.propTypes = {
       description: 'Which field should be used from taxonomy',
       defaultValue: 'seo_keywords',
     }),
-    lastMod: PropTypes.oneOf([
-      'created_date',
-      'display_date',
-      'first_publish_date',
-      'last_updated_date',
-      'publish_date',
-    ]).tag({
-      label: 'Last Modified Date',
-      group: 'Format',
-      description: 'Which date field should be used in the sitemap',
-      defaultValue: 'last_updated_date',
-    }),
-    changeFreq: PropTypes.oneOf([
-      'always',
-      'hourly',
-      'daily',
-      'weekly',
-      'monthly',
-      'yearly',
-      'never',
-      'Exclude from sitemap',
-    ]).tag({
-      label: 'change frequency',
-      group: 'Format',
-      description: 'What is the Change frequency of the sitemap',
-      defaultValue: 'always',
-    }),
-    includePromo: PropTypes.boolean.tag({
-      label: 'Include promo images?',
-      group: 'Format',
-      description: 'Include an image in the sitemap',
-      defaultValue: true,
-    }),
-    priority: PropTypes.oneOf([
-      '0.0',
-      '0.1',
-      '0.2',
-      '0.3',
-      '0.4',
-      '0.5',
-      '0.6',
-      '0.7',
-      '0.8',
-      '0.9',
-      '1.0',
-      'Exclude from sitemap',
-    ]).tag({
-      label: 'priority',
-      group: 'Format',
-      description: 'What is the priority of the sitemap',
-      defaultValue: '0.5',
-    }),
+    ...generatePropsForFeed('sitemap', PropTypes),
   }),
 }
 GoogleSitemap.label = 'Google News Sitemap'

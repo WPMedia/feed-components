@@ -1,4 +1,4 @@
-function buildURL(_url, resizerKey, resizerURL) {
+export function buildResizerURL(_url, resizerKey, resizerURL) {
   if (typeof window === 'undefined') {
     const Thumbor = require('thumbor-lite')
     const thumbor = new Thumbor(resizerKey, resizerURL)
@@ -11,5 +11,3 @@ function buildURL(_url, resizerKey, resizerURL) {
   }
   return null
 }
-
-export default buildURL

@@ -1,0 +1,136 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`generates proptypes for sitemap 1`] = `
+Object {
+  "changeFreq": Object {
+    "args": Array [
+      "always",
+      "hourly",
+      "daily",
+      "weekly",
+      "monthly",
+      "yearly",
+      "never",
+      "Exclude from sitemap",
+    ],
+    "tags": Object {
+      "defaultValue": "always",
+      "description": "What is the Change frequency of the sitemap",
+      "group": "Format",
+      "label": "change frequency",
+    },
+    "type": "oneOf",
+  },
+  "includePromo": Object {
+    "tags": Object {
+      "defaultValue": true,
+      "description": "Include an image in the sitemap",
+      "group": "Format",
+      "label": "Include promo images?",
+    },
+    "type": "bool",
+  },
+  "lastMod": Object {
+    "args": Array [
+      "created_date",
+      "display_date",
+      "first_publish_date",
+      "last_updated_date",
+      "publish_date",
+    ],
+    "tags": Object {
+      "defaultValue": "last_updated_date",
+      "description": "Which date field should be used in the sitemap",
+      "group": "Format",
+      "label": "Last Modified Date",
+    },
+    "type": "oneOf",
+  },
+  "priority": Object {
+    "args": Array [
+      "0.0",
+      "0.1",
+      "0.2",
+      "0.3",
+      "0.4",
+      "0.5",
+      "0.6",
+      "0.7",
+      "0.8",
+      "0.9",
+      "1.0",
+      "Exclude from sitemap",
+    ],
+    "tags": Object {
+      "defaultValue": "0.5",
+      "description": "What is the priority of the sitemap",
+      "group": "Format",
+      "label": "priority",
+    },
+    "type": "oneOf",
+  },
+}
+`;
+
+exports[`omits specified properties from sitemap propypes 1`] = `
+Object {
+  "changeFreq": Object {
+    "args": Array [
+      "always",
+      "hourly",
+      "daily",
+      "weekly",
+      "monthly",
+      "yearly",
+      "never",
+      "Exclude from sitemap",
+    ],
+    "tags": Object {
+      "defaultValue": "always",
+      "description": "What is the Change frequency of the sitemap",
+      "group": "Format",
+      "label": "change frequency",
+    },
+    "type": "oneOf",
+  },
+  "lastMod": Object {
+    "args": Array [
+      "created_date",
+      "display_date",
+      "first_publish_date",
+      "last_updated_date",
+      "publish_date",
+    ],
+    "tags": Object {
+      "defaultValue": "last_updated_date",
+      "description": "Which date field should be used in the sitemap",
+      "group": "Format",
+      "label": "Last Modified Date",
+    },
+    "type": "oneOf",
+  },
+  "priority": Object {
+    "args": Array [
+      "0.0",
+      "0.1",
+      "0.2",
+      "0.3",
+      "0.4",
+      "0.5",
+      "0.6",
+      "0.7",
+      "0.8",
+      "0.9",
+      "1.0",
+      "Exclude from sitemap",
+    ],
+    "tags": Object {
+      "defaultValue": "0.5",
+      "description": "What is the priority of the sitemap",
+      "group": "Format",
+      "label": "priority",
+    },
+    "type": "oneOf",
+  },
+}
+`;

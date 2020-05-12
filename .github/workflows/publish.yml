@@ -21,7 +21,9 @@ jobs:
           scope: '@wpmedia'
 
       - name: Install Dependencies
-        run: yarn install
+        run: npm install
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create Release Pull Request or Publish to npm
         uses: changesets/action@master

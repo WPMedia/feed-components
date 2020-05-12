@@ -26,6 +26,6 @@
     "xmlbuilder2": "^2.1.2"
   },
   "devDependencies": {
-    "prop-types": "*"
+    "prop-types": "^15.7.2"
   }
 }

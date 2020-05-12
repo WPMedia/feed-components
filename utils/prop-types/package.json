@@ -1,0 +1,24 @@
+{
+  "name": "@wpmedia/feeds-prop-types",
+  "version": "0.1.0",
+  "description": "Shared fusion prop-type tag info",
+  "main": "dist/feeds-prop-types.cjs.js",
+  "module": "dist/feeds-prop-types.esm.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/WPMedia/feed-components.git",
+    "directory": "utils/prop-types"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/",
+    "access": "restricted"
+  },
+  "author": "Cameron Woodmansee",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "prop-types": "^15.7.2"
+  }
+}
