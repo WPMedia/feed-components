@@ -79,7 +79,7 @@ const rssTemplate = (
       }),
 
       item: elements.map((s) => {
-        let author, body, description
+        let author, body
         const url = `${domain}${s.website_url || s.canonical_url}`
         const img =
           s.promo_items && (s.promo_items.basic || s.promo_items.lead_art)
@@ -94,10 +94,7 @@ const rssTemplate = (
             author && {
               'dc:creator': author.join(','),
             }),
-          ...((description = jmespath.search(s, itemDescription)) &&
-            description && {
-              description: { $: description },
-            }),
+          description: { $: jmespath.search(s, itemDescription) },
           pubDate: moment
             .utc(s[pubDate])
             .format('ddd, DD MMM YYYY HH:mm:ss ZZ'),
@@ -174,7 +171,6 @@ export function Rss({ globalContent, customFields, arcSite }) {
         ...(element.width && { width: element.width }),
       },
     },
-    ...(element.caption && { br: '', caption: element.caption }),
   })
 
   const buildContentList = (element) => {
