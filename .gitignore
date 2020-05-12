@@ -5,5 +5,4 @@ node_modules/
 **/.DS_Store
 **/.env
 **/.npmrc
-!.npmrc
 **/node_modules
