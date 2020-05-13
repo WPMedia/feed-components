@@ -1,6 +1,0 @@
-# Sitemaps
-
-## Standard
-
-### Usage
-

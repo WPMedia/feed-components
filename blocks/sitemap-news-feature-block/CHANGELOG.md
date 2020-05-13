@@ -1,5 +1,34 @@
 # @wpmedia/sitemaps-news-feature-block
 
+## 0.1.3
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @wpmedia/feeds-prop-types@0.1.1
+  - @wpmedia/feeds-resizer@0.1.2
+
+## 0.1.3-cw.1
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @wpmedia/feeds-prop-types@0.1.1-cw.2
+
+## 0.1.3-cw.0
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @wpmedia/feeds-prop-types@0.1.1-cw.1
+
+## 0.1.2
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @wpmedia/feeds-resizer@0.1.1
+
 ## 0.1.1
 
 ### Patch Changes
