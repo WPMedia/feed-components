@@ -3,7 +3,8 @@ import Consumer from 'fusion:consumer'
 import get from 'lodash/get'
 import getProperties from 'fusion:properties'
 import { resizerKey } from 'fusion:environment'
-import buildURL from '../../resizerUrl'
+import { buildResizerURL } from '@wpmedia/feeds-resizer'
+import { generatePropsForFeed } from '@wpmedia/feeds-prop-types'
 import formatSearchObject from '../../searchHelper'
 const jmespath = require('jmespath')
 
@@ -58,7 +59,11 @@ const sitemapTemplate = (
           }),
           ...(img &&
             img.url && {
-              'video:thumbnail_loc': buildURL(img.url, resizerKey, resizerURL),
+              'video:thumbnail_loc': buildResizerURL(
+                img.url,
+                resizerKey,
+                resizerURL,
+              ),
             }),
           ...(title && {
             'video:title': { $: title },
@@ -116,18 +121,7 @@ VideoSitemap.propTypes = {
       description: 'Which criteria should be used to fetch content_loc',
       defaultValue: { bitrate: 5400, stream_type: 'mp4' },
     }),
-    lastMod: PropTypes.oneOf([
-      'created_date',
-      'display_date',
-      'first_publish_date',
-      'last_updated_date',
-      'publish_date',
-    ]).tag({
-      label: 'Last Modified Date',
-      group: 'Format',
-      description: 'Which date field should be used in the sitemap',
-      defaultValue: 'last_updated_date',
-    }),
+    ...generatePropsForFeed('sitemap', PropTypes),
   }),
 }
 VideoSitemap.label = 'Video Sitemap'

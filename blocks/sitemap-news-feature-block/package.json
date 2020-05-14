@@ -1,5 +1,5 @@
 {
-  "name": "@wpmedia/sitemaps-news-feature-block",
+  "name": "@wpmedia/sitemap-news-feature-block",
   "version": "0.1.3",
   "description": "Fusion components for building news sitemaps",
   "main": "index.js",
