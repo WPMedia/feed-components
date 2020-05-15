@@ -2,7 +2,6 @@
 import Consumer from 'fusion:consumer'
 import { VideoSitemap } from './xml'
 
-jest.mock('thumbor-lite')
 it('returns template with default values', () => {
   const videoSitemap = VideoSitemap({
     arcSite: 'the-globe',

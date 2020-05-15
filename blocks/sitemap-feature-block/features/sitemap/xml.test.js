@@ -2,7 +2,6 @@
 import Consumer from 'fusion:consumer'
 import { Sitemap } from './xml'
 
-jest.mock('thumbor-lite')
 it('returns template with default values', () => {
   const sitemap = Sitemap({
     arcSite: 'the-globe',
