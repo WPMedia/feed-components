@@ -4,7 +4,8 @@
   "description": "Fusion components for building sitemaps",
   "main": "index.js",
   "files": [
-    "features"
+    "features",
+    "searchHelper.js"
   ],
   "license": "UNLICENSED",
   "repository": {
