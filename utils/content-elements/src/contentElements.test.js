@@ -65,6 +65,65 @@ it('generate custom_embed content element', () => {
   expect(text).toBe('')
 })
 
+it('generate correction content element', () => {
+  const ce = [
+    {
+      type: 'correction',
+      correction_type: 'clarification',
+      text:
+        'In our previous article, we misspelled the name of the restaurant.',
+    },
+  ]
+  const text = buildContent(ce, 'all', domain, resizerKey, resizerURL)
+  expect(text).toBe(
+    '<i>In our previous article, we misspelled the name of the restaurant.</i>',
+  )
+})
+
+it('generate endorsement content element', () => {
+  const ce = [
+    {
+      type: 'endorsement',
+      endorsement: '$$$',
+    },
+  ]
+  const text = buildContent(ce, 'all', domain, resizerKey, resizerURL)
+  expect(text).toBe('<p>$$$</p>')
+})
+
+it('generate list content element', () => {
+  const ce = [
+    {
+      type: 'list',
+      list_type: 'ordered',
+      items: [
+        { type: 'text', content: 'This is a list!' },
+        {
+          type: 'list',
+          list_type: 'unordered',
+          items: [{ type: 'text', content: 'This is a sub-item.' }],
+        },
+      ],
+    },
+  ]
+  const text = buildContent(ce, 'all', domain, resizerKey, resizerURL)
+  expect(text).toBe(
+    '<ol><li>This is a list!</li><li><ul><li>This is a sub-item.</li></ul></li></ol>',
+  )
+})
+
+it('generate numeric_rating content element', () => {
+  const ce = [
+    {
+      type: 'numeric_rating',
+      numeric_rating: 3,
+      units: 'stars',
+    },
+  ]
+  const text = buildContent(ce, 'all', domain, resizerKey, resizerURL)
+  expect(text).toBe('<p>3 stars</p>')
+})
+
 it('generate raw_html content element', () => {
   const ce = [
     {
@@ -128,5 +187,49 @@ it('generate youtube oembed_response content element', () => {
   const text = buildContent(ce, 'all', domain, resizerKey, resizerURL)
   expect(text).toBe(
     '&lt;iframe width="480" height="270" src="https://www.youtube.com/embed/a6KGPBflhiM?feature=oembed" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen&gt;&lt;/iframe&gt;',
+  )
+})
+
+it('generate table content element', () => {
+  const ce = [
+    {
+      type: 'table',
+      header: [
+        {
+          type: 'text',
+          content: 'Fruit',
+        },
+        {
+          type: 'text',
+          content: 'Vegetable',
+        },
+      ],
+      rows: [
+        [
+          {
+            type: 'text',
+            content: 'Apple',
+          },
+          {
+            type: 'text',
+            content: 'Asparagus',
+          },
+        ],
+        [
+          {
+            type: 'text',
+            contenT: 'Blue Berries',
+          },
+          {
+            type: 'text',
+            content: 'brussel Sprouts',
+          },
+        ],
+      ],
+    },
+  ]
+  const text = buildContent(ce, 'all', domain, resizerKey, resizerURL)
+  expect(text).toBe(
+    '<table><thead><tr><th>Fruit</th><th>Vegetable</th></tr></thead><tbody><tr><td>Apple</td><td>Asparagus</td></tr><tr><td>brussel Sprouts</td></tr></tbody></table>',
   )
 })

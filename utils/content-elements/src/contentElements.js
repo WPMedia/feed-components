@@ -14,9 +14,16 @@ export const absoluteUrl = (url, domain) => {
   return url
 }
 
-export const buildContentCorrection = (element) => {
-  return ''
-}
+export const buildContentCorrection = (element) =>
+  element.text && {
+    i: element.text,
+  }
+
+export const buildContentEndorsement = (element) =>
+  element.endorsement && {
+    p: element.endorsement,
+  }
+
 const buildContentGallery = (element) => {
   const gallery = []
   element.content_elements.map((image) => {
@@ -61,12 +68,34 @@ export const buildContentListElement = (element) => {
   return ''
 }
 
-export const buildContentListNumericRating = (element) => {
-  return ''
-}
+export const buildContentListNumericRating = (element) =>
+  element.numeric_rating && { p: `${element.numeric_rating} ${element.units}` }
 
 export const buildContentTable = (element) => {
-  return ''
+  const header = []
+  const rows = []
+  let row
+
+  element.header &&
+    element.header.map((headerItem) => {
+      header.push(headerItem.content)
+    })
+
+  element.rows &&
+    element.rows.map((tableRows) => {
+      row = []
+      tableRows.map((rowItem) => {
+        row.push(rowItem.content)
+      })
+      rows.push({ tr: { td: row } })
+    })
+
+  return {
+    table: {
+      thead: { tr: { th: header } },
+      tbody: { '#': rows },
+    },
+  }
 }
 
 export const buildContentText = (element) => {
@@ -169,7 +198,7 @@ export const buildContent = (
           item = ''
           break
         case 'endorsement':
-          item = ''
+          item = buildContentEndorsement(element)
           break
         case 'gallery':
           item = buildContentGallery(element)
