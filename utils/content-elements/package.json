@@ -1,0 +1,26 @@
+{
+  "name": "@wpmedia/feeds-content-elements",
+  "version": "0.0.0",
+  "description": "Shared arcio content_elements module",
+  "main": "dist/feeds-content-elements.cjs.js",
+  "module": "dist/feeds-content-elements.esm.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/WPMedia/feed-content-elements.git",
+    "directory": "utils/content-elements"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/",
+    "access": "restricted"
+  },
+  "author": "Tim Kosmider",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@wpmedia/feeds-resizer": "0.1.1",
+    "jmespath": "^0.15.0",
+    "xmlbuilder2": "^2.1.2"
+  }
+}
