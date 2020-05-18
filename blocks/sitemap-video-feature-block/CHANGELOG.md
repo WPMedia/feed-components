@@ -1,5 +1,11 @@
 # @wpmedia/sitemap-video-feature-block
 
+## 0.2.1
+
+### Patch Changes
+
+- [`e20b5b2`](https://github.com/WPMedia/feed-components/commit/e20b5b2f44d30f443b3832c530df9184f94bd267) [#65](https://github.com/WPMedia/feed-components/pull/65) Thanks [@camdub](https://github.com/camdub)! - update files in package.json array to include feature
+
 ## 0.2.0
 
 ### Minor Changes
