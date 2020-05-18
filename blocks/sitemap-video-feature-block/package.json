@@ -1,6 +1,6 @@
 {
   "name": "@wpmedia/sitemap-video-feature-block",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Fusion components for building sitemaps",
   "main": "index.js",
   "files": [

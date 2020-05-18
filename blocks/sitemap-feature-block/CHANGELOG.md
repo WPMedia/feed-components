@@ -1,5 +1,11 @@
 # @wpmedia/sitemaps-feature-block
 
+## 0.3.1
+
+### Patch Changes
+
+- [`56e2238`](https://github.com/WPMedia/feed-components/commit/56e22385fc2fab391d6ccb51a2eaf281eb04a705) [#67](https://github.com/WPMedia/feed-components/pull/67) Thanks [@camdub](https://github.com/camdub)! - ensure all files are included in package.json
+
 ## 0.3.0
 
 ### Minor Changes
