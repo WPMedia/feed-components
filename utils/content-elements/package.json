@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/WPMedia/feed-content-elements.git",
+    "url": "git+ssh://git@github.com/WPMedia/feed-components.git",
     "directory": "utils/content-elements"
   },
   "publishConfig": {

@@ -1,0 +1,17 @@
+{
+  "mode": "pre",
+  "tag": "tk",
+  "initialVersions": {
+    "@wpmedia/feeds-source-content-api-block": "0.2.1",
+    "@wpmedia/rss-feature-block": "0.0.0",
+    "@wpmedia/sitemap-index-feature-block": "0.1.0",
+    "@wpmedia/sitemaps-news-feature-block": "0.1.3",
+    "@wpmedia/sitemap-video-feature-block": "0.1.0",
+    "@wpmedia/sitemaps-feature-block": "0.2.0",
+    "@wpmedia/feeds-content-elements": "0.0.0",
+    "@wpmedia/feeds-prop-types": "0.1.0",
+    "@wpmedia/feeds-resizer": "0.1.1",
+    "@wpmedia/feeds-xml-output": "0.1.0"
+  },
+  "changesets": []
+}
