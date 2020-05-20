@@ -11,7 +11,9 @@
     "@wpmedia/feeds-content-elements": "0.0.0",
     "@wpmedia/feeds-prop-types": "0.1.0",
     "@wpmedia/feeds-resizer": "0.1.1",
-    "@wpmedia/feeds-xml-output": "0.1.0"
+    "@wpmedia/feeds-xml-output": "0.1.0",
+    "@wpmedia/sitemap-feature-block": "0.3.1",
+    "@wpmedia/sitemap-news-feature-block": "0.2.1"
   },
-  "changesets": []
+  "changesets": ["rich-dolphins-provide"]
 }

@@ -1,5 +1,16 @@
 # @wpmedia/sitemaps-feature-block
 
+## 0.1.0-tk.0
+
+### Minor Changes
+
+- built feeds-content-elements package
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @wpmedia/feeds-content-elements@0.1.0-tk.0
+
 ## 0.1.0
 
 ### Minor Changes

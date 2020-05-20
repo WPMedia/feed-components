@@ -36,7 +36,7 @@ export const buildContentImage = (element, resizerKey, resizerURL) => ({
   img: {
     '@': {
       src: buildResizerURL(element.url, resizerKey, resizerURL),
-      ...(element.caption && { alt: element.caption }),
+      alt: element.caption || '',
       ...(element.height && { height: element.height }),
       ...(element.width && { width: element.width }),
     },
@@ -250,7 +250,6 @@ export const buildContent = (
           break
       }
 
-      console.log(item)
       // empty array breaks xmlbuilder2, but empty '' is OK
       if (Array.isArray(item) && item.length === 0) {
         item = ''

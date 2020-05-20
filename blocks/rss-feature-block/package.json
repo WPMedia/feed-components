@@ -1,6 +1,6 @@
 {
   "name": "@wpmedia/rss-feature-block",
-  "version": "0.1.0",
+  "version": "0.1.0-tk.0",
   "description": "Fusion components for building rss",
   "main": "index.js",
   "files": [
@@ -23,7 +23,7 @@
   ],
   "homepage": "https://github.com/WPMedia/feed-components#readme",
   "dependencies": {
-    "@wpmedia/feeds-content-elements": "^0.0.0",
+    "@wpmedia/feeds-content-elements": "^0.1.0-tk.0",
     "@wpmedia/feeds-resizer": "^0.1.1",
     "moment": "^2.24.0",
     "thumbor-lite": "^0.1.8",

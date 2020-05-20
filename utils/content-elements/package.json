@@ -1,11 +1,15 @@
 {
   "name": "@wpmedia/feeds-content-elements",
-  "version": "0.0.0",
+  "version": "0.1.0-tk.0",
   "description": "Shared arcio content_elements module",
   "main": "dist/feeds-content-elements.cjs.js",
   "module": "dist/feeds-content-elements.esm.js",
+  "source": "index.js",
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "clean": "rm -rf dist"
   },
   "repository": {
     "type": "git",

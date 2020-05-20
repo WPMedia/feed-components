@@ -138,8 +138,7 @@ it('generate raw_html content element', () => {
   )
 })
 
-//TODO update once resizer is updated
-it.skip('generate image content element', () => {
+it('generate image content element', () => {
   const ce = [
     {
       type: 'image',
@@ -150,8 +149,9 @@ it.skip('generate image content element', () => {
     },
   ]
   const text = buildContent(ce, 'all', domain, resizerKey, resizerURL)
+  // prettier-ignore
   expect(text).toBe(
-    '<img src=https://www.example.com/resizer/VafVZPDHseho_bD6o4qXZuvQjqE=/1200x630/arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/FK3A3PGSLNFYXCHLKWQGADE2ZA.jpg", height="1275" width="1920"/>',
+    "<img src=\"https://www.example.com/resizer/abcdefghijklmnopqrstuvwxyz=/arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/FK3A3PGSLNFYXCHLKWQGADE2ZA.jpg\" height=\"1275\" width=\"1920\"/>",
   )
 })
 

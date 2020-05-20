@@ -9,7 +9,6 @@ import { resizerKey } from 'fusion:environment'
 import { buildContent } from '@wpmedia/feeds-content-elements'
 import { buildResizerURL } from '@wpmedia/feeds-resizer'
 const jmespath = require('jmespath')
-const { fragment } = require('xmlbuilder2')
 
 const rssTemplate = (
   elements,
@@ -72,7 +71,7 @@ const rssTemplate = (
       }),
       ...(channelLogo && {
         image: {
-          url: buildURL(channelLogo, resizerKey, resizerURL),
+          url: buildResizerURL(channelLogo, resizerKey, resizerURL),
           title: `${channelTitle || feedTitle}`,
           link: `${domain}`,
         },
@@ -116,7 +115,7 @@ const rssTemplate = (
             img.url && {
               'media:content': {
                 '@type': 'image/jpeg',
-                '@url': buildURL(img.url, resizerKey, resizerURL),
+                '@url': buildResizerURL(img.url, resizerKey, resizerURL),
                 ...(jmespath.search(img, imageCaption) && {
                   'media:description': {
                     '@type': 'plain',
