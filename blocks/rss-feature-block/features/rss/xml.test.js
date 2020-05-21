@@ -87,7 +87,7 @@ it('returns RSS template with custom values', () => {
         'https://arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png',
       itemTitle: 'headlines.seo || headlines.basic',
       itemDescription: 'subheadlines.basic || description.basic',
-      pubDate: 'display_date || publish_date',
+      pubDate: 'display_date',
       itemCategory: 'taxonomy.primary_section.name',
       includePromo: true,
 
