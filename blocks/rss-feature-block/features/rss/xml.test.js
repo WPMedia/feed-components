@@ -24,6 +24,9 @@ const articles = {
         { type: 'text', content: 'try singing the happy birthday song' },
         { type: 'text', content: 'be sure to wash your thumbs' },
       ],
+      taxonomy: {
+        primary_section: { name: 'coronvirus' },
+      },
     },
   ],
 }
@@ -32,7 +35,7 @@ it('returns RSS template with default values', () => {
   const rss = Rss({
     arcSite: 'demo',
     globalContent: {
-      articles,
+      ...articles,
     },
     customFields: {
       channelTitle: '',
@@ -53,6 +56,45 @@ it('returns RSS template with default values', () => {
       imageCaption: 'caption',
       imageCredits: 'credits.by[].name',
       includeContent: '0',
+    },
+  })
+  expect(rss).toMatchSnapshot({
+    rss: {
+      channel: {
+        lastBuildDate: expect.stringMatching(
+          /\w+, \d+ \w+ \d{4} \d{2}:\d{2}:\d{2} \+0000/,
+        ),
+      },
+    },
+  })
+})
+
+it('returns RSS template with custom values', () => {
+  const rss = Rss({
+    arcSite: 'demo',
+    globalContent: {
+      ...articles,
+    },
+    customFields: {
+      channelTitle: 'The Daily Prophet',
+      channelDescription: "All the news that's fit to print",
+      channelCopyright: '2020 The Washington Post LLC',
+      channelTTL: '60',
+      channelUpdatePeriod: 'weekly',
+      channelUpdateFrequency: '1',
+      channelCategory: 'news',
+      channelLogo:
+        'https://arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png',
+      itemTitle: 'headlines.seo || headlines.basic',
+      itemDescription: 'subheadlines.basic || description.basic',
+      pubDate: 'display_date || publish_date',
+      itemCategory: 'taxonomy.primary_section.name',
+      includePromo: true,
+
+      imageTitle: 'headlines.basic || title',
+      imageCaption: 'subheadlines.basic || caption',
+      imageCredits: 'credits.by[].name',
+      includeContent: 'all',
     },
   })
   expect(rss).toMatchSnapshot({

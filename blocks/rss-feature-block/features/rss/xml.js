@@ -78,7 +78,7 @@ const rssTemplate = (
       }),
 
       item: elements.map((s) => {
-        let author, body
+        let author, body, category
         const url = `${domain}${s.website_url || s.canonical_url}`
         const img =
           s.promo_items && (s.promo_items.basic || s.promo_items.lead_art)
@@ -97,6 +97,9 @@ const rssTemplate = (
           pubDate: moment
             .utc(s[pubDate])
             .format('ddd, DD MMM YYYY HH:mm:ss ZZ'),
+          ...(itemCategory &&
+            (category = jmespath.search(s, itemCategory)) &&
+            category && { category: category }),
           ...(includeContent !== '0' &&
             (body = buildContent(
               s.content_elements,
