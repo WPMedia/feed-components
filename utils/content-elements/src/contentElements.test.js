@@ -151,7 +151,7 @@ it('generate image content element', () => {
   const text = buildContent(ce, 'all', domain, resizerKey, resizerURL)
   // prettier-ignore
   expect(text).toBe(
-    "<img src=\"https://www.example.com/resizer/abcdefghijklmnopqrstuvwxyz=/arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/FK3A3PGSLNFYXCHLKWQGADE2ZA.jpg\" height=\"1275\" width=\"1920\"/>",
+    "<img src=\"https://www.example.com/resizer/abcdefghijklmnopqrstuvwxyz=/arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/FK3A3PGSLNFYXCHLKWQGADE2ZA.jpg\" alt=\"\" height=\"1275\" width=\"1920\"/>",
   )
 })
 
