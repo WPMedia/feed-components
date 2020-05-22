@@ -1,4 +1,10 @@
-export function buildResizerURL(_url, resizerKey, resizerURL) {
+export function buildResizerURL(
+  _url,
+  resizerKey,
+  resizerURL,
+  width = 0,
+  height = 0,
+) {
   if (typeof window === 'undefined') {
     const Thumbor = require('thumbor-lite')
     const thumbor = new Thumbor(resizerKey, resizerURL)
@@ -7,7 +13,7 @@ export function buildResizerURL(_url, resizerKey, resizerURL) {
       imgSrc = imgSrc.replace('?', '%3F')
     }
 
-    return thumbor.setImagePath(imgSrc).resize(1200, 630).buildUrl()
+    return thumbor.setImagePath(imgSrc).resize(width, height).buildUrl()
   }
   return null
 }
