@@ -7,6 +7,7 @@ import moment from 'moment'
 import getProperties from 'fusion:properties'
 import { resizerKey } from 'fusion:environment'
 import { buildContent } from '@wpmedia/feeds-content-elements'
+import { generatePropsForFeed } from '@wpmedia/feeds-prop-types'
 import { buildResizerURL } from '@wpmedia/feeds-resizer'
 const jmespath = require('jmespath')
 
@@ -15,6 +16,7 @@ const rssTemplate = (
   {
     channelTitle,
     channelDescription,
+    channelPath,
     channelCopyright,
     channelTTL,
     channelUpdatePeriod,
@@ -49,7 +51,7 @@ const rssTemplate = (
       title: `${channelTitle || feedTitle}`,
       link: `${domain}`,
       'atom:link': {
-        '@href': `${domain}`, // TODO Need to include full url
+        '@href': `${domain}${channelPath}`,
         '@rel': 'self',
         '@type': 'application/rss+xml',
       },
@@ -165,143 +167,7 @@ export function Rss({ globalContent, customFields, arcSite }) {
 
 Rss.propTypes = {
   customFields: PropTypes.shape({
-    channelTitle: PropTypes.string.tag({
-      label: 'RSS Title',
-      group: 'Channel',
-      description: 'RSS Channel Title, defaults to website name',
-      defaultValue: '',
-    }),
-    channelDescription: PropTypes.string.tag({
-      label: 'RSS Description',
-      group: 'Channel',
-      description:
-        'RSS Channel Description, defaults to website name + " News Feed"',
-      defaultValue: '',
-    }),
-    channelCopyright: PropTypes.string.tag({
-      label: 'Copyright',
-      group: 'Channel',
-      description: 'RSS Copyright value otherwise it will be excluded',
-      defaultValue: '',
-    }),
-    channelTTL: PropTypes.string.tag({
-      label: 'Time To Live',
-      group: 'Channel',
-      description:
-        'Number of minutes to wait to check for new content, defaults to 1',
-      defaultValue: '1',
-    }),
-    channelUpdatePeriod: PropTypes.oneOf([
-      'hourly',
-      'daily',
-      'weekly',
-      'monthly',
-      'yearly',
-    ]).tag({
-      label: 'Update Period',
-      group: 'Channel',
-      description: 'Which period of time should be used, defaults to hourly',
-      defaultValue: 'hourly',
-    }),
-    channelUpdateFrequency: PropTypes.string.tag({
-      label: 'Update Frequency',
-      group: 'Channel',
-      description:
-        'Number of Update Periods to wait to check for new content, defaults to 1',
-      defaultValue: '1',
-    }),
-    channelCategory: PropTypes.string.tag({
-      label: 'Category',
-      group: 'Channel',
-      description:
-        'Category that describes this RSS feed, if blank it will be excluded',
-      defaultValue: '',
-    }),
-    channelLogo: PropTypes.string.tag({
-      label: 'Logo URL',
-      group: 'Channel',
-      description: 'URL to the logo for this RSS feed',
-      defaultValue: '',
-    }),
-    itemTitle: PropTypes.string.tag({
-      label: 'Title',
-      group: 'Item',
-      description:
-        'ANS fields to use for article title, defaults to headlines.basic',
-      defaultValue: 'headlines.basic',
-    }),
-    itemDescription: PropTypes.string.tag({
-      label: 'Description',
-      group: 'Item',
-      description:
-        'ANS fields to use for article description, defaults to description.basic',
-      defaultValue: 'description.basic',
-    }),
-    pubDate: PropTypes.oneOf([
-      'created_date',
-      'display_date',
-      'first_publish_date',
-      'last_updated_date',
-      'publish_date',
-    ]).tag({
-      label: 'Publication Date',
-      group: 'Item',
-      description: 'Which date field should be used, defaults to display_date',
-      defaultValue: 'display_date',
-    }),
-    itemCategory: PropTypes.string.tag({
-      label: 'Category',
-      group: 'Item',
-      description:
-        'ANS field to use for article category, if blank will be excluded',
-      defaultValue: '',
-    }),
-    includePromo: PropTypes.boolean.tag({
-      label: 'Include promo images?',
-      group: 'Featured Image',
-      description: 'Include the featured image in RSS?',
-      defaultValue: true,
-    }),
-    imageTitle: PropTypes.string.tag({
-      label: 'ANS image title key',
-      group: 'Featured Image',
-      description:
-        'ANS value for associated story used for the <media:title> sitemap tag, defaults to title',
-      defaultValue: 'title',
-    }),
-    imageCaption: PropTypes.string.tag({
-      label: 'ANS image caption key',
-      group: 'Featured Image',
-      description:
-        'ANS value for associated story image used for the <media:caption> sitemap tag, defaults to caption',
-      defaultValue: 'caption',
-    }),
-    imageCredits: PropTypes.string.tag({
-      label: 'ANS image credits key',
-      group: 'Featured Image',
-      description:
-        'ANS value for associated story image credits for the <media:credits> sitemap tag, defaults to credits.by[].name',
-      defaultValue: 'credits.by[].name',
-    }),
-    includeContent: PropTypes.oneOf([
-      '0',
-      '1',
-      '2',
-      '3',
-      '4',
-      '5',
-      '6',
-      '7',
-      '8',
-      '9',
-      '10',
-      'all',
-    ]).tag({
-      label: 'Number of paragraphs to include',
-      group: 'Item',
-      description: 'Number of paragraphs to include, defaults to all',
-      defaultValue: '0',
-    }),
+    ...generatePropsForFeed('rss', PropTypes),
   }),
 }
 Rss.label = 'Standard RSS'

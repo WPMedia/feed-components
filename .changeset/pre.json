@@ -15,5 +15,9 @@
     "@wpmedia/sitemap-feature-block": "0.3.1",
     "@wpmedia/sitemap-news-feature-block": "0.2.1"
   },
-  "changesets": ["eighty-comics-deny", "rich-dolphins-provide"]
+  "changesets": [
+    "blue-dodos-dream",
+    "eighty-comics-deny",
+    "rich-dolphins-provide"
+  ]
 }

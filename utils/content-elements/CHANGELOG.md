@@ -1,5 +1,11 @@
 # @wpmedia/feeds-content-elements
 
+## 0.1.0-tk.2
+
+### Minor Changes
+
+- Added rss to prop-types
+
 ## 0.1.0-tk.1
 
 ### Minor Changes
