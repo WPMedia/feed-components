@@ -24,10 +24,10 @@ export const buildContentEndorsement = (element) =>
     p: element.endorsement,
   }
 
-const buildContentGallery = (element) => {
+const buildContentGallery = (element, resizerKey, resizerURL) => {
   const gallery = []
   element.content_elements.map((image) => {
-    gallery.push(buildContentImage(image))
+    gallery.push(buildContentImage(image, resizerKey, resizerURL))
   })
   return gallery
 }
@@ -135,8 +135,8 @@ export const buildContentOembed = (element) => {
 
   // some <blockquote> have a <script> at then end, remove the script tag
   if (
-    (embed && element.subtype === 'twitter') ||
-    element.subtype === 'instagram'
+    embed &&
+    (element.subtype === 'twitter' || element.subtype === 'instagram')
   ) {
     const idx = embed.indexOf('</blockquote>')
     embed = embed.substring(0, idx + 13)
@@ -201,7 +201,7 @@ export const buildContent = (
           item = buildContentEndorsement(element)
           break
         case 'gallery':
-          item = buildContentGallery(element)
+          item = buildContentGallery(element, resizerKey, resizerURL)
           break
         case 'header':
           item = buildContentText(element)
