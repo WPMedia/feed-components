@@ -1,5 +1,11 @@
 # @wpmedia/feeds-content-elements
 
+## 0.1.0-tk.1
+
+### Minor Changes
+
+- Fixed gallery, added more tests
+
 ## 0.1.0-tk.0
 
 ### Minor Changes
