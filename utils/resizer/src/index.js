@@ -5,7 +5,7 @@ export function buildResizerURL(
   width = 0,
   height = 0,
 ) {
-  if (typeof window === 'undefined') {
+  if (_url && typeof window === 'undefined') {
     const Thumbor = require('thumbor-lite')
     const thumbor = new Thumbor(resizerKey, resizerURL)
     let imgSrc = _url.replace(/^http[s]?:\/\//, '').replace(' ', '%20')
