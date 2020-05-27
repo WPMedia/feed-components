@@ -1,5 +1,11 @@
 # @wpmedia/feeds-content-elements
 
+## 0.1.0-tk.3
+
+### Minor Changes
+
+- Added video content_element processing
+
 ## 0.1.0-tk.2
 
 ### Minor Changes
