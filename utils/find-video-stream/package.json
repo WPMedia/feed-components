@@ -1,9 +1,9 @@
 {
-  "name": "@wpmedia/feeds-findVideoStream",
+  "name": "@wpmedia/feeds-find-video-stream",
   "version": "0.0.0",
   "description": "Utility to search video stream for desired encoding",
-  "main": "dist/feeds-findVideoStream.cjs.js",
-  "module": "dist/feeds-findVideoStream.esm.js",
+  "main": "dist/feeds-find-video-stream.cjs.js",
+  "module": "dist/feeds-find-video-stream.esm.js",
   "source": "index.js",
   "files": [
     "dist"
@@ -14,7 +14,7 @@
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/WPMedia/feed-components.git",
-    "folder": "utils/findVideoStream"
+    "folder": "utils/find-video-stream"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/",
