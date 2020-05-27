@@ -1,6 +1,7 @@
 'use strict'
 
 import { buildResizerURL } from '@wpmedia/feeds-resizer'
+import { findVideo } from '@wpmedia/feeds-find-video-stream'
 const jmespath = require('jmespath')
 const { fragment } = require('xmlbuilder2')
 
@@ -163,7 +164,37 @@ export const buildContentQuote = (element) => {
 }
 
 export const buildContentVideo = (element) => {
-  return ''
+  if (element && element.streams) {
+    const promoItems =
+      jmespath.search(element, 'promo_items.basic || promo_items.lead_art') ||
+      {}
+    const caption = jmespath.search(
+      element,
+      'description.basic || subheadlines.basic',
+    )
+    let credits = (jmespath.search(element, 'credits.by[].name') || []).join(
+      ',',
+    )
+    credits = credits ? ` ${credits}` : ''
+    const videoStream = findVideo(element, {
+      bitrate: 2000,
+      stream_type: 'mp4',
+    })
+    if (videoStream) {
+      return {
+        figure: {
+          source: {
+            src: videoStream.url,
+            type: 'video/mp4',
+          },
+          ...(videoStream.height && { height: videoStream.height }),
+          ...(videoStream.width && { width: videoStream.width }),
+          ...(promoItems.url && { poster: promoItems.url }),
+          ...(caption && { figcaption: `${caption}${credits}` }),
+        },
+      }
+    }
+  }
 }
 
 export const buildContent = (

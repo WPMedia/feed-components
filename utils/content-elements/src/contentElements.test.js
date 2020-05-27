@@ -480,3 +480,34 @@ it('generate quote content element', () => {
     '<blockquote><h2>Autonomus Vehicles</h2><p>“Automated vehicle technology is evolving on a very public stage and, as a result, it is affecting how consumers feel about it. Having the opportunity to interact with partially or fully automated vehicle technology will help remove some of the mystery for consumers and open the door for greater acceptance.”</p><ul><li>corgi</li><li>dalmation</li></ul><p class="citation">Greg Brannon, AAA Director of Automotive Engineering and Industry Relations</p></blockquote>',
   )
 })
+
+it('generate video content element', () => {
+  const ce = [
+    {
+      type: 'video',
+      subheadlines: { basic: 'caption here' },
+      promo_items: {
+        basic: {
+          type: 'image',
+          url:
+            'https://d1acid63ghtydj.cloudfront.net/05-27-2020/t_593c7e85769e44b0b122b3800650d8ed_name_Hockey_Two.PNG',
+        },
+      },
+      streams: [
+        {
+          height: 720,
+          width: 1280,
+          stream_type: 'ts',
+          url:
+            'https://d3ujdjwa458jgt.cloudfront.net/out/v1/87998c783fb94bf0b965847d5c8b4392/index.m3u8',
+          bitrate: 2000,
+          provider: 'elastictranscoder',
+        },
+      ],
+    },
+  ]
+  const text = buildContent(ce, 'all', domain, resizerKey, resizerURL)
+  expect(text).toBe(
+    '<figure><source><src>https://d3ujdjwa458jgt.cloudfront.net/out/v1/87998c783fb94bf0b965847d5c8b4392/index.m3u8</src><type>video/mp4</type></source><height>720</height><width>1280</width><poster>https://d1acid63ghtydj.cloudfront.net/05-27-2020/t_593c7e85769e44b0b122b3800650d8ed_name_Hockey_Two.PNG</poster><figcaption>caption here</figcaption></figure>',
+  )
+})
