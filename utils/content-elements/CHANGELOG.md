@@ -1,5 +1,17 @@
 # @wpmedia/feeds-content-elements
 
+## 0.1.0-tk.5
+
+### Minor Changes
+
+- fix package
+
+## 0.1.0-tk.4
+
+### Minor Changes
+
+- Make src an attribute of source tag
+
 ## 0.1.0-tk.3
 
 ### Minor Changes

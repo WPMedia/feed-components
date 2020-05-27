@@ -1,6 +1,6 @@
 {
   "name": "@wpmedia/feeds-content-elements",
-  "version": "0.1.0-tk.3",
+  "version": "0.1.0-tk.5",
   "description": "Shared arcio content_elements module",
   "main": "dist/feeds-content-elements.cjs.js",
   "module": "dist/feeds-content-elements.esm.js",

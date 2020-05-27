@@ -1,5 +1,27 @@
 # @wpmedia/sitemaps-feature-block
 
+## 0.1.0-tk.4
+
+### Minor Changes
+
+- fix package
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @wpmedia/feeds-content-elements@0.1.0-tk.5
+
+## 0.1.0-tk.3
+
+### Minor Changes
+
+- Make src an attribute of source tag
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @wpmedia/feeds-content-elements@0.1.0-tk.4
+
 ## 0.1.0-tk.2
 
 ### Minor Changes

@@ -184,8 +184,10 @@ export const buildContentVideo = (element) => {
       return {
         figure: {
           source: {
-            src: videoStream.url,
-            type: 'video/mp4',
+            '@': {
+              src: videoStream.url,
+              type: 'video/mp4',
+            },
           },
           ...(videoStream.height && { height: videoStream.height }),
           ...(videoStream.width && { width: videoStream.width }),
