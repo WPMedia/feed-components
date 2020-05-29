@@ -20,7 +20,7 @@
     "registry": "https://npm.pkg.github.com/",
     "access": "restricted"
   },
-  "author": "Tim Kosmider",
+  "author": "Tim Kosmider <timothy.kosmider@washpost.com>",
   "license": "UNLICENSED",
   "dependencies": {
     "@wpmedia/feeds-find-video-stream": "0.0.0",

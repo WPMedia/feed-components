@@ -215,19 +215,14 @@ export const buildContent = (
         case 'blockquote':
           item = buildContentText(element)
           break
-        case 'code':
-          item = ''
-          break
         case 'correction':
           item = buildContentCorrection(element)
           break
+        case 'code':
         case 'custom_embed':
-          item = ''
-          break
         case 'divider':
-          item = ''
-          break
         case 'element_group':
+        case 'story':
           item = ''
           break
         case 'endorsement':
@@ -265,9 +260,6 @@ export const buildContent = (
           break
         case 'raw_html':
           item = buildContentText(element)
-          break
-        case 'story':
-          item = ''
           break
         case 'table':
           item = buildContentTable(element)

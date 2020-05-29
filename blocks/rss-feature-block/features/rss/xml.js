@@ -1,5 +1,3 @@
-'use strict'
-
 import PropTypes from 'fusion:prop-types'
 import Consumer from 'fusion:consumer'
 import get from 'lodash/get'
