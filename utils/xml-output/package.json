@@ -1,6 +1,6 @@
 {
   "name": "@wpmedia/feeds-xml-output",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "For use in creating an XML output type",
   "main": "dist/feeds-xml-output.cjs.js",
   "module": "dist/feeds-xml-output.esm.js",
