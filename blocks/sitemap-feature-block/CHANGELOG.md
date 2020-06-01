@@ -1,5 +1,17 @@
 # @wpmedia/sitemaps-feature-block
 
+## 0.4.0
+
+### Minor Changes
+
+- [`fc83312`](https://github.com/WPMedia/feed-components/commit/fc8331277be774bb17492df6b9030899126c6a89) [#64](https://github.com/WPMedia/feed-components/pull/64) Thanks [@tbrick855](https://github.com/tbrick855)! - Added rss to prop-types
+
+### Patch Changes
+
+- Updated dependencies [[`fc83312`](https://github.com/WPMedia/feed-components/commit/fc8331277be774bb17492df6b9030899126c6a89)]:
+  - @wpmedia/feeds-prop-types@0.2.0
+  - @wpmedia/feeds-resizer@0.1.2
+
 ## 0.4.0-tk.0
 
 ### Minor Changes
