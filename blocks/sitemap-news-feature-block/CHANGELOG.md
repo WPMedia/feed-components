@@ -1,5 +1,16 @@
 # @wpmedia/sitemaps-news-feature-block
 
+## 0.3.0-tk.0
+
+### Minor Changes
+
+- Added rss to prop-types
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @wpmedia/feeds-prop-types@0.2.0-tk.0
+
 ## 0.2.1
 
 ### Patch Changes
