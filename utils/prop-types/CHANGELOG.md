@@ -1,6 +1,10 @@
 # @wpmedia/feeds-prop-types
 
-## 0.1.2
+## 0.2.0-tk.0
+
+### Minor Changes
+
+- Added rss to prop-types
 
 ## 0.1.1
 

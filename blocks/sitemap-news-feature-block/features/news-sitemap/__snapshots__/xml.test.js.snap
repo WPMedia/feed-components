@@ -10,7 +10,7 @@ Object {
       Object {
         "changefreq": "always",
         "image:image": Object {
-          "image:loc": null,
+          "image:loc": "hi/abcdefghijklmnopqrstuvwxyz=/arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png",
           "image:title": Object {
             "$": "Hand Washing",
           },
