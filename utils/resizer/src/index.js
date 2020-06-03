@@ -1,5 +1,11 @@
-export function buildResizerURL(_url, resizerKey, resizerURL) {
-  if (typeof window === 'undefined') {
+export function buildResizerURL(
+  _url,
+  resizerKey,
+  resizerURL,
+  width = 0,
+  height = 0,
+) {
+  if (_url && typeof window === 'undefined') {
     const Thumbor = require('thumbor-lite')
     const thumbor = new Thumbor(resizerKey, resizerURL)
     let imgSrc = _url.replace(/^http[s]?:\/\//, '').replace(' ', '%20')
@@ -7,7 +13,7 @@ export function buildResizerURL(_url, resizerKey, resizerURL) {
       imgSrc = imgSrc.replace('?', '%3F')
     }
 
-    return thumbor.setImagePath(imgSrc).resize(1200, 630).buildUrl()
+    return thumbor.setImagePath(imgSrc).resize(width, height).buildUrl()
   }
   return null
 }

@@ -24,7 +24,7 @@
   "license": "UNLICENSED",
   "dependencies": {
     "@wpmedia/feeds-find-video-stream": "0.0.0",
-    "@wpmedia/feeds-resizer": "0.1.2",
+    "@wpmedia/feeds-resizer": "0.2.0",
     "jmespath": "^0.15.0",
     "xmlbuilder2": "^2.1.2"
   }
