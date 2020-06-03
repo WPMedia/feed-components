@@ -64,7 +64,7 @@ Some features use the same logic, so we've added the ability to create shared mo
 
 We weren't able to find a solution to use the `npm link` approach with shared modules. Instead, we'll use prerelease versions to denote "development" versions of these modules:
 
-- **Before you start work on a shared module, enter prerelease mode.** To enter prerelease mode, run `changesets pre enter {tag}` (see the [changesets prerelease documentation](https://github.com/atlassian/changesets/blob/master/docs/prereleases.md) for more information). To be clear who is doing the development, suggest using your initials as the tag. The packages will be published as `1.0.1-cw.0`.
+- **Before you start work on a shared module, enter prerelease mode.** To enter prerelease mode, run `yarn changeset pre enter {tag}` (see the [changesets prerelease documentation](https://github.com/atlassian/changesets/blob/master/docs/prereleases.md) for more information). To be clear who is doing the development, suggest using your initials as the tag. The packages will be published as `1.0.1-cw.0`.
 
 - Use changesets as normal (`changeset add`). When you are ready to publish a prerelease, use `changeset version` and then `changetset publish`. Once you have a prerelease version published, you can update block dependencies to use it. You may also need to run these commands with a `GITHUB_TOKEN` env variable (which should be a [personal Github token](https://github.com/settings/tokens)). **Before you publish, run `npm run build` from the monorepo root directory.**
 

@@ -16,3 +16,8 @@ it('fails if not a valid feed type', () => {
     generatePropsForFeed('garbage', PropTypes)
   }).toThrow('garbage')
 })
+
+it('generates proptypes for rss', () => {
+  const shape = generatePropsForFeed('rss', PropTypes)
+  expect(JSON.parse(PropTypes.stringify(shape))).toMatchSnapshot()
+})

@@ -1,6 +1,6 @@
 {
   "name": "@wpmedia/sitemap-video-feature-block",
-  "version": "0.2.3",
+  "version": "0.2.0",
   "description": "Fusion components for building sitemaps",
   "main": "index.js",
   "files": [
@@ -25,7 +25,7 @@
   "homepage": "https://github.com/WPMedia/feed-components#readme",
   "dependencies": {
     "jmespath": "^0.15.0",
-    "@wpmedia/feeds-prop-types": "0.1.1",
+    "@wpmedia/feeds-prop-types": "0.2.0",
     "@wpmedia/feeds-resizer": "0.2.0"
   }
 }

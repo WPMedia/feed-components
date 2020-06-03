@@ -1,11 +1,27 @@
 # @wpmedia/sitemap-video-feature-block
 
-## 0.2.3
+## 0.2.0
+
+### Minor Changes
+
+- [`fc83312`](https://github.com/WPMedia/feed-components/commit/fc8331277be774bb17492df6b9030899126c6a89) [#64](https://github.com/WPMedia/feed-components/pull/64) Thanks [@tbrick855](https://github.com/tbrick855)! - Added rss to prop-types
 
 ### Patch Changes
 
-- Updated dependencies [[`1d9a662`](https://github.com/WPMedia/feed-components/commit/1d9a662eab4b33265d14b9c7079904569e583c63)]:
-  - @wpmedia/feeds-resizer@0.2.0
+- Updated dependencies [[`fc83312`](https://github.com/WPMedia/feed-components/commit/fc8331277be774bb17492df6b9030899126c6a89)]:
+  - @wpmedia/feeds-prop-types@0.2.0
+  - @wpmedia/feeds-resizer@0.1.2
+
+## 0.2.0-tk.0
+
+### Minor Changes
+
+- Added rss to prop-types
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @wpmedia/feeds-prop-types@0.2.0-tk.0
 
 ## 0.2.2
 
