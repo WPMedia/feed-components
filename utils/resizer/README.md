@@ -9,3 +9,5 @@ Many of the outbound feeds need to generate resizer URLs. This package provides 
 - `resizerURL`: Base URL
 - `width`: Optional integer value to resize the image width
 - `height`: Optional integer value to resize the image height
+
+images need to use the resizer regardless of if the image size is going to change. If the width and height and omited the image will maintain it's original size, but still get passed to the resizer.

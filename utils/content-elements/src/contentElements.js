@@ -25,21 +25,47 @@ export const buildContentEndorsement = (element) =>
     p: element.endorsement,
   }
 
-const buildContentGallery = (element, resizerKey, resizerURL) => {
+export const buildContentGallery = (
+  element,
+  resizerKey,
+  resizerURL,
+  resizeWidth,
+  resizeHeight,
+) => {
   const gallery = []
   element.content_elements.map((image) => {
-    gallery.push(buildContentImage(image, resizerKey, resizerURL))
+    gallery.push(
+      buildContentImage(
+        image,
+        resizerKey,
+        resizerURL,
+        resizeWidth,
+        resizeHeight,
+      ),
+    )
   })
   return gallery
 }
 
-export const buildContentImage = (element, resizerKey, resizerURL) => ({
+export const buildContentImage = (
+  element,
+  resizerKey,
+  resizerURL,
+  resizeWidth,
+  resizeHeight,
+) => ({
   img: {
     '@': {
-      src: buildResizerURL(element.url, resizerKey, resizerURL),
+      src: buildResizerURL(
+        element.url,
+        resizerKey,
+        resizerURL,
+        resizeWidth,
+        resizeHeight,
+      ),
       alt: element.caption || '',
-      ...(element.height && { height: element.height }),
-      ...(element.width && { width: element.width }),
+      ...(element.height && { height: resizeHeight || element.height }),
+      ...(element.width && { width: resizeWidth || element.width }),
     },
   },
 })
@@ -69,7 +95,7 @@ export const buildContentListElement = (element) => {
   return ''
 }
 
-export const buildContentListNumericRating = (element) =>
+export const buildContentNumericRating = (element) =>
   element.numeric_rating && { p: `${element.numeric_rating} ${element.units}` }
 
 export const buildContentTable = (element) => {
@@ -205,6 +231,8 @@ export const buildContent = (
   domain,
   resizerKey,
   resizerURL,
+  resizeWidth,
+  resizeHeight,
 ) => {
   let item
   const body = []
@@ -229,13 +257,25 @@ export const buildContent = (
           item = buildContentEndorsement(element)
           break
         case 'gallery':
-          item = buildContentGallery(element, resizerKey, resizerURL)
+          item = buildContentGallery(
+            element,
+            resizerKey,
+            resizerURL,
+            resizeWidth,
+            resizeHeight,
+          )
           break
         case 'header':
           item = buildContentText(element)
           break
         case 'image':
-          item = buildContentImage(element, resizerKey, resizerURL)
+          item = buildContentImage(
+            element,
+            resizerKey,
+            resizerURL,
+            resizeWidth,
+            resizeHeight,
+          )
           break
         case 'interstitial_link':
           item = buildContentInterstitial(element, domain)
@@ -250,7 +290,7 @@ export const buildContent = (
           item = buildContentListElement(element)
           break
         case 'numeric_rating':
-          item = buildContentListNumericRating(element)
+          item = buildContentNumericRating(element)
           break
         case 'oembed_response':
           item = buildContentOembed(element)
