@@ -44,10 +44,12 @@ Make sure you have [`yarn` classic](https://classic.yarnpkg.com/en/) installed.
 
 ## Local Development
 
-1. Clone the [skeleton-fusion-feeds](https://github.com/WPMedia/skeleton-fusion-feeds) project and follow the setup instructions
-2. In `skeleton-fusion-feeds`, add the package you are testing to the `blocks.json` blocks array
-3. Set `useLocal` in `blocks.json` to `true`
-4. In `skeleton-fusion-feeds`, run `npx fusion start-theme --links`
+1. link the block to make it available to the skeleton repo. From the blocks/{feature} directory run `npm link`
+2. Clone the [skeleton-fusion-feeds](https://github.com/WPMedia/skeleton-fusion-feeds) project and follow the setup instructions
+3. In `skeleton-fusion-feeds`, add the package you are testing to the `blocks.json` blocks array
+4. Set `useLocal` in `blocks.json` to `true`
+5. In `skeleton-fusion-feeds`, run `npx fusion start-theme --links`
+6. When you are ready to create the PR create a changeset with `yarn changeset add` It will allow you to select which changes you want to include and designate them as major, minor or patch. Add any of the changeset files that were generated to the commit. There is a github action that will handle publishing the package once the PR is merged to master.
 
 ## Caveats/Gotchas/Workaround
 
@@ -66,8 +68,8 @@ We weren't able to find a solution to use the `npm link` approach with shared mo
 
 - **Before you start work on a shared module, enter prerelease mode.** To enter prerelease mode, run `yarn changeset pre enter {tag}` (see the [changesets prerelease documentation](https://github.com/atlassian/changesets/blob/master/docs/prereleases.md) for more information). To be clear who is doing the development, suggest using your initials as the tag. The packages will be published as `1.0.1-cw.0`.
 
-- Use changesets as normal (`changeset add`). When you are ready to publish a prerelease, use `changeset version` and then `changetset publish`. Once you have a prerelease version published, you can update block dependencies to use it. You may also need to run these commands with a `GITHUB_TOKEN` env variable (which should be a [personal Github token](https://github.com/settings/tokens)). **Before you publish, run `npm run build` from the monorepo root directory.**
+- Use changesets as normal (`changeset add`). When you are ready to publish a prerelease, do a npm run build from the root of the repo, then `changeset version` and then `changetset publish`. Once you have a prerelease version published, you can update block dependencies to use it. You may also need to run these commands with a `GITHUB_TOKEN` env variable (which should be a [personal Github token](https://github.com/settings/tokens)). **Before you publish, run `npm run build` from the monorepo root directory.**
 
 - To test these prereleases in the skeleton, you need to run `npm install` in the block's directory. The block linking does not work properly unless the `package-lock.json` file is correctly updated.
 
-- When you are done testing locally, run `changeset pre exit` to exit prerelease mode. Commit the changesets you created during the prerelease mode. Avoid running `changeset version` once leaving prerelease mode.
+- When you are done testing locally, run `changeset pre exit` to exit prerelease mode. Commit the changesets you created during the prerelease mode. _DO NOT_ run `changeset version` or `changeset publish` once leaving prerelease mode. Add the changeset files to you commit and create the PR. There is a github action that will publish the package and handle versioning.
