@@ -24,6 +24,8 @@ jobs:
         run: npm install
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CI: true
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}:  
 
       - name: Create Release Pull Request or Publish to npm
         uses: changesets/action@master
