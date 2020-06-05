@@ -1,5 +1,11 @@
 # @wpmedia/feeds-prop-types
 
+## 0.3.0
+
+### Minor Changes
+
+- [`2b0b0f0`](https://github.com/WPMedia/feed-components/commit/2b0b0f0afd15c3310947af0d758953192c4e5369) [#82](https://github.com/WPMedia/feed-components/pull/82) Thanks [@tbrick855](https://github.com/tbrick855)! - Move channelPath out of propInfo
+
 ## 0.2.0
 
 ### Minor Changes
