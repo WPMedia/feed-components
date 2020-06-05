@@ -38,15 +38,6 @@ Object {
     },
     "type": "string",
   },
-  "channelPath": Object {
-    "tags": Object {
-      "defaultValue": "/arcio/rss",
-      "description": "Path to the feed excluding the domain, defaults to /arcio/rss",
-      "group": "Channel",
-      "label": "Path",
-    },
-    "type": "string",
-  },
   "channelTTL": Object {
     "tags": Object {
       "defaultValue": "1",

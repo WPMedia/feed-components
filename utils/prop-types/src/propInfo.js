@@ -100,16 +100,6 @@ export const propInfo = {
         defaultValue: '',
       },
     },
-    channelPath: {
-      type: 'string',
-      tag: {
-        label: 'Path',
-        group: 'Channel',
-        description:
-          'Path to the feed excluding the domain, defaults to /arcio/rss',
-        defaultValue: '/arcio/rss',
-      },
-    },
     channelCopyright: {
       type: 'string',
       tag: {
