@@ -1,5 +1,18 @@
 # @wpmedia/feeds-content-elements
 
+## 0.2.0
+
+### Minor Changes
+
+- [`7265500`](https://github.com/WPMedia/feed-components/commit/726550078443310dda9439af1bd1e04fb9533455) Thanks [@camdub](https://github.com/camdub)! - add width and height for resizer
+
+### Patch Changes
+
+- [`7265500`](https://github.com/WPMedia/feed-components/commit/726550078443310dda9439af1bd1e04fb9533455) Thanks [@camdub](https://github.com/camdub)! - bump deps
+
+- Updated dependencies [[`7265500`](https://github.com/WPMedia/feed-components/commit/726550078443310dda9439af1bd1e04fb9533455)]:
+  - @wpmedia/feeds-resizer@0.2.1
+
 ## 0.1.0
 
 ### Minor Changes

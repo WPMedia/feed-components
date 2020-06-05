@@ -1,5 +1,13 @@
 # @wpmedia/sitemaps-feature-block
 
+## 0.1.1
+
+### Patch Changes
+
+- Updated dependencies [[`7265500`](https://github.com/WPMedia/feed-components/commit/726550078443310dda9439af1bd1e04fb9533455), [`7265500`](https://github.com/WPMedia/feed-components/commit/726550078443310dda9439af1bd1e04fb9533455)]:
+  - @wpmedia/feeds-content-elements@0.2.0
+  - @wpmedia/feeds-resizer@0.2.1
+
 ## 0.1.0
 
 ### Minor Changes
