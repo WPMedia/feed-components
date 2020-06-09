@@ -209,15 +209,19 @@ export const buildContentVideo = (element) => {
     if (videoStream) {
       return {
         figure: {
-          source: {
+          video: {
             '@': {
-              src: videoStream.url,
-              type: 'video/mp4',
+              ...(videoStream.height && { height: videoStream.height }),
+              ...(videoStream.width && { width: videoStream.width }),
+              ...(promoItems.url && { poster: promoItems.url }),
+            },
+            source: {
+              '@': {
+                src: videoStream.url,
+                type: 'video/mp4',
+              },
             },
           },
-          ...(videoStream.height && { height: videoStream.height }),
-          ...(videoStream.width && { width: videoStream.width }),
-          ...(promoItems.url && { poster: promoItems.url }),
           ...(caption && { figcaption: `${caption}${credits}` }),
         },
       }
