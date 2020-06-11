@@ -4,9 +4,10 @@ import get from 'lodash/get'
 import moment from 'moment'
 import getProperties from 'fusion:properties'
 import { resizerKey } from 'fusion:environment'
-import { buildContent } from '@wpmedia/feeds-content-elements'
+import { BuildContent } from '@wpmedia/feeds-content-elements'
 import { generatePropsForFeed } from '@wpmedia/feeds-prop-types'
 import { buildResizerURL } from '@wpmedia/feeds-resizer'
+
 const jmespath = require('jmespath')
 
 const rssTemplate = (
@@ -34,6 +35,7 @@ const rssTemplate = (
     domain,
     feedTitle,
     feedLanguage,
+    rssBuildContent,
   },
 ) => ({
   rss: {
@@ -101,7 +103,7 @@ const rssTemplate = (
             (category = jmespath.search(s, itemCategory)) &&
             category && { category: category }),
           ...(includeContent !== '0' &&
-            (body = buildContent(
+            (body = rssBuildContent.parse(
               s.content_elements,
               includeContent,
               domain,
@@ -153,6 +155,8 @@ export function Rss({ globalContent, customFields, arcSite }) {
     feedLanguage = '',
   } = getProperties(arcSite)
 
+  const rssBuildContent = new BuildContent()
+
   // can't return null for xml return type, must return valid xml template
   return rssTemplate(get(globalContent, 'content_elements', []), {
     ...customFields,
@@ -160,6 +164,7 @@ export function Rss({ globalContent, customFields, arcSite }) {
     domain: feedDomainURL,
     feedTitle,
     feedLanguage,
+    rssBuildContent,
   })
 }
 

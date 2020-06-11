@@ -23,6 +23,14 @@ const articles = {
       content_elements: [
         { type: 'text', content: 'try singing the happy birthday song' },
         { type: 'text', content: 'be sure to wash your thumbs' },
+        {
+          type: 'image',
+          url:
+            'https://arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/QHOCF6YFIZCUFIXBVEAXENGFFM.jpg',
+          title: 'Test Title',
+          caption: 'test caption',
+          credits: { by: [{ name: 'John Smith' }] },
+        },
       ],
       taxonomy: {
         primary_section: { name: 'coronvirus' },

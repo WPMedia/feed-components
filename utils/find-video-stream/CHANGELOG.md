@@ -1,5 +1,11 @@
 # @wpmedia/feeds-find-video-stream
 
+## 0.1.0-tk.0
+
+### Minor Changes
+
+- [`50f362b`](https://github.com/WPMedia/feed-components/commit/50f362b3dd7979f904838755727360f10bfe07eb) [#90](https://github.com/WPMedia/feed-components/pull/90) Thanks [@tbrick855](https://github.com/tbrick855)! - Corrected video tag
+
 ## 0.0.1
 
 ### Patch Changes

@@ -86,7 +86,7 @@ Object {
         Object {
           "category": "coronvirus",
           "content:encoded": Object {
-            "$": "<p>try singing the happy birthday song</p><p>be sure to wash your thumbs</p>",
+            "$": "<p>try singing the happy birthday song</p><p>be sure to wash your thumbs</p><figure><img src=\\"hi/abcdefghijklmnopqrstuvwxyz=/arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/QHOCF6YFIZCUFIXBVEAXENGFFM.jpg\\" alt=\\"test caption\\"/><figcaption>test caption</figcaption></figure>",
           },
           "dc:creator": "John Smith,Jane Doe",
           "description": Object {

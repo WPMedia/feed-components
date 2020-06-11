@@ -4,24 +4,9 @@ import get from 'lodash/get'
 import moment from 'moment'
 import getProperties from 'fusion:properties'
 import { resizerKey } from 'fusion:environment'
-import {
-  buildContentCorrection,
-  buildContentEndorsement,
-  buildContentGallery,
-  buildContentLinkList,
-  buildContentList,
-  buildContentListElement,
-  buildContentNumericRating,
-  buildContentTable,
-  buildContentText,
-  buildContentInterstitial,
-  buildContentOembed,
-  buildContentQuote,
-  buildContentVideo,
-} from '@wpmedia/feeds-content-elements'
+import { BuildContent } from '@wpmedia/feeds-content-elements'
 import { generatePropsForFeed } from '@wpmedia/feeds-prop-types'
 import { buildResizerURL } from '@wpmedia/feeds-resizer'
-import { fragment } from 'xmlbuilder2'
 
 const jmespath = require('jmespath')
 
@@ -49,7 +34,7 @@ const rssTemplate = (
     domain,
     feedTitle,
     feedLanguage,
-    buildContent,
+    googleBuildContent,
   },
 ) => ({
   rss: {
@@ -115,7 +100,7 @@ const rssTemplate = (
             (category = jmespath.search(s, itemCategory)) &&
             category && { category: category }),
           ...(includeContent !== '0' &&
-            (body = buildContent(
+            (body = googleBuildContent.parse(
               s.content_elements,
               includeContent,
               domain,
@@ -166,107 +151,27 @@ export function GoogleNewsRss({ globalContent, customFields, arcSite }) {
     feedLanguage = '',
   } = getProperties(arcSite)
 
-  const buildContent = (
-    contentElements,
-    numRows,
-    domain,
-    resizerKey,
-    resizerURL,
-  ) => {
-    let item
-    const body = []
-    const maxRows = numRows === 'all' ? 9999 : parseInt(numRows)
-    contentElements.map((element) => {
-      if (body.length <= maxRows) {
-        switch (element.type) {
-          case 'blockquote':
-            item = buildContentText(element)
-            break
-          case 'correction':
-            item = buildContentCorrection(element)
-            break
-          case 'code':
-          case 'custom_embed':
-          case 'divider':
-          case 'element_group':
-          case 'story':
-            item = ''
-            break
-          case 'endorsement':
-            item = buildContentEndorsement(element)
-            break
-          case 'gallery':
-            item = buildContentGallery(element, resizerKey, resizerURL)
-            break
-          case 'header':
-            item = buildContentText(element)
-            break
-          case 'image':
-            item = buildContentImage(element, resizerKey, resizerURL)
-            break
-          case 'interstitial_link':
-            item = buildContentInterstitial(element, domain)
-            break
-          case 'link_list':
-            item = buildContentLinkList(element, domain)
-            break
-          case 'list':
-            item = buildContentList(element)
-            break
-          case 'list_element':
-            item = buildContentListElement(element)
-            break
-          case 'numeric_rating':
-            item = buildContentNumericRating(element)
-            break
-          case 'oembed_response':
-            item = buildContentOembed(element)
-            break
-          case 'quote':
-            item = buildContentQuote(element)
-            break
-          case 'raw_html':
-            item = buildContentText(element)
-            break
-          case 'table':
-            item = buildContentTable(element)
-            break
-          case 'text':
-            item = buildContentText(element)
-            break
-          case 'video':
-            item = buildContentVideo(element)
-            break
-          default:
-            item = buildContentText(element)
-            break
-        }
+  function GoogleBuildContent() {
+    BuildContent.call(this)
 
-        // empty array breaks xmlbuilder2, but empty '' is OK
-        if (Array.isArray(item) && item.length === 0) {
-          item = ''
-        }
-        item && body.push(item)
-      }
-    })
-    return body.length ? fragment(body).toString() : ''
-  }
-
-  const buildContentImage = (element, resizerKey, resizerURL) => {
-    return {
-      figure: {
-        img: {
-          '@': {
-            src: buildResizerURL(element.url, resizerKey, resizerURL),
-            alt: element.caption || '',
-            ...(element.height && { height: element.height }),
-            ...(element.width && { width: element.width }),
+    this.image = (element, resizerKey, resizerURL) => {
+      return {
+        figure: {
+          img: {
+            '@': {
+              src: buildResizerURL(element.url, resizerKey, resizerURL),
+              alt: element.caption || '',
+              ...(element.height && { height: element.height }),
+              ...(element.width && { width: element.width }),
+            },
           },
+          ...(element.caption && { figcaption: element.caption }),
         },
-        ...(element.caption && { figcaption: element.caption }),
-      },
+      }
     }
   }
+
+  const googleBuildContent = new GoogleBuildContent()
 
   // can't return null for xml return type, must return valid xml template
   return rssTemplate(get(globalContent, 'content_elements', []), {
@@ -275,7 +180,7 @@ export function GoogleNewsRss({ globalContent, customFields, arcSite }) {
     domain: feedDomainURL,
     feedTitle,
     feedLanguage,
-    buildContent,
+    googleBuildContent,
   })
 }
 
