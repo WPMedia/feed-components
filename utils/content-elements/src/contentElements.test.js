@@ -1,36 +1,38 @@
-import { buildContent } from './contentElements'
+import { BuildContent } from './contentElements'
 
 const domain = 'https://www.example.com'
 const resizerKey = 'ABC123'
 const resizerURL = 'https://www.example.com/resizer'
 
+const MyBuildContent = new BuildContent()
+
 it('handle empty content elements', () => {
   const ce = []
-  const text = buildContent(ce, 'all', domain, resizerKey, resizerURL)
+  const text = MyBuildContent.parse(ce, 'all', domain, resizerKey, resizerURL)
   expect(text).toBe('')
 })
 
 it('handle empty text content element', () => {
   const ce = [{ type: 'text', content: '' }]
-  const text = buildContent(ce, 'all', domain, resizerKey, resizerURL)
+  const text = MyBuildContent.parse(ce, 'all', domain, resizerKey, resizerURL)
   expect(text).toBe('')
 })
 
 it('generate text content element', () => {
   const ce = [{ type: 'text', content: '<i>this is text</i><br />' }]
-  const text = buildContent(ce, 'all', domain)
+  const text = MyBuildContent.parse(ce, 'all', domain)
   expect(text).toBe('<p>&lt;i&gt;this is text&lt;/i&gt;&lt;br /&gt;</p>')
 })
 
 it('generate blockquote content element', () => {
   const ce = [{ type: 'blockquote', content: 'this is a quote' }]
-  const text = buildContent(ce, 'all', domain, resizerKey, resizerURL)
+  const text = MyBuildContent.parse(ce, 'all', domain, resizerKey, resizerURL)
   expect(text).toBe('<q>this is a quote</q>')
 })
 
 it('generate header content element', () => {
   const ce = [{ type: 'header', content: 'this is a header', level: 2 }]
-  const text = buildContent(ce, 'all', domain, resizerKey, resizerURL)
+  const text = MyBuildContent.parse(ce, 'all', domain, resizerKey, resizerURL)
   expect(text).toBe('<h2>this is a header</h2>')
 })
 
@@ -44,7 +46,7 @@ it('generate interstitial_link content element', () => {
         'Expert predicts Richmond-area hospitals to fill up within weeks; peak of cases not expected until late-April',
     },
   ]
-  const text = buildContent(ce, 'all', domain, resizerKey, resizerURL)
+  const text = MyBuildContent.parse(ce, 'all', domain, resizerKey, resizerURL)
   expect(text).toBe(
     // prettier-ignore
     "<p><a href=\"https://www.example.com/2020/04/02/expert-predicts-richmond-area-hospitals-fill-up-within-weeks-peak-cases-not-expected-until-late-may/\">Expert predicts Richmond-area hospitals to fill up within weeks; peak of cases not expected until late-April</a></p>",
@@ -56,7 +58,7 @@ it('generate divider content element', () => {
   const ce = [
     { type: 'divider', content: 'a divider has no content and is ignored' },
   ]
-  const text = buildContent(ce, 'all', domain, resizerKey, resizerURL)
+  const text = MyBuildContent.parse(ce, 'all', domain, resizerKey, resizerURL)
   expect(text).toBe('')
 })
 
@@ -65,7 +67,7 @@ it('generate code content element', () => {
   const ce = [
     { type: 'code', content: '<script>alert("hello world!")</script>' },
   ]
-  const text = buildContent(ce, 'all', domain, resizerKey, resizerURL)
+  const text = MyBuildContent.parse(ce, 'all', domain, resizerKey, resizerURL)
   expect(text).toBe('')
 })
 
@@ -78,7 +80,7 @@ it('generate custom_embed content element', () => {
       embed: { any: 'thing', can: 'go', in: 'here' },
     },
   ]
-  const text = buildContent(ce, 'all', domain, resizerKey, resizerURL)
+  const text = MyBuildContent.parse(ce, 'all', domain, resizerKey, resizerURL)
   expect(text).toBe('')
 })
 
@@ -91,7 +93,7 @@ it('generate correction content element', () => {
         'In our previous article, we misspelled the name of the restaurant.',
     },
   ]
-  const text = buildContent(ce, 'all', domain, resizerKey, resizerURL)
+  const text = MyBuildContent.parse(ce, 'all', domain, resizerKey, resizerURL)
   expect(text).toBe(
     '<i>In our previous article, we misspelled the name of the restaurant.</i>',
   )
@@ -104,7 +106,7 @@ it('generate endorsement content element', () => {
       endorsement: '$$$',
     },
   ]
-  const text = buildContent(ce, 'all', domain, resizerKey, resizerURL)
+  const text = MyBuildContent.parse(ce, 'all', domain, resizerKey, resizerURL)
   expect(text).toBe('<p>$$$</p>')
 })
 
@@ -123,7 +125,7 @@ it('generate list content element', () => {
       ],
     },
   ]
-  const text = buildContent(ce, 'all', domain, resizerKey, resizerURL)
+  const text = MyBuildContent.parse(ce, 'all', domain, resizerKey, resizerURL)
   expect(text).toBe(
     '<ol><li>This is a list!</li><li><ul><li>This is a sub-item.</li></ul></li></ol>',
   )
@@ -137,7 +139,7 @@ it('generate numeric_rating content element', () => {
       units: 'stars',
     },
   ]
-  const text = buildContent(ce, 'all', domain, resizerKey, resizerURL)
+  const text = MyBuildContent.parse(ce, 'all', domain, resizerKey, resizerURL)
   expect(text).toBe('<p>3 stars</p>')
 })
 
@@ -149,7 +151,7 @@ it('generate raw_html content element', () => {
         '<div class="empty" style="padding: 20px;background-color:#333;color:white;text-align:center;font-size:2em;">Sample HTML block</div>',
     },
   ]
-  const text = buildContent(ce, 'all', domain, resizerKey, resizerURL)
+  const text = MyBuildContent.parse(ce, 'all', domain, resizerKey, resizerURL)
   expect(text).toBe(
     '<p>&lt;div class="empty" style="padding: 20px;background-color:#333;color:white;text-align:center;font-size:2em;"&gt;Sample HTML block&lt;/div&gt;</p>',
   )
@@ -165,7 +167,7 @@ it('generate image content element', () => {
       width: 1920,
     },
   ]
-  const text = buildContent(ce, 'all', domain, resizerKey, resizerURL)
+  const text = MyBuildContent.parse(ce, 'all', domain, resizerKey, resizerURL)
   // prettier-ignore
   expect(text).toBe(
     "<img src=\"https://www.example.com/resizer/abcdefghijklmnopqrstuvwxyz=/arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/FK3A3PGSLNFYXCHLKWQGADE2ZA.jpg\" alt=\"\" height=\"1275\" width=\"1920\"/>",
@@ -184,7 +186,7 @@ it('generate twitter oembed_response content element', () => {
       },
     },
   ]
-  const text = buildContent(ce, 'all', domain, resizerKey, resizerURL)
+  const text = MyBuildContent.parse(ce, 'all', domain, resizerKey, resizerURL)
   expect(text).toBe(
     '&lt;blockquote class="twitter-tweet"&gt;&lt;p lang="en" dir="ltr"&gt;Honestly, same. &lt;a href="https://t.co/vhmMXeG7W4"&gt;https://t.co/vhmMXeG7W4&lt;/a&gt; &lt;a href="https://t.co/8VqgOr5WUQ"&gt;pic.twitter.com/8VqgOr5WUQ&lt;/a&gt;&lt;/p&gt;&amp;mdash; Teddy Amenabar (@TeddyAmen) &lt;a href="https://twitter.com/TeddyAmen/status/1167114295123091459?ref_src=twsrc%5Etfw"&gt;August 29, 2019&lt;/a&gt;&lt;/blockquote&gt;',
   )
@@ -201,7 +203,7 @@ it('generate youtube oembed_response content element', () => {
       },
     },
   ]
-  const text = buildContent(ce, 'all', domain, resizerKey, resizerURL)
+  const text = MyBuildContent.parse(ce, 'all', domain, resizerKey, resizerURL)
   expect(text).toBe(
     '&lt;iframe width="480" height="270" src="https://www.youtube.com/embed/a6KGPBflhiM?feature=oembed" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen&gt;&lt;/iframe&gt;',
   )
@@ -245,7 +247,7 @@ it('generate table content element', () => {
       ],
     },
   ]
-  const text = buildContent(ce, 'all', domain, resizerKey, resizerURL)
+  const text = MyBuildContent.parse(ce, 'all', domain, resizerKey, resizerURL)
   expect(text).toBe(
     '<table><thead><tr><th>Fruit</th><th>Vegetable</th></tr></thead><tbody><tr><td>Apple</td><td>Asparagus</td></tr><tr><td>brussel Sprouts</td></tr></tbody></table>',
   )
@@ -440,7 +442,7 @@ it('generate gallery content elements', () => {
       ],
     },
   ]
-  const text = buildContent(ce, 'all', domain, resizerKey, resizerURL)
+  const text = MyBuildContent.parse(ce, 'all', domain, resizerKey, resizerURL)
   expect(text).toBe(
     '<img src="https://www.example.com/resizer/abcdefghijklmnopqrstuvwxyz=/arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/LLNQVAK74VHTFICZG4MAVRVSLE" alt="HOLLYWOOD, CA - FEBRUARY 26:  Host Jimmy Kimmel speaks onstage during the 89th Annual Academy Awards at Hollywood &amp; Highland Center on February 26, 2017 in Hollywood, California.  (Photo by Kevin Winter/Getty Images)" height="3107" width="4373"/><img src="https://www.example.com/resizer/abcdefghijklmnopqrstuvwxyz=/arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/VG7MMON4F5DATFL6DD3VA3Z2BE" alt="Sidney Poitier, left, and Lilia Skala, in scene from the film Lilies of the Field, 1963 for which Poitier won the best actor Oscar in 1964. (AP Photo)" height="2344" width="3011"/><img src="https://www.example.com/resizer/abcdefghijklmnopqrstuvwxyz=/arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/MS75LP7NQBBUTD7KJGOQZ2XLZQ" alt="Left to right Fred Astaire, master of Ceremonies, Joe Makiewicz, who was a two time winner for director and writing (All About Eve), Dr. Ralph Bunche, who made an award, Darryl Zanuck, who won an Oscar and the Thalberg Award, and President of the academy of Motion Picture Arts and Sciences Charles Brackett. Awards were made in Hollywood, Los Angeles on March 29, 1951. (AP Photo)" height="2223" width="3000"/>',
   )
@@ -475,7 +477,7 @@ it('generate quote content element', () => {
       },
     },
   ]
-  const text = buildContent(ce, 'all', domain, resizerKey, resizerURL)
+  const text = MyBuildContent.parse(ce, 'all', domain, resizerKey, resizerURL)
   expect(text).toBe(
     '<blockquote><h2>Autonomus Vehicles</h2><p>“Automated vehicle technology is evolving on a very public stage and, as a result, it is affecting how consumers feel about it. Having the opportunity to interact with partially or fully automated vehicle technology will help remove some of the mystery for consumers and open the door for greater acceptance.”</p><ul><li>corgi</li><li>dalmation</li></ul><p class="citation">Greg Brannon, AAA Director of Automotive Engineering and Industry Relations</p></blockquote>',
   )
@@ -506,8 +508,8 @@ it('generate video content element', () => {
       ],
     },
   ]
-  const text = buildContent(ce, 'all', domain, resizerKey, resizerURL)
+  const text = MyBuildContent.parse(ce, 'all', domain, resizerKey, resizerURL)
   expect(text).toBe(
-    '<figure><source src="https://d3ujdjwa458jgt.cloudfront.net/out/v1/87998c783fb94bf0b965847d5c8b4392/index.m3u8" type="video/mp4"/><height>720</height><width>1280</width><poster>https://d1acid63ghtydj.cloudfront.net/05-27-2020/t_593c7e85769e44b0b122b3800650d8ed_name_Hockey_Two.PNG</poster><figcaption>caption here</figcaption></figure>',
+    '<figure><video height="720" width="1280" poster="https://d1acid63ghtydj.cloudfront.net/05-27-2020/t_593c7e85769e44b0b122b3800650d8ed_name_Hockey_Two.PNG"><source src="https://d3ujdjwa458jgt.cloudfront.net/out/v1/87998c783fb94bf0b965847d5c8b4392/index.m3u8" type="video/mp4"/></video><figcaption>caption here</figcaption></figure>',
   )
 })

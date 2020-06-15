@@ -1,7 +1,7 @@
 {
-  "name": "@wpmedia/rss-feature-block",
-  "version": "0.2.1-tk.0",
-  "description": "Fusion components for building rss",
+  "name": "@wpmedia/rss-google-news-feature-block",
+  "version": "0.1.0-tk.0",
+  "description": "Fusion components for building google-news-rss",
   "main": "index.js",
   "files": [
     "features"
@@ -10,23 +10,25 @@
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/WPMedia/feed-components.git",
-    "directory": "blocks/rss-feature-block"
+    "directory": "blocks/rss-google-news-feature-block"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/",
     "access": "restricted"
   },
-  "author": "Tim Kosmider <timothy.kosmider@washpost.com>",
+  "author": "Iyob Beyene <iyob.beyene@washpost.com>",
   "contributors": [
-    "Iyob Beyene <iyob.beyene@washpost.com>",
+    "Tim Kosmider <tim.kosmider@washpost.com>",
     "Cameron Woodmansee <cameron.woodmansee@washpost.com>"
   ],
   "homepage": "https://github.com/WPMedia/feed-components#readme",
   "dependencies": {
     "@wpmedia/feeds-content-elements": "^0.3.0-tk.1",
+    "@wpmedia/feeds-find-video-stream": "^0.1.0-tk.0",
     "@wpmedia/feeds-prop-types": "^0.3.0",
     "@wpmedia/feeds-resizer": "^0.2.1",
     "jmespath": "^0.15.0",
-    "moment": "^2.24.0"
+    "moment": "^2.24.0",
+    "xmlbuilder2": "^2.1.2"
   }
 }

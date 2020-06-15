@@ -1,4 +1,11 @@
-# @wpmedia/sitemaps-feature-block
+# @wpmedia/rss-feature-block
+
+## 0.2.1-tk.0
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @wpmedia/feeds-content-elements@0.3.0-tk.0
 
 ## 0.2.0
 

@@ -1,5 +1,22 @@
 # @wpmedia/feeds-content-elements
 
+## 0.3.0-tk.1
+
+### Patch Changes
+
+- up version
+
+## 0.3.0-tk.0
+
+### Minor Changes
+
+- Changed to use a prototype constructor
+
+### Patch Changes
+
+- Updated dependencies [[`50f362b`](https://github.com/WPMedia/feed-components/commit/50f362b3dd7979f904838755727360f10bfe07eb)]:
+  - @wpmedia/feeds-find-video-stream@0.1.0-tk.0
+
 ## 0.2.0
 
 ### Minor Changes
