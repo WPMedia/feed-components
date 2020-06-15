@@ -1,5 +1,13 @@
 # @wpmedia/sitemaps-feature-block
 
+## 0.4.3
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @wpmedia/feeds-prop-types@0.3.1
+  - @wpmedia/feeds-resizer@0.2.2
+
 ## 0.4.2
 
 ### Patch Changes

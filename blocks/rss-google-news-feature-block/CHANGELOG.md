@@ -1,5 +1,19 @@
 # @wpmedia/rss-google-news-feature-block
 
+## 0.1.0
+
+### Minor Changes
+
+- [`4547522`](https://github.com/WPMedia/feed-components/commit/45475224aa3eca560d8b150b74d78dac310289ff) [#90](https://github.com/WPMedia/feed-components/pull/90) Thanks [@tbrick855](https://github.com/tbrick855)! - Initial Commit
+
+### Patch Changes
+
+- Updated dependencies [[`4547522`](https://github.com/WPMedia/feed-components/commit/45475224aa3eca560d8b150b74d78dac310289ff), [`4547522`](https://github.com/WPMedia/feed-components/commit/45475224aa3eca560d8b150b74d78dac310289ff), [`4547522`](https://github.com/WPMedia/feed-components/commit/45475224aa3eca560d8b150b74d78dac310289ff)]:
+  - @wpmedia/feeds-content-elements@0.3.0
+  - @wpmedia/feeds-find-video-stream@0.1.0
+  - @wpmedia/feeds-prop-types@0.3.1
+  - @wpmedia/feeds-resizer@0.2.2
+
 ## 0.1.0-tk.0
 
 ### Minor Changes
