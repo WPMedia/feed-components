@@ -129,22 +129,22 @@ const rssTemplate = (
                         },
                         meta: {
                           '@property':"og:url",
-                          '@content'= url,
+                          '@content': url,
                         },
                         meta: {
-                          '@property'="og:description",
-                          '@content'= { $: jmespath.search(s, itemDescription), }
+                          '@property': "og:description",
+                          '@content': { $: jmespath.search(s, itemDescription), }
                         },
                         meta: {//how to deal with fb specific tags?
-                          '@property'="fb:use_automatic_ad_placement",
-                          //'@content'=
+                          '@property': "fb:use_automatic_ad_placement",
+                          //'@content':
                         }, meta: {
-                          '@property'="op:markup_version"
-                          '@content'= "v1.0"
+                          '@property': "op:markup_version"
+                          '@content': "v1.0"
                         },
                         meta: {
-                          '@property'="fb:article_style"
-                          '@content'=
+                          '@property': "fb:article_style"
+                          '@content':
                         },*/
                       meta: {
                         '@property': 'og:image',
