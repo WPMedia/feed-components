@@ -1,9 +1,9 @@
 {
-  "name": "@wpmedia/feeds-content-elements",
-  "version": "0.3.0",
-  "description": "Shared arcio content_elements module",
-  "main": "dist/feeds-content-elements.cjs.js",
-  "module": "dist/feeds-content-elements.esm.js",
+  "name": "@wpmedia/feeds-find-video-stream",
+  "version": "0.1.0",
+  "description": "Utility to search video stream for desired encoding",
+  "main": "dist/feeds-find-video-stream.cjs.js",
+  "module": "dist/feeds-find-video-stream.esm.js",
   "source": "index.js",
   "files": [
     "dist"
@@ -14,7 +14,7 @@
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/WPMedia/feed-components.git",
-    "directory": "utils/content-elements"
+    "folder": "utils/find-video-stream"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/",
@@ -23,9 +23,6 @@
   "author": "Tim Kosmider <timothy.kosmider@washpost.com>",
   "license": "UNLICENSED",
   "dependencies": {
-    "@wpmedia/feeds-find-video-stream": "0.1.0",
-    "@wpmedia/feeds-resizer": "0.2.2",
-    "jmespath": "^0.15.0",
-    "xmlbuilder2": "^2.1.2"
+    "jmespath": "^0.15.0"
   }
 }

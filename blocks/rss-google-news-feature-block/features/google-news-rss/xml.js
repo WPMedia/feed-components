@@ -29,13 +29,12 @@ const rssTemplate = (
     itemDescription,
     pubDate,
     itemCategory,
-    includePromo,
     includeContent,
     resizerURL,
     domain,
     feedTitle,
     feedLanguage,
-    rssBuildContent,
+    googleBuildContent,
   },
 ) => ({
   rss: {
@@ -43,10 +42,8 @@ const rssTemplate = (
     '@xmlns:content': 'http://purl.org/rss/1.0/modules/content/',
     '@xmlns:dc': 'http://purl.org/dc/elements/1.1/',
     '@xmlns:sy': 'http://purl.org/rss/1.0/modules/syndication/',
+    '@xmlns:media': 'http://search.yahoo.com/mrss/',
     '@version': '2.0',
-    ...(includePromo && {
-      '@xmlns:media': 'http://search.yahoo.com/mrss/',
-    }),
     channel: {
       title: `${channelTitle || feedTitle}`,
       link: `${domain}`,
@@ -103,7 +100,7 @@ const rssTemplate = (
             (category = jmespath.search(s, itemCategory)) &&
             category && { category: category }),
           ...(includeContent !== '0' &&
-            (body = rssBuildContent.parse(
+            (body = googleBuildContent.parse(
               s.content_elements,
               includeContent,
               domain,
@@ -115,8 +112,7 @@ const rssTemplate = (
                 $: body,
               },
             }),
-          ...(includePromo &&
-            img &&
+          ...(img &&
             img.url && {
               'media:content': {
                 '@type': 'image/jpeg',
@@ -147,7 +143,7 @@ const rssTemplate = (
   },
 })
 
-export function Rss({ globalContent, customFields, arcSite }) {
+export function GoogleNewsRss({ globalContent, customFields, arcSite }) {
   const {
     resizerURL = '',
     feedDomainURL = '',
@@ -155,7 +151,27 @@ export function Rss({ globalContent, customFields, arcSite }) {
     feedLanguage = '',
   } = getProperties(arcSite)
 
-  const rssBuildContent = new BuildContent()
+  function GoogleBuildContent() {
+    BuildContent.call(this)
+
+    this.image = (element, resizerKey, resizerURL) => {
+      return {
+        figure: {
+          img: {
+            '@': {
+              src: buildResizerURL(element.url, resizerKey, resizerURL),
+              alt: element.caption || '',
+              ...(element.height && { height: element.height }),
+              ...(element.width && { width: element.width }),
+            },
+          },
+          ...(element.caption && { figcaption: element.caption }),
+        },
+      }
+    }
+  }
+
+  const googleBuildContent = new GoogleBuildContent()
 
   // can't return null for xml return type, must return valid xml template
   return rssTemplate(get(globalContent, 'content_elements', []), {
@@ -164,21 +180,22 @@ export function Rss({ globalContent, customFields, arcSite }) {
     domain: feedDomainURL,
     feedTitle,
     feedLanguage,
-    rssBuildContent,
+    googleBuildContent,
   })
 }
 
-Rss.propTypes = {
+GoogleNewsRss.propTypes = {
   customFields: PropTypes.shape({
     channelPath: PropTypes.string.tag({
       label: 'Path',
       group: 'Channel',
       description:
-        'Path to the feed, excluding the domain, defaults to /arcio/rss',
-      defaultValue: '/arcio/rss/',
+        'Path to the feed excluding the domain, defaults to /arcio/google-news-feed',
+      defaultValue: '/arcio/google-news-feed/',
     }),
-    ...generatePropsForFeed('rss', PropTypes),
+    ...generatePropsForFeed('rss', PropTypes, ['channelPath', 'includePromo']),
   }),
 }
-Rss.label = 'Standard RSS'
-export default Consumer(Rss)
+
+GoogleNewsRss.label = 'Google News RSS'
+export default Consumer(GoogleNewsRss)

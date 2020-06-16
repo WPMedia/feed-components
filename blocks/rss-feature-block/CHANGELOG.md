@@ -1,4 +1,20 @@
-# @wpmedia/sitemaps-feature-block
+# @wpmedia/rss-feature-block
+
+## 0.2.1
+
+### Patch Changes
+
+- Updated dependencies [[`4547522`](https://github.com/WPMedia/feed-components/commit/45475224aa3eca560d8b150b74d78dac310289ff), [`4547522`](https://github.com/WPMedia/feed-components/commit/45475224aa3eca560d8b150b74d78dac310289ff)]:
+  - @wpmedia/feeds-content-elements@0.3.0
+  - @wpmedia/feeds-prop-types@0.3.1
+  - @wpmedia/feeds-resizer@0.2.2
+
+## 0.2.1-tk.0
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @wpmedia/feeds-content-elements@0.3.0-tk.0
 
 ## 0.2.0
 
