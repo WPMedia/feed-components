@@ -9,7 +9,7 @@ import { generatePropsForFeed } from '@wpmedia/feeds-prop-types'
 import { buildResizerURL } from '@wpmedia/feeds-resizer'
 const jmespath = require('jmespath')
 
-const rssTemplate = (
+const rssFBIATemplate = (
   elements,
   {
     channelTitle,
@@ -110,91 +110,7 @@ const rssTemplate = (
             )) &&
             body && {
               'content:encoded': {
-                $: {
-                  doctype: 'html',
-                  html: {
-                    '@lang': `${jmespath.search(s, feedLanguage)}`,
-                    head: {
-                      link: {
-                        '@rel': 'canonical',
-                        '@href': `${domain}${channelPath}`,
-                      },
-                      title: `${jmespath.search(s, itemTitle)}`,
-
-                      /*meta : {
-                          '@property': "og:title",
-                          '@content': `${jmespath.search(s, itemTitle)}`,
-                        },
-                        meta: {
-                          '@property':"og:url",
-                          '@content'= url,
-                        },
-                        meta: {
-                          '@property'="og:description",
-                          '@content'= { $: jmespath.search(s, itemDescription), }
-                        },
-                        meta: {//how to deal with fb specific tags?
-                          '@property'="fb:use_automatic_ad_placement",
-                          //'@content'=
-                        }, meta: {
-                          '@property'="op:markup_version"
-                          '@content'= "v1.0"
-                        },
-                        meta: {
-                          '@property'="fb:article_style"
-                          '@content'=
-                        },*/
-                      meta: {
-                        '@property': 'og:image',
-                        '@content': buildResizerURL(
-                          img.url,
-                          resizerKey,
-                          resizerURL,
-                        ),
-                      },
-                      /*meta: {
-                          '@property'="fb:likes_and_comments"
-                          '@content'=
-                        },*/
-                    },
-                    body: {
-                      article: {
-                        /*header : {
-                            (h1 : jmespath(s, '')) && h1
-                              h2 : {
-
-                              } && h2
-
-                            }*/
-                        time: {
-                          '@datetime': {
-                            lastBuildDate: moment
-                              .utc(new Date())
-                              .format('ddd, DD MMM YYYY HH:mm:ss ZZ'),
-                          },
-                          '@class': 'op_modified',
-                        },
-                        /*time : {
-                              '@datetime': {
-                                pubDate: moment
-                                  .utc(new Date())
-                                  .format('ddd, DD MMM YYYY HH:mm:ss ZZ')
-                              },
-                              '@class':"op_published"
-                            }*/
-                      },
-                      address: {
-                        //a list of authors
-                        a: jmespath
-                          .search(s, 'credits.by[].name')
-                          .toUpperCase(),
-                      },
-                      footer: {
-                        small: `${jmespath.search(s, 'copyright')}`,
-                      },
-                    },
-                  },
-                },
+                $: body,
               },
             }),
           ...(includePromo &&
@@ -228,7 +144,7 @@ const rssTemplate = (
     },
   },
 })
-export function Rss({ globalContent, customFields, arcSite }) {
+export function FBIARss({ globalContent, customFields, arcSite }) {
   const {
     resizerURL = '',
     feedDomainURL = '',
@@ -237,7 +153,7 @@ export function Rss({ globalContent, customFields, arcSite }) {
   } = getProperties(arcSite)
 
   // can't return null for xml return type, must return valid xml template
-  return rssTemplate(get(globalContent, 'content_elements', []), {
+  return rssFBIATemplate(get(globalContent, 'content_elements', []), {
     ...customFields,
     resizerURL,
     domain: feedDomainURL,
@@ -246,7 +162,7 @@ export function Rss({ globalContent, customFields, arcSite }) {
   })
 }
 
-Rss.propTypes = {
+FBIARss.propTypes = {
   customFields: PropTypes.shape({
     channelPath: PropTypes.string.tag({
       label: 'Path',
@@ -255,8 +171,8 @@ Rss.propTypes = {
         'Path to the feed, excluding the domain, defaults to /arcio/fb-ia',
       defaultValue: '/arcio/fb-ia/',
     }),
-    ...generatePropsForFeed('rss', PropTypes),
+    ...generatePropsForFeed('fbia_rss', PropTypes),
   }),
 }
-Rss.label = 'Facebook IA RSS'
-export default Consumer(Rss)
+FBIARss.label = 'Facebook IA RSS'
+export default Consumer(FBIARss)
