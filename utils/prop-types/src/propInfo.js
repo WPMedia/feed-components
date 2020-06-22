@@ -195,6 +195,16 @@ export const propInfo = {
         defaultValue: 'display_date',
       },
     },
+    itemCredits: {
+      type: 'string',
+      tag: {
+        label: 'ANS credits key',
+        group: 'Item',
+        description:
+          'ANS value for credits in the <dc:creator> tag, will join multiple names with a comma. defaults to credits.by[].name',
+        defaultValue: 'credits.by[].name',
+      },
+    },
     itemCategory: {
       type: 'string',
       tag: {

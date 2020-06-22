@@ -149,6 +149,15 @@ Object {
     },
     "type": "string",
   },
+  "itemCredits": Object {
+    "tags": Object {
+      "defaultValue": "credits.by[].name",
+      "description": "ANS value for credits in the <dc:creator> tag, will join multiple names with a comma. defaults to credits.by[].name",
+      "group": "Item",
+      "label": "ANS credits key",
+    },
+    "type": "string",
+  },
   "itemDescription": Object {
     "tags": Object {
       "defaultValue": "description.basic",
