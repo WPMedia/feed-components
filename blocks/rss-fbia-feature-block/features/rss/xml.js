@@ -7,6 +7,7 @@ import { resizerKey } from 'fusion:environment'
 import { BuildContent } from '@wpmedia/feeds-content-elements'
 import { generatePropsForFeed } from '@wpmedia/feeds-prop-types'
 import { buildResizerURL } from '@wpmedia/feeds-resizer'
+import { fragment } from 'xmlbuilder2'
 const jmespath = require('jmespath')
 
 const rssTemplate = (
@@ -83,6 +84,7 @@ const rssTemplate = (
         const url = `${domain}${s.website_url || s.canonical_url}`
         const img =
           s.promo_items && (s.promo_items.basic || s.promo_items.lead_art)
+        console.log(s._id)
         return {
           title: `${jmespath.search(s, itemTitle)}`,
           link: url,
@@ -171,6 +173,107 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
           ...(element.caption && { figcaption: element.caption }),
         },
       }
+    }
+
+    this.parse = (
+      contentElements,
+      numRows,
+      domain,
+      resizerKey,
+      resizerURL,
+      resizeWidth,
+      resizeHeight,
+    ) => {
+      let item
+      const body = []
+      const maxRows = numRows === 'all' ? 9999 : parseInt(numRows)
+      contentElements.map((element) => {
+        if (body.length <= maxRows) {
+          switch (element.type) {
+            case 'blockquote':
+              item = this.blockquote(element)
+              break
+            case 'correction':
+              item = this.correction(element)
+              break
+            case 'code':
+            case 'custom_embed':
+            case 'divider':
+            case 'element_group':
+            case 'story':
+              item = ''
+              break
+            case 'endorsement':
+              item = this.endorsement(element)
+              break
+            case 'gallery':
+              item = this.gallery(
+                element,
+                resizerKey,
+                resizerURL,
+                resizeWidth,
+                resizeHeight,
+              )
+              break
+            case 'header':
+              item = this.header(element)
+              break
+            case 'image':
+              item = this.image(
+                element,
+                resizerKey,
+                resizerURL,
+                resizeWidth,
+                resizeHeight,
+              )
+              break
+            case 'interstitial_link':
+              item = this.interstitial(element, domain)
+              break
+            case 'link_list':
+              item = this.linkList(element, domain)
+              break
+            case 'list':
+              item = this.list(element)
+              break
+            case 'list_element':
+              item = this.listElement(element)
+              break
+            case 'numeric_rating':
+              item = this.numericRating(element)
+              break
+            case 'oembed_response':
+              item = this.oembed(element)
+              break
+            case 'quote':
+              item = this.quote(element)
+              break
+            case 'raw_html':
+              item = this.text(element)
+              break
+            case 'table':
+              item = this.table(element)
+              break
+            case 'text':
+              item = this.text(element)
+              break
+            case 'video':
+              item = this.video(element)
+              break
+            default:
+              item = this.text(element)
+              break
+          }
+
+          // empty array breaks xmlbuilder2, but empty '' is OK
+          if (Array.isArray(item) && item.length === 0) {
+            item = ''
+          }
+          console.log(item)
+          item && body.push(item)
+        }
+      })
+      return body.length ? fragment(body).toString() : ''
     }
   }
 
