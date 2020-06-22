@@ -1,5 +1,11 @@
 # @wpmedia/feeds-source-content-api-block
 
+## 0.3.0
+
+### Minor Changes
+
+- [`346d04f`](https://github.com/WPMedia/feed-components/commit/346d04ffa9a93ce5197cec8ee64094201d6402f8) [#103](https://github.com/WPMedia/feed-components/pull/103) Thanks [@tbrick855](https://github.com/tbrick855)! - Added section, author, keywords, tags params
+
 ## 0.2.3
 
 ## 0.2.2
