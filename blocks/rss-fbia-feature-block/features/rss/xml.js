@@ -176,13 +176,64 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
       }
     }
 
-    this.buildHTMLHeader = (s, domain, channelPath) => {
+    this.buildHTMLHeader = (
+      s,
+      img,
+      domain,
+      itemTitle,
+      feedLanguage,
+      itemDescription,
+      resizerKey,
+      resizerURL,
+    ) => {
+      const url = `${domain}${s.website_url || s.canonical_url}` //come back to this!!!
       return {
-        head: {
-          link: {
-            '@rel': 'canonical',
-            '@href': `${domain}${channelPath}`,
+        html: {
+          '@lang': feedLanguage,
+          head: {
+            link: {
+              '@rel':
+                (s.canonical_url && 'canonical') ||
+                (s.website_url && 'website'),
+              '@href': url,
+            },
+            title: itemTitle,
+            meta: [
+              {
+                '@property': 'og:title',
+                '@content': itemTitle,
+              },
+              {
+                '@property': 'og:url',
+                '@content': url,
+              },
+              {
+                '@property': 'og:description',
+                '@content': itemDescription,
+              },
+              /*{//how to deal with fb specific tags?
+                '@property': "fb:use_automatic_ad_placement",
+                //'@content':
+              },
+              {
+                '@property': "op:markup_version",
+                '@content': "v1.0"
+              },
+              {
+                '@property': "fb:article_style",
+                '@content':
+              },*/
+              {
+                '@property': 'og:image',
+                '@content': buildResizerURL(img.url, resizerKey, resizerURL),
+              },
+              /*{
+                '@property'="fb:likes_and_comments"
+                '@content'=
+              }*/
+            ],
           },
+          body: {},
         },
       }
     }
@@ -319,3 +370,10 @@ FbiaRss.propTypes = {
 }
 FbiaRss.label = 'Facebook IA RSS'
 export default Consumer(FbiaRss)
+/*name : PropTypes.string.tag({
+      label: 'Path',
+      group: 'Channel',
+      description:
+        'Path to the feed excluding the domain, defaults to /arcio/fb-ia',
+      defaultValue: '/arcio/fb-ia',
+    }),*/
