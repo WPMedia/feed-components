@@ -105,23 +105,17 @@ const rssTemplate = (
             category && { category: category }),
           ...(includeContent !== '0' &&
             (body = fbiaBuildContent.parse(
+              s,
               s.content_elements,
               includeContent,
               domain,
               resizerKey,
               resizerURL,
+              channelPath,
             )) &&
             body && {
               'content:encoded': {
-                $: {
-                  head: {
-                    link: {
-                      '@rel': 'canonical',
-                      '@href': `${domain}${channelPath}`,
-                    },
-                  },
-                  body: body,
-                },
+                $: body,
               },
             }),
           ...(includePromo &&
@@ -181,8 +175,19 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
         },
       }
     }
-  }
-  /*this.parse = (
+
+    this.buildHTMLHeader = (s, domain, channelPath) => {
+      return {
+        head: {
+          link: {
+            '@rel': 'canonical',
+            '@href': `${domain}${channelPath}`,
+          },
+        },
+      }
+    }
+    this.parse = (
+      s,
       contentElements,
       numRows,
       domain,
@@ -190,10 +195,13 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
       resizerURL,
       resizeWidth,
       resizeHeight,
+      channelPath,
     ) => {
       let item
       const body = []
       const maxRows = numRows === 'all' ? 9999 : parseInt(numRows)
+
+      body.push(this.buildHTMLHeader(s, domain, channelPath))
       contentElements.map((element) => {
         if (body.length <= maxRows) {
           switch (element.type) {
@@ -281,7 +289,8 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
         }
       })
       return body.length ? fragment(body).toString() : ''
-    }*/
+    }
+  }
 
   const fbiaBuildContent = new FbiaBuildContent()
 
