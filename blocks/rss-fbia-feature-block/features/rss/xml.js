@@ -113,7 +113,15 @@ const rssTemplate = (
             )) &&
             body && {
               'content:encoded': {
-                $: body,
+                $: {
+                  head: {
+                    link: {
+                      '@rel': 'canonical',
+                      '@href': `${domain}${channelPath}`,
+                    },
+                  },
+                  body: body,
+                },
               },
             }),
           ...(includePromo &&
@@ -158,7 +166,6 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
 
   function FbiaBuildContent() {
     BuildContent.call(this)
-
     this.image = (element, resizerKey, resizerURL) => {
       return {
         figure: {
@@ -174,8 +181,8 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
         },
       }
     }
-
-    this.parse = (
+  }
+  /*this.parse = (
       contentElements,
       numRows,
       domain,
@@ -274,8 +281,7 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
         }
       })
       return body.length ? fragment(body).toString() : ''
-    }
-  }
+    }*/
 
   const fbiaBuildContent = new FbiaBuildContent()
 
