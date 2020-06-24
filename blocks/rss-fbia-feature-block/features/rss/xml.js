@@ -160,21 +160,6 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
 
   function FbiaBuildContent() {
     BuildContent.call(this)
-    this.image = (element, resizerKey, resizerURL) => {
-      return {
-        figure: {
-          img: {
-            '@': {
-              src: buildResizerURL(element.url, resizerKey, resizerURL),
-              alt: element.caption || '',
-              ...(element.height && { height: element.height }),
-              ...(element.width && { width: element.width }),
-            },
-          },
-          ...(element.caption && { figcaption: element.caption }),
-        },
-      }
-    }
 
     this.buildHTMLHeader = (
       s,
@@ -185,6 +170,10 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
       itemDescription,
       resizerKey,
       resizerURL,
+      markupVersion,
+      articleStyle,
+      likesAndComments,
+      adPlacement,
     ) => {
       const url = `${domain}${s.website_url || s.canonical_url}` //come back to this!!!
       return {
@@ -210,26 +199,26 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
               '@content': itemDescription,
             },
             {
-              //how to deal with fb specific tags?
               '@property': 'fb:use_automatic_ad_placement',
-              //'@content':
-            },
-            /*{
-              '@property': "op:markup_version",
-              '@content': "v1.0"
+              '@content': adPlacement,
+              '@default': 'default',
             },
             {
-              '@property': "fb:article_style",
-              '@content':
-            },*/
+              '@property': 'op:markup_version',
+              '@content': markupVersion,
+            },
+            {
+              '@property': 'fb:article_style',
+              '@content': articleStyle,
+            },
             img && {
               '@property': 'og:image',
               '@content': buildResizerURL(img.url, resizerKey, resizerURL),
             },
-            /*{
-              '@property'="fb:likes_and_comments"
-              '@content'=
-            }*/
+            {
+              '@property': 'fb:likes_and_comments',
+              '@content': likesAndComments,
+            },
           ],
         },
       }
@@ -382,6 +371,18 @@ FbiaRss.propTypes = {
       description: 'Enable or disable',
       defaultValue: 'disable',
     }),
+    adPlacement: PropTypes.string.tag({
+      label: 'Auto Ad Placement',
+      group: 'Item',
+      description: 'Enable or disable',
+      defaultValue: 'disable',
+    }),
+    /*adDensity: PropTypes.string.tag({
+      label: 'Auto Ad Placement',
+      group: 'Item',
+      description: 'Enable or disable',
+      defaultValue: 'disable',
+    }),*/
     ...generatePropsForFeed('rss', PropTypes, ['channelPath', 'includePromo']),
   }),
 }
