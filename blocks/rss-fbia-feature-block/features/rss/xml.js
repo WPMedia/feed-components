@@ -188,52 +188,49 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
     ) => {
       const url = `${domain}${s.website_url || s.canonical_url}` //come back to this!!!
       return {
-        html: {
-          '@lang': feedLanguage,
-          head: {
-            link: {
-              '@rel':
-                (s.canonical_url && 'canonical') ||
-                (s.website_url && 'website'),
-              '@href': url,
-            },
-            title: itemTitle,
-            meta: [
-              {
-                '@property': 'og:title',
-                '@content': itemTitle,
-              },
-              {
-                '@property': 'og:url',
-                '@content': url,
-              },
-              {
-                '@property': 'og:description',
-                '@content': itemDescription,
-              },
-              /*{//how to deal with fb specific tags?
-                '@property': "fb:use_automatic_ad_placement",
-                //'@content':
-              },
-              {
-                '@property': "op:markup_version",
-                '@content': "v1.0"
-              },
-              {
-                '@property': "fb:article_style",
-                '@content':
-              },*/
-              {
-                '@property': 'og:image',
-                '@content': buildResizerURL(img.url, resizerKey, resizerURL),
-              },
-              /*{
-                '@property'="fb:likes_and_comments"
-                '@content'=
-              }*/
-            ],
+        '@lang': feedLanguage,
+        head: {
+          link: {
+            '@rel':
+              (s.canonical_url && 'canonical') || (s.website_url && 'website'),
+            '@href': url,
           },
-          body: {},
+          title: itemTitle,
+          meta: [
+            {
+              '@property': 'og:title',
+              '@content': itemTitle,
+            },
+            {
+              '@property': 'og:url',
+              '@content': url,
+            },
+            {
+              '@property': 'og:description',
+              '@content': itemDescription,
+            },
+            {
+              //how to deal with fb specific tags?
+              '@property': 'fb:use_automatic_ad_placement',
+              //'@content':
+            },
+            /*{
+              '@property': "op:markup_version",
+              '@content': "v1.0"
+            },
+            {
+              '@property': "fb:article_style",
+              '@content':
+            },*/
+            img && {
+              '@property': 'og:image',
+              '@content': buildResizerURL(img.url, resizerKey, resizerURL),
+            },
+            /*{
+              '@property'="fb:likes_and_comments"
+              '@content'=
+            }*/
+          ],
         },
       }
     }
@@ -252,7 +249,9 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
       const body = []
       const maxRows = numRows === 'all' ? 9999 : parseInt(numRows)
 
+      body.push('html')
       body.push(this.buildHTMLHeader(s, domain, channelPath))
+      body.push('body')
       contentElements.map((element) => {
         if (body.length <= maxRows) {
           switch (element.type) {
@@ -365,15 +364,27 @@ FbiaRss.propTypes = {
         'Path to the feed excluding the domain, defaults to /arcio/fb-ia',
       defaultValue: '/arcio/fb-ia',
     }),
+    markupVersion: PropTypes.string.tag({
+      label: 'Markup Version',
+      group: 'Item',
+      description: '',
+      defaultValue: 'v1.0',
+    }),
+    articleStyle: PropTypes.string.tag({
+      label: 'Article Style',
+      group: 'Item',
+      description: '',
+      defaultValue: 'default',
+    }),
+    likesAndComments: PropTypes.string.tag({
+      label: 'Likes and Comments',
+      group: 'Item',
+      description: 'Enable or disable',
+      defaultValue: 'disable',
+    }),
     ...generatePropsForFeed('rss', PropTypes, ['channelPath', 'includePromo']),
   }),
 }
+
 FbiaRss.label = 'Facebook IA RSS'
 export default Consumer(FbiaRss)
-/*name : PropTypes.string.tag({
-      label: 'Path',
-      group: 'Channel',
-      description:
-        'Path to the feed excluding the domain, defaults to /arcio/fb-ia',
-      defaultValue: '/arcio/fb-ia',
-    }),*/
