@@ -29,7 +29,7 @@ Object {
           "content:encoded": Object {
             "$": "<p>try singing the happy birthday song</p><p>be sure to wash your thumbs</p>",
           },
-          "dc:creator": "John Smith,Jane Doe",
+          "dc:creator": "john-smith,jane-doe",
           "description": Object {
             "$": "This is from the subheadlines",
           },

@@ -16,7 +16,12 @@ const articles = {
           credits: { by: [{ name: 'Harold Hands' }] },
         },
       },
-      credits: { by: [{ name: 'John Smith' }, { name: 'Jane Doe' }] },
+      credits: {
+        by: [
+          { _id: 'john-smith', name: 'John Smith' },
+          { _id: 'jane-doe', name: 'Jane Doe' },
+        ],
+      },
       headlines: { basic: 'Tips for Safe Hand washing' },
       description: { basic: 'Tips to keep you wash for 20 seconds' },
       subheadlines: { basic: 'This is from the subheadlines' },
@@ -58,6 +63,7 @@ it('returns Google News template with default values', () => {
       itemTitle: 'headlines.basic',
       itemDescription: 'description.basic',
       pubDate: 'display_date',
+      itemCredits: 'credits.by[].name',
       itemCategory: '',
 
       imageTitle: 'title',
@@ -97,6 +103,7 @@ it('returns RSS template with custom values', () => {
       itemTitle: 'headlines.seo || headlines.basic',
       itemDescription: 'subheadlines.basic || description.basic',
       pubDate: 'display_date',
+      itemCredits: 'credits.by._id',
       itemCategory: 'taxonomy.primary_section.name',
       includePromo: true,
 

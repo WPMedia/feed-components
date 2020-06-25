@@ -28,6 +28,7 @@ const rssTemplate = (
     itemTitle,
     itemDescription,
     pubDate,
+    itemCredits,
     itemCategory,
     includePromo,
     includeContent,
@@ -91,7 +92,7 @@ const rssTemplate = (
             '#': url,
             '@isPermaLink': true,
           },
-          ...((author = jmespath.search(s, 'credits.by[].name')) &&
+          ...((author = jmespath.search(s, itemCredits)) &&
             author && {
               'dc:creator': author.join(','),
             }),
