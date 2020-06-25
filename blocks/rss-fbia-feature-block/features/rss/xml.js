@@ -163,8 +163,8 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
 
     this.buildHTMLHeader = (
       s,
-      img,
       domain,
+      img,
       itemTitle,
       feedLanguage,
       itemDescription,
@@ -223,6 +223,18 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
         },
       }
     }
+    /*his.buildHTMLHeader = (
+      s,
+      contentElements,
+      numRows,
+      domain,
+      resizerKey,
+      resizerURL,
+      resizeWidth,
+      resizeHeight,
+    ) => {
+
+    }*/
     this.parse = (
       s,
       contentElements,
@@ -232,14 +244,13 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
       resizerURL,
       resizeWidth,
       resizeHeight,
-      channelPath,
     ) => {
       let item
       const body = []
       const maxRows = numRows === 'all' ? 9999 : parseInt(numRows)
 
       body.push('html')
-      body.push(this.buildHTMLHeader(s, domain, channelPath))
+      body.push(this.buildHTMLHeader(s, domain))
       body.push('body')
       contentElements.map((element) => {
         if (body.length <= maxRows) {
