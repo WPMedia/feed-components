@@ -1,5 +1,12 @@
 # @wpmedia/sitemaps-feature-block
 
+## 0.4.4
+
+### Patch Changes
+
+- Updated dependencies [[`784229e`](https://github.com/WPMedia/feed-components/commit/784229e4e3969efb3119f91f077af50fb5501994)]:
+  - @wpmedia/feeds-prop-types@0.4.0
+
 ## 0.4.3
 
 ### Patch Changes

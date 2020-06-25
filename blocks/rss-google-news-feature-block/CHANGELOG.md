@@ -1,5 +1,16 @@
 # @wpmedia/rss-google-news-feature-block
 
+## 0.2.0
+
+### Minor Changes
+
+- [`784229e`](https://github.com/WPMedia/feed-components/commit/784229e4e3969efb3119f91f077af50fb5501994) [#105](https://github.com/WPMedia/feed-components/pull/105) Thanks [@tbrick855](https://github.com/tbrick855)! - Added itemCredits customField
+
+### Patch Changes
+
+- Updated dependencies [[`784229e`](https://github.com/WPMedia/feed-components/commit/784229e4e3969efb3119f91f077af50fb5501994)]:
+  - @wpmedia/feeds-prop-types@0.4.0
+
 ## 0.1.0
 
 ### Minor Changes
