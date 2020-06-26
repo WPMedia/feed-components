@@ -196,49 +196,48 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
     ) => {
       const url = `${domain}${s.website_url || s.canonical_url}`
       return {
-        head: {
-          link: {
-            '@rel':
-              (s.canonical_url && 'canonical') || (s.website_url && 'website'),
-            '@href': url,
-          },
-          title: itemTitle,
-          meta: [
-            {
-              '@property': 'og:title',
-              '@content': itemTitle,
-            },
-            {
-              '@property': 'og:url',
-              '@content': url,
-            },
-            {
-              '@property': 'og:description',
-              '@content': itemDescription,
-            },
-            {
-              '@property': 'fb:use_automatic_ad_placement',
-              '@content': adPlacement,
-              '@default': 'default',
-            },
-            {
-              '@property': 'op:markup_version',
-              '@content': markupVersion,
-            },
-            {
-              '@property': 'fb:article_style',
-              '@content': articleStyle,
-            },
-            img && {
-              '@property': 'og:image',
-              '@content': buildResizerURL(img.url, resizerKey, resizerURL),
-            },
-            {
-              '@property': 'fb:likes_and_comments',
-              '@content': likesAndComments,
-            },
-          ],
+        link: {
+          '@rel':
+            (s.canonical_url && 'canonical') || (s.website_url && 'website'),
+          '@href': url,
         },
+        title: itemTitle,
+        meta: [
+          {
+            '@property': 'og:title',
+            '@content': itemTitle,
+          },
+          {
+            '@property': 'og:url',
+            '@content': url,
+          },
+          {
+            '@property': 'og:description',
+            '@content': itemDescription,
+          },
+          {
+            '@property': 'fb:use_automatic_ad_placement',
+            '@content': adPlacement || 'false',
+            //'@default': 'default', <- add ad density?
+          },
+          {
+            '@property': 'op:markup_version', //The version of Instant Articles markup format being used by this article.
+            '@content': 'v1.0',
+          },
+          {
+            '@property': 'fb:article_style',
+            '@content': articleStyle || 'default',
+          },
+          {
+            '@property': 'og:image',
+            '@content':
+              (img && buildResizerURL(img.url, resizerKey, resizerURL)) || '',
+          },
+          {
+            '@property': 'fb:likes_and_comments',
+            '@content': likesAndComments || 'disable',
+          },
+        ],
       }
     }
     this.buildHTMLBody = (
@@ -361,7 +360,7 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
       likesAndComments,
       adPlacement,
     ) => {
-      return {
+      const fbiaContent = {
         html: {
           '@lang': feedLanguage,
           head: this.buildHTMLHeader(
@@ -394,6 +393,7 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
           ),
         },
       }
+      return fragment(fbiaContent).toString()
     }
   }
 
@@ -409,7 +409,7 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
     fbiaBuildContent,
   })
 }
-
+//Reference for fb options: https://developers.facebook.com/docs/instant-articles/reference/article/
 FbiaRss.propTypes = {
   customFields: PropTypes.shape({
     channelPath: PropTypes.string.tag({
@@ -419,16 +419,11 @@ FbiaRss.propTypes = {
         'Path to the feed excluding the domain, defaults to /arcio/fb-ia',
       defaultValue: '/arcio/fb-ia',
     }),
-    markupVersion: PropTypes.string.tag({
-      label: 'Markup Version',
-      group: 'Item',
-      description: '',
-      defaultValue: 'v1.0',
-    }),
     articleStyle: PropTypes.string.tag({
       label: 'Article Style',
       group: 'Item',
-      description: '',
+      description:
+        'This parameter is optional and your default style is applied to this article if you do not specify an article style in your markup',
       defaultValue: 'default',
     }),
     likesAndComments: PropTypes.string.tag({
@@ -440,18 +435,19 @@ FbiaRss.propTypes = {
     adPlacement: PropTypes.string.tag({
       label: 'Auto Ad Placement',
       group: 'Item',
-      description: 'Enable or disable',
-      defaultValue: 'disable',
+      description:
+        'Enables automatic placement of ads within this article. This parameter is optional and defaults to false if you do not specify',
+      defaultValue: 'false',
     }),
-    /*adDensity: PropTypes.string.tag({
-      label: 'Auto Ad Placement',
-      group: 'Item',
-      description: 'Enable or disable',
-      defaultValue: 'disable',
-    }),*/
     ...generatePropsForFeed('rss', PropTypes, ['channelPath', 'includePromo']),
   }),
 }
 
 FbiaRss.label = 'Facebook IA RSS'
 export default Consumer(FbiaRss)
+/*adDensity: PropTypes.string.tag({
+      label: 'Auto Ad Placement',
+      group: 'Item',
+      description: 'Enable or disable',
+      defaultValue: 'disable',
+    }),*/
