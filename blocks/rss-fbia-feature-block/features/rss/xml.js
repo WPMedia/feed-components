@@ -173,27 +173,27 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
     feedLanguage = '',
   } = getProperties(arcSite)
 
-  function FbiaBuildContent() {
+  function FbiaBuildContent(
+    s,
+    contentElements,
+    numRows,
+    domain,
+    resizerKey,
+    resizerURL,
+    resizeWidth,
+    resizeHeight,
+    img,
+    itemTitle,
+    feedLanguage,
+    itemDescription,
+    markupVersion,
+    articleStyle,
+    likesAndComments,
+    adPlacement,
+  ) {
     BuildContent.call(this)
 
-    this.buildHTMLHeader = (
-      s,
-      contentElements,
-      numRows,
-      domain,
-      resizerKey,
-      resizerURL,
-      resizeWidth,
-      resizeHeight,
-      img,
-      itemTitle,
-      feedLanguage,
-      itemDescription,
-      markupVersion,
-      articleStyle,
-      likesAndComments,
-      adPlacement,
-    ) => {
+    this.buildHTMLHeader = (s) => {
       const url = `${domain}${s.website_url || s.canonical_url}`
       return {
         link: {
@@ -240,16 +240,7 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
         ],
       }
     }
-    this.buildHTMLBody = (
-      s,
-      contentElements,
-      numRows,
-      domain,
-      resizerKey,
-      resizerURL,
-      resizeWidth,
-      resizeHeight,
-    ) => {
+    this.buildHTMLBody = (s) => {
       let item
       const body = []
       const maxRows = numRows === 'all' ? 9999 : parseInt(numRows)
@@ -342,55 +333,12 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
       })
       return body.length ? fragment(body).toString() : ''
     }
-    this.parse = (
-      s,
-      contentElements,
-      numRows,
-      domain,
-      resizerKey,
-      resizerURL,
-      resizeWidth,
-      resizeHeight,
-      img,
-      itemTitle,
-      feedLanguage,
-      itemDescription,
-      markupVersion,
-      articleStyle,
-      likesAndComments,
-      adPlacement,
-    ) => {
+    this.parse = (s) => {
       const fbiaContent = {
         html: {
           '@lang': feedLanguage,
-          head: this.buildHTMLHeader(
-            s,
-            contentElements,
-            numRows,
-            domain,
-            resizerKey,
-            resizerURL,
-            resizeWidth,
-            resizeHeight,
-            img,
-            itemTitle,
-            feedLanguage,
-            itemDescription,
-            markupVersion,
-            articleStyle,
-            likesAndComments,
-            adPlacement,
-          ),
-          body: this.buildHTMLBody(
-            s,
-            contentElements,
-            numRows,
-            domain,
-            resizerKey,
-            resizerURL,
-            resizeWidth,
-            resizeHeight,
-          ),
+          head: this.buildHTMLHeader(s),
+          body: this.buildHTMLBody(s),
         },
       }
       return fragment(fbiaContent).toString()
