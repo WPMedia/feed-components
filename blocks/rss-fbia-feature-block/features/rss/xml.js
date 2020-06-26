@@ -110,24 +110,7 @@ const rssTemplate = (
             (category = jmespath.search(s, itemCategory)) &&
             category && { category: category }),
           ...(includeContent !== '0' &&
-            (body = fbiaBuildContent.parse(
-              s,
-              s.content_elements,
-              includeContent,
-              domain,
-              resizerKey,
-              resizerURL,
-              resizeWidth,
-              resizeHeight,
-              img,
-              itemTitle,
-              feedLanguage,
-              itemDescription,
-              markupVersion,
-              articleStyle,
-              likesAndComments,
-              adPlacement,
-            )) &&
+            (body = fbiaBuildContent.parse(s)) &&
             body && {
               'content:encoded': {
                 $: body,
@@ -345,7 +328,24 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
     }
   }
 
-  const fbiaBuildContent = new FbiaBuildContent()
+  const fbiaBuildContent = new FbiaBuildContent(
+    s,
+    contentElements,
+    numRows,
+    domain,
+    resizerKey,
+    resizerURL,
+    resizeWidth,
+    resizeHeight,
+    img,
+    itemTitle,
+    feedLanguage,
+    itemDescription,
+    markupVersion,
+    articleStyle,
+    likesAndComments,
+    adPlacement,
+  )
 
   // can't return null for xml return type, must return valid xml template
   return rssTemplate(get(globalContent, 'content_elements', []), {
