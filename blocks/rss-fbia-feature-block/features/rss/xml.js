@@ -32,10 +32,16 @@ const rssTemplate = (
     includePromo,
     includeContent,
     resizerURL,
+    resizeWidth,
+    resizeHeight,
     domain,
     feedTitle,
     feedLanguage,
     fbiaBuildContent,
+    markupVersion,
+    articleStyle,
+    likesAndComments,
+    adPlacement,
   },
 ) => ({
   rss: {
@@ -111,7 +117,16 @@ const rssTemplate = (
               domain,
               resizerKey,
               resizerURL,
-              channelPath,
+              resizeWidth,
+              resizeHeight,
+              img,
+              itemTitle,
+              feedLanguage,
+              itemDescription,
+              markupVersion,
+              articleStyle,
+              likesAndComments,
+              adPlacement,
             )) &&
             body && {
               'content:encoded': {
@@ -163,21 +178,24 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
 
     this.buildHTMLHeader = (
       s,
+      contentElements,
+      numRows,
       domain,
+      resizerKey,
+      resizerURL,
+      resizeWidth,
+      resizeHeight,
       img,
       itemTitle,
       feedLanguage,
       itemDescription,
-      resizerKey,
-      resizerURL,
       markupVersion,
       articleStyle,
       likesAndComments,
       adPlacement,
     ) => {
-      const url = `${domain}${s.website_url || s.canonical_url}` //come back to this!!!
+      const url = `${domain}${s.website_url || s.canonical_url}`
       return {
-        '@lang': feedLanguage,
         head: {
           link: {
             '@rel':
@@ -223,19 +241,7 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
         },
       }
     }
-    /*his.buildHTMLHeader = (
-      s,
-      contentElements,
-      numRows,
-      domain,
-      resizerKey,
-      resizerURL,
-      resizeWidth,
-      resizeHeight,
-    ) => {
-
-    }*/
-    this.parse = (
+    this.buildHTMLBody = (
       s,
       contentElements,
       numRows,
@@ -248,10 +254,7 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
       let item
       const body = []
       const maxRows = numRows === 'all' ? 9999 : parseInt(numRows)
-
-      body.push('html')
-      body.push(this.buildHTMLHeader(s, domain))
-      body.push('body')
+      body.push()
       contentElements.map((element) => {
         if (body.length <= maxRows) {
           switch (element.type) {
@@ -339,6 +342,58 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
         }
       })
       return body.length ? fragment(body).toString() : ''
+    }
+    this.parse = (
+      s,
+      contentElements,
+      numRows,
+      domain,
+      resizerKey,
+      resizerURL,
+      resizeWidth,
+      resizeHeight,
+      img,
+      itemTitle,
+      feedLanguage,
+      itemDescription,
+      markupVersion,
+      articleStyle,
+      likesAndComments,
+      adPlacement,
+    ) => {
+      return {
+        html: {
+          '@lang': feedLanguage,
+          head: this.buildHTMLHeader(
+            s,
+            contentElements,
+            numRows,
+            domain,
+            resizerKey,
+            resizerURL,
+            resizeWidth,
+            resizeHeight,
+            img,
+            itemTitle,
+            feedLanguage,
+            itemDescription,
+            markupVersion,
+            articleStyle,
+            likesAndComments,
+            adPlacement,
+          ),
+          body: this.buildHTMLBody(
+            s,
+            contentElements,
+            numRows,
+            domain,
+            resizerKey,
+            resizerURL,
+            resizeWidth,
+            resizeHeight,
+          ),
+        },
+      }
     }
   }
 
