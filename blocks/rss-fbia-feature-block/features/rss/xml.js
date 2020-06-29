@@ -218,6 +218,46 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
       }
     }
     this.buildHTMLBody = (s, numRows, domain) => {
+      return {
+        article: {
+          header: {
+            h1: `${jmespath.search(s, itemTitle)}`,
+            h2: `${jmespath.search(s, itemDescription)}`,
+          },
+          time: [
+            {
+              '@datetime':
+                moment.utc(new Date()).format('YYYY-MM-DDThh:mm:ss.mmm') + 'Z',
+              '@class': 'op_modified',
+            },
+            {
+              '@datetime':
+                moment
+                  .utc(s[customFields.pubDate])
+                  .format('YYYY-MM-DDThh:mm:ss.mmm') + 'Z',
+              '@class': 'op_published',
+            },
+          ],
+        },
+        /*address: {
+          //a list of authors
+          a: jmespath
+            .search(s, 'credits.by[].name')
+            .toUpperCase(),
+        },*/
+        /*...figure : {
+              '@class' =
+            }
+          ...p : {
+               '@id' =
+
+            }*/
+        footer: {
+          small: customFields.channelCopyright,
+        },
+      }
+    }
+    this.buildContentElements = (s, numRows, domain) => {
       let item
       const body = []
       const maxRows = numRows === 'all' ? 9999 : parseInt(numRows)
