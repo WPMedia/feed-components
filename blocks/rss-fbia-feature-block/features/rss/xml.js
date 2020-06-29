@@ -32,16 +32,10 @@ const rssTemplate = (
     includePromo,
     includeContent,
     resizerURL,
-    resizeWidth,
-    resizeHeight,
     domain,
     feedTitle,
     feedLanguage,
     fbiaBuildContent,
-    markupVersion,
-    articleStyle,
-    likesAndComments,
-    adPlacement,
   },
 ) => ({
   rss: {
@@ -110,7 +104,7 @@ const rssTemplate = (
             (category = jmespath.search(s, itemCategory)) &&
             category && { category: category }),
           ...(includeContent !== '0' &&
-            (body = fbiaBuildContent.parse(s)) &&
+            (body = fbiaBuildContent.parse(s, includeContent, domain)) &&
             body && {
               'content:encoded': {
                 $: body,
@@ -157,26 +151,21 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
   } = getProperties(arcSite)
 
   function FbiaBuildContent(
-    s,
-    contentElements,
-    numRows,
     domain,
     resizerKey,
-    resizerURL,
     resizeWidth,
     resizeHeight,
     img,
     itemTitle,
-    feedLanguage,
     itemDescription,
-    markupVersion,
     articleStyle,
     likesAndComments,
     adPlacement,
+    adDensity,
   ) {
     BuildContent.call(this)
 
-    this.buildHTMLHeader = (s) => {
+    this.buildHTMLHeader = (s, domain) => {
       const url = `${domain}${s.website_url || s.canonical_url}`
       return {
         link: {
@@ -184,11 +173,11 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
             (s.canonical_url && 'canonical') || (s.website_url && 'website'),
           '@href': url,
         },
-        title: itemTitle,
+        title: `${jmespath.search(s, itemTitle)}`,
         meta: [
           {
             '@property': 'og:title',
-            '@content': itemTitle,
+            '@content': `${jmespath.search(s, itemTitle)}`,
           },
           {
             '@property': 'og:url',
@@ -196,13 +185,18 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
           },
           {
             '@property': 'og:description',
-            '@content': itemDescription,
+            '@content': `${jmespath.search(s, itemDescription)}`,
           },
-          {
-            '@property': 'fb:use_automatic_ad_placement',
-            '@content': adPlacement || 'false',
-            //'@default': 'default', <- add ad density?
-          },
+          adPlacement.toLowerCase().startsWith('enable')
+            ? {
+                '@property': 'fb:use_automatic_ad_placement',
+                '@content': 'true',
+                '@ad_density': adDensity || 'default',
+              }
+            : {
+                '@property': 'fb:use_automatic_ad_placement',
+                '@content': 'false',
+              },
           {
             '@property': 'op:markup_version', //The version of Instant Articles markup format being used by this article.
             '@content': 'v1.0',
@@ -223,12 +217,12 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
         ],
       }
     }
-    this.buildHTMLBody = (s) => {
+    this.buildHTMLBody = (s, numRows, domain) => {
       let item
       const body = []
       const maxRows = numRows === 'all' ? 9999 : parseInt(numRows)
       body.push()
-      contentElements.map((element) => {
+      s.content_elements.map((element) => {
         if (body.length <= maxRows) {
           switch (element.type) {
             case 'blockquote':
@@ -316,35 +310,30 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
       })
       return body.length ? fragment(body).toString() : ''
     }
-    this.parse = (s) => {
+    this.parse = (s, numRows, domain) => {
       const fbiaContent = {
         html: {
           '@lang': feedLanguage,
-          head: this.buildHTMLHeader(s),
-          body: this.buildHTMLBody(s),
+          head: this.buildHTMLHeader(s, domain),
+          body: this.buildHTMLBody(s, numRows, domain),
         },
-      }
-      return fragment(fbiaContent).toString()
+      } //<!doctype html>
+      return '<!doctype html>'.concat(fragment(fbiaContent).toString())
     }
   }
 
   const fbiaBuildContent = new FbiaBuildContent(
-    s,
-    contentElements,
-    numRows,
-    domain,
-    resizerKey,
-    resizerURL,
-    resizeWidth,
-    resizeHeight,
-    img,
-    itemTitle,
-    feedLanguage,
-    itemDescription,
-    markupVersion,
-    articleStyle,
-    likesAndComments,
-    adPlacement,
+    customFields.domain,
+    customFields.resizerKey,
+    customFields.resizeWidth,
+    customFields.resizeHeight,
+    customFields.img,
+    customFields.itemTitle,
+    customFields.itemDescription,
+    customFields.articleStyle,
+    customFields.likesAndComments,
+    customFields.adPlacement,
+    customFields.adDensity,
   )
 
   // can't return null for xml return type, must return valid xml template
@@ -387,15 +376,16 @@ FbiaRss.propTypes = {
         'Enables automatic placement of ads within this article. This parameter is optional and defaults to false if you do not specify',
       defaultValue: 'false',
     }),
+    adDensity: PropTypes.string.tag({
+      label: 'Ad Density',
+      group: 'Item',
+      description:
+        'How frequently you would like ads to appear in your article: default (<250 word gap), medium (350 word gap), low (>450 word gap)',
+      defaultValue: 'default',
+    }),
     ...generatePropsForFeed('rss', PropTypes, ['channelPath', 'includePromo']),
   }),
 }
 
 FbiaRss.label = 'Facebook IA RSS'
 export default Consumer(FbiaRss)
-/*adDensity: PropTypes.string.tag({
-      label: 'Auto Ad Placement',
-      group: 'Item',
-      description: 'Enable or disable',
-      defaultValue: 'disable',
-    }),*/
