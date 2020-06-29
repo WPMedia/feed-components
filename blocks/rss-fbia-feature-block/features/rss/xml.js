@@ -190,12 +190,12 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
           adPlacement.toLowerCase().startsWith('enable')
             ? {
                 '@property': 'fb:use_automatic_ad_placement',
-                '@content': 'true',
-                '@ad_density': adDensity || 'default',
+                '@content':
+                  'enable=true ' + 'ad_density=' + (adDensity || 'default'),
               }
             : {
                 '@property': 'fb:use_automatic_ad_placement',
-                '@content': 'false',
+                '@content': 'enable=false',
               },
           {
             '@property': 'op:markup_version', //The version of Instant Articles markup format being used by this article.
@@ -218,6 +218,9 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
       }
     }
     this.buildHTMLBody = (s, numRows, domain) => {
+      let author
+      const modifiedTime =
+        moment.utc(new Date()).format('YYYY-MM-DDThh:mm:ss.mmm') + 'Z'
       return {
         article: {
           header: {
@@ -226,9 +229,11 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
           },
           time: [
             {
-              '@datetime':
-                moment.utc(new Date()).format('YYYY-MM-DDThh:mm:ss.mmm') + 'Z',
-              '@class': 'op_modified',
+              '@': {
+                datetime: modifiedTime,
+                class: 'op_modified',
+              },
+              //modifiedTime, <-- why can't I add anything here?
             },
             {
               '@datetime':
@@ -236,15 +241,17 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
                   .utc(s[customFields.pubDate])
                   .format('YYYY-MM-DDThh:mm:ss.mmm') + 'Z',
               '@class': 'op_published',
+              //publishedTime
             },
           ],
         },
-        /*address: {
+        address: {
           //a list of authors
-          a: jmespath
-            .search(s, 'credits.by[].name')
-            .toUpperCase(),
-        },*/
+          ...((author = jmespath.search(s, 'credits.by[].name')) &&
+            author && {
+              a: author.map((s) => s.toUpperCase()),
+            }),
+        },
         /*...figure : {
               '@class' =
             }
@@ -252,8 +259,14 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
                '@id' =
 
             }*/
+
         footer: {
-          small: customFields.channelCopyright,
+          small:
+            customFields.channelCopyright ||
+            '© ' +
+              moment.utc(new Date()).year() +
+              ' ' +
+              (feedTitle || `${jmespath.search(s, customFields.channelTitle)}`),
         },
       }
     }
@@ -357,7 +370,7 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
           head: this.buildHTMLHeader(s, domain),
           body: this.buildHTMLBody(s, numRows, domain),
         },
-      } //<!doctype html>
+      }
       return '<!doctype html>'.concat(fragment(fbiaContent).toString())
     }
   }
