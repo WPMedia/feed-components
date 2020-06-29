@@ -219,47 +219,67 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
     }
     this.buildHTMLBody = (s, numRows, domain) => {
       let author
-      const modifiedTime =
-        moment.utc(new Date()).format('YYYY-MM-DDThh:mm:ss.mmm') + 'Z'
       return {
         article: {
           header: {
             h1: `${jmespath.search(s, itemTitle)}`,
             h2: `${jmespath.search(s, itemDescription)}`,
-          },
-          time: [
-            {
-              '@': {
-                datetime: modifiedTime,
-                class: 'op_modified',
+            time: [
+              {
+                '@': {
+                  datetime:
+                    moment.utc(new Date()).format('YYYY-MM-DDThh:mm:ss.mmm') +
+                    'Z',
+                  class: 'op_modified',
+                },
+                '#':
+                  moment.utc(new Date()).format('YYYY-MM-DDThh:mm:ss.mmm') +
+                  'Z',
               },
-              //modifiedTime, <-- why can't I add anything here?
+              {
+                '@datetime':
+                  moment
+                    .utc(s[customFields.pubDate])
+                    .format('YYYY-MM-DDThh:mm:ss.mmm') + 'Z',
+                '@class': 'op_published',
+                '#':
+                  moment
+                    .utc(s[customFields.pubDate])
+                    .format('YYYY-MM-DDThh:mm:ss.mmm') + 'Z',
+              },
+            ],
+            address: {
+              //a list of authors
+              ...((author = jmespath.search(s, 'credits.by[].name')) &&
+                author && {
+                  a: author.map((s) => s.toUpperCase()),
+                }),
             },
-            {
-              '@datetime':
-                moment
-                  .utc(s[customFields.pubDate])
-                  .format('YYYY-MM-DDThh:mm:ss.mmm') + 'Z',
-              '@class': 'op_published',
-              //publishedTime
-            },
-          ],
+            /*...(customFields.includePromo && {
+                  figure : {
+                    '@class' : 'fb-feed-cover',
+                    img: {
+                      '@src' : buildResizerURL(customFields.url, customFields.resizerKey, customFields.resizerURL),
+                    },
+                    ...(customFields.img.caption &&
+                      {
+                        figcaption: {
+                          '@class': 'op-vertical-below op-small',
+                          '#': {
+                            '#': customFields.img.caption,
+                            cite: {
+                              '@class': "op-small"
+                              //FILL THIS IN
+                            }
+                          }
+                        }
+                      }),
+                    //<cite class="op-small">(GETTY IMAGES/ISTOCKPHOTO)</cite> add customField
+                  },
+            }),*/
+          },
         },
-        address: {
-          //a list of authors
-          ...((author = jmespath.search(s, 'credits.by[].name')) &&
-            author && {
-              a: author.map((s) => s.toUpperCase()),
-            }),
-        },
-        /*...figure : {
-              '@class' =
-            }
-          ...p : {
-               '@id' =
-
-            }*/
-
+        '#': this.buildContentElements(s, numRows, domain),
         footer: {
           small:
             customFields.channelCopyright ||
@@ -357,11 +377,39 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
           if (Array.isArray(item) && item.length === 0) {
             item = ''
           }
+
           console.log(item)
           item && body.push(item)
         }
       })
       return body.length ? fragment(body).toString() : ''
+    }
+    this.image = (element, resizerKey, resizerURL) => {
+      return {
+        figure: {
+          img: {
+            '@': {
+              src: buildResizerURL(element.url, resizerKey, resizerURL),
+            },
+          },
+          ...(element.caption && { figcaption: element.caption }),
+        },
+      }
+    }
+    this.text = (element) => {
+      // handle text, raw_html
+      // all have a string in element.content
+      // this is also used by buildContentQuote
+      let item
+      if (element.content && typeof element.content === 'string') {
+        item = {
+          p: {
+            '@id': element._id,
+            '#': element.content,
+          },
+        }
+      }
+      return item
     }
     this.parse = (s, numRows, domain) => {
       const fbiaContent = {
