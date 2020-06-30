@@ -255,28 +255,36 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
                   a: author.map((s) => s.toUpperCase()),
                 }),
             },
-            /*...(customFields.includePromo && {
-                  figure : {
-                    '@class' : 'fb-feed-cover',
-                    img: {
-                      '@src' : buildResizerURL(customFields.url, customFields.resizerKey, customFields.resizerURL),
+            ...(customFields.includePromo && {
+              figure: {
+                '@class': 'fb-feed-cover',
+                img: {
+                  '@src': buildResizerURL(
+                    customFields.url,
+                    customFields.resizerKey,
+                    customFields.resizerURL,
+                  ),
+                },
+                ...(customFields.img.caption && {
+                  figcaption: {
+                    '@class': 'op-vertical-below op-small',
+                    '#': {
+                      '#': customFields.img.caption,
+                      cite: {
+                        '@class': 'op-small',
+                        ...((
+                          jmespath.search(img, customFields.imageCredits) || []
+                        ).length && {
+                          '#': jmespath
+                            .search(img, customFields.imageCredits)
+                            .join(','),
+                        }),
+                      },
                     },
-                    ...(customFields.img.caption &&
-                      {
-                        figcaption: {
-                          '@class': 'op-vertical-below op-small',
-                          '#': {
-                            '#': customFields.img.caption,
-                            cite: {
-                              '@class': "op-small"
-                              //FILL THIS IN
-                            }
-                          }
-                        }
-                      }),
-                    //<cite class="op-small">(GETTY IMAGES/ISTOCKPHOTO)</cite> add customField
                   },
-            }),*/
+                }),
+              },
+            }),
           },
         },
         '#': this.buildContentElements(s, numRows, domain),
@@ -490,3 +498,25 @@ FbiaRss.propTypes = {
 
 FbiaRss.label = 'Facebook IA RSS'
 export default Consumer(FbiaRss)
+
+/*figure : {
+          '@class' : 'fb-feed-cover',
+          img: {
+            '@src' : buildResizerURL(customFields.url, customFields.resizerKey, customFields.resizerURL),
+          },
+          ...(customFields.img.caption &&
+            {
+              figcaption: {
+                '@class': 'op-vertical-below op-small',
+                '#': {
+                  '#': customFields.img.caption,
+                  cite: {
+                    '@class': 'op-small'
+                    '#' :
+                  }
+                }
+              }
+            })*/
+/*...((jmespath.search(img, imageCredits) || []).length && {
+          '#': jmespath.search(img, imageCredits).join(','),
+      }),*/
