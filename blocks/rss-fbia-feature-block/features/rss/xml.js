@@ -198,7 +198,8 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
                 '@content': 'enable=false',
               },
           {
-            '@property': 'op:markup_version', //The version of Instant Articles markup format being used by this article.
+            // The version of Instant Articles markup format being used by this article.
+            '@property': 'op:markup_version',
             '@content': 'v1.0',
           },
           {
@@ -249,7 +250,7 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
               },
             ],
             address: {
-              //a list of authors
+              // a list of authors
               ...((author = jmespath.search(s, 'credits.by[].name')) &&
                 author && {
                   a: author.map((s) => s.toUpperCase()),
@@ -390,7 +391,7 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
       return body.length ? body : ['']
     }
     this.image = (element, resizerKey, resizerURL) => {
-      let credits = jmespath.search(element, 'credits.by[].name') || []
+      const credits = jmespath.search(element, 'credits.by[].name') || []
       return {
         figure: {
           img: {
@@ -466,7 +467,7 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
     fbiaBuildContent,
   })
 }
-//Reference for fb options: https://developers.facebook.com/docs/instant-articles/reference/article/
+// Reference for fb options: https://developers.facebook.com/docs/instant-articles/reference/article/
 FbiaRss.propTypes = {
   customFields: PropTypes.shape({
     channelPath: PropTypes.string.tag({
