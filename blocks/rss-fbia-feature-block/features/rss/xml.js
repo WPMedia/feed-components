@@ -291,10 +291,7 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
         footer: {
           small:
             customFields.channelCopyright ||
-            '© ' +
-              moment.utc(new Date()).year() +
-              ' ' +
-              (feedTitle || `${jmespath.search(s, customFields.channelTitle)}`),
+            '© ' + moment.utc(new Date()).year() + ' ' + feedTitle,
         },
       }
     }
@@ -390,7 +387,7 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
           item && body.push(item)
         }
       })
-      return body.length ? fragment(body).toString() : ''
+      return body.length ? body : ['']
     }
     this.image = (element, resizerKey, resizerURL) => {
       let credits = jmespath.search(element, 'credits.by[].name') || []
@@ -536,25 +533,3 @@ FbiaRss.propTypes = {
 
 FbiaRss.label = 'Facebook IA RSS'
 export default Consumer(FbiaRss)
-
-/*figure : {
-          '@class' : 'fb-feed-cover',
-          img: {
-            '@src' : buildResizerURL(customFields.url, customFields.resizerKey, customFields.resizerURL),
-          },
-          ...(customFields.img.caption &&
-            {
-              figcaption: {
-                '@class': 'op-vertical-below op-small',
-                '#': {
-                  '#': customFields.img.caption,
-                  cite: {
-                    '@class': 'op-small'
-                    '#' :
-                  }
-                }
-              }
-            })*/
-/*...((jmespath.search(img, imageCredits) || []).length && {
-          '#': jmespath.search(img, imageCredits).join(','),
-      }),*/
