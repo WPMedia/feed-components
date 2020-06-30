@@ -265,11 +265,11 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
                     customFields.resizerURL,
                   ),
                 },
-                ...(customFields.img.caption && {
+                ...(customFields.imageCaption && {
                   figcaption: {
                     '@class': 'op-vertical-below op-small',
                     '#': {
-                      '#': customFields.img.caption,
+                      '#': customFields.imageCaption,
                       cite: {
                         '@class': 'op-small',
                         ...((
@@ -393,6 +393,7 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
       return body.length ? fragment(body).toString() : ''
     }
     this.image = (element, resizerKey, resizerURL) => {
+      let credits = jmespath.search(element, 'credits.by[].name') || []
       return {
         figure: {
           img: {
@@ -400,9 +401,46 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
               src: buildResizerURL(element.url, resizerKey, resizerURL),
             },
           },
-          ...(element.caption && { figcaption: element.caption }),
+          ...(element.caption && {
+            figcaption: {
+              '@class': 'op-vertical-below op-small',
+              '#': {
+                '#': element.caption,
+                cite: {
+                  '@class': 'op-small',
+                  ...(credits.length && {
+                    '#': '(' + credits.join(',') + ')',
+                  }),
+                },
+              },
+            },
+          }),
         },
       }
+      /* figure: {
+            '@class': 'fb-feed-cover',
+            img: {
+              '@src': buildResizerURL(
+                customFields.url,
+                customFields.resizerKey,
+                customFields.resizerURL,
+              ),
+            },
+            ...(customFields.imageCaption && {
+              figcaption: {
+                '@class': 'op-vertical-below op-small',
+                '#': {
+                  '#': customFields.imageCaption,
+                  cite: {
+                    '@class': 'op-small',
+                    ...((jmespath.search(img, customFields.imageCredits) || []).length && {
+                      '#': jmespath
+                        .search(img, customFields.imageCredits)
+                        .join(','),
+                    }),
+                  },
+                },
+              }, */
     }
     this.text = (element) => {
       // handle text, raw_html
