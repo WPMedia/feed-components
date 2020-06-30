@@ -414,30 +414,6 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
           }),
         },
       }
-      /* figure: {
-            '@class': 'fb-feed-cover',
-            img: {
-              '@src': buildResizerURL(
-                customFields.url,
-                customFields.resizerKey,
-                customFields.resizerURL,
-              ),
-            },
-            ...(customFields.imageCaption && {
-              figcaption: {
-                '@class': 'op-vertical-below op-small',
-                '#': {
-                  '#': customFields.imageCaption,
-                  cite: {
-                    '@class': 'op-small',
-                    ...((jmespath.search(img, customFields.imageCredits) || []).length && {
-                      '#': jmespath
-                        .search(img, customFields.imageCredits)
-                        .join(','),
-                    }),
-                  },
-                },
-              }, */
     }
     this.text = (element) => {
       // handle text, raw_html
@@ -502,27 +478,27 @@ FbiaRss.propTypes = {
     }),
     articleStyle: PropTypes.string.tag({
       label: 'Article Style',
-      group: 'Item',
+      group: 'Facebook Options',
       description:
         'This parameter is optional and your default style is applied to this article if you do not specify an article style in your markup',
       defaultValue: 'default',
     }),
     likesAndComments: PropTypes.string.tag({
       label: 'Likes and Comments',
-      group: 'Item',
+      group: 'Facebook Options',
       description: 'Enable or disable',
       defaultValue: 'disable',
     }),
     adPlacement: PropTypes.string.tag({
       label: 'Auto Ad Placement',
-      group: 'Item',
+      group: 'Facebook Options',
       description:
         'Enables automatic placement of ads within this article. This parameter is optional and defaults to false if you do not specify',
       defaultValue: 'false',
     }),
     adDensity: PropTypes.string.tag({
       label: 'Ad Density',
-      group: 'Item',
+      group: 'Facebook Options',
       description:
         'How frequently you would like ads to appear in your article: default (<250 word gap), medium (350 word gap), low (>450 word gap)',
       defaultValue: 'default',
