@@ -155,25 +155,24 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
     resizerKey,
     resizeWidth,
     resizeHeight,
-    //img,
     itemTitle,
     itemDescription,
     articleStyle,
     likesAndComments,
     adPlacement,
     adDensity,
+    placementID,
+    adScripts,
   ) {
     BuildContent.call(this)
 
-    this.buildHTMLHeader = (s, domain) => {
+    this.buildHTMLHead = (s, domain) => {
       const img =
         s.promo_items && (s.promo_items.basic || s.promo_items.lead_art)
       const url = `${domain}${s.website_url || s.canonical_url}`
-
       return {
         link: {
-          '@rel':
-            (s.canonical_url && 'canonical') || (s.website_url && 'website'),
+          '@rel': 'canonical',
           '@href': url,
         },
         title: `${jmespath.search(s, itemTitle)}`,
@@ -222,25 +221,53 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
       }
     }
     this.buildHTMLBody = (s, numRows, domain) => {
-      let author
-      const img =
+      const author = jmespath.search(s, 'credits.by[].name')
+      const authorDescription = jmespath.search(s, 'credits.by[].description')
+      const primary_site = jmespath.search(s, 'taxonomy.primary_site.name')
+      const description = jmespath.search(s, itemDescription)
+      const lastUpdatedDate = jmespath.search(s, 'last_updated_date')
+      const image =
         s.promo_items && (s.promo_items.basic || s.promo_items.lead_art)
+
       return {
         article: {
           header: {
+            ...(placementID && {
+              section: {
+                '@class': 'op-ad-template',
+                figure: {
+                  '@class': 'op-ad op-ad-default',
+                  iframe: {
+                    '@': {
+                      width: '300',
+                      height: '250',
+                      style: 'border: 0; margin: 0;',
+                      src:
+                        'https://www.facebook.com/adnw_request?placement=' +
+                        customFields.placementID +
+                        '&adtype=banner300x250',
+                    },
+                  },
+                },
+              },
+            }),
             h1: `${jmespath.search(s, itemTitle)}`,
-            h2: `${jmespath.search(s, itemDescription)}`,
+            ...(description.length && {
+              h2: `${jmespath.search(s, itemDescription)}`,
+            }),
             time: [
               {
                 '@': {
                   datetime:
-                    moment.utc(new Date()).format('YYYY-MM-DDThh:mm:ss.mmm') +
-                    'Z',
+                    moment
+                      .utc(lastUpdatedDate)
+                      .format('YYYY-MM-DDThh:mm:ss.mmm') + 'Z',
                   class: 'op_modified',
                 },
                 '#':
-                  moment.utc(new Date()).format('YYYY-MM-DDThh:mm:ss.mmm') +
-                  'Z',
+                  moment
+                    .utc(lastUpdatedDate)
+                    .format('YYYY-MM-DDThh:mm:ss.mmm') + 'Z',
               },
               {
                 '@datetime':
@@ -256,48 +283,60 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
             ],
             address: {
               // a list of authors
-              ...((author = jmespath.search(s, 'credits.by[].name')) &&
-                author && {
-                  a: author.map((s) => s.toUpperCase()),
-                }),
+              ...(author && {
+                a: author.map((s) => s.toUpperCase()),
+              }),
             },
             ...(customFields.includePromo && {
               figure: {
                 '@class': 'fb-feed-cover',
-                img: {
-                  '@src': buildResizerURL(
-                    customFields.url,
-                    customFields.resizerKey,
-                    customFields.resizerURL,
-                  ),
-                },
-                ...(customFields.imageCaption && {
+                ...(image &&
+                  image.url && {
+                    img: {
+                      '@src': buildResizerURL(
+                        image.url,
+                        customFields.resizerKey,
+                        customFields.resizerURL,
+                      ),
+                    },
+                  }),
+                ...(jmespath.search(image, customFields.imageCaption) && {
                   figcaption: {
                     '@class': 'op-vertical-below op-small',
-                    '#': {
-                      '#': customFields.imageCaption,
+                    '#': `${jmespath.search(image, customFields.imageCaption)}`,
+                    ...((
+                      jmespath.search(image, customFields.imageCredits) || []
+                    ).length && {
                       cite: {
                         '@class': 'op-small',
-                        ...((
-                          jmespath.search(img, customFields.imageCredits) || []
-                        ).length && {
-                          '#': jmespath
-                            .search(img, customFields.imageCredits)
-                            .join(','),
-                        }),
+                        '#': jmespath
+                          .search(image, customFields.imageCredits)
+                          .join(','),
                       },
-                    },
+                    }),
                   },
                 }),
               },
             }),
+            ...(primary_site.length && {
+              h2: {
+                '@class': 'op-kicker',
+                '#': primary_site,
+              },
+            }),
+            ...(adScripts && { '#': adScripts }),
           },
-        },
-        '#': this.buildContentElements(s, numRows, domain),
-        footer: {
-          small:
-            customFields.channelCopyright ||
-            '© ' + moment.utc(new Date()).year() + ' ' + feedTitle,
+          '#': this.buildContentElements(s, numRows, domain),
+          footer: {
+            '#': {
+              ...(authorDescription.length && {
+                aside: authorDescription.join(','),
+              }),
+              small:
+                customFields.channelCopyright ||
+                '© ' + moment.utc(new Date()).year() + ' ' + feedTitle,
+            },
+          },
         },
       }
     }
@@ -388,7 +427,7 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
             item = ''
           }
 
-          console.log(item)
+          //console.log(item)
           item && body.push(item)
         }
       })
@@ -439,7 +478,7 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
       const fbiaContent = {
         html: {
           '@lang': feedLanguage,
-          head: this.buildHTMLHeader(s, domain),
+          head: this.buildHTMLHead(s, domain),
           body: this.buildHTMLBody(s, numRows, domain),
         },
       }
@@ -452,13 +491,14 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
     customFields.resizerKey,
     customFields.resizeWidth,
     customFields.resizeHeight,
-    //customFields.img,
     customFields.itemTitle,
     customFields.itemDescription,
     customFields.articleStyle,
     customFields.likesAndComments,
     customFields.adPlacement,
     customFields.adDensity,
+    customFields.placementID,
+    customFields.adScripts,
   )
 
   // can't return null for xml return type, must return valid xml template
@@ -507,6 +547,20 @@ FbiaRss.propTypes = {
       description:
         'How frequently you would like ads to appear in your article: default (<250 word gap), medium (350 word gap), low (>450 word gap)',
       defaultValue: 'default',
+    }),
+    placementID: PropTypes.string.tag({
+      label: 'Ad Placement ID',
+      group: 'Facebook Options',
+      description:
+        'ID used for recirculation ad placement; leave blank if not used. To obtain one, sign up with Facebook Audience Network and generate a new placement ID.',
+      defaultValue: 'XXXXXXXXXXXX_XXXXXXXXXXXX',
+    }),
+    adScripts: PropTypes.string.tag({
+      label: 'Ad Scripts',
+      group: 'Facebook Options',
+      description:
+        'Javascript can be added to the article for ads and analytics. Multiple scripts can be included, usually each in the own iframe',
+      defaultValue: '',
     }),
     ...generatePropsForFeed('rss', PropTypes, ['channelPath', 'includePromo']),
   }),
