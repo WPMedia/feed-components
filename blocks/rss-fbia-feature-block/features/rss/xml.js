@@ -155,7 +155,7 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
     resizerKey,
     resizeWidth,
     resizeHeight,
-    img,
+    //img,
     itemTitle,
     itemDescription,
     articleStyle,
@@ -166,7 +166,10 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
     BuildContent.call(this)
 
     this.buildHTMLHeader = (s, domain) => {
+      const img =
+        s.promo_items && (s.promo_items.basic || s.promo_items.lead_art)
       const url = `${domain}${s.website_url || s.canonical_url}`
+
       return {
         link: {
           '@rel':
@@ -220,6 +223,8 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
     }
     this.buildHTMLBody = (s, numRows, domain) => {
       let author
+      const img =
+        s.promo_items && (s.promo_items.basic || s.promo_items.lead_art)
       return {
         article: {
           header: {
@@ -300,7 +305,6 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
       let item
       const body = []
       const maxRows = numRows === 'all' ? 9999 : parseInt(numRows)
-      body.push()
       s.content_elements.map((element) => {
         if (body.length <= maxRows) {
           switch (element.type) {
@@ -448,7 +452,7 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
     customFields.resizerKey,
     customFields.resizeWidth,
     customFields.resizeHeight,
-    customFields.img,
+    //customFields.img,
     customFields.itemTitle,
     customFields.itemDescription,
     customFields.articleStyle,
