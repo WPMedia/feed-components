@@ -260,16 +260,10 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
             time: [
               {
                 '@': {
-                  datetime:
-                    moment
-                      .utc(lastUpdatedDate)
-                      .format('YYYY-MM-DDThh:mm:ss.mmm') + 'Z',
+                  datetime: lastUpdatedDate,
                   class: 'op_modified',
                 },
-                '#':
-                  moment
-                    .utc(lastUpdatedDate)
-                    .format('YYYY-MM-DDThh:mm:ss.mmm') + 'Z',
+                '#': lastUpdatedDate,
               },
               {
                 '@datetime': s[customFields.pubDate],
