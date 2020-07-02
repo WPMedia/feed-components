@@ -222,13 +222,12 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
       }
     }
     this.buildHTMLBody = (s, numRows, domain) => {
-      const author = jmespath.search(s, 'credits.by[].name')
       const authorDescription = jmespath.search(s, 'credits.by[].description')
       const lastUpdatedDate = jmespath.search(s, 'last_updated_date')
       const image =
         s.promo_items && (s.promo_items.basic || s.promo_items.lead_art)
-      const primary_site = jmespath.search(s, 'taxonomy.primary_site.name')
-      let category, description
+      const primarySite = jmespath.search(s, 'taxonomy.primary_site.name')
+      let description, author
 
       return {
         article: {
@@ -272,23 +271,19 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
                     .format('YYYY-MM-DDThh:mm:ss.mmm') + 'Z',
               },
               {
-                '@datetime':
-                  moment
-                    .utc(s[customFields.pubDate])
-                    .format('YYYY-MM-DDThh:mm:ss.mmm') + 'Z',
+                '@datetime': s[customFields.pubDate],
                 '@class': 'op_published',
-                '#':
-                  moment
-                    .utc(s[customFields.pubDate])
-                    .format('YYYY-MM-DDThh:mm:ss.mmm') + 'Z',
+                '#': s[customFields.pubDate],
               },
             ],
-            address: {
-              // a list of authors
-              ...(author && {
-                a: author.map((s) => s.toUpperCase()),
+            ...(customFields.itemCredits &&
+              (author = jmespath.search(s, customFields.itemCredits)) &&
+              author && {
+                address: {
+                  // a list of authors
+                  a: author.map((s) => s.toUpperCase()),
+                },
               }),
-            },
             ...(customFields.includePromo && {
               figure: {
                 '@class': 'fb-feed-cover',
@@ -324,10 +319,10 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
                   }),
               },
             }),
-            ...(primary_site.length && {
+            ...(primarySite.length && {
               h2: {
                 '@class': 'op-kicker',
-                '#': primary_site,
+                '#': primarySite,
               },
             }),
             ...(adScripts && { '#': adScripts }),
@@ -432,8 +427,6 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
           if (Array.isArray(item) && item.length === 0) {
             item = ''
           }
-
-          //console.log(item)
           item && body.push(item)
         }
       })
@@ -453,12 +446,12 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
               '@class': 'op-vertical-below op-small',
               '#': {
                 '#': element.caption,
-                cite: {
-                  '@class': 'op-small',
-                  ...(credits.length && {
+                ...(credits.length && {
+                  cite: {
+                    '@class': 'op-small',
                     '#': '(' + credits.join(',') + ')',
-                  }),
-                },
+                  },
+                }),
               },
             },
           }),
