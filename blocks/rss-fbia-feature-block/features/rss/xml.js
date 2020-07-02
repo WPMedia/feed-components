@@ -253,7 +253,8 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
             }),
             h1: `${jmespath.search(s, itemTitle)}`,
             ...(itemDescription &&
-              (description = jmespath.search(s, itemDescription)) && {
+              (description = jmespath.search(s, itemDescription)) &&
+              description && {
                 h2: `${jmespath.search(s, itemDescription)}`,
               }),
             time: [
@@ -284,41 +285,41 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
                   a: author.map((s) => s.toUpperCase()),
                 },
               }),
-            ...(customFields.includePromo && {
-              figure: {
-                '@class': 'fb-feed-cover',
-                ...(image &&
-                  image.url && {
-                    img: {
-                      '@src': buildResizerURL(
-                        image.url,
-                        customFields.resizerKey,
-                        customFields.resizerURL,
-                      ),
-                    },
-                  }),
-                ...(customFields.imageCaption &&
-                  jmespath.search(image, customFields.imageCaption) && {
-                    figcaption: {
-                      '@class': 'op-vertical-below op-small',
-                      '#': `${jmespath.search(
-                        image,
-                        customFields.imageCaption,
-                      )}`,
-                      ...((
-                        jmespath.search(image, customFields.imageCredits) || []
-                      ).length && {
-                        cite: {
-                          '@class': 'op-small',
-                          '#': jmespath
-                            .search(image, customFields.imageCredits)
-                            .join(','),
-                        },
-                      }),
-                    },
-                  }),
-              },
-            }),
+            ...(customFields.includePromo &&
+              image &&
+              image.url && {
+                figure: {
+                  '@class': 'fb-feed-cover',
+                  img: {
+                    '@src': buildResizerURL(
+                      image.url,
+                      customFields.resizerKey,
+                      customFields.resizerURL,
+                    ),
+                  },
+                  ...(customFields.imageCaption &&
+                    jmespath.search(image, customFields.imageCaption) && {
+                      figcaption: {
+                        '@class': 'op-vertical-below op-small',
+                        '#': `${jmespath.search(
+                          image,
+                          customFields.imageCaption,
+                        )}`,
+                        ...((
+                          jmespath.search(image, customFields.imageCredits) ||
+                          []
+                        ).length && {
+                          cite: {
+                            '@class': 'op-small',
+                            '#': jmespath
+                              .search(image, customFields.imageCredits)
+                              .join(','),
+                          },
+                        }),
+                      },
+                    }),
+                },
+              }),
             ...(primarySite.length && {
               h2: {
                 '@class': 'op-kicker',
