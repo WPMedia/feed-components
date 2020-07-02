@@ -271,8 +271,7 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
                 '#': s[customFields.pubDate],
               },
             ],
-            ...(customFields.itemCredits &&
-              (author = jmespath.search(s, customFields.itemCredits)) &&
+            ...((author = jmespath.search(s, 'credits.by[].name')) &&
               author && {
                 address: {
                   // a list of authors
@@ -478,6 +477,15 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
       }
       return '<!doctype html>'.concat(fragment(fbiaContent).toString())
     }
+    this.header = (element) => {
+      let item
+      if (element.content && typeof element.content === 'string') {
+        item = {}
+        item[`h${element.level ? (element.level < 2 ? 1 : 2) : 1}`] =
+          element.content
+      }
+      return item
+    }
   }
 
   const fbiaBuildContent = new FbiaBuildContent(
@@ -557,7 +565,7 @@ FbiaRss.propTypes = {
         'Javascript can be added to the article for ads and analytics. Multiple scripts can be included, usually each in the own iframe',
       defaultValue: '',
     }),
-    ...generatePropsForFeed('rss', PropTypes, ['channelPath', 'includePromo']),
+    ...generatePropsForFeed('rss', PropTypes),
   }),
 }
 
