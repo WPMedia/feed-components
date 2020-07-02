@@ -157,6 +157,7 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
     resizeHeight,
     itemTitle,
     itemDescription,
+    itemCategory,
     articleStyle,
     likesAndComments,
     adPlacement,
@@ -223,11 +224,11 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
     this.buildHTMLBody = (s, numRows, domain) => {
       const author = jmespath.search(s, 'credits.by[].name')
       const authorDescription = jmespath.search(s, 'credits.by[].description')
-      const primary_site = jmespath.search(s, 'taxonomy.primary_site.name')
-      const description = jmespath.search(s, itemDescription)
       const lastUpdatedDate = jmespath.search(s, 'last_updated_date')
       const image =
         s.promo_items && (s.promo_items.basic || s.promo_items.lead_art)
+      const primary_site = jmespath.search(s, 'taxonomy.primary_site.name')
+      let category, description
 
       return {
         article: {
@@ -252,9 +253,10 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
               },
             }),
             h1: `${jmespath.search(s, itemTitle)}`,
-            ...(description.length && {
-              h2: `${jmespath.search(s, itemDescription)}`,
-            }),
+            ...(itemDescription &&
+              (description = jmespath.search(s, itemDescription)) && {
+                h2: `${jmespath.search(s, itemDescription)}`,
+              }),
             time: [
               {
                 '@': {
@@ -300,22 +302,26 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
                       ),
                     },
                   }),
-                ...(jmespath.search(image, customFields.imageCaption) && {
-                  figcaption: {
-                    '@class': 'op-vertical-below op-small',
-                    '#': `${jmespath.search(image, customFields.imageCaption)}`,
-                    ...((
-                      jmespath.search(image, customFields.imageCredits) || []
-                    ).length && {
-                      cite: {
-                        '@class': 'op-small',
-                        '#': jmespath
-                          .search(image, customFields.imageCredits)
-                          .join(','),
-                      },
-                    }),
-                  },
-                }),
+                ...(customFields.imageCaption &&
+                  jmespath.search(image, customFields.imageCaption) && {
+                    figcaption: {
+                      '@class': 'op-vertical-below op-small',
+                      '#': `${jmespath.search(
+                        image,
+                        customFields.imageCaption,
+                      )}`,
+                      ...((
+                        jmespath.search(image, customFields.imageCredits) || []
+                      ).length && {
+                        cite: {
+                          '@class': 'op-small',
+                          '#': jmespath
+                            .search(image, customFields.imageCredits)
+                            .join(','),
+                        },
+                      }),
+                    },
+                  }),
               },
             }),
             ...(primary_site.length && {
@@ -493,6 +499,7 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
     customFields.resizeHeight,
     customFields.itemTitle,
     customFields.itemDescription,
+    customFields.itemCategory,
     customFields.articleStyle,
     customFields.likesAndComments,
     customFields.adPlacement,

@@ -1,4 +1,4 @@
-# RSS
+# Facebook Instant Articles
 
 ## Globals
 
@@ -26,8 +26,15 @@ itemCategory: jmespath for category mapping headlines.basic
 includeContent: number of paragraphs to include 0-10, all
 
 includePromo: bool to include promo image
-imageTitle defaults to title
-imageCaption defaults to caption
-ImageCredits defaults to credits.by[].name
+imageTitle: defaults to title
+imageCaption: defaults to caption
+ImageCredits: defaults to credits.by[].name
+
+articleStyle: This parameter is optional and your default style is applied to this article if you do not specify an article style in your markup
+likesAndComments: Enable or disable, defaults to disable
+adPlacement: Enables automatic placement of ads within this article. This parameter is optional and defaults to false if you do not specify
+adDensity: How frequently you would like ads to appear in your article: default (<250 word gap), medium (350 word gap), low (>450 word gap)
+placementID: ID used for recirculation ad placement; leave blank if not used. To obtain one, sign up with Facebook Audience Network and generate a new placement ID.
+adScripts: Javascript can be added to the article for ads and analytics. Multiple scripts can be included, usually each in the own iframe
 
 ### Usage
