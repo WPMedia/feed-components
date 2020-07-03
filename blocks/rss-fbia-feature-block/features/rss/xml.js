@@ -84,7 +84,6 @@ const rssTemplate = (
         const url = `${domain}${s.website_url || s.canonical_url}`
         const img =
           s.promo_items && (s.promo_items.basic || s.promo_items.lead_art)
-        console.log(s._id)
         return {
           title: `${jmespath.search(s, itemTitle)}`,
           link: url,
@@ -152,7 +151,6 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
 
   function FbiaBuildContent(
     domain,
-    resizerKey,
     resizeWidth,
     resizeHeight,
     itemTitle,
@@ -228,7 +226,6 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
         s.promo_items && (s.promo_items.basic || s.promo_items.lead_art)
       const primarySite = jmespath.search(s, 'taxonomy.primary_site.name')
       let description, author
-
       return {
         article: {
           header: {
@@ -284,11 +281,7 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
                 figure: {
                   '@class': 'fb-feed-cover',
                   img: {
-                    '@src': buildResizerURL(
-                      image.url,
-                      customFields.resizerKey,
-                      customFields.resizerURL,
-                    ),
+                    '@src': buildResizerURL(image.url, resizerKey, resizerURL),
                   },
                   ...(customFields.imageCaption &&
                     jmespath.search(image, customFields.imageCaption) && {
@@ -319,7 +312,9 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
                 '#': primarySite,
               },
             }),
-            ...(adScripts && { '#': adScripts }),
+            ...(adScripts && {
+              '#': [adScripts],
+            }),
           },
           '#': this.buildContentElements(s, numRows, domain),
           footer: {
@@ -467,16 +462,6 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
       }
       return item
     }
-    this.parse = (s, numRows, domain) => {
-      const fbiaContent = {
-        html: {
-          '@lang': feedLanguage,
-          head: this.buildHTMLHead(s, domain),
-          body: this.buildHTMLBody(s, numRows, domain),
-        },
-      }
-      return '<!doctype html>'.concat(fragment(fbiaContent).toString())
-    }
     this.header = (element) => {
       let item
       if (element.content && typeof element.content === 'string') {
@@ -486,11 +471,21 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
       }
       return item
     }
+    this.parse = (s, numRows, domain) => {
+      const fbiaContent = {
+        html: {
+          '@lang': feedLanguage,
+          head: this.buildHTMLHead(s, domain),
+          body: this.buildHTMLBody(s, numRows, domain),
+        },
+      }
+      //console.log(require("xmlbuilder2").convert(fbiaContent,{noDoubleEncoding: false}))
+      return '<!doctype html>'.concat(fragment(fbiaContent).toString())
+    }
   }
 
   const fbiaBuildContent = new FbiaBuildContent(
     customFields.domain,
-    customFields.resizerKey,
     customFields.resizeWidth,
     customFields.resizeHeight,
     customFields.itemTitle,
