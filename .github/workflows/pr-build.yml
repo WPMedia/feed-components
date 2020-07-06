@@ -5,9 +5,9 @@ name: Pull request builder
 
 on:
   push:
-    branches: [master]
+    branches: [prod]
   pull_request:
-    branches: [master]
+    branches: [prod]
 
 jobs:
   build:
