@@ -479,7 +479,6 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
           body: this.buildHTMLBody(s, numRows, domain),
         },
       }
-      //console.log(require("xmlbuilder2").convert(fbiaContent,{noDoubleEncoding: false}))
       return '<!doctype html>'.concat(fragment(fbiaContent).toString())
     }
   }
