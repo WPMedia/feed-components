@@ -1,5 +1,11 @@
 # @wpmedia/sitemaps-feature-block
 
+## 0.1.0
+
+### Minor Changes
+
+- [`ad6abdd`](https://github.com/WPMedia/feed-components/commit/ad6abddd44f36241d3f2b4169111fcd36c295be3) [#106](https://github.com/WPMedia/feed-components/pull/106) Thanks [@tbrick855](https://github.com/tbrick855)! - AIO-3 - Facebook IA
+
 ## 0.2.0
 
 ### Minor Changes
