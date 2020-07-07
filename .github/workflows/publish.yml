@@ -11,10 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
-        uses: actions/checkout@prod
+        uses: actions/checkout@master
 
       - name: Setup Node.js 10.x
-        uses: actions/setup-node@prod
+        uses: actions/setup-node@master
         with:
           node-version: 10.x
           registry-url: https://npm.pkg.github.com
