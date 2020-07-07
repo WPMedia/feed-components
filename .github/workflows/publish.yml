@@ -28,7 +28,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Create Release Pull Request or Publish to npm
-        uses: changesets/action@prod
+        uses: changesets/action@master
         with:
           # this expects you to have a script called release which does a build for your packages and calls changeset publish
           publish: npm run release
