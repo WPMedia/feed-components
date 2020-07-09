@@ -160,7 +160,7 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
     likesAndComments,
     adPlacement,
     adDensity,
-    placementID,
+    placementSection,
     adScripts,
   ) {
     BuildContent.call(this)
@@ -224,30 +224,15 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
       const lastUpdatedDate = jmespath.search(s, 'last_updated_date')
       const image =
         s.promo_items && (s.promo_items.basic || s.promo_items.lead_art)
-      const primarySite = jmespath.search(s, 'taxonomy.primary_site.name')
+      const primarySite = jmespath.search(s, 'taxonomy.primary_section.name')
       let description, author
       return {
         article: {
           header: {
-            ...(placementID && {
-              section: {
-                '@class': 'op-ad-template',
-                figure: {
-                  '@class': 'op-ad op-ad-default',
-                  iframe: {
-                    '@': {
-                      width: '300',
-                      height: '250',
-                      style: 'border: 0; margin: 0;',
-                      src:
-                        'https://www.facebook.com/adnw_request?placement=' +
-                        customFields.placementID +
-                        '&adtype=banner300x250',
-                    },
-                  },
-                },
-              },
+            ...(placementSection && {
+              '#': [placementSection],
             }),
+            //'#': [placementSection],
             h1: `${jmespath.search(s, itemTitle)}`,
             ...(itemDescription &&
               (description = jmespath.search(s, itemDescription)) &&
@@ -494,7 +479,7 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
     customFields.likesAndComments,
     customFields.adPlacement,
     customFields.adDensity,
-    customFields.placementID,
+    customFields.placementSection,
     customFields.adScripts,
   )
 
@@ -545,12 +530,12 @@ FbiaRss.propTypes = {
         'How frequently you would like ads to appear in your article: default (<250 word gap), medium (350 word gap), low (>450 word gap)',
       defaultValue: 'default',
     }),
-    placementID: PropTypes.string.tag({
-      label: 'Ad Placement ID',
+    placementSection: PropTypes.string.tag({
+      label: 'Ad Placement Section',
       group: 'Facebook Options',
       description:
-        'ID used for recirculation ad placement; leave blank if not used. To obtain one, sign up with Facebook Audience Network and generate a new placement ID.',
-      defaultValue: 'XXXXXXXXXXXX_XXXXXXXXXXXX',
+        'Javascript for recirculation ad placement; leave blank if not used. To obtain placement ID, sign up with Facebook Audience Network.',
+      defaultValue: '',
     }),
     adScripts: PropTypes.string.tag({
       label: 'Ad Scripts',
