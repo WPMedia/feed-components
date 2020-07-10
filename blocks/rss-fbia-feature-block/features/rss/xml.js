@@ -161,7 +161,6 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
     adPlacement,
     adDensity,
     placementSection,
-    placementID,
     adScripts,
   ) {
     BuildContent.call(this)
@@ -230,32 +229,11 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
       return {
         article: {
           header: {
-            ...((placementID || placementSection) && {
-              ...(placementID && {
-                section: {
-                  '@class': 'op-ad-template',
-                  figure: {
-                    '@class': 'op-ad op-ad-default',
-                    iframe: {
-                      '@': {
-                        width: '300',
-                        height: '250',
-                        style: 'border: 0; margin: 0;',
-                        src:
-                          'https://www.facebook.com/adnw_request?placement=' +
-                          placementID +
-                          '&adtype=banner300x250',
-                      },
-                    },
-                  },
-                },
-              }),
-              ...(placementSection && {
-                section: {
-                  '@class': 'op-ad-template',
-                  '#': [placementSection],
-                },
-              }),
+            ...(placementSection && {
+              section: {
+                '@class': 'op-ad-template',
+                '#': [placementSection],
+              },
             }),
             h1: `${jmespath.search(s, itemTitle)}`,
             ...(itemDescription &&
@@ -316,16 +294,18 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
                 },
               }),
             ...(primarySite.length && {
-              h2: {
-                '@class': 'op-kicker',
-                '#': primarySite,
-              },
-            }),
-            ...(adScripts && {
-              '#': [adScripts],
+              h2: [
+                {
+                  '@class': 'op-kicker',
+                  '#': primarySite,
+                },
+              ],
             }),
           },
           '#': this.buildContentElements(s, numRows, domain),
+          ...(adScripts && {
+            '#': [adScripts],
+          }),
           footer: {
             '#': {
               ...(authorDescription.length && {
@@ -504,7 +484,6 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
     customFields.adPlacement,
     customFields.adDensity,
     customFields.placementSection,
-    customFields.placementID,
     customFields.adScripts,
   )
 
@@ -562,18 +541,11 @@ FbiaRss.propTypes = {
         'Enter Javascript that goes between <section class="op-ad-template"></section> in beginning of the body\'s header for recirculation ads that come from Facebook advertisers; leave blank if not used.',
       defaultValue: '',
     }),
-    placementID: PropTypes.string.tag({
-      label: 'Facebook Ad Default Template',
-      group: 'Facebook Options',
-      description:
-        "Ad Placement ID used for recirculation ad placement if default 'op-ad template' is being used. To obtain one, sign up with Facebook Audience Network and generate a new placement ID.",
-      defaultValue: '',
-    }),
     adScripts: PropTypes.string.tag({
       label: 'Analytic Scripts',
       group: 'Facebook Options',
       description:
-        'Javascript can be added to the article for ads and analytics. Multiple scripts can be included, usually each in the own iframe',
+        'Javascript wrapped in the <figure class=‘op-tracker’> tag can be added to the article for ads and analytics. Multiple scripts can be included, usually each in the own iframe',
       defaultValue: '',
     }),
     ...generatePropsForFeed('rss', PropTypes),
