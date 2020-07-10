@@ -171,13 +171,7 @@ export function FlipboardRss({ globalContent, customFields, arcSite }) {
             '@': {
               alt: element.caption || '',
               ...(element.height && { height: element.height }),
-              src: buildResizerURL(
-                element.url,
-                resizerKey,
-                resizerURL,
-                img.width,
-                img.height,
-              ),
+              src: buildResizerURL(element.url, resizerKey, resizerURL),
               ...(element.width && { width: element.width }),
             },
           },
