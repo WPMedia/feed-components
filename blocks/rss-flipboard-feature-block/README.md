@@ -1,4 +1,4 @@
-# RSS
+# Flipboard RSS
 
 ## Globals
 
