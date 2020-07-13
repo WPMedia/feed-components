@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import Consumer from 'fusion:consumer'
-import { GoogleNewsRss } from './xml'
+import { FlipboardRss } from './xml'
 
 const articles = {
   content_elements: [
@@ -45,7 +45,7 @@ const articles = {
 }
 
 it('returns Google News template with default values', () => {
-  const rss = GoogleNewsRss({
+  const rss = FlipboardRss({
     arcSite: 'demo',
     globalContent: {
       ...articles,
@@ -84,7 +84,7 @@ it('returns Google News template with default values', () => {
 })
 
 it('returns RSS template with custom values', () => {
-  const rss = GoogleNewsRss({
+  const rss = FlipboardRss({
     arcSite: 'demo',
     globalContent: {
       ...articles,
