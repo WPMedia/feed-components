@@ -302,10 +302,10 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
               ],
             }),
           },
-          '#': this.buildContentElements(s, numRows, domain),
-          ...(adScripts && {
-            '#': [adScripts],
-          }),
+          '#': [
+            this.buildContentElements(s, numRows, domain),
+            ...(adScripts && [adScripts]),
+          ],
           footer: {
             '#': {
               ...(authorDescription.length && {
