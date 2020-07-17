@@ -225,82 +225,85 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
       const image =
         s.promo_items && (s.promo_items.basic || s.promo_items.lead_art)
       const primarySite = jmespath.search(s, 'taxonomy.primary_section.name')
+      const header = []
       let description, author
+      if (placementSection)
+        header.push({
+          section: {
+            '@class': 'op-ad-template',
+            '#': [placementSection],
+          },
+        })
+
+      header.push({ h1: `${jmespath.search(s, itemTitle)}` })
+
+      if (
+        itemDescription &&
+        (description = jmespath.search(s, itemDescription)) &&
+        description
+      )
+        header.push({ h2: `${jmespath.search(s, itemDescription)}` })
+
+      header.push({
+        time: [
+          {
+            '@': {
+              datetime: lastUpdatedDate,
+              class: 'op_modified',
+            },
+            '#': lastUpdatedDate,
+          },
+          {
+            '@datetime': s[customFields.pubDate],
+            '@class': 'op_published',
+            '#': s[customFields.pubDate],
+          },
+        ],
+      })
+
+      if ((author = jmespath.search(s, 'credits.by[].name')) && author)
+        header.push({
+          address: {
+            // a list of authors
+            a: author.map((s) => s.toUpperCase()),
+          },
+        })
+      if (customFields.includePromo && image && image.url)
+        header.push({
+          figure: {
+            '@class': 'fb-feed-cover',
+            img: {
+              '@src': buildResizerURL(image.url, resizerKey, resizerURL),
+            },
+            ...(customFields.imageCaption &&
+              jmespath.search(image, customFields.imageCaption) && {
+                figcaption: {
+                  '@class': 'op-vertical-below op-small',
+                  '#': `${jmespath.search(image, customFields.imageCaption)}`,
+                  ...((jmespath.search(image, customFields.imageCredits) || [])
+                    .length && {
+                    cite: {
+                      '@class': 'op-small',
+                      '#': jmespath
+                        .search(image, customFields.imageCredits)
+                        .join(','),
+                    },
+                  }),
+                },
+              }),
+          },
+        })
+      if (primarySite.length)
+        header.push({
+          h2: {
+            '@class': 'op-kicker',
+            '#': primarySite,
+          },
+        })
       return {
         article: {
           header: {
-            ...(placementSection && {
-              section: {
-                '@class': 'op-ad-template',
-                '#': [placementSection],
-              },
-            }),
-            h1: `${jmespath.search(s, itemTitle)}`,
-            ...(itemDescription &&
-              (description = jmespath.search(s, itemDescription)) &&
-              description && {
-                h2: `${jmespath.search(s, itemDescription)}`,
-              }),
-            time: [
-              {
-                '@': {
-                  datetime: lastUpdatedDate,
-                  class: 'op_modified',
-                },
-                '#': lastUpdatedDate,
-              },
-              {
-                '@datetime': s[customFields.pubDate],
-                '@class': 'op_published',
-                '#': s[customFields.pubDate],
-              },
-            ],
-            ...((author = jmespath.search(s, 'credits.by[].name')) &&
-              author && {
-                address: {
-                  // a list of authors
-                  a: author.map((s) => s.toUpperCase()),
-                },
-              }),
-            ...(customFields.includePromo &&
-              image &&
-              image.url && {
-                figure: {
-                  '@class': 'fb-feed-cover',
-                  img: {
-                    '@src': buildResizerURL(image.url, resizerKey, resizerURL),
-                  },
-                  ...(customFields.imageCaption &&
-                    jmespath.search(image, customFields.imageCaption) && {
-                      figcaption: {
-                        '@class': 'op-vertical-below op-small',
-                        '#': `${jmespath.search(
-                          image,
-                          customFields.imageCaption,
-                        )}`,
-                        ...((
-                          jmespath.search(image, customFields.imageCredits) ||
-                          []
-                        ).length && {
-                          cite: {
-                            '@class': 'op-small',
-                            '#': jmespath
-                              .search(image, customFields.imageCredits)
-                              .join(','),
-                          },
-                        }),
-                      },
-                    }),
-                },
-              }),
-            ...(primarySite.length && {
-              h2: [
-                {
-                  '@class': 'op-kicker',
-                  '#': primarySite,
-                },
-              ],
-            }),
+            '#': header,
           },
           '#': [
             this.buildContentElements(s, numRows, domain),
