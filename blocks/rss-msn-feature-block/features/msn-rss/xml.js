@@ -137,6 +137,7 @@ const rssTemplate = (
                   },
                 }),
               },
+              'media:text': `${channelTitle || feedTitle}`,
             }),
         }
       }),
