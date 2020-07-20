@@ -462,7 +462,7 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
         embed &&
         (element.subtype === 'twitter' || element.subtype === 'instagram')
       ) {
-        let idx = embed.indexOf('</blockquote>')
+        const idx = embed.indexOf('</blockquote>')
         embed = embed.substring(0, idx + 13)
       }
 
