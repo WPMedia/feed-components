@@ -25,7 +25,6 @@ pubDate: date field defaults to display_date
 itemCategory: jmespath for category mapping headlines.basic
 includeContent: number of paragraphs to include 0-10, all
 
-includePromo: bool to include promo image
 imageTitle defaults to title
 imageCaption defaults to caption
 ImageCredits defaults to credits.by[].name

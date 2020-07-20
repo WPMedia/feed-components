@@ -46,8 +46,8 @@ const rssTemplate = (
     '@xmlns:media': 'http://search.yahoo.com/mrss/',
     '@version': '2.0',
     channel: {
-      title: `${channelTitle || feedTitle}`,
-      link: `${domain}`,
+      title: channelTitle || feedTitle,
+      link: domain,
       'atom:link': {
         '@href': `${domain}${channelPath}`,
         '@rel': 'self',
@@ -125,6 +125,8 @@ const rssTemplate = (
                   img.width,
                   img.height,
                 ),
+                ...(img.width && { '@width': img.width }),
+                ...(img.height && { '@height': img.height }),
                 ...(jmespath.search(img, imageCaption) && {
                   'media:description': {
                     '@type': 'plain',
@@ -143,8 +145,6 @@ const rssTemplate = (
                     '#': jmespath.search(img, imageCredits).join(','),
                   },
                 }),
-                ...(img.width && { width: img.width }),
-                ...(img.height && { height: img.height }),
               },
             }),
         }
@@ -200,10 +200,10 @@ FlipboardRss.propTypes = {
       label: 'Path',
       group: 'Channel',
       description:
-        'Path to the feed excluding the domain, defaults to /arcio/google-news-feed',
-      defaultValue: '/arcio/google-news-feed/',
+        'Path to the feed excluding the domain, defaults to /arcio/flipboard',
+      defaultValue: '/arcio/flipboard/',
     }),
-    ...generatePropsForFeed('rss', PropTypes, ['channelPath', 'includePromo']),
+    ...generatePropsForFeed('rss', PropTypes, ['channelPath']),
   }),
 }
 
