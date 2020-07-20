@@ -36,6 +36,5 @@ adPlacement: Enables automatic placement of ads within this article. This parame
 adDensity: How frequently you would like ads to appear in your article: default (<250 word gap), medium (350 word gap), low (>450 word gap)
 placementSection: Enter Javascript that goes between <section class="op-ad-template"></section> in beginning of the body\'s header for recirculation ads that come from Facebook advertisers; leave blank if not used.,
 adScripts: Javascript wrapped in the <figure class=‘op-tracker’> tag can be added to the article for ads and analytics. Multiple scripts can be included, usually each in the own iframe
-iframeDefaultWidth: The width of your embed in CSS pixels.
 
 ### Usage

@@ -162,7 +162,6 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
     adDensity,
     placementSection,
     adScripts,
-    iframeDefaultWidth,
   ) {
     BuildContent.call(this)
 
@@ -471,7 +470,6 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
         figure: {
           '@class': 'op-interactive',
           iframe: {
-            '@width': iframeDefaultWidth || '',
             '#': embed,
           },
         },
@@ -511,7 +509,6 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
     customFields.adDensity,
     customFields.placementSection,
     customFields.adScripts,
-    customFields.iframeDefaultWidth,
   )
 
   // can't return null for xml return type, must return valid xml template
@@ -573,12 +570,6 @@ FbiaRss.propTypes = {
       group: 'Facebook Options',
       description:
         'Javascript wrapped in the <figure class=‘op-tracker’> tag can be added to the article for ads and analytics. Multiple scripts can be included, usually each in the own iframe',
-      defaultValue: '',
-    }),
-    iframeDefaultWidth: PropTypes.string.tag({
-      label: 'Default Embed Width',
-      group: 'Facebook Options',
-      description: 'The width of your embed in CSS pixels.',
       defaultValue: '',
     }),
     ...generatePropsForFeed('rss', PropTypes),
