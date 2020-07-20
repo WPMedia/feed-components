@@ -162,6 +162,7 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
     adDensity,
     placementSection,
     adScripts,
+    iframeDefaultWidth,
   ) {
     BuildContent.call(this)
 
@@ -454,6 +455,28 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
       }
       return item
     }
+    // noinspection SpellCheckingInspection
+    this.oembed = (element) => {
+      let embed = element.raw_oembed.html // some <blockquote> have a <script> at then end, remove the script tag
+
+      if (
+        embed &&
+        (element.subtype === 'twitter' || element.subtype === 'instagram')
+      ) {
+        let idx = embed.indexOf('</blockquote>')
+        embed = embed.substring(0, idx + 13)
+      }
+
+      return {
+        figure: {
+          '@class': 'op-interactive',
+          iframe: {
+            '@width': iframeDefaultWidth || '',
+            '#': embed,
+          },
+        },
+      }
+    }
     this.header = (element) => {
       let item
       if (element.content && typeof element.content === 'string') {
@@ -488,6 +511,7 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
     customFields.adDensity,
     customFields.placementSection,
     customFields.adScripts,
+    customFields.iframeDefaultWidth,
   )
 
   // can't return null for xml return type, must return valid xml template
@@ -549,6 +573,12 @@ FbiaRss.propTypes = {
       group: 'Facebook Options',
       description:
         'Javascript wrapped in the <figure class=‘op-tracker’> tag can be added to the article for ads and analytics. Multiple scripts can be included, usually each in the own iframe',
+      defaultValue: '',
+    }),
+    iframeDefaultWidth: PropTypes.string.tag({
+      label: 'Default Embed Width',
+      group: 'Facebook Options',
+      description: 'The width of your embed in CSS pixels.',
       defaultValue: '',
     }),
     ...generatePropsForFeed('rss', PropTypes),
