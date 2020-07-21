@@ -28,6 +28,7 @@
     "@wpmedia/feeds-prop-types": "0.4.0",
     "@wpmedia/feeds-resizer": "^0.2.2",
     "jmespath": "^0.15.0",
-    "moment": "^2.24.0"
+    "moment": "^2.24.0",
+    "xmlbuilder2": "2.1.7"
   }
 }

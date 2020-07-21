@@ -160,7 +160,7 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
     likesAndComments,
     adPlacement,
     adDensity,
-    placementID,
+    placementSection,
     adScripts,
   ) {
     BuildContent.call(this)
@@ -224,99 +224,91 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
       const lastUpdatedDate = jmespath.search(s, 'last_updated_date')
       const image =
         s.promo_items && (s.promo_items.basic || s.promo_items.lead_art)
-      const primarySite = jmespath.search(s, 'taxonomy.primary_site.name')
+      const primarySite = jmespath.search(s, 'taxonomy.primary_section.name')
+      const header = []
       let description, author
+      if (placementSection)
+        header.push({
+          section: {
+            '@class': 'op-ad-template',
+            '#': [placementSection],
+          },
+        })
+
+      header.push({ h1: `${jmespath.search(s, itemTitle)}` })
+
+      if (
+        itemDescription &&
+        (description = jmespath.search(s, itemDescription)) &&
+        description
+      )
+        header.push({ h2: `${jmespath.search(s, itemDescription)}` })
+
+      header.push({
+        time: [
+          {
+            '@': {
+              datetime: lastUpdatedDate,
+              class: 'op_modified',
+            },
+            '#': lastUpdatedDate,
+          },
+          {
+            '@datetime': s[customFields.pubDate],
+            '@class': 'op_published',
+            '#': s[customFields.pubDate],
+          },
+        ],
+      })
+
+      if ((author = jmespath.search(s, 'credits.by[].name')) && author)
+        header.push({
+          address: {
+            // a list of authors
+            a: author.map((s) => s.toUpperCase()),
+          },
+        })
+      if (customFields.includePromo && image && image.url)
+        header.push({
+          figure: {
+            '@class': 'fb-feed-cover',
+            img: {
+              '@src': buildResizerURL(image.url, resizerKey, resizerURL),
+            },
+            ...(customFields.imageCaption &&
+              jmespath.search(image, customFields.imageCaption) && {
+                figcaption: {
+                  '@class': 'op-vertical-below op-small',
+                  '#': `${jmespath.search(image, customFields.imageCaption)}`,
+                  ...((jmespath.search(image, customFields.imageCredits) || [])
+                    .length && {
+                    cite: {
+                      '@class': 'op-small',
+                      '#': jmespath
+                        .search(image, customFields.imageCredits)
+                        .join(','),
+                    },
+                  }),
+                },
+              }),
+          },
+        })
+      if (primarySite.length)
+        header.push({
+          h2: {
+            '@class': 'op-kicker',
+            '#': primarySite,
+          },
+        })
       return {
         article: {
           header: {
-            ...(placementID && {
-              section: {
-                '@class': 'op-ad-template',
-                figure: {
-                  '@class': 'op-ad op-ad-default',
-                  iframe: {
-                    '@': {
-                      width: '300',
-                      height: '250',
-                      style: 'border: 0; margin: 0;',
-                      src:
-                        'https://www.facebook.com/adnw_request?placement=' +
-                        customFields.placementID +
-                        '&adtype=banner300x250',
-                    },
-                  },
-                },
-              },
-            }),
-            h1: `${jmespath.search(s, itemTitle)}`,
-            ...(itemDescription &&
-              (description = jmespath.search(s, itemDescription)) &&
-              description && {
-                h2: `${jmespath.search(s, itemDescription)}`,
-              }),
-            time: [
-              {
-                '@': {
-                  datetime: lastUpdatedDate,
-                  class: 'op_modified',
-                },
-                '#': lastUpdatedDate,
-              },
-              {
-                '@datetime': s[customFields.pubDate],
-                '@class': 'op_published',
-                '#': s[customFields.pubDate],
-              },
-            ],
-            ...((author = jmespath.search(s, 'credits.by[].name')) &&
-              author && {
-                address: {
-                  // a list of authors
-                  a: author.map((s) => s.toUpperCase()),
-                },
-              }),
-            ...(customFields.includePromo &&
-              image &&
-              image.url && {
-                figure: {
-                  '@class': 'fb-feed-cover',
-                  img: {
-                    '@src': buildResizerURL(image.url, resizerKey, resizerURL),
-                  },
-                  ...(customFields.imageCaption &&
-                    jmespath.search(image, customFields.imageCaption) && {
-                      figcaption: {
-                        '@class': 'op-vertical-below op-small',
-                        '#': `${jmespath.search(
-                          image,
-                          customFields.imageCaption,
-                        )}`,
-                        ...((
-                          jmespath.search(image, customFields.imageCredits) ||
-                          []
-                        ).length && {
-                          cite: {
-                            '@class': 'op-small',
-                            '#': jmespath
-                              .search(image, customFields.imageCredits)
-                              .join(','),
-                          },
-                        }),
-                      },
-                    }),
-                },
-              }),
-            ...(primarySite.length && {
-              h2: {
-                '@class': 'op-kicker',
-                '#': primarySite,
-              },
-            }),
-            ...(adScripts && {
-              '#': [adScripts],
-            }),
+            '#': header,
           },
-          '#': this.buildContentElements(s, numRows, domain),
+          '#': [
+            this.buildContentElements(s, numRows, domain),
+            ...(adScripts && [adScripts]),
+          ],
           footer: {
             '#': {
               ...(authorDescription.length && {
@@ -462,6 +454,27 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
       }
       return item
     }
+    // noinspection SpellCheckingInspection
+    this.oembed = (element) => {
+      let embed = element.raw_oembed.html // some <blockquote> have a <script> at then end, remove the script tag
+
+      if (
+        embed &&
+        (element.subtype === 'twitter' || element.subtype === 'instagram')
+      ) {
+        const idx = embed.indexOf('</blockquote>')
+        embed = embed.substring(0, idx + 13)
+      }
+
+      return {
+        figure: {
+          '@class': 'op-interactive',
+          iframe: {
+            '#': embed,
+          },
+        },
+      }
+    }
     this.header = (element) => {
       let item
       if (element.content && typeof element.content === 'string') {
@@ -494,7 +507,7 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
     customFields.likesAndComments,
     customFields.adPlacement,
     customFields.adDensity,
-    customFields.placementID,
+    customFields.placementSection,
     customFields.adScripts,
   )
 
@@ -525,38 +538,38 @@ FbiaRss.propTypes = {
         'This parameter is optional and your default style is applied to this article if you do not specify an article style in your markup',
       defaultValue: 'default',
     }),
-    likesAndComments: PropTypes.string.tag({
-      label: 'Likes and Comments',
-      group: 'Facebook Options',
-      description: 'Enable or disable',
+    likesAndComments: PropTypes.oneOf(['enable', 'disable']).tag({
       defaultValue: 'disable',
+      name: 'Likes and Comments',
+      group: 'Facebook Options',
+      description: 'Enable or disable likes and comments on the article',
     }),
-    adPlacement: PropTypes.string.tag({
-      label: 'Auto Ad Placement',
+    adPlacement: PropTypes.oneOf(['enable', 'disable']).tag({
+      name: 'Auto Ad Placement',
       group: 'Facebook Options',
       description:
         'Enables automatic placement of ads within this article. This parameter is optional and defaults to false if you do not specify',
-      defaultValue: 'false',
+      defaultValue: 'disable',
     }),
-    adDensity: PropTypes.string.tag({
-      label: 'Ad Density',
+    adDensity: PropTypes.oneOf(['default', 'medium', 'low']).tag({
+      name: 'Ad Density',
       group: 'Facebook Options',
       description:
         'How frequently you would like ads to appear in your article: default (<250 word gap), medium (350 word gap), low (>450 word gap)',
       defaultValue: 'default',
     }),
-    placementID: PropTypes.string.tag({
-      label: 'Ad Placement ID',
+    placementSection: PropTypes.string.tag({
+      label: 'Facebook Ad',
       group: 'Facebook Options',
       description:
-        'ID used for recirculation ad placement; leave blank if not used. To obtain one, sign up with Facebook Audience Network and generate a new placement ID.',
-      defaultValue: 'XXXXXXXXXXXX_XXXXXXXXXXXX',
+        'Enter Javascript that goes between <section class="op-ad-template"></section> in beginning of the body\'s header for recirculation ads that come from Facebook advertisers; leave blank if not used.',
+      defaultValue: '',
     }),
     adScripts: PropTypes.string.tag({
-      label: 'Ad Scripts',
+      label: 'Analytic Scripts',
       group: 'Facebook Options',
       description:
-        'Javascript can be added to the article for ads and analytics. Multiple scripts can be included, usually each in the own iframe',
+        'Javascript wrapped in the <figure class=‘op-tracker’> tag can be added to the article for ads and analytics. Multiple scripts can be included, usually each in the own iframe',
       defaultValue: '',
     }),
     ...generatePropsForFeed('rss', PropTypes),

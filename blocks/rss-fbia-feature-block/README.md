@@ -11,7 +11,7 @@ feedResizer
 
 channelTitle: defaults to global website name
 channelDescription: defaults to global website name + "News Feed"
-channelPath: defaults to /arcio/rss/
+channelPath: defaults to /arcio/fb-ia/
 channelCopyright: defaults to Copyright YYYY global website name
 channelTTL: number of mins, defaults to 1
 channelUpdatePeriod: update period hours, days, weeks, months, years. Defaults to hours
@@ -34,7 +34,7 @@ articleStyle: This parameter is optional and your default style is applied to th
 likesAndComments: Enable or disable, defaults to disable
 adPlacement: Enables automatic placement of ads within this article. This parameter is optional and defaults to false if you do not specify
 adDensity: How frequently you would like ads to appear in your article: default (<250 word gap), medium (350 word gap), low (>450 word gap)
-placementID: ID used for recirculation ad placement; leave blank if not used. To obtain one, sign up with Facebook Audience Network and generate a new placement ID.
-adScripts: Javascript can be added to the article for ads and analytics. Multiple scripts can be included, usually each in the own iframe
+placementSection: Enter Javascript that goes between <section class="op-ad-template"></section> in beginning of the body\'s header for recirculation ads that come from Facebook advertisers; leave blank if not used.,
+adScripts: Javascript wrapped in the <figure class=‘op-tracker’> tag can be added to the article for ads and analytics. Multiple scripts can be included, usually each in the own iframe
 
 ### Usage
