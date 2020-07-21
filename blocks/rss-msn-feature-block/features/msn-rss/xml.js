@@ -86,8 +86,8 @@ const rssTemplate = (
           title: `${jmespath.search(s, itemTitle)}`,
           link: url,
           guid: {
-            '#': url,
-            '@isPermaLink': true,
+            '@isPermaLink': false,
+            '#': `${jmespath.search(s, '_id')}`,
           },
           ...((author = jmespath.search(s, itemCredits)) &&
             author && {
@@ -97,6 +97,7 @@ const rssTemplate = (
           pubDate: moment
             .utc(s[pubDate])
             .format('ddd, DD MMM YYYY HH:mm:ss ZZ'),
+          '#dcterms:modified': jmespath.search(s, 'last_updated_date'),
           ...(itemCategory &&
             (category = jmespath.search(s, itemCategory)) &&
             category && { category: category }),
