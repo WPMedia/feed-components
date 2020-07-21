@@ -44,6 +44,8 @@ const rssTemplate = (
     '@xmlns:dc': 'http://purl.org/dc/elements/1.1/',
     '@xmlns:sy': 'http://purl.org/rss/1.0/modules/syndication/',
     '@xmlns:media': 'http://search.yahoo.com/mrss/',
+    '@xmlns:dcterms': 'https://purl.org/dc/terms/',
+
     '@version': '2.0',
     channel: {
       title: `${channelTitle || feedTitle}`,
@@ -87,7 +89,7 @@ const rssTemplate = (
           link: url,
           guid: {
             '@isPermaLink': false,
-            '#': `${jmespath.search(s, '_id')}`,
+            '#': s._id,
           },
           ...((author = jmespath.search(s, itemCredits)) &&
             author && {
@@ -97,7 +99,7 @@ const rssTemplate = (
           pubDate: moment
             .utc(s[pubDate])
             .format('ddd, DD MMM YYYY HH:mm:ss ZZ'),
-          'dcterms:modified': jmespath.search(s, 'last_updated_date'),
+          'dcterms:modified': s.last_updated_date,
           ...(itemCategory &&
             (category = jmespath.search(s, itemCategory)) &&
             category && { category: category }),
