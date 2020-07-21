@@ -97,7 +97,7 @@ const rssTemplate = (
           pubDate: moment
             .utc(s[pubDate])
             .format('ddd, DD MMM YYYY HH:mm:ss ZZ'),
-          '#dcterms:modified': jmespath.search(s, 'last_updated_date'),
+          'dcterms:modified': jmespath.search(s, 'last_updated_date'),
           ...(itemCategory &&
             (category = jmespath.search(s, itemCategory)) &&
             category && { category: category }),
