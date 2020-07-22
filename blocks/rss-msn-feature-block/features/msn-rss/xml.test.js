@@ -44,7 +44,7 @@ const articles = {
   ],
 }
 
-it('returns Google News template with default values', () => {
+it('returns MSN template with default values', () => {
   const rss = MsnRss({
     arcSite: 'demo',
     globalContent: {
