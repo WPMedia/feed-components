@@ -1,5 +1,11 @@
 # @wpmedia/rss-google-news-feature-block
 
+## 0.3.0
+
+### Minor Changes
+
+- [`a05638a`](https://github.com/WPMedia/feed-components/commit/a05638a7f98094d1d2e9cf1f8b9894d08dc8617c) [#120](https://github.com/WPMedia/feed-components/pull/120) Thanks [@sarukalva](https://github.com/sarukalva)! - added flipboard
+
 ## 0.2.0
 
 ### Minor Changes
