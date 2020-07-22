@@ -1,0 +1,31 @@
+{
+  "name": "@wpmedia/rss-flipboard-feature-block",
+  "version": "0.2.0",
+  "description": "Fusion components for building flipboard-rss",
+  "main": "index.js",
+  "files": [
+    "features"
+  ],
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/WPMedia/feed-components.git",
+    "directory": "blocks/rss-flipboard-feature-block"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/",
+    "access": "restricted"
+  },
+  "author": "Saru Kalva <saru.kalva@washpost.com>",
+  "contributors": [
+    "Tim Kosmider <tim.kosmider@washpost.com>"
+  ],
+  "homepage": "https://github.com/WPMedia/feed-components#readme",
+  "dependencies": {
+    "@wpmedia/feeds-content-elements": "^0.3.0",
+    "@wpmedia/feeds-prop-types": "^0.4.0",
+    "@wpmedia/feeds-resizer": "^0.2.2",
+    "jmespath": "^0.15.0",
+    "moment": "^2.24.0"
+  }
+}
