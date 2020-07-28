@@ -1,0 +1,157 @@
+import PropTypes from 'fusion:prop-types'
+import Consumer from 'fusion:consumer'
+import get from 'lodash/get'
+import moment from 'moment'
+import getProperties from 'fusion:properties'
+import { resizerKey } from 'fusion:environment'
+import { BuildContent } from '@wpmedia/feeds-content-elements'
+import { generatePropsForFeed } from '@wpmedia/feeds-prop-types'
+import { buildResizerURL } from '@wpmedia/feeds-resizer'
+
+const jmespath = require('jmespath')
+
+const rssTemplate = (
+  elements,
+  {
+    channelTitle,
+    channelDescription,
+    channelPath,
+    channelCopyright,
+    channelTTL,
+    channelUpdatePeriod,
+    channelUpdateFrequency,
+    channelCategory,
+    channelLogo,
+    imageTitle,
+    imageCaption,
+    imageCredits,
+    itemTitle,
+    itemDescription,
+    pubDate,
+    itemCredits,
+    itemCategory,
+    includePromo,
+    includeContent,
+    resizerURL,
+    domain,
+    feedTitle,
+    feedLanguage,
+    mrssBuildContent,
+  },
+) => ({
+  rss: {
+    '@xmlns:atom': 'http://www.w3.org/2005/Atom',
+    '@version': '2.0',
+    ...(includePromo && {
+      '@xmlns:media': 'http://search.yahoo.com/mrss/',
+    }),
+    channel: {
+      title: 'The Washington Post Videos',
+      link: 'http://www.washingtonpost.com',
+      'atom:link': {
+        '@href':
+          'http://www.washingtonpost.com/Fragment/SysConfig/WebPortal/twpweb/feeds/VideoArchiver/VideosByTWPBySection.jpt?section=',
+        '@rel': 'self',
+        '@type': 'application/rss+xml',
+      },
+      description: 'Washington Post Videos',
+      pubDate: '',
+      ...(channelLogo && {
+        image: {
+          url:
+            'https://s3.amazonaws.com/posttv-thumbnails/editorial/mrss/posttv_mrss_logo.jpg',
+          title: 'The Washington Post Videos',
+          link: 'http://www.washingtonpost.com',
+          width: '144',
+          height: '43',
+        },
+      }),
+
+      item: elements.map((s) => {
+        let author, body, category
+        const url = `${domain}${s.website_url || s.canonical_url}`
+        const img =
+          s.promo_items && (s.promo_items.basic || s.promo_items.lead_art)
+        return {
+          title: '',
+          link: '',
+          'media:credit': {
+            '@role': 'producer',
+          },
+          guid: {
+            '#': '',
+            '@isPermaLink': false,
+          },
+          referenceid: '',
+          ...((author = jmespath.search(s, itemCredits)) &&
+            author && {
+              'dc:creator': author.join(','),
+            }),
+          description: { $: '' },
+          pubDate: '',
+          ...(includePromo &&
+            img &&
+            img.url && {
+              'media:content': {
+                '@': {
+                  isDefault: 'true',
+                  url: '',
+                  height: '',
+                  width: '',
+                  bitrate: '',
+                  duration: '',
+                  type: '',
+                },
+                'media:keywords': '',
+                'media:caption': '',
+                'media:transcript': '',
+                'media:category': '',
+                'media:thumbnail': {
+                  '@url': '',
+                },
+              },
+            }),
+        }
+      }),
+    },
+  },
+})
+
+export function Mrss({ globalContent, customFields, arcSite }) {
+  const {
+    resizerURL = '',
+    feedDomainURL = '',
+    feedTitle = '',
+    feedLanguage = '',
+  } = getProperties(arcSite)
+
+  function MrssBuildContent() {
+    BuildContent.call(this)
+  }
+  const mrssBuildContent = new MrssBuildContent()
+
+  // can't return null for xml return type, must return valid xml template
+  return rssTemplate(get(globalContent, 'content_elements', []), {
+    ...customFields,
+    resizerURL,
+    domain: feedDomainURL,
+    feedTitle,
+    feedLanguage,
+    mrssBuildContent,
+  })
+}
+
+Mrss.propTypes = {
+  customFields: PropTypes.shape({
+    channelPath: PropTypes.string.tag({
+      label: 'Path',
+      group: 'Channel',
+      description:
+        'Path to the feed, excluding the domain, defaults to /arcio/mrss', // TODO: fix that
+      defaultValue: '/arcio/mrss/',
+    }),
+    ...generatePropsForFeed('rss', PropTypes),
+  }),
+}
+Mrss.label = 'MRSS'
+export default Consumer(Mrss)
