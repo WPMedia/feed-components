@@ -30,7 +30,6 @@ const rssTemplate = (
     pubDate,
     itemCredits,
     itemCategory,
-    includePromo,
     includeContent,
     resizerURL,
     domain,
@@ -42,28 +41,24 @@ const rssTemplate = (
   rss: {
     '@xmlns:atom': 'http://www.w3.org/2005/Atom',
     '@version': '2.0',
-    ...(includePromo && {
-      '@xmlns:media': 'http://search.yahoo.com/mrss/',
-    }),
+    '@xmlns:media': 'http://search.yahoo.com/mrss/',
     channel: {
-      title: 'The Washington Post Videos',
-      link: 'http://www.washingtonpost.com',
+      title: `${channelTitle || feedTitle + ' Videos'}`,
+      link: domain,
       'atom:link': {
-        '@href':
-          'http://www.washingtonpost.com/Fragment/SysConfig/WebPortal/twpweb/feeds/VideoArchiver/VideosByTWPBySection.jpt?section=',
+        '@href': `${domain}${channelPath}`,
         '@rel': 'self',
         '@type': 'application/rss+xml',
       },
-      description: 'Washington Post Videos',
-      pubDate: '',
+      description: channelDescription || feedTitle,
+      pubDate: moment.utc(pubDate).format('ddd, DD MMM YYYY HH:mm:ss ZZ'),
       ...(channelLogo && {
         image: {
-          url:
-            'https://s3.amazonaws.com/posttv-thumbnails/editorial/mrss/posttv_mrss_logo.jpg',
-          title: 'The Washington Post Videos',
-          link: 'http://www.washingtonpost.com',
+          url: buildResizerURL(channelLogo, resizerKey, resizerURL),
+          title: `${channelTitle || feedTitle + ' Videos'}`,
+          link: domain,
           width: '144',
-          height: '43',
+          height: '43', // TODO: customfield?
         },
       }),
 
@@ -73,24 +68,23 @@ const rssTemplate = (
         const img =
           s.promo_items && (s.promo_items.basic || s.promo_items.lead_art)
         return {
-          title: '',
-          link: '',
-          'media:credit': {
-            '@role': 'producer',
-          },
+          title: `${jmespath.search(s, itemTitle)}`,
+          link: url,
+          ...((jmespath.search(img, imageCredits) || []).length && {
+            'media:credit': {
+              '@role': 'producer',
+              $: jmespath.search(img, imageCredits).join(','),
+            },
+          }),
+          //description: itemDescription,
           guid: {
-            '#': '',
             '@isPermaLink': false,
+            '#': url,
           },
-          referenceid: '',
-          ...((author = jmespath.search(s, itemCredits)) &&
-            author && {
-              'dc:creator': author.join(','),
-            }),
-          description: { $: '' },
-          pubDate: '',
-          ...(includePromo &&
-            img &&
+          referenceid: s._id,
+
+          pubDate: moment.utc(pubDate).format('ddd, DD MMM YYYY HH:mm:ss ZZ'),
+          ...(img &&
             img.url && {
               'media:content': {
                 '@': {
