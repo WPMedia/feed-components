@@ -181,5 +181,5 @@ Rss.propTypes = {
     ...generatePropsForFeed('rss', PropTypes),
   }),
 }
-Rss.label = 'Standard RSS'
+Rss.label = 'RSS Standard'
 export default Consumer(Rss)

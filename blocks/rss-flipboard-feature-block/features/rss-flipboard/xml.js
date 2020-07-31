@@ -207,5 +207,5 @@ FlipboardRss.propTypes = {
   }),
 }
 
-FlipboardRss.label = 'Flipboard RSS'
+FlipboardRss.label = 'RSS Flipboard'
 export default Consumer(FlipboardRss)

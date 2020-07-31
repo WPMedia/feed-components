@@ -202,5 +202,5 @@ MsnRss.propTypes = {
   }),
 }
 
-MsnRss.label = 'Msn RSS'
+MsnRss.label = 'RSS MSN'
 export default Consumer(MsnRss)

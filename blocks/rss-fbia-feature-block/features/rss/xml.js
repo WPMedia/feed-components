@@ -576,5 +576,5 @@ FbiaRss.propTypes = {
   }),
 }
 
-FbiaRss.label = 'Facebook IA RSS'
+FbiaRss.label = 'RSS FBIA'
 export default Consumer(FbiaRss)

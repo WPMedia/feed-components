@@ -145,5 +145,5 @@ GoogleSitemap.propTypes = {
     ...generatePropsForFeed('sitemap', PropTypes),
   }),
 }
-GoogleSitemap.label = 'Google News Sitemap'
+GoogleSitemap.label = 'Sitemap News'
 export default Consumer(GoogleSitemap)
