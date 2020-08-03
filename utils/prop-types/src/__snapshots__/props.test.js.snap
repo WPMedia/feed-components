@@ -124,7 +124,7 @@ Object {
       "all",
     ],
     "tags": Object {
-      "defaultValue": "0",
+      "defaultValue": "all",
       "description": "Number of paragraphs to include, defaults to all",
       "group": "Item",
       "label": "Number of paragraphs to include",
