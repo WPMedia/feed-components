@@ -93,7 +93,7 @@ const rssTemplate = (
           },
           ...((author = jmespath.search(s, 'credits.by[].name')) &&
             author && {
-              'dc:creator': author.join(','),
+              'dc:creator': author.join(', '),
             }),
           description: { $: jmespath.search(s, itemDescription) },
           pubDate: moment
