@@ -46,14 +46,14 @@ const rssTemplate = (
     '@xmlns:media': 'http://search.yahoo.com/mrss/',
     '@version': '2.0',
     channel: {
-      title: channelTitle || feedTitle,
+      title: { $: channelTitle || feedTitle },
       link: domain,
       'atom:link': {
         '@href': `${domain}${channelPath}`,
         '@rel': 'self',
         '@type': 'application/rss+xml',
       },
-      description: `${channelDescription || feedTitle + ' News Feed'}`,
+      description: { $: `${channelDescription || feedTitle + ' News Feed'}` },
       ...(feedLanguage && { language: feedLanguage }),
       lastBuildDate: moment
         .utc(new Date())
@@ -83,7 +83,7 @@ const rssTemplate = (
         const img =
           s.promo_items && (s.promo_items.basic || s.promo_items.lead_art)
         return {
-          title: `${jmespath.search(s, itemTitle)}`,
+          title: { $: `${jmespath.search(s, itemTitle)}` },
           link: url,
           description: { $: jmespath.search(s, itemDescription) },
           guid: {
@@ -92,7 +92,7 @@ const rssTemplate = (
           },
           ...((author = jmespath.search(s, itemCredits)) &&
             author && {
-              'dc:creator': author.join(','),
+              'dc:creator': { $: author.join(', ') },
             }),
           pubDate: moment
             .utc(s[pubDate])
@@ -207,5 +207,5 @@ FlipboardRss.propTypes = {
   }),
 }
 
-FlipboardRss.label = 'Flipboard RSS'
+FlipboardRss.label = 'RSS Flipboard'
 export default Consumer(FlipboardRss)

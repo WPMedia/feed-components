@@ -1,5 +1,27 @@
 # @wpmedia/rss-google-news-feature-block
 
+## 0.5.0
+
+### Minor Changes
+
+- added .npmrc, a few packages failed to publish
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @wpmedia/feeds-prop-types@0.6.0
+
+## 0.4.0
+
+### Minor Changes
+
+- AIO 235, 236, 237, 238 block changes for Chosun PoC
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @wpmedia/feeds-prop-types@0.5.0
+
 ## 0.3.0
 
 ### Minor Changes

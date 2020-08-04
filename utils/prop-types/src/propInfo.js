@@ -261,7 +261,7 @@ export const propInfo = {
         label: 'Number of paragraphs to include',
         group: 'Item',
         description: 'Number of paragraphs to include, defaults to all',
-        defaultValue: '0',
+        defaultValue: 'all',
       },
     },
   },

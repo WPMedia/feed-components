@@ -64,5 +64,5 @@ SitemapIndex.propTypes = {
     }),
   }),
 }
-SitemapIndex.label = 'Standard Sitemap Index'
+SitemapIndex.label = 'Sitemap Index'
 export default Consumer(SitemapIndex)

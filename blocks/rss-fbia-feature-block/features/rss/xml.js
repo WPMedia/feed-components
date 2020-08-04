@@ -48,14 +48,14 @@ const rssTemplate = (
       '@xmlns:media': 'http://search.yahoo.com/mrss/',
     }),
     channel: {
-      title: `${channelTitle || feedTitle}`,
+      title: { $: `${channelTitle || feedTitle}` },
       link: `${domain}`,
       'atom:link': {
         '@href': `${domain}${channelPath}`,
         '@rel': 'self',
         '@type': 'application/rss+xml',
       },
-      description: `${channelDescription || feedTitle + ' News Feed'}`,
+      description: { $: `${channelDescription || feedTitle + ' News Feed'}` },
       lastBuildDate: moment
         .utc(new Date())
         .format('ddd, DD MMM YYYY HH:mm:ss ZZ'),
@@ -85,7 +85,7 @@ const rssTemplate = (
         const img =
           s.promo_items && (s.promo_items.basic || s.promo_items.lead_art)
         return {
-          title: `${jmespath.search(s, itemTitle)}`,
+          title: { $: `${jmespath.search(s, itemTitle)}` },
           link: url,
           guid: {
             '#': url,
@@ -93,7 +93,7 @@ const rssTemplate = (
           },
           ...((author = jmespath.search(s, 'credits.by[].name')) &&
             author && {
-              'dc:creator': author.join(','),
+              'dc:creator': { $: author.join(', ') },
             }),
           description: { $: jmespath.search(s, itemDescription) },
           pubDate: moment
@@ -576,5 +576,5 @@ FbiaRss.propTypes = {
   }),
 }
 
-FbiaRss.label = 'Facebook IA RSS'
+FbiaRss.label = 'RSS FBIA'
 export default Consumer(FbiaRss)

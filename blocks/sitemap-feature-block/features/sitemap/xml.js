@@ -81,5 +81,5 @@ Sitemap.propTypes = {
     ...generatePropsForFeed('sitemap', PropTypes),
   }),
 }
-Sitemap.label = 'Standard Sitemap'
+Sitemap.label = 'Sitemap Standard'
 export default Consumer(Sitemap)

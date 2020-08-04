@@ -1,5 +1,11 @@
 # @wpmedia/sitemap-index-feature-block
 
+## 0.2.0
+
+### Minor Changes
+
+- AIO 235, 236, 237, 238 block changes for Chosun PoC
+
 ## 0.1.2
 
 ## 0.1.1

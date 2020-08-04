@@ -15,10 +15,14 @@ Object {
         "@rel": "self",
         "@type": "application/rss+xml",
       },
-      "description": "google news News Feed",
+      "description": Object {
+        "$": "google news News Feed",
+      },
       "item": Array [
         Object {
-          "dc:creator": "John Smith,Jane Doe",
+          "dc:creator": Object {
+            "$": "John Smith, Jane Doe",
+          },
           "description": Object {
             "$": "Tips to keep you wash for 20 seconds",
           },
@@ -44,7 +48,9 @@ Object {
             },
           },
           "pubDate": "Tue, 07 Apr 2020 15:02:08 +0000",
-          "title": "Tips for Safe Hand washing",
+          "title": Object {
+            "$": "Tips for Safe Hand washing",
+          },
         },
       ],
       "language": "en",
@@ -52,7 +58,9 @@ Object {
       "link": "http://demo-prod.origin.arcpublishing.com",
       "sy:updateFrequency": "1",
       "sy:updatePeriod": "hourly",
-      "title": "google news",
+      "title": Object {
+        "$": "google news",
+      },
       "ttl": "1",
     },
   },
@@ -76,7 +84,9 @@ Object {
       },
       "category": "news",
       "copyright": "2020 The Washington Post LLC",
-      "description": "All the news that's fit to print",
+      "description": Object {
+        "$": "All the news that's fit to print",
+      },
       "image": Object {
         "link": "http://demo-prod.origin.arcpublishing.com",
         "title": "The Daily Prophet",
@@ -113,7 +123,9 @@ Object {
             },
           },
           "pubDate": "Tue, 07 Apr 2020 15:02:08 +0000",
-          "title": "Tips for Safe Hand washing",
+          "title": Object {
+            "$": "Tips for Safe Hand washing",
+          },
         },
       ],
       "language": "en",
@@ -121,7 +133,9 @@ Object {
       "link": "http://demo-prod.origin.arcpublishing.com",
       "sy:updateFrequency": "1",
       "sy:updatePeriod": "weekly",
-      "title": "The Daily Prophet",
+      "title": Object {
+        "$": "The Daily Prophet",
+      },
       "ttl": "60",
     },
   },

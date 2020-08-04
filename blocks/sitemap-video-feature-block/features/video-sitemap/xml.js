@@ -124,5 +124,5 @@ VideoSitemap.propTypes = {
     ...generatePropsForFeed('sitemap', PropTypes),
   }),
 }
-VideoSitemap.label = 'Video Sitemap'
+VideoSitemap.label = 'Sitemap Video'
 export default Consumer(VideoSitemap)

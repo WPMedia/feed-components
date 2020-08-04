@@ -15,10 +15,14 @@ Object {
         "@rel": "self",
         "@type": "application/rss+xml",
       },
-      "description": "google news News Feed",
+      "description": Object {
+        "$": "google news News Feed",
+      },
       "item": Array [
         Object {
-          "dc:creator": "John Smith,Jane Doe",
+          "dc:creator": Object {
+            "$": "John Smith, Jane Doe",
+          },
           "description": Object {
             "$": "Tips to keep you wash for 20 seconds",
           },
@@ -44,7 +48,9 @@ Object {
             },
           },
           "pubDate": "Tue, 07 Apr 2020 15:02:08 +0000",
-          "title": "Tips for Safe Hand washing",
+          "title": Object {
+            "$": "Tips for Safe Hand washing",
+          },
         },
       ],
       "language": "en",
@@ -52,7 +58,9 @@ Object {
       "link": "http://demo-prod.origin.arcpublishing.com",
       "sy:updateFrequency": "1",
       "sy:updatePeriod": "hourly",
-      "title": "google news",
+      "title": Object {
+        "$": "google news",
+      },
       "ttl": "1",
     },
   },
