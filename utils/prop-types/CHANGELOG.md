@@ -1,5 +1,17 @@
 # @wpmedia/feeds-prop-types
 
+## 0.6.0
+
+### Minor Changes
+
+- added .npmrc, a few packages failed to publish
+
+## 0.5.0
+
+### Minor Changes
+
+- AIO 235, 236, 237, 238 block changes for Chosun PoC
+
 ## 0.4.0
 
 ### Minor Changes
