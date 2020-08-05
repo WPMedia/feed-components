@@ -71,7 +71,7 @@ const resolve = function resolve(key) {
 
     body.query.bool.must.push({
       match_phrase: {
-        'taxonomy.seo_keywords': keywords.split(','),
+        'taxonomy.seo_keywords': keywords,
       },
     })
   }
