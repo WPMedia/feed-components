@@ -70,7 +70,7 @@ const resolve = function resolve(key) {
     const keywords = Keywords.replace(/^\//, '')
 
     body.query.bool.must.push({
-      terms: {
+      match_phrase: {
         'taxonomy.seo_keywords': keywords.split(','),
       },
     })
@@ -83,7 +83,7 @@ const resolve = function resolve(key) {
 
     body.query.bool.must.push({
       terms: {
-        'taxonomy.tags.text': cleanTagsText.split(','),
+        'taxonomy.tags.text.raw': cleanTagsText.split(','),
       },
     })
   }
