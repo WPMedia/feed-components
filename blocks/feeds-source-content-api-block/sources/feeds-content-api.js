@@ -67,7 +67,7 @@ const resolve = function resolve(key) {
   // Append Keywords to basic query
   const { Keywords } = key
   if (Keywords) {
-    const keywords = Keywords.replace(/^\//, '')
+    const keywords = Keywords.replace(/^\//, '').replace(/%20/g, '+')
 
     body.query.bool.must.push({
       match_phrase: {
@@ -79,7 +79,7 @@ const resolve = function resolve(key) {
   // Append Tags text to basic query
   const tagsText = key['Tags-Text']
   if (tagsText) {
-    const cleanTagsText = tagsText.replace(/^\//, '')
+    const cleanTagsText = tagsText.replace(/^\//, '').replace(/%20/g, '+')
 
     body.query.bool.must.push({
       terms: {
