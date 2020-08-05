@@ -67,11 +67,11 @@ const resolve = function resolve(key) {
   // Append Keywords to basic query
   const { Keywords } = key
   if (Keywords) {
-    const keywords = Keywords.replace(/^\//, '')
+    const keywords = Keywords.replace(/^\//, '').replace(/%20/g, '+')
 
     body.query.bool.must.push({
-      terms: {
-        'taxonomy.seo_keywords': keywords.split(','),
+      match_phrase: {
+        'taxonomy.seo_keywords': keywords,
       },
     })
   }
@@ -79,11 +79,11 @@ const resolve = function resolve(key) {
   // Append Tags text to basic query
   const tagsText = key['Tags-Text']
   if (tagsText) {
-    const cleanTagsText = tagsText.replace(/^\//, '')
+    const cleanTagsText = tagsText.replace(/^\//, '').replace(/%20/g, '+')
 
     body.query.bool.must.push({
       terms: {
-        'taxonomy.tags.text': cleanTagsText.split(','),
+        'taxonomy.tags.text.raw': cleanTagsText.split(','),
       },
     })
   }
