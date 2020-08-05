@@ -1,5 +1,11 @@
 # @wpmedia/feeds-source-content-api-block
 
+## 0.4.0
+
+### Minor Changes
+
+- [`1c172d4`](https://github.com/WPMedia/feed-components/commit/1c172d4c6c2df9218768574a8f00806dce361fb9) [#143](https://github.com/WPMedia/feed-components/pull/143) Thanks [@sarukalva](https://github.com/sarukalva)! - AIO-243 change tags.text and seo_keywords
+
 ## 0.3.0
 
 ### Minor Changes
