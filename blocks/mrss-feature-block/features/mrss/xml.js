@@ -76,20 +76,24 @@ const rssTemplate = (
               $: jmespath.search(img, imageCredits).join(','),
             },
           }),
-          //description: itemDescription,
+          ...(itemDescription && {
+            description: jmespath.search(s, itemDescription),
+          }),
           guid: {
             '@isPermaLink': false,
             '#': url,
           },
           referenceid: s._id,
 
-          pubDate: moment.utc(pubDate).format('ddd, DD MMM YYYY HH:mm:ss ZZ'),
+          pubDate: moment
+            .utc(s[pubDate])
+            .format('ddd, DD MMM YYYY HH:mm:ss ZZ'),
           ...(img &&
             img.url && {
               'media:content': {
                 '@': {
                   isDefault: 'true',
-                  url: '',
+                  url: buildResizerURL(img.url, resizerKey, resizerURL),
                   height: '',
                   width: '',
                   bitrate: '',
@@ -97,11 +101,13 @@ const rssTemplate = (
                   type: '',
                 },
                 'media:keywords': '',
-                'media:caption': '',
+                ...(jmespath.search(img, imageCaption) && {
+                  'media:caption': jmespath.search(img, imageCaption),
+                }),
                 'media:transcript': '',
                 'media:category': '',
                 'media:thumbnail': {
-                  '@url': '',
+                  '@url': buildResizerURL(img.url, resizerKey, resizerURL),
                 },
               },
             }),
