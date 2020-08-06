@@ -1,5 +1,11 @@
 # @wpmedia/sitemaps-news-feature-block
 
+## 0.5.0
+
+### Minor Changes
+
+- [`e522e7e`](https://github.com/WPMedia/feed-components/commit/e522e7e7403746a4ab837c674024977955f51fbc) [#145](https://github.com/WPMedia/feed-components/pull/145) Thanks [@sarukalva](https://github.com/sarukalva)! - change to feedlanguage in news sitemap
+
 ## 0.4.1
 
 ### Patch Changes
