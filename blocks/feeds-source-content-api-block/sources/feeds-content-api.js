@@ -65,13 +65,15 @@ const resolve = function resolve(key) {
   }
 
   // Append Keywords to basic query
+  // AIO-243 use simple_query_string to support multiple phrases using "phrase 1" | "phrase 2"
   const { Keywords } = key
   if (Keywords) {
     const keywords = Keywords.replace(/^\//, '').replace(/%20/g, '+')
 
     body.query.bool.must.push({
-      match_phrase: {
-        'taxonomy.seo_keywords': keywords,
+      simple_query_string: {
+        query: `"${keywords.split(',').join('" | "')}"`,
+        fields: ['taxonomy.seo_keywords'],
       },
     })
   }

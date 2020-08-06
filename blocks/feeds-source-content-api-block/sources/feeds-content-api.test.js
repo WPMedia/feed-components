@@ -106,7 +106,7 @@ it('returns query by keywords', () => {
   const query = resolver.default.resolve({
     Section: '',
     Author: '',
-    Keywords: 'football,sports',
+    Keywords: 'washington football,sports',
     'Tags-Text': '',
     'Tags-Slug': '',
     'arc-site': 'demo',
@@ -118,7 +118,7 @@ it('returns query by keywords', () => {
     Sort: '',
   })
   expect(query).toBe(
-    'undefined/content/v4/search/published?body=%7B%22query%22:%7B%22bool%22:%7B%22must%22:%5B%7B%22term%22:%7B%22type%22:%22story%22%7D%7D,%7B%22term%22:%7B%22revision.published%22:true%7D%7D,%7B%22match_phrase%22:%7B%22taxonomy.seo_keywords%22:%22football,sports%22%7D%7D%5D%7D%7D%7D&website=demo&size=100&from=0&_sourceExclude=related_content&sort=publish_date:desc',
+    'undefined/content/v4/search/published?body=%7B%22query%22:%7B%22bool%22:%7B%22must%22:%5B%7B%22term%22:%7B%22type%22:%22story%22%7D%7D,%7B%22term%22:%7B%22revision.published%22:true%7D%7D,%7B%22simple_query_string%22:%7B%22query%22:%22%5C%22washington%20football%5C%22%20%7C%20%5C%22sports%5C%22%22,%22fields%22:%5B%22taxonomy.seo_keywords%22%5D%7D%7D%5D%7D%7D%7D&website=demo&size=100&from=0&_sourceExclude=related_content&sort=publish_date:desc',
   )
 })
 
