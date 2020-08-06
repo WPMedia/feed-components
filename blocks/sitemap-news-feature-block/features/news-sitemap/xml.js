@@ -57,7 +57,7 @@ const sitemapTemplate = (
         'news:news': {
           'news:publication': {
             'news:name': publicationName || feedTitle,
-            'news:language': s.language !== '' ? s.language : feedLanguage,
+            ...(feedLanguage && { 'news:language': feedLanguage }),
           },
           'news:publication_date': s[lastMod],
           ...(title && {
