@@ -1,5 +1,11 @@
 # @wpmedia/feeds-source-content-api-block
 
+## 0.5.0
+
+### Minor Changes
+
+- [`3ecb249`](https://github.com/WPMedia/feed-components/commit/3ecb2491dda416eda2c616d06569c27779b50be9) [#147](https://github.com/WPMedia/feed-components/pull/147) Thanks [@tbrick855](https://github.com/tbrick855)! - Switch seo_keywords to simple_query_string
+
 ## 0.4.0
 
 ### Minor Changes
