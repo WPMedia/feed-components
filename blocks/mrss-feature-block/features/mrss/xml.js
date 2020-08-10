@@ -35,6 +35,7 @@ const rssTemplate = (
     domain,
     feedTitle,
     feedLanguage,
+    videoInfo,
     mrssBuildContent,
   },
 ) => ({
@@ -51,14 +52,14 @@ const rssTemplate = (
         '@type': 'application/rss+xml',
       },
       description: channelDescription || feedTitle,
-      pubDate: moment.utc(pubDate).format('ddd, DD MMM YYYY HH:mm:ss ZZ'),
+      pubDate: moment.utc(Date.now()).format('ddd, DD MMM YYYY HH:mm:ss ZZ'),
       ...(channelLogo && {
         image: {
           url: buildResizerURL(channelLogo, resizerKey, resizerURL),
           title: `${channelTitle || feedTitle + ' Videos'}`,
           link: domain,
           width: '144',
-          height: '43', // TODO: customfield?
+          height: '43',
         },
       }),
 
@@ -93,19 +94,27 @@ const rssTemplate = (
               'media:content': {
                 '@': {
                   isDefault: 'true',
-                  url: buildResizerURL(img.url, resizerKey, resizerURL),
-                  height: '',
-                  width: '',
-                  bitrate: '',
-                  duration: '',
-                  type: '',
+                  ...(s.duration && {
+                    duration: Math.trunc(s.duration / 1000),
+                  }),
+                  ...(videoInfo && {
+                    ...(videoInfo.url && { url: videoInfo.url }),
+                    ...(videoInfo.height && { height: videoInfo.height }),
+                    ...(videoInfo.width && { width: videoInfo.width }),
+                    ...(videoInfo.bitrate && { bitrate: videoInfo.bitrate }),
+                    ...(videoInfo.stream_type && {
+                      type: videoInfo.stream_type,
+                    }),
+                  }),
                 },
-                'media:keywords': '',
+                'media:keywords': (
+                  jmespath.search(s, 'taxonomy.seo_keywords[*]') || []
+                ).join(','),
                 ...(jmespath.search(img, imageCaption) && {
                   'media:caption': jmespath.search(img, imageCaption),
                 }),
-                'media:transcript': '',
-                'media:category': '',
+                'media:transcript': s.transcript,
+                'media:category': itemCategory,
                 'media:thumbnail': {
                   '@url': buildResizerURL(img.url, resizerKey, resizerURL),
                 },
@@ -147,8 +156,20 @@ Mrss.propTypes = {
       label: 'Path',
       group: 'Channel',
       description:
-        'Path to the feed, excluding the domain, defaults to /arcio/mrss', // TODO: fix that
+        'Path to the feed, excluding the domain, defaults to /arcio/mrss',
       defaultValue: '/arcio/mrss/',
+    }),
+    videoInfo: PropTypes.kvp.tag({
+      label: 'Information about the video',
+      group: 'Video',
+      description: '',
+      defaultValue: {
+        url: '',
+        height: '',
+        width: '',
+        bitrate: 5400,
+        stream_type: 'mp4',
+      },
     }),
     ...generatePropsForFeed('rss', PropTypes),
   }),
