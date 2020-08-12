@@ -164,6 +164,16 @@ it('returns RSS template with default values', () => {
       ],
     },
     customFields: {
+      channelTitle: '',
+      channelDescription: '',
+      channelPath: '/arcio/mrss/',
+      channelLogo: '',
+      imageCaption: 'subheadlines.basic || caption',
+      imageCredits: 'credits.by[].name',
+      itemTitle: 'headlines.seo || headlines.basic',
+      itemDescription: 'subheadlines.basic || description.basic',
+      pubDate: 'display_date',
+      itemCategory: 'taxonomy.primary_section.name',
       videoInfo: { bitrate: 5400, stream_type: 'mp4' },
     },
   })
