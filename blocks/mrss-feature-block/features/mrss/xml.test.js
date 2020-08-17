@@ -177,5 +177,13 @@ it('returns RSS template with default values', () => {
       videoInfo: { bitrate: 5400, stream_type: 'mp4' },
     },
   })
-  expect(video).toMatchSnapshot()
+  expect(video).toMatchSnapshot({
+    rss: {
+      channel: {
+        pubDate: expect.stringMatching(
+          /\w+, \d+ \w+ \d{4} \d{2}:\d{2}:\d{2} \+0000/,
+        ),
+      },
+    },
+  })
 })

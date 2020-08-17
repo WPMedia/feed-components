@@ -49,7 +49,7 @@ Object {
         },
       ],
       "link": "http://demo-prod.origin.arcpublishing.com",
-      "pubDate": "Mon, 17 Aug 2020 20:39:32 +0000",
+      "pubDate": StringMatching /\\\\w\\+, \\\\d\\+ \\\\w\\+ \\\\d\\{4\\} \\\\d\\{2\\}:\\\\d\\{2\\}:\\\\d\\{2\\} \\\\\\+0000/,
       "title": "google news Videos",
     },
   },
