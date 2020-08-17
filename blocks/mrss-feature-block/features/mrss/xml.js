@@ -111,24 +111,23 @@ const rssTemplate = (
                 }),
               }),
             },
-
-            'media:keywords': (
-              jmespath.search(s, 'taxonomy.seo_keywords[*]') || []
-            ).join(','),
-            ...(s.description ||
-              (s.subheadlines &&
-                s.subheadlines.basic && {
-                  'media:caption': {
-                    $: s.description || s.subheadlines.basic,
-                  },
-                })),
-            'media:transcript': s.transcript,
-            ...(s.taxonomy &&
-              s.taxonomy.primary_section &&
-              s.taxonomy.primary_section.name && {
-                'media:category': s.taxonomy.primary_section.name,
-              }),
           },
+          'media:keywords': (
+            jmespath.search(s, 'taxonomy.seo_keywords[*]') || []
+          ).join(','),
+          ...(s.description ||
+            (s.subheadlines &&
+              s.subheadlines.basic && {
+                'media:caption': {
+                  $: s.description || s.subheadlines.basic,
+                },
+              })),
+          'media:transcript': s.transcript,
+          ...(s.taxonomy &&
+            s.taxonomy.primary_section &&
+            s.taxonomy.primary_section.name && {
+              'media:category': s.taxonomy.primary_section.name,
+            }),
           ...(img &&
             img.url && {
               'media:thumbnail': {
