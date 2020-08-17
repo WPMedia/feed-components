@@ -7,7 +7,7 @@ import { resizerKey } from 'fusion:environment'
 import { BuildContent } from '@wpmedia/feeds-content-elements'
 import { generatePropsForFeed } from '@wpmedia/feeds-prop-types'
 import { buildResizerURL } from '@wpmedia/feeds-resizer'
-import { formatSearchObject } from '@wpmedia/feeds-find-video-stream'
+import { findVideo } from '@wpmedia/feeds-find-video-stream'
 
 const jmespath = require('jmespath')
 
@@ -66,22 +66,18 @@ const rssTemplate = (
         const url = `${domain}${s.website_url || s.canonical_url}`
         const img =
           s.promo_items && (s.promo_items.basic || s.promo_items.lead_art)
-        const searchArray = formatSearchObject(videoInfo)
-        let contentLoc = jmespath.search(
-          s,
-          `streams[?${searchArray.join('&&')}]`,
-        )[0]
-        contentLoc = contentLoc ? contentLoc.url : ''
+        let videoStream = findVideo(s, videoInfo)
 
         return {
           title: `${jmespath.search(s, itemTitle)}`,
           link: url,
-          ...((jmespath.search(img, itemCredits) || []).length && {
-            'media:credit': {
-              '@role': 'producer',
-              $: jmespath.search(img, itemCredits).join(','),
-            },
-          }),
+          ...(itemCredits &&
+            (jmespath.search(img, itemCredits) || []).length && {
+              'media:credit': {
+                '@role': 'producer',
+                $: jmespath.search(img, itemCredits).join(','),
+              },
+            }),
           ...(itemDescription && {
             description: jmespath.search(s, itemDescription),
           }),
@@ -100,14 +96,14 @@ const rssTemplate = (
               ...(s.duration && {
                 duration: Math.trunc(s.duration / 1000),
               }),
-              ...(contentLoc && {
+              ...(videoStream && {
                 ...(videoInfo.url && { url: videoInfo.url }),
                 ...(videoInfo.height && { height: videoInfo.height }),
                 ...(videoInfo.width && { width: videoInfo.width }),
                 ...(videoInfo.bitrate && { bitrate: videoInfo.bitrate }),
                 ...(videoInfo.stream_type && {
                   type: videoInfo.stream_type,
-                  '#': contentLoc,
+                  '#': videoStream,
                 }),
               }),
             },
