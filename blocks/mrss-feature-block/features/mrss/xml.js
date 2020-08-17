@@ -66,7 +66,7 @@ const rssTemplate = (
         const url = `${domain}${s.website_url || s.canonical_url}`
         const img =
           s.promo_items && (s.promo_items.basic || s.promo_items.lead_art)
-        let videoStream = findVideo(s, videoInfo)
+        const videoStream = findVideo(s, videoInfo)
 
         return {
           title: `${jmespath.search(s, itemTitle)}`,
