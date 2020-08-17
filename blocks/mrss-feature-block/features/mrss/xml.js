@@ -7,6 +7,7 @@ import { resizerKey } from 'fusion:environment'
 import { BuildContent } from '@wpmedia/feeds-content-elements'
 import { generatePropsForFeed } from '@wpmedia/feeds-prop-types'
 import { buildResizerURL } from '@wpmedia/feeds-resizer'
+import { formatSearchObject } from '@wpmedia/feeds-find-video-stream'
 
 const jmespath = require('jmespath')
 
@@ -58,23 +59,27 @@ const rssTemplate = (
           url: buildResizerURL(channelLogo, resizerKey, resizerURL),
           title: `${channelTitle || feedTitle + ' Videos'}`,
           link: domain,
-          width: '144',
-          height: '43',
         },
       }),
 
       item: elements.map((s) => {
-        let author, body, category
         const url = `${domain}${s.website_url || s.canonical_url}`
         const img =
           s.promo_items && (s.promo_items.basic || s.promo_items.lead_art)
+        const searchArray = formatSearchObject(videoInfo)
+        let contentLoc = jmespath.search(
+          s,
+          `streams[?${searchArray.join('&&')}]`,
+        )[0]
+        contentLoc = contentLoc ? contentLoc.url : ''
+
         return {
           title: `${jmespath.search(s, itemTitle)}`,
           link: url,
-          ...((jmespath.search(img, imageCredits) || []).length && {
+          ...((jmespath.search(img, itemCredits) || []).length && {
             'media:credit': {
               '@role': 'producer',
-              $: jmespath.search(img, imageCredits).join(','),
+              $: jmespath.search(img, itemCredits).join(','),
             },
           }),
           ...(itemDescription && {
@@ -85,39 +90,49 @@ const rssTemplate = (
             '#': url,
           },
           referenceid: s._id,
-
           pubDate: moment
             .utc(s[pubDate])
             .format('ddd, DD MMM YYYY HH:mm:ss ZZ'),
+
+          'media:content': {
+            '@': {
+              isDefault: 'true',
+              ...(s.duration && {
+                duration: Math.trunc(s.duration / 1000),
+              }),
+              ...(contentLoc && {
+                ...(videoInfo.url && { url: videoInfo.url }),
+                ...(videoInfo.height && { height: videoInfo.height }),
+                ...(videoInfo.width && { width: videoInfo.width }),
+                ...(videoInfo.bitrate && { bitrate: videoInfo.bitrate }),
+                ...(videoInfo.stream_type && {
+                  type: videoInfo.stream_type,
+                  '#': contentLoc,
+                }),
+              }),
+            },
+
+            'media:keywords': (
+              jmespath.search(s, 'taxonomy.seo_keywords[*]') || []
+            ).join(','),
+            ...(s.description ||
+              (s.subheadlines &&
+                s.subheadlines.basic && {
+                  'media:caption': {
+                    $: s.description || s.subheadlines.basic,
+                  },
+                })),
+            'media:transcript': s.transcript,
+            ...(s.taxonomy &&
+              s.taxonomy.primary_section &&
+              s.taxonomy.primary_section.name && {
+                'media:category': s.taxonomy.primary_section.name,
+              }),
+          },
           ...(img &&
             img.url && {
-              'media:content': {
-                '@': {
-                  isDefault: 'true',
-                  ...(s.duration && {
-                    duration: Math.trunc(s.duration / 1000),
-                  }),
-                  ...(videoInfo && {
-                    ...(videoInfo.url && { url: videoInfo.url }),
-                    ...(videoInfo.height && { height: videoInfo.height }),
-                    ...(videoInfo.width && { width: videoInfo.width }),
-                    ...(videoInfo.bitrate && { bitrate: videoInfo.bitrate }),
-                    ...(videoInfo.stream_type && {
-                      type: videoInfo.stream_type,
-                    }),
-                  }),
-                },
-                'media:keywords': (
-                  jmespath.search(s, 'taxonomy.seo_keywords[*]') || []
-                ).join(','),
-                ...(jmespath.search(img, imageCaption) && {
-                  'media:caption': jmespath.search(img, imageCaption),
-                }),
-                'media:transcript': s.transcript,
-                'media:category': itemCategory,
-                'media:thumbnail': {
-                  '@url': buildResizerURL(img.url, resizerKey, resizerURL),
-                },
+              'media:thumbnail': {
+                '@url': buildResizerURL(img.url, resizerKey, resizerURL),
               },
             }),
         }
@@ -159,12 +174,12 @@ Mrss.propTypes = {
         'Path to the feed, excluding the domain, defaults to /arcio/mrss',
       defaultValue: '/arcio/mrss/',
     }),
-    videoInfo: PropTypes.kvp.tag({
-      label: 'Information about the video',
+    selectVideo: PropTypes.kvp.tag({
+      label: 'Select video using',
       group: 'Video',
-      description: '',
+      description:
+        'This criteria is used to filter videos encoded in the streams array',
       defaultValue: {
-        url: '',
         height: '',
         width: '',
         bitrate: 5400,
