@@ -36,7 +36,7 @@ const rssTemplate = (
     domain,
     feedTitle,
     feedLanguage,
-    videoInfo,
+    selectVideo,
     mrssBuildContent,
   },
 ) => ({
@@ -66,7 +66,7 @@ const rssTemplate = (
         const url = `${domain}${s.website_url || s.canonical_url}`
         const img =
           s.promo_items && (s.promo_items.basic || s.promo_items.lead_art)
-        const videoStream = findVideo(s, videoInfo)
+        const videoStream = findVideo(s, selectVideo)
 
         return {
           title: `${jmespath.search(s, itemTitle)}`,
@@ -97,14 +97,14 @@ const rssTemplate = (
                 duration: Math.trunc(s.duration / 1000),
               }),
               ...(videoStream && {
-                ...(videoInfo.url && { url: videoInfo.url }),
-                ...(videoInfo.height && { height: videoInfo.height }),
-                ...(videoInfo.width && { width: videoInfo.width }),
-                ...(videoInfo.bitrate && { bitrate: videoInfo.bitrate }),
-                ...(videoInfo.stream_type && {
-                  type: videoInfo.stream_type,
-                  '#': videoStream,
+                ...(videoStream.url && { url: videoStream.url }),
+                ...(videoStream.height && { height: videoStream.height }),
+                ...(videoStream.width && { width: videoStream.width }),
+                ...(videoStream.bitrate && { bitrate: videoStream.bitrate }),
+                ...(videoStream.stream_type && {
+                  type: videoStream.stream_type,
                 }),
+                '#': videoStream,
               }),
             },
           },
