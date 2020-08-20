@@ -71,13 +71,6 @@ const rssTemplate = (
         return {
           title: `${jmespath.search(s, itemTitle)}`,
           link: url,
-          ...(itemCredits &&
-            (jmespath.search(img, itemCredits) || []).length && {
-              'media:credit': {
-                '@role': 'producer',
-                $: jmespath.search(img, itemCredits).join(','),
-              },
-            }),
           ...(itemDescription && {
             description: jmespath.search(s, itemDescription),
           }),
@@ -104,32 +97,38 @@ const rssTemplate = (
                 ...(videoStream.stream_type && {
                   type: videoStream.stream_type,
                 }),
-                '#': videoStream,
               }),
             },
-          },
-          'media:keywords': (
-            jmespath.search(s, 'taxonomy.seo_keywords[*]') || []
-          ).join(','),
-          ...(s.description ||
-            (s.subheadlines &&
-              s.subheadlines.basic && {
-                'media:caption': {
-                  $: s.description || s.subheadlines.basic,
+            ...(itemCredits &&
+              (jmespath.search(img, itemCredits) || []).length && {
+                'media:credit': {
+                  '@role': 'producer',
+                  $: jmespath.search(img, itemCredits).join(','),
                 },
-              })),
-          'media:transcript': s.transcript,
-          ...(s.taxonomy &&
-            s.taxonomy.primary_section &&
-            s.taxonomy.primary_section.name && {
-              'media:category': s.taxonomy.primary_section.name,
-            }),
-          ...(img &&
-            img.url && {
-              'media:thumbnail': {
-                '@url': buildResizerURL(img.url, resizerKey, resizerURL),
-              },
-            }),
+              }),
+            'media:keywords': (
+              jmespath.search(s, 'taxonomy.seo_keywords[*]') || []
+            ).join(','),
+            ...(s.description ||
+              (s.subheadlines &&
+                s.subheadlines.basic && {
+                  'media:caption': {
+                    $: s.description || s.subheadlines.basic,
+                  },
+                })),
+            'media:transcript': s.transcript,
+            ...(s.taxonomy &&
+              s.taxonomy.primary_section &&
+              s.taxonomy.primary_section.name && {
+                'media:category': s.taxonomy.primary_section.name,
+              }),
+            ...(img &&
+              img.url && {
+                'media:thumbnail': {
+                  '@url': buildResizerURL(img.url, resizerKey, resizerURL),
+                },
+              }),
+          },
         }
       }),
     },
