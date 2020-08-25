@@ -34,8 +34,4 @@ const resolve = function resolve(key) {
 export default {
   resolve,
   schemaName: 'feeds',
-  params: {
-    Playlist: 'text',
-    Count: 'text',
-  },
 }
