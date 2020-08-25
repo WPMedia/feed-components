@@ -27,8 +27,7 @@ const resolve = function resolve(key) {
     }
   }
 
-  const encodedBody = encodeURI(JSON.stringify(body))
-  return `${requestUri}?body=${encodedBody}&${uriParams}`
+  return `${requestUri}?body=${uriParams}`
 }
 
 export default {
