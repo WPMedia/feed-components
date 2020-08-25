@@ -32,7 +32,7 @@ const resolve = function resolve(key) {
   const count = key['count']
   if (count) {
     try {
-      body.query.bool.must_not = JSON.parse(count)
+      body.query.bool.must = JSON.parse(count)
     } catch (error) {
       console.log(`Failed to parse count: ${key['count']}`)
     }
