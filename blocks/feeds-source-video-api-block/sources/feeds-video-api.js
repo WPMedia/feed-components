@@ -2,18 +2,17 @@ import { VIDEO_BASE } from 'fusion:environment'
 
 const resolve = function resolve(key) {
   let requestUri, uriParams
-  if (key.uuids) {
-    requestUri = `${VIDEO_BASE}/api/v1/ansvideos/findByUuids`
-    uriParams = [`uuids=${key.uuids}`]
-  } else {
-    let count = key.count
-    if (!key.count) {
-      count = 10
+  if (key) {
+    if (key && key.uuids) {
+      requestUri = `${VIDEO_BASE}/api/v1/ansvideos/findByUuids`
+      uriParams = [`uuids=${key.uuids}`]
+    } else {
+      let count
+      !key.count ? (count = 10) : (count = key.count)
+      requestUri = `${VIDEO_BASE}/api/v1/ans/playlists/findByPlaylist`
+      uriParams = [`name=${key.name}`, `count=${count}`].join('&')
     }
-    requestUri = `${VIDEO_BASE}/api/v1/ans/playlists/findByPlaylist`
-    uriParams = [`name=${key.name}`, `count=${count}`].join('&')
   }
-
   return `${requestUri}?${uriParams}`
 }
 
@@ -23,6 +22,6 @@ export default {
   params: {
     Uuids: 'text',
     Playlist: 'text',
-    count: 'text',
+    Count: 'text',
   },
 }
