@@ -3,14 +3,13 @@ import { VIDEO_BASE } from 'fusion:environment'
 const resolve = function resolve(key) {
   let requestUri, uriParams
   if (key) {
-    if (key && key.uuids) {
+    if (key && key.Uuids) {
       requestUri = `${VIDEO_BASE}/api/v1/ansvideos/findByUuids`
-      uriParams = [`uuids=${key.uuids}`]
+      uriParams = [`uuids=${key.Uuids}`]
     } else {
-      let count
-      !key.count ? (count = 10) : (count = key.count)
+      const count = key.Count || 10
       requestUri = `${VIDEO_BASE}/api/v1/ans/playlists/findByPlaylist`
-      uriParams = [`name=${key.name}`, `count=${count}`].join('&')
+      uriParams = [`name=${key.Playlist}`, `count=${count}`].join('&')
     }
   }
   return `${requestUri}?${uriParams}`
