@@ -1,3 +1,4 @@
+// prettier-ignore
 import { CONTENT_BASE, VIDEO_BASE } from 'fusion:environment'
 
 const resolve = function resolve(key) {
