@@ -1,4 +1,4 @@
-import { VIDEO_BASE } from 'fusion:environment'
+import { CONTENT_BASE, VIDEO_BASE } from 'fusion:environment'
 
 const resolve = function resolve(key) {
   let requestUri, uriParams
@@ -9,7 +9,7 @@ const resolve = function resolve(key) {
     } else {
       const count = key.Count || 10
       requestUri = `${VIDEO_BASE}/api/v1/ans/playlists/findByPlaylist`
-      uriParams = [`playlist=${key.Playlist}`, `count=${count}`].join('&')
+      uriParams = [`name=${key.Playlist}`, `count=${count}`].join('&')
     }
   }
   return `${requestUri}?${uriParams}`

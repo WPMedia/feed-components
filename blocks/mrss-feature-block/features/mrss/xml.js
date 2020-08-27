@@ -149,14 +149,17 @@ export function Mrss({ globalContent, customFields, arcSite }) {
   const mrssBuildContent = new MrssBuildContent()
 
   // can't return null for xml return type, must return valid xml template
-  return rssTemplate(get(globalContent, 'content_elements', []), {
-    ...customFields,
-    resizerURL,
-    domain: feedDomainURL,
-    feedTitle,
-    feedLanguage,
-    mrssBuildContent,
-  })
+  return rssTemplate(
+    get(globalContent, 'playlistItems || content_elements', []),
+    {
+      ...customFields,
+      resizerURL,
+      domain: feedDomainURL,
+      feedTitle,
+      feedLanguage,
+      mrssBuildContent,
+    },
+  )
 }
 
 Mrss.propTypes = {

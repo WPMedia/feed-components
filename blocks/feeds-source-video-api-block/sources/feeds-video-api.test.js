@@ -21,6 +21,6 @@ it('returns query with default values', () => {
     Count: '10',
   })
   expect(query2).toBe(
-    'undefined/api/v1/ans/playlists/findByPlaylist?playlist=playlist5&count=10',
+    'undefined/api/v1/ans/playlists/findByPlaylist?name=playlist5&count=10',
   )
 })
