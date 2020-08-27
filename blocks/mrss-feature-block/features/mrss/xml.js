@@ -1,6 +1,5 @@
 import PropTypes from 'fusion:prop-types'
 import Consumer from 'fusion:consumer'
-import get from 'lodash/get'
 import moment from 'moment'
 import getProperties from 'fusion:properties'
 import { resizerKey } from 'fusion:environment'
@@ -94,9 +93,13 @@ const rssTemplate = (
                 ...(videoStream.height && { height: videoStream.height }),
                 ...(videoStream.width && { width: videoStream.width }),
                 ...(videoStream.bitrate && { bitrate: videoStream.bitrate }),
-                ...(videoStream.stream_type && {
-                  type: videoStream.stream_type,
-                }),
+                ...((videoStream.stream_type &&
+                  videoStream.stream_type == 'mp4' && {
+                    type: 'video/mp4',
+                  }) ||
+                  (videoStream.stream_type == 'ts' && {
+                    type: 'video/MP2T',
+                  })),
               }),
             },
             ...(itemCredits &&
@@ -109,14 +112,20 @@ const rssTemplate = (
             'media:keywords': (
               jmespath.search(s, 'taxonomy.seo_keywords[*]') || []
             ).join(','),
-            ...(s.description ||
+            ...((s.description &&
+              s.description.basic && {
+                'media:caption': {
+                  $: [s.description.basic],
+                },
+              }) ||
               (s.subheadlines &&
                 s.subheadlines.basic && {
                   'media:caption': {
-                    $: s.description || s.subheadlines.basic,
+                    $: [s.subheadlines.basic],
                   },
                 })),
-            'media:transcript': s.transcript,
+            ...(s.transcript && { 'media:transcript': s.transcript }),
+
             ...(s.taxonomy &&
               s.taxonomy.primary_section &&
               s.taxonomy.primary_section.name && {
@@ -177,8 +186,6 @@ Mrss.propTypes = {
       description:
         'This criteria is used to filter videos encoded in the streams array',
       defaultValue: {
-        height: '',
-        width: '',
         bitrate: 5400,
         stream_type: 'mp4',
       },

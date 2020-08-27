@@ -1,4 +1,5 @@
-// prettier-ignore
+/* eslint-disable no-unused-vars */
+// Leave CONTENT_BASE here. Without it fusion will not add a bearer token
 import { CONTENT_BASE, VIDEO_BASE } from 'fusion:environment'
 
 const resolve = function resolve(key) {
