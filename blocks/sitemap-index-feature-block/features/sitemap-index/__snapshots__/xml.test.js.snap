@@ -7,23 +7,23 @@ Object {
     "sitemap": Array [
       Object {
         "lastmod": "2020-04-07T15:02:08.918Z",
-        "loc": "http://demo-prod.origin.arcpublishing.comarcio/sitemap?from=0",
+        "loc": "http://demo-prod.origin.arcpublishing.comarcio/sitemap?from=0&outputType=xml",
       },
       Object {
         "lastmod": "2020-04-07T15:02:08.918Z",
-        "loc": "http://demo-prod.origin.arcpublishing.comarcio/sitemap?from=100",
+        "loc": "http://demo-prod.origin.arcpublishing.comarcio/sitemap?from=100&outputType=xml",
       },
       Object {
         "lastmod": "2020-04-07T15:02:08.918Z",
-        "loc": "http://demo-prod.origin.arcpublishing.comarcio/sitemap?from=200",
+        "loc": "http://demo-prod.origin.arcpublishing.comarcio/sitemap?from=200&outputType=xml",
       },
       Object {
         "lastmod": "2020-04-07T15:02:08.918Z",
-        "loc": "http://demo-prod.origin.arcpublishing.comarcio/sitemap?from=300",
+        "loc": "http://demo-prod.origin.arcpublishing.comarcio/sitemap?from=300&outputType=xml",
       },
       Object {
         "lastmod": "2020-04-07T15:02:08.918Z",
-        "loc": "http://demo-prod.origin.arcpublishing.comarcio/sitemap?from=400",
+        "loc": "http://demo-prod.origin.arcpublishing.comarcio/sitemap?from=400&outputType=xml",
       },
     ],
   },

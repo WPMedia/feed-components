@@ -4,6 +4,7 @@ import getProperties from 'fusion:properties'
 
 const sitemapIndexTemplate = ({
   feedPath,
+  feedParam,
   domain,
   maxCount,
   lastModDate,
@@ -11,7 +12,7 @@ const sitemapIndexTemplate = ({
 }) => ({
   sitemapindex: {
     '@xmlns': 'http://www.sitemaps.org/schemas/sitemap/0.9',
-    sitemap: buildIndexes(maxCount, domain, feedPath, lastModDate),
+    sitemap: buildIndexes(maxCount, domain, feedPath, feedParam, lastModDate),
   },
 })
 
@@ -20,11 +21,19 @@ export function SitemapIndex({ globalContent, customFields, arcSite }) {
   const { count: maxCount = 0 } = globalContent
   const lastModDate = globalContent.content_elements[0][customFields.lastMod]
 
-  const buildIndexes = (maxCount, feedDomainUrl, feedPath, lastModDate) => {
+  const buildIndexes = (
+    maxCount,
+    feedDomainUrl,
+    feedPath,
+    feedParam,
+    lastModDate,
+  ) => {
     const arr = []
     for (let i = 0; i <= maxCount; i += 100) {
       arr.push({
-        loc: `${feedDomainURL}${feedPath}?from=${i}`,
+        loc: `${feedDomainURL}${feedPath}?from=${i}${
+          feedParam ? feedParam : ''
+        }`,
         ...(lastModDate && { lastmod: lastModDate }),
       })
     }
@@ -61,6 +70,12 @@ SitemapIndex.propTypes = {
       group: 'Format',
       description: 'Feed Path',
       defaultValue: '/arcio/sitemap/',
+    }),
+    feedParam: PropTypes.string.tag({
+      label: 'Additional URL Parameters',
+      group: 'Format',
+      description: 'Optional parameters to append to URL, start with &',
+      defaultValue: '&outputType=xml',
     }),
   }),
 }
