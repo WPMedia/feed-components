@@ -27,7 +27,7 @@ Object {
               "duration": 789,
               "height": 720,
               "isDefault": "true",
-              "type": "ts",
+              "type": "video/MP2T",
               "url": "https://d3ujdjwa458jgt.cloudfront.net/out/v1/87998c783fb94bf0b965847d5c8b4392/index.m3u8",
               "width": 1280,
             },
@@ -36,7 +36,6 @@ Object {
             "media:thumbnail": Object {
               "@url": "hi/abcdefghijklmnopqrstuvwxyz=/dv8csq7v0ltdn.cloudfront.net/04-16-2020/t_95d8de29ea3b41caac132f0462c5c71a_name_file_1920x1080_5400_v4_.jpg",
             },
-            "media:transcript": undefined,
           },
           "pubDate": "Thu, 16 Apr 2020 19:55:25 +0000",
           "referenceid": undefined,

@@ -94,10 +94,10 @@ const rssTemplate = (
                 ...(videoStream.width && { width: videoStream.width }),
                 ...(videoStream.bitrate && { bitrate: videoStream.bitrate }),
                 ...((videoStream.stream_type &&
-                  videoStream.stream_type == 'mp4' && {
+                  videoStream.stream_type === 'mp4' && {
                     type: 'video/mp4',
                   }) ||
-                  (videoStream.stream_type == 'ts' && {
+                  (videoStream.stream_type === 'ts' && {
                     type: 'video/MP2T',
                   })),
               }),
