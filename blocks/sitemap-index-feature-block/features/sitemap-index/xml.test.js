@@ -16,6 +16,7 @@ it('returns template with default values', () => {
     },
     customFields: {
       feedPath: 'arcio/sitemap',
+      feedParam: '&outputType=xml',
       lastMod: 'last_updated_date',
     },
   })
