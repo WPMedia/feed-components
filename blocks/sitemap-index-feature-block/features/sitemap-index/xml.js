@@ -31,9 +31,7 @@ export function SitemapIndex({ globalContent, customFields, arcSite }) {
     const arr = []
     for (let i = 0; i <= maxCount; i += 100) {
       arr.push({
-        loc: `${feedDomainURL}${feedPath}?from=${i}${
-          feedParam ? feedParam : ''
-        }`,
+        loc: `${feedDomainURL}${feedPath}?from=${i}${feedParam || ''}`,
         ...(lastModDate && { lastmod: lastModDate }),
       })
     }
