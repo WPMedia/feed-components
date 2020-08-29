@@ -1,5 +1,11 @@
 # @wpmedia/sitemap-index-feature-block
 
+## 0.3.0
+
+### Minor Changes
+
+- [`cb416a9`](https://github.com/WPMedia/feed-components/commit/cb416a969d0b3614947775c847a33cdb3b10ea98) [#169](https://github.com/WPMedia/feed-components/pull/169) Thanks [@tbrick855](https://github.com/tbrick855)! - Add feedParams customField
+
 ## 0.2.0
 
 ### Minor Changes
