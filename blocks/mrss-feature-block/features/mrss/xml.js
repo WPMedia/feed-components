@@ -159,7 +159,8 @@ export function Mrss({ globalContent, customFields, arcSite }) {
 
   // can't return null for xml return type, must return valid xml template
   return rssTemplate(
-    jmespath.search(globalContent, 'playlistItems || content_elements', []),
+    jmespath.search(globalContent, 'playlistItems || content_elements || []') ||
+      [],
     {
       ...customFields,
       resizerURL,
