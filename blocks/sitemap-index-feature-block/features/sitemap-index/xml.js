@@ -3,6 +3,8 @@ import Consumer from 'fusion:consumer'
 import getProperties from 'fusion:properties'
 import URL from 'url'
 
+const jmespath = require('jmespath')
+
 const sitemapIndexTemplate = ({
   feedPath,
   feedParam,
@@ -33,7 +35,10 @@ export function SitemapIndex({
 }) {
   const { feedDomainURL = '' } = getProperties(arcSite)
   const { count: maxCount = 0 } = globalContent
-  const lastModDate = globalContent.content_elements[0][customFields.lastMod]
+  const lastModDate = jmespath.search(
+    globalContent,
+    `content_elements[0].${customFields.lastMod}`,
+  )
   const pathList = new URL.URL(requestUri, feedDomainURL).pathname.split(
     customFields.feedName,
   )
@@ -48,13 +53,15 @@ export function SitemapIndex({
     lastModDate,
   ) => {
     const arr = []
-    for (let i = 0; i <= maxCount; i += 100) {
-      arr.push({
-        loc: `${feedDomainURL}${feedPath}${section}?from=${i}${
-          feedParam || ''
-        }`,
-        ...(lastModDate && { lastmod: lastModDate }),
-      })
+    if (maxCount) {
+      for (let i = 0; i <= maxCount; i += 100) {
+        arr.push({
+          loc: `${feedDomainURL}${feedPath}${section}?from=${i}${
+            feedParam || ''
+          }`,
+          ...(lastModDate && { lastmod: lastModDate }),
+        })
+      }
     }
     return arr
   }

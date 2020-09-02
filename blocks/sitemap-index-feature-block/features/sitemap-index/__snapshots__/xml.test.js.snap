@@ -59,3 +59,12 @@ Object {
   },
 }
 `;
+
+exports[`returns template with no content 1`] = `
+Object {
+  "sitemapindex": Object {
+    "@xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9",
+    "sitemap": Array [],
+  },
+}
+`;
