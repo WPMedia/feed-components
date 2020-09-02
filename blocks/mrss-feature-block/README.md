@@ -29,6 +29,8 @@ includePromo: bool to include promo image
 imageTitle: defaults to title
 imageCaption: defaults to caption
 ImageCredits: defaults to credits.by[].name
-selectVideo: This criteria is used to filter videos encoded in the streams array
+
+selectVideo: This criteria is used to filter videos encoded in the streams array, defaults to
+`{ bitrate: 5400, stream_type: 'mp4' }`
 
 ### Usage

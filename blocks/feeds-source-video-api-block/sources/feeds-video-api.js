@@ -7,11 +7,10 @@ const resolve = function resolve(key) {
   if (key) {
     if (key.Uuids) {
       requestUri = `${VIDEO_BASE}/api/v1/ansvideos/findByUuids`
-      uriParams = [`uuids=${key.Uuids}`]
+      uriParams = 'uuids=' + key.Uuids.split(',').join('&uuids=')
     } else {
-      const count = key.Count || 10
       requestUri = `${VIDEO_BASE}/api/v1/ans/playlists/findByPlaylist`
-      uriParams = [`name=${key.Playlist}`, `count=${count}`].join('&')
+      uriParams = `name=${key.Playlist}&count=${key.Count || 10}`
     }
   }
   return `${requestUri}?${uriParams}`
