@@ -1,10 +1,12 @@
 import PropTypes from 'fusion:prop-types'
 import Consumer from 'fusion:consumer'
 import getProperties from 'fusion:properties'
+import URL from 'url'
 
 const sitemapIndexTemplate = ({
   feedPath,
   feedParam,
+  section,
   domain,
   maxCount,
   lastModDate,
@@ -12,26 +14,45 @@ const sitemapIndexTemplate = ({
 }) => ({
   sitemapindex: {
     '@xmlns': 'http://www.sitemaps.org/schemas/sitemap/0.9',
-    sitemap: buildIndexes(maxCount, domain, feedPath, feedParam, lastModDate),
+    sitemap: buildIndexes(
+      maxCount,
+      domain,
+      feedPath,
+      section,
+      feedParam,
+      lastModDate,
+    ),
   },
 })
 
-export function SitemapIndex({ globalContent, customFields, arcSite }) {
+export function SitemapIndex({
+  globalContent,
+  customFields,
+  arcSite,
+  requestUri,
+}) {
   const { feedDomainURL = '' } = getProperties(arcSite)
   const { count: maxCount = 0 } = globalContent
   const lastModDate = globalContent.content_elements[0][customFields.lastMod]
+  const pathList = new URL.URL(requestUri, feedDomainURL).pathname.split(
+    customFields.feedName,
+  )
+  const section = pathList && pathList.length === 2 ? pathList[1] : ''
 
   const buildIndexes = (
     maxCount,
     feedDomainUrl,
     feedPath,
+    section,
     feedParam,
     lastModDate,
   ) => {
     const arr = []
     for (let i = 0; i <= maxCount; i += 100) {
       arr.push({
-        loc: `${feedDomainURL}${feedPath}?from=${i}${feedParam || ''}`,
+        loc: `${feedDomainURL}${feedPath}${section}?from=${i}${
+          feedParam || ''
+        }`,
         ...(lastModDate && { lastmod: lastModDate }),
       })
     }
@@ -41,6 +62,7 @@ export function SitemapIndex({ globalContent, customFields, arcSite }) {
   // can't return null for xml return type, must return valid xml template
   return sitemapIndexTemplate({
     ...customFields,
+    section,
     domain: feedDomainURL,
     maxCount,
     lastModDate,
@@ -64,10 +86,16 @@ SitemapIndex.propTypes = {
       defaultValue: 'last_updated_date',
     }),
     feedPath: PropTypes.string.tag({
-      label: 'Feed Path',
+      label: 'Sitemap Path',
       group: 'Format',
-      description: 'Feed Path',
-      defaultValue: '/arcio/sitemap/',
+      description: 'Path to the sitemap feed',
+      defaultValue: '/arc/outboundfeeds/sitemap/',
+    }),
+    feedName: PropTypes.string.tag({
+      label: 'Sitemap-Index Name ',
+      group: 'Format',
+      description: 'Name of the sitemap-index feed in the URL',
+      defaultValue: '/sitemap-index/',
     }),
     feedParam: PropTypes.string.tag({
       label: 'Additional URL Parameters',

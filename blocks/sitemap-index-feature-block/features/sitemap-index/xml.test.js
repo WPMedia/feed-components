@@ -15,10 +15,36 @@ it('returns template with default values', () => {
       ],
     },
     customFields: {
-      feedPath: 'arcio/sitemap',
+      feedPath: '/arc/outboundfeeds/sitemap',
+      feedName: '/sitemap-index/',
       feedParam: '&outputType=xml',
       lastMod: 'last_updated_date',
     },
+    requestUri: '/sitemap-index/?outputType=xml',
+  })
+  expect(sitemapindex).toMatchSnapshot()
+})
+
+it('returns template with category in url', () => {
+  const sitemapindex = SitemapIndex({
+    arcSite: 'the-globe',
+    globalContent: {
+      count: 437,
+      content_elements: [
+        {
+          last_updated_date: '2020-04-07T15:02:08.918Z',
+          website_url: '/food/2020/04/07/tips-for-safe-hand-washing',
+        },
+      ],
+    },
+    customFields: {
+      feedPath: '/arc/outboundfeeds/sitemap',
+      feedName: '/sitemap-index/',
+      feedParam: '&outputType=xml',
+      lastMod: 'last_updated_date',
+    },
+    requestUri:
+      '/arc/outboundfeeds/sitemap-index/category/sports?outputType=xml',
   })
   expect(sitemapindex).toMatchSnapshot()
 })
