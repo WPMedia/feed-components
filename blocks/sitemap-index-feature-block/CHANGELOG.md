@@ -1,5 +1,11 @@
 # @wpmedia/sitemap-index-feature-block
 
+## 0.5.0
+
+### Minor Changes
+
+- [`88a9a7a`](https://github.com/WPMedia/feed-components/commit/88a9a7aa971643f41a00d1efd9191a4e3a308ded) [#176](https://github.com/WPMedia/feed-components/pull/176) Thanks [@tbrick855](https://github.com/tbrick855)! - Handle no results
+
 ## 0.4.0
 
 ### Minor Changes
