@@ -178,8 +178,8 @@ Mrss.propTypes = {
       label: 'Path',
       group: 'Channel',
       description:
-        'Path to the feed, excluding the domain, defaults to /arcio/mrss',
-      defaultValue: '/arcio/mrss/',
+        'Path to the feed, excluding the domain, defaults to /arc/outboundfeeds/mrss',
+      defaultValue: '/arc/outboundfeeds/mrss/',
     }),
     selectVideo: PropTypes.kvp.tag({
       label: 'Select video using',

@@ -1,4 +1,5 @@
 import { CONTENT_BASE } from 'fusion:environment'
+import getProperties from 'fusion:properties'
 
 const resolve = function resolve(key) {
   const requestUri = `${CONTENT_BASE}/content/v4/search/published`
@@ -10,6 +11,8 @@ const resolve = function resolve(key) {
     `sort=${key.Sort || 'publish_date:desc'}`,
   ].join('&')
 
+  const { feedDefaultQuery } = getProperties(key['arc-site'])
+
   // basic ES query
   const body = {
     query: {
@@ -19,24 +22,31 @@ const resolve = function resolve(key) {
     },
   }
 
+  // If feedDefaultQuery is set try to use it
+  let feedQuery
+  if (feedDefaultQuery) {
+    try {
+      feedQuery = JSON.parse(feedDefaultQuery)
+    } catch (error) {
+      console.warn(`Failed to parse feedDefaultQuery: ${feedDefaultQuery}`)
+    }
+  }
+
   // process the must query terms passed as json string
   // if nothing passed or not valid json use [{"term": {"type":"story"}}, {"term": {"revision.published":true}}]
-  let feedQuery
   if (key['Include-Terms']) {
     try {
       feedQuery = JSON.parse(key['Include-Terms'])
     } catch (error) {
-      console.log(`Failed to parse Include-Terms: ${key['Include-Terms']}`)
+      console.warn(`Failed to parse Include-Terms: ${key['Include-Terms']}`)
     }
   }
 
   // default query
   if (!feedQuery) {
     feedQuery = [
-      {
-        term: { type: 'story' },
-      },
-      { term: { 'revision.published': true } },
+      { term: { type: 'story' } },
+      { range: { last_updated_date: { gte: 'now-2d', lte: 'now' } } },
     ]
   }
 
@@ -48,7 +58,7 @@ const resolve = function resolve(key) {
     try {
       body.query.bool.must_not = JSON.parse(excludeTerms)
     } catch (error) {
-      console.log(`Failed to parse Exclude-Terms: ${key['Exclude-Terms']}`)
+      console.warn(`Failed to parse Exclude-Terms: ${key['Exclude-Terms']}`)
     }
   }
 

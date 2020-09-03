@@ -528,8 +528,8 @@ FbiaRss.propTypes = {
       label: 'Path',
       group: 'Channel',
       description:
-        'Path to the feed excluding the domain, defaults to /arcio/fb-ia',
-      defaultValue: '/arcio/fb-ia',
+        'Path to the feed excluding the domain, defaults to /arc/outboundfeeds/fb-ia',
+      defaultValue: '/arc/outboundfeeds/fb-ia',
     }),
     articleStyle: PropTypes.string.tag({
       label: 'Article Style',

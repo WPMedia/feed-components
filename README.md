@@ -16,9 +16,10 @@ The most commonly used feeds from partner-feeds will be migrated to fusion as bl
 - fb-ia
 - msn
 - flipboard
+- mrss
 - apple-news
 
-Each feature will have customFields to configure the feeds to meet the most common customization requests. If a client needs a customization that is beyond what can be achieved with the customFields they will have to fork the repo and build a custom version.
+Each feature will have customFields to configure the feeds to meet the most common customization requests. If a client needs a customization that is beyond what can be achieved with the customFields they will have to checkout the package and manually add its components into the repo (eject the block) and build a custom version.
 
 ## Block Architecture
 
@@ -44,12 +45,12 @@ Make sure you have [`yarn` classic](https://classic.yarnpkg.com/en/) installed.
 
 ## Local Development
 
-1. link the block to make it available to the skeleton repo. From the blocks/{feature} directory run `npm link`
+1. Install the blocks dependencies to make it available to the skeleton repo. From the blocks/{feature} directory run `npm install`
 2. Clone the [skeleton-fusion-feeds](https://github.com/WPMedia/skeleton-fusion-feeds) project and follow the setup instructions
 3. In `skeleton-fusion-feeds`, add the package you are testing to the `blocks.json` blocks array
 4. Set `useLocal` in `blocks.json` to `true`
-5. In `skeleton-fusion-feeds`, run `npx fusion start-theme --links`
-6. When you are ready to create the PR create a changeset with `yarn changeset add` It will allow you to select which changes you want to include and designate them as major, minor or patch. Add any of the changeset files that were generated to the commit. There is a github action that will handle publishing the package once the PR is merged to master.
+5. In `skeleton-fusion-feeds`, run `npx fusion start`
+6. When you are ready to create the PR create a changeset with `yarn changeset add` It will allow you to select which changes you want to include and designate them as a major, minor or patch release. Add any of the changeset files that were generated to the commit. There is a github action that will handle publishing the package once the PR is merged to the prod branch.
 
 ## Caveats/Gotchas/Workaround
 
@@ -66,7 +67,7 @@ Some features use the same logic, so we've added the ability to create shared mo
 
 We weren't able to find a solution to use the `npm link` approach with shared modules. Instead, we'll use prerelease versions to denote "development" versions of these modules:
 
-- **Before you start work on a shared module, enter prerelease mode.** To enter prerelease mode, run `yarn changeset pre enter {tag}` (see the [changesets prerelease documentation](https://github.com/atlassian/changesets/blob/master/docs/prereleases.md) for more information). To be clear who is doing the development, suggest using your initials as the tag. The packages will be published as `1.0.1-cw.0`.
+- **Before you start work on a shared module, enter prerelease mode.** To enter prerelease mode, run `yarn changeset pre enter {tag}` (see the [changesets prerelease documentation](https://github.com/atlassian/changesets/blob/master/docs/prereleases.md) for more information). To be clear who is doing the development, it is suggested using your initials as the tag. If you use `cw` as the tag, the packages will be published as `1.0.1-cw.0`.
 
 - Use changesets as normal (`changeset add`). When you are ready to publish a prerelease, do a npm run build from the root of the repo, then `changeset version` and then `changetset publish`. Once you have a prerelease version published, you can update block dependencies to use it. You may also need to run these commands with a `GITHUB_TOKEN` env variable (which should be a [personal Github token](https://github.com/settings/tokens)). **Before you publish, run `npm run build` from the monorepo root directory.**
 

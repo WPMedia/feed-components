@@ -95,7 +95,8 @@ SitemapIndex.propTypes = {
     feedPath: PropTypes.string.tag({
       label: 'Sitemap Path',
       group: 'Format',
-      description: 'Path to the sitemap feed',
+      description:
+        'Path to the sitemap feed, defaults to /arc/outboundfeeds/sitemap/',
       defaultValue: '/arc/outboundfeeds/sitemap/',
     }),
     feedName: PropTypes.string.tag({

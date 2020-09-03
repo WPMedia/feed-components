@@ -67,15 +67,13 @@ Sitemap.propTypes = {
     imageTitle: PropTypes.string.tag({
       label: 'ANS image title key',
       group: 'Field Mapping',
-      description:
-        'ANS value for associated story used for the <image:title> sitemap tag',
+      description: 'ANS value for the <image:title> sitemap tag',
       defaultValue: 'title',
     }),
     imageCaption: PropTypes.string.tag({
-      label: 'ANS image title key',
+      label: 'ANS image caption key',
       group: 'Field Mapping',
-      description:
-        'ANS value for associated story image used for the <image:caption> sitemap tag',
+      description: 'ANS value for the <image:caption> sitemap tag',
       defaultValue: 'caption',
     }),
     ...generatePropsForFeed('sitemap', PropTypes),
