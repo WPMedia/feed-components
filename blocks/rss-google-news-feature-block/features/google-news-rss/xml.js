@@ -191,8 +191,8 @@ GoogleNewsRss.propTypes = {
       label: 'Path',
       group: 'Channel',
       description:
-        'Path to the feed excluding the domain, defaults to /arcio/google-news-feed',
-      defaultValue: '/arcio/google-news-feed/',
+        'Path to the feed excluding the domain, defaults to /arc/outboundfeeds/google-news-feed',
+      defaultValue: '/arc/outboundfeeds/google-news-feed/',
     }),
     ...generatePropsForFeed('rss', PropTypes, ['channelPath', 'includePromo']),
   }),

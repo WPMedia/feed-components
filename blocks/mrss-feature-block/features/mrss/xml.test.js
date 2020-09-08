@@ -166,7 +166,7 @@ it('returns RSS template with default values', () => {
     customFields: {
       channelTitle: '',
       channelDescription: '',
-      channelPath: '/arcio/mrss/',
+      channelPath: '/arc/outboundfeeds/mrss/',
       channelLogo: '',
       imageCaption: 'subheadlines.basic || caption',
       imageCredits: 'credits.by[].name',

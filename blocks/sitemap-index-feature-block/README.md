@@ -10,6 +10,6 @@ This will require that the resolver for the feed it is linking to supports the f
 
 - lastMod - The date field to use to display the lastmod. It will get only the date from the first article returned and repeat that date for every link. Defaults to `last_updated_date`
 
-- feedPath - The path to the format to use. Defaults to `/arcio/sitemap/`
+- feedPath - The path to the format to use. Defaults to `/arc/outboundfeeds/sitemap/`
 
 - feedName - The name of the feed used in the resolver. Defaults to `/sitemap-index/` This is used to split the requestURI to get anything in the path after the feed like a section. If a request is made using `/arc/outboundfeeds/sitemap-index/category/sports`. This will be split on `/sitemap-index/` which results in an array of `['/arc/outboundfeeds', 'category/sports']` the second array element, if any, will be appended to the generated sitemap url.

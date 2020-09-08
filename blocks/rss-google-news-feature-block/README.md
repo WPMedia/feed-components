@@ -1,4 +1,4 @@
-# RSS
+# google-news-feed
 
 ## Globals
 
@@ -9,7 +9,7 @@ feedResizer
 
 ## Custom Fields
 
-channelPath: defaults to /arcio/google-news-feed/
+channelPath: defaults to /arc/outboundfeeds/google-news-feed/
 channelTitle: defaults to global website name
 channelDescription: defaults to global website name + "News Feed"
 channelCopyright: defaults to Copyright YYYY global website name

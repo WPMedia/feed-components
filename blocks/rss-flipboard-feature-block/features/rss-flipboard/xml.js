@@ -200,8 +200,8 @@ FlipboardRss.propTypes = {
       label: 'Path',
       group: 'Channel',
       description:
-        'Path to the feed excluding the domain, defaults to /arcio/flipboard',
-      defaultValue: '/arcio/flipboard/',
+        'Path to the feed excluding the domain, defaults to /arc/outboundfeeds/flipboard',
+      defaultValue: '/arc/outboundfeeds/flipboard/',
     }),
     ...generatePropsForFeed('rss', PropTypes, ['channelPath', 'includePromo']),
   }),

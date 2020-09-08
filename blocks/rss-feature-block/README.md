@@ -11,7 +11,7 @@ feedResizer
 
 channelTitle: defaults to global website name
 channelDescription: defaults to global website name + "News Feed"
-channelPath: defaults to /arcio/rss/
+channelPath: defaults to /arc/outboundfeeds/rss/
 channelCopyright: defaults to Copyright YYYY global website name
 channelTTL: number of mins, defaults to 1
 channelUpdatePeriod: update period hours, days, weeks, months, years. Defaults to hours

@@ -195,8 +195,8 @@ MsnRss.propTypes = {
       label: 'Path',
       group: 'Channel',
       description:
-        'Path to the feed excluding the domain, defaults to /arcio/msn',
-      defaultValue: '/arcio/msn/',
+        'Path to the feed excluding the domain, defaults to /arc/outboundfeeds/msn/',
+      defaultValue: '/arc/outboundfeeds/msn/',
     }),
     ...generatePropsForFeed('rss', PropTypes, ['channelPath', 'includePromo']),
   }),

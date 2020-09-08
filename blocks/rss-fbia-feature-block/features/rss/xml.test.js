@@ -45,7 +45,7 @@ it('returns RSS template with default values', () => {
     customFields: {
       channelTitle: '',
       channelDescription: '',
-      channelPath: '/arcio/rss/',
+      channelPath: '/arc/outboundfeeds/rss/',
       channelCopyright: '',
       channelTTL: '1',
       channelUpdatePeriod: 'hourly',

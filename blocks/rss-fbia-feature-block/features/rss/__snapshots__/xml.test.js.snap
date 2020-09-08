@@ -11,7 +11,7 @@ Object {
     "@xmlns:sy": "http://purl.org/rss/1.0/modules/syndication/",
     "channel": Object {
       "atom:link": Object {
-        "@href": "http://demo-prod.origin.arcpublishing.com/arcio/rss/",
+        "@href": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/rss/",
         "@rel": "self",
         "@type": "application/rss+xml",
       },
