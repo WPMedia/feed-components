@@ -1,5 +1,11 @@
 # @wpmedia/feeds-source-content-api-block
 
+## 0.6.0
+
+### Minor Changes
+
+- [`2526330`](https://github.com/WPMedia/feed-components/commit/25263305ad230c5e5bc57d3f16ba64738af3044c) [#178](https://github.com/WPMedia/feed-components/pull/178) Thanks [@tbrick855](https://github.com/tbrick855)! - changed default query and use /arc/outboundfeeds/ channelPath
+
 ## 0.5.0
 
 ### Minor Changes
