@@ -1,5 +1,5 @@
 const { feedBlocks, tags } = require('./blockVersions')
-const { exec, spawn } = require('child_process')
+const { exec } = require('child_process')
 
 const releases = Object.values(tags)
 
@@ -13,10 +13,10 @@ const info = (cmd) => {
       console.log(`stderr: ${stderr}`)
       return
     }
-    const package = JSON.parse(stdout)
-    console.log(`${package.name} - ${package.version}`)
+    const npmPackage = JSON.parse(stdout)
+    console.log(`${npmPackage.name} - ${npmPackage.version}`)
     releases.map((release) => {
-      console.log(`  ${release} - ${package['dist-tags'][release]}`)
+      console.log(`  ${release} - ${npmPackage['dist-tags'][release]}`)
     })
   })
 }

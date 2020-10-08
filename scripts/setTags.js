@@ -12,22 +12,20 @@ if (!packages) {
   process.exit(2)
 }
 
-const add = (package, version, tag) => {
+const add = (name, version, tag) => {
   exec(
-    `npm dist-tag add ${package}@${version} ${tag}`,
+    `npm dist-tag add ${name}@${version} ${tag}`,
     (error, stdout, stderr) => {
       if (error) {
         console.log(`error: ${error.message}`)
-        return
       }
       if (stderr) {
         console.log(`stderr: ${stderr}`)
-        return
       }
     },
   )
 }
 
-packages.map((package) => {
-  add(package.name, package.version, release)
+packages.map((npmPackage) => {
+  add(npmPackage.name, npmPackage.version, release)
 })
