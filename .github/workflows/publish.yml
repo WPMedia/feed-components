@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - sandbox
+      - prod
 
 jobs:
   release:
@@ -30,8 +31,8 @@ jobs:
       - name: Create Release Pull Request or Publish to npm
         uses: changesets/action@master
         with:
-          # this expects you to have a script called release which does a build for your packages and calls changeset publish
-          publish: npm run release:sandbox
+          # this runs release:<branch name> which calls changeset publish --tag [beta|stable]
+          publish: npm run release:${GITHUB_REF##*/}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
