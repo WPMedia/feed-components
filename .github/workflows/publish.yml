@@ -3,6 +3,7 @@ name: Release
 on:
   push:
     branches:
+      - sandbox
       - prod
 
 jobs:
@@ -27,11 +28,17 @@ jobs:
           CI: true
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: print head_ref
+        run: echo npm run release:${{ github.head_ref }}
+
+      - name: print github_ref
+        run: echo npm run release:${GITHUB_REF##*/}
+
       - name: Create Release Pull Request or Publish to npm
         uses: changesets/action@master
         with:
-          # this expects you to have a script called release which does a build for your packages and calls changeset publish
-          publish: npm run release
+          # this runs release:<branch name> which calls changeset publish --tag [beta|stable]
+          publish: npm run release:${{ github.head_ref }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
