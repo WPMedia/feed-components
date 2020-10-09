@@ -31,11 +31,7 @@ jobs:
         uses: changesets/action@master
         with:
           # this expects you to have a script called release which does a build for your packages and calls changeset publish
-          publish: npm run release
+          publish: npm run release:beta
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Add dst-tags to updated packages
-        if: steps.changesets.outputs.published == 'true'
-        run: npm run setTags beta ${steps.changesets.outputs.publishedPackages}
