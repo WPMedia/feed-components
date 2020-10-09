@@ -28,12 +28,23 @@ jobs:
           CI: true
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: Display GITHUB_REF
+        run: echo "$GITHUB_REF"
+
+      - name: Display Branch
+        run: echo "${GITHUB_REF#refs/heads/}"
+
+      - name: Display env
+        run: echo "$MYREF"
+        env:
+          MYREF: ${{ github.ref }}
+
       - name: Create Release Pull Request or Publish to npm
         uses: changesets/action@master
         with:
           #  this runs release:<branch name> which calls changeset publish --tag [beta|stable]
           publish: npm run release:$BRANCH
         env:
-          BRANCH: ${{ github.ref#refs/heads/ }}
+          BRANCH: ${GITHUB_REF#refs/heads/}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
