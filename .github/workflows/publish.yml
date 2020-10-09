@@ -32,7 +32,8 @@ jobs:
         run: echo npm run release:${{ github.head_ref }}
 
       - name: print github_ref
-        run: echo npm run release:${GITHUB_REF##*/}
+        uses: nelonoel/branch-name@v1
+        run: echo release:${BRANCH_NAME}
 
       - name: Create Release Pull Request or Publish to npm
         uses: changesets/action@master
