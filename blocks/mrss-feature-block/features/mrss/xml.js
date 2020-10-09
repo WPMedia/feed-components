@@ -44,7 +44,7 @@ const rssTemplate = (
     '@version': '2.0',
     '@xmlns:media': 'http://search.yahoo.com/mrss/',
     channel: {
-      title: `${channelTitle || feedTitle + ' Videos'}`,
+      title: channelTitle || `${feedTitle} Videos`,
       link: domain,
       'atom:link': {
         '@href': `${domain}${channelPath}`,
@@ -56,13 +56,13 @@ const rssTemplate = (
       ...(channelLogo && {
         image: {
           url: buildResizerURL(channelLogo, resizerKey, resizerURL),
-          title: `${channelTitle || feedTitle + ' Videos'}`,
+          title: channelTitle || `${feedTitle} Videos`,
           link: domain,
         },
       }),
 
       item: elements.map((s) => {
-        const url = `${domain}${s.website_url || s.canonical_url}`
+        const url = `${domain}${s.website_url}` || s.canonical_url
         const img =
           s.promo_items && (s.promo_items.basic || s.promo_items.lead_art)
         const videoStream = findVideo(s, selectVideo)

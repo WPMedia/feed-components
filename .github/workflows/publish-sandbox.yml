@@ -1,0 +1,37 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - sandbox
+
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+
+      - name: Setup Node.js 10.x
+        uses: actions/setup-node@master
+        with:
+          node-version: 10.x
+          registry-url: https://npm.pkg.github.com
+          scope: '@wpmedia'
+
+      - name: Install Dependencies
+        run: npm install
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          CI: true
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create Release Pull Request or Publish to npm
+        uses: changesets/action@master
+        with:
+          #  this runs release:<branch name> which calls changeset publish --tag [beta|stable]
+          publish: npm run release:sandbox
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
