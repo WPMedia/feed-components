@@ -39,7 +39,7 @@ jobs:
       - name: Create Release Pull Request or Publish to npm
         uses: changesets/action@master
         with:
-          # this runs release:<branch name> which calls changeset publish --tag [beta|stable]
+          #  this runs release:<branch name> which calls changeset publish --tag [beta|stable]
           publish: npm run release:${GITHUB_HEAD_REF}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
