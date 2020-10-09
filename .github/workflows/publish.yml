@@ -32,10 +32,10 @@ jobs:
         run: echo "$GITHUB_REF"
 
       - name: Display Branch
-        run: echo "${GITHUB_REF#refs/heads/}"
+        run: echo ${GITHUB_REF#refs/heads/}
 
       - name: Display env
-        run: echo "$MYREF"
+        run: echo "${MYREF##*/}"
         env:
           MYREF: ${{ github.ref }}
 
@@ -43,8 +43,7 @@ jobs:
         uses: changesets/action@master
         with:
           #  this runs release:<branch name> which calls changeset publish --tag [beta|stable]
-          publish: npm run release:$BRANCH
+          publish: npm run release:${GITHUB_REF#refs/heads/}
         env:
-          BRANCH: ${GITHUB_REF#refs/heads/}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
