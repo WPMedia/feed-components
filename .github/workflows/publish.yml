@@ -31,14 +31,16 @@ jobs:
       - name: print head_ref
         run: echo "npm run release:${{ github.head_ref }}"
 
-      - name: Set branch name
-        run: echo "::set-env name=BRANCH_NAME::$(echo ${GITHUB_HEAD_REF})"
+      - name: Dump GitHub context
+        env:
+          GITHUB_CONTEXT: ${{ toJson(github) }}
+        run: echo "$GITHUB_CONTEXT"
 
       - name: Create Release Pull Request or Publish to npm
         uses: changesets/action@master
         with:
           # this runs release:<branch name> which calls changeset publish --tag [beta|stable]
-          publish: npm run release:$BRANCH_NAME
+          publish: npm run release:${GITHUB_HEAD_REF}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
