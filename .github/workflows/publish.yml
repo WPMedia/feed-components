@@ -28,6 +28,12 @@ jobs:
           CI: true
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      - name: print head_ref
+        run: echo npm run release:${{ github.head_ref }}
+
+      - name: print github_ref
+        run: echo npm run release:${GITHUB_REF##*/}
+
       - name: Create Release Pull Request or Publish to npm
         uses: changesets/action@master
         with:
