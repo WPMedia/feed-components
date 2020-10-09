@@ -1,5 +1,11 @@
 # @wpmedia/mrss-feature-block
 
+## 0.6.1
+
+### Patch Changes
+
+- [`f529238`](https://github.com/WPMedia/feed-components/commit/f52923845f07d631f73e82b8d24217fb7bfe3f37) [#218](https://github.com/WPMedia/feed-components/pull/218) Thanks [@tbrick855](https://github.com/tbrick855)! - Refactor
+
 ## 0.6.0
 
 ### Minor Changes
