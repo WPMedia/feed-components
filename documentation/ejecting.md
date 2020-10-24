@@ -55,3 +55,4 @@ That is the name that will appear when the PageBuilder Editor lists all features
 ## dependencies
 
 Compare the blocks package.json dependencies with your repos package.json and add anything missing to your repos package.json.
+

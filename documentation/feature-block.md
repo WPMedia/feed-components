@@ -90,3 +90,4 @@ And finally the function must be exported for it to be used as a feature.
 ```javascript
 export default Consumer(Rss)
 ```
+

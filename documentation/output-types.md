@@ -16,3 +16,4 @@ export default XmlOutput
 ```
 
 Now all requests to fusion with the parameter ?outputType=xml will use this output-type to generate content.
+

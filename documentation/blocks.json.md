@@ -70,3 +70,4 @@ This is the main configuration file use to control which blocks are imported and
 ```json
 "[{\"term\":{\"type\":\"story\"}},{\"range\":{\"last_updated_date\":{\"gte\":\"now-2d\",\"lte\":\"now\"}}}]"
 ```
+

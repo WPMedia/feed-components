@@ -128,3 +128,4 @@ const resizedURL = buildResizerURL(
 ## feeds-xml-output
 
 By default PageBuilder generates html output. To generate xml output a new outputType must be created. The outputType expects an object and uses the xmlbuilder2 module to convert it to xml. In the skeleton repo the feeds-xml-output package has already been [added](./output-types.md) and the output-type configured. By including the parameter `?outputType=xml` in all feeds requests tells fusion to use the xml output-type.
+
