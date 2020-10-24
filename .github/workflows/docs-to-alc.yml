@@ -2,7 +2,7 @@ name: A job to push technical docs to Arc
 on: 
   push:
     branches:
-      - master
+      - prod
 
 jobs:
   md_to_alc_job:
