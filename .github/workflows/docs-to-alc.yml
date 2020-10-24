@@ -1,0 +1,28 @@
+name: A job to push technical docs to Arc
+on: 
+  push:
+    branches:
+      - master
+
+jobs:
+  md_to_alc_job:
+    runs-on: ubuntu-latest
+    steps:
+    - id: getfiles
+      uses: lots0logs/gh-action-get-changed-files@2.1.4
+      with: 
+        token: ${{ secrets.GIT_TOKEN }}
+    - name: Checkout private repo
+      uses: actions/checkout@v2 
+      with:
+          repository: WPMedia/md_to_alc_action
+          token: ${{ secrets.GIT_TOKEN }}    
+    - id: send-markdown
+      uses: ./
+      with: 
+        arcToken: ${{ secrets.ARC_TOKEN }}
+        repoToken: ${{ secrets.GIT_TOKEN }}
+        docPath: documentation/
+        changedFiles: ${{ steps.getfiles.outputs.modified }}
+        repoName: ${{ github.event.repository.name }}
+ 
