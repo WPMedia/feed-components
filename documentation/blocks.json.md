@@ -62,7 +62,7 @@ This is the main configuration file use to control which blocks are imported and
 
 ## site configs
 
-Inside the values key are the site properties. Default values have been provided that should be replaced with your specific site values. They are broken out into two groups; default and sites. The default values will be used unless that values is also set in a website section. In sites you should have a section for each of your websites. The website key must match the website `_id` used in Site Service. For example if all of your websites use English except one, in default you can set `feedLanguage: "en"`. Then in the one website that uses Spanish you can set `feedLangauge: "es"`. No other website would need to have a feedLanguage set.
+Inside the values key are the site properties. Default values have been provided that should be replaced with your specific site values. They are broken out into two groups; default and sites. The default values will be used unless that value is also set in a website section. You should have a section for each of your websites. The website key must match the website `_id` used in Site Service. For example if all of your websites use English except one, in default you can set `feedLanguage: "en"`. Then in the one website that uses Spanish you can set `feedLangauge: "es"`. No other website would need to have feedLanguage set.
 
 - feedDomainURL - The fully qualified url for the site. It must not end in a slash.
 - resizerURL - The fully qualified url for the sites resizer. It must not end in a slash. Typically this is the same as the feedDomainURL with a /resizer.
