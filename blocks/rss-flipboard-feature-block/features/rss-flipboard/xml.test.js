@@ -69,7 +69,7 @@ it('returns Google News template with default values', () => {
       imageTitle: 'title',
       imageCaption: 'caption',
       imageCredits: 'credits.by[].name',
-      includeContent: '0',
+      includeContent: 0,
     },
   })
   expect(rss).toMatchSnapshot({

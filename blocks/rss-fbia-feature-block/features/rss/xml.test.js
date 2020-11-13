@@ -62,7 +62,7 @@ it('returns RSS template with default values', () => {
       imageTitle: 'title',
       imageCaption: 'caption',
       imageCredits: 'credits.by[].name',
-      includeContent: '0',
+      includeContent: 0,
       articleStyle: '',
       likesAndComments: '',
       adPlacement: '',

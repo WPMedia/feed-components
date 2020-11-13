@@ -48,14 +48,14 @@ const rssTemplate = (
       '@xmlns:media': 'http://search.yahoo.com/mrss/',
     }),
     channel: {
-      title: { $: `${channelTitle || feedTitle}` },
+      title: { $: channelTitle || feedTitle },
       link: `${domain}`,
       'atom:link': {
         '@href': `${domain}${channelPath}`,
         '@rel': 'self',
         '@type': 'application/rss+xml',
       },
-      description: { $: `${channelDescription || feedTitle + ' News Feed'}` },
+      description: { $: channelDescription || `${feedTitle} News Feed` },
       lastBuildDate: moment
         .utc(new Date())
         .format('ddd, DD MMM YYYY HH:mm:ss ZZ'),
@@ -74,8 +74,8 @@ const rssTemplate = (
       ...(channelLogo && {
         image: {
           url: buildResizerURL(channelLogo, resizerKey, resizerURL),
-          title: `${channelTitle || feedTitle}`,
-          link: `${domain}`,
+          title: channelTitle || feedTitle,
+          link: domain,
         },
       }),
 
@@ -85,7 +85,7 @@ const rssTemplate = (
         const img =
           s.promo_items && (s.promo_items.basic || s.promo_items.lead_art)
         return {
-          title: { $: `${jmespath.search(s, itemTitle)}` },
+          title: { $: jmespath.search(s, itemTitle) || '' },
           link: url,
           guid: {
             '#': url,
@@ -95,14 +95,14 @@ const rssTemplate = (
             author && {
               'dc:creator': { $: author.join(', ') },
             }),
-          description: { $: jmespath.search(s, itemDescription) },
+          description: { $: jmespath.search(s, itemDescription) || '' },
           pubDate: moment
             .utc(s[pubDate])
             .format('ddd, DD MMM YYYY HH:mm:ss ZZ'),
           ...(itemCategory &&
             (category = jmespath.search(s, itemCategory)) &&
             category && { category: category }),
-          ...(includeContent !== '0' &&
+          ...(includeContent !== 0 &&
             (body = fbiaBuildContent.parse(s, includeContent, domain)) &&
             body && {
               'content:encoded': {
@@ -168,7 +168,7 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
     this.buildHTMLHead = (s, domain) => {
       const img =
         s.promo_items && (s.promo_items.basic || s.promo_items.lead_art)
-      const url = `${domain}${s.website_url || s.canonical_url}`
+      const url = `${domain}${s.website_url || s.canonical_url || ''}`
       return {
         link: {
           '@rel': 'canonical',
@@ -220,11 +220,13 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
       }
     }
     this.buildHTMLBody = (s, numRows, domain) => {
-      const authorDescription = jmespath.search(s, 'credits.by[].description')
+      const authorDescription =
+        jmespath.search(s, 'credits.by[].description') || []
       const lastUpdatedDate = jmespath.search(s, 'last_updated_date')
       const image =
         s.promo_items && (s.promo_items.basic || s.promo_items.lead_art)
-      const primarySite = jmespath.search(s, 'taxonomy.primary_section.name')
+      const primarySite =
+        jmespath.search(s, 'taxonomy.primary_section.name') || ''
       const header = []
       let description, author
       if (placementSection)
@@ -325,92 +327,94 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
     this.buildContentElements = (s, numRows, domain) => {
       let item
       const body = []
-      const maxRows = numRows === 'all' ? 9999 : parseInt(numRows)
-      s.content_elements.map((element) => {
-        if (body.length <= maxRows) {
-          switch (element.type) {
-            case 'blockquote':
-              item = this.blockquote(element)
-              break
-            case 'correction':
-              item = this.correction(element)
-              break
-            case 'code':
-            case 'custom_embed':
-            case 'divider':
-            case 'element_group':
-            case 'story':
-              item = ''
-              break
-            case 'endorsement':
-              item = this.endorsement(element)
-              break
-            case 'gallery':
-              item = this.gallery(
-                element,
-                resizerKey,
-                resizerURL,
-                resizeWidth,
-                resizeHeight,
-              )
-              break
-            case 'header':
-              item = this.header(element)
-              break
-            case 'image':
-              item = this.image(
-                element,
-                resizerKey,
-                resizerURL,
-                resizeWidth,
-                resizeHeight,
-              )
-              break
-            case 'interstitial_link':
-              item = this.interstitial(element, domain)
-              break
-            case 'link_list':
-              item = this.linkList(element, domain)
-              break
-            case 'list':
-              item = this.list(element)
-              break
-            case 'list_element':
-              item = this.listElement(element)
-              break
-            case 'numeric_rating':
-              item = this.numericRating(element)
-              break
-            case 'oembed_response':
-              item = this.oembed(element)
-              break
-            case 'quote':
-              item = this.quote(element)
-              break
-            case 'raw_html':
-              item = this.text(element)
-              break
-            case 'table':
-              item = this.table(element)
-              break
-            case 'text':
-              item = this.text(element)
-              break
-            case 'video':
-              item = this.video(element)
-              break
-            default:
-              item = this.text(element)
-              break
-          }
+      const maxRows =
+        numRows === 'all'
+          ? 9999
+          : parseInt(numRows)(s.content_elements || []).map((element) => {
+              if (body.length <= maxRows) {
+                switch (element.type) {
+                  case 'blockquote':
+                    item = this.blockquote(element)
+                    break
+                  case 'correction':
+                    item = this.correction(element)
+                    break
+                  case 'code':
+                  case 'custom_embed':
+                  case 'divider':
+                  case 'element_group':
+                  case 'story':
+                    item = ''
+                    break
+                  case 'endorsement':
+                    item = this.endorsement(element)
+                    break
+                  case 'gallery':
+                    item = this.gallery(
+                      element,
+                      resizerKey,
+                      resizerURL,
+                      resizeWidth,
+                      resizeHeight,
+                    )
+                    break
+                  case 'header':
+                    item = this.header(element)
+                    break
+                  case 'image':
+                    item = this.image(
+                      element,
+                      resizerKey,
+                      resizerURL,
+                      resizeWidth,
+                      resizeHeight,
+                    )
+                    break
+                  case 'interstitial_link':
+                    item = this.interstitial(element, domain)
+                    break
+                  case 'link_list':
+                    item = this.linkList(element, domain)
+                    break
+                  case 'list':
+                    item = this.list(element)
+                    break
+                  case 'list_element':
+                    item = this.listElement(element)
+                    break
+                  case 'numeric_rating':
+                    item = this.numericRating(element)
+                    break
+                  case 'oembed_response':
+                    item = this.oembed(element)
+                    break
+                  case 'quote':
+                    item = this.quote(element)
+                    break
+                  case 'raw_html':
+                    item = this.text(element)
+                    break
+                  case 'table':
+                    item = this.table(element)
+                    break
+                  case 'text':
+                    item = this.text(element)
+                    break
+                  case 'video':
+                    item = this.video(element)
+                    break
+                  default:
+                    item = this.text(element)
+                    break
+                }
 
-          // empty array breaks xmlbuilder2, but empty '' is OK
-          if (Array.isArray(item) && item.length === 0) {
-            item = ''
-          }
-          item && body.push(item)
-        }
-      })
+                // empty array breaks xmlbuilder2, but empty '' is OK
+                if (Array.isArray(item) && item.length === 0) {
+                  item = ''
+                }
+                item && body.push(item)
+              }
+            })
       return body.length ? body : ['']
     }
     this.image = (element, resizerKey, resizerURL) => {

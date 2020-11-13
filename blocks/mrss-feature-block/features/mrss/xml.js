@@ -3,7 +3,6 @@ import Consumer from 'fusion:consumer'
 import moment from 'moment'
 import getProperties from 'fusion:properties'
 import { resizerKey } from 'fusion:environment'
-import { BuildContent } from '@wpmedia/feeds-content-elements'
 import { generatePropsForFeed } from '@wpmedia/feeds-prop-types'
 import { buildResizerURL } from '@wpmedia/feeds-resizer'
 import { findVideo } from '@wpmedia/feeds-find-video-stream'
@@ -36,7 +35,6 @@ const rssTemplate = (
     feedTitle,
     feedLanguage,
     selectVideo,
-    mrssBuildContent,
   },
 ) => ({
   rss: {
@@ -62,16 +60,17 @@ const rssTemplate = (
       }),
 
       item: elements.map((s) => {
-        const url = `${domain}${s.website_url}` || s.canonical_url
+        const url = `${domain}${s.website_url || s.canonical_url || ''}`
         const img =
           s.promo_items && (s.promo_items.basic || s.promo_items.lead_art)
         const videoStream = findVideo(s, selectVideo)
+        let caption, primarySection
 
         return {
-          title: `${jmespath.search(s, itemTitle)}`,
+          title: { $: jmespath.search(s, itemTitle) || '' },
           link: url,
           ...(itemDescription && {
-            description: jmespath.search(s, itemDescription),
+            description: { $: jmespath.search(s, itemDescription) || '' },
           }),
           guid: {
             '@isPermaLink': false,
@@ -112,24 +111,23 @@ const rssTemplate = (
             'media:keywords': (
               jmespath.search(s, 'taxonomy.seo_keywords[*]') || []
             ).join(','),
-            ...((s.description &&
-              s.description.basic && {
+            ...((caption = jmespath.search(
+              s,
+              'description.basic || subheadlines.basic',
+            )) &&
+              caption && {
                 'media:caption': {
-                  $: [s.description.basic],
+                  $: caption,
                 },
-              }) ||
-              (s.subheadlines &&
-                s.subheadlines.basic && {
-                  'media:caption': {
-                    $: [s.subheadlines.basic],
-                  },
-                })),
+              }),
             ...(s.transcript && { 'media:transcript': s.transcript }),
 
-            ...(s.taxonomy &&
-              s.taxonomy.primary_section &&
-              s.taxonomy.primary_section.name && {
-                'media:category': s.taxonomy.primary_section.name,
+            ...((primarySection = jmespath.search(
+              s,
+              'taxonomy.primary_section.name',
+            )) &&
+              primarySection && {
+                'media:category': primarySection,
               }),
             ...(img &&
               img.url && {
@@ -152,11 +150,6 @@ export function Mrss({ globalContent, customFields, arcSite }) {
     feedLanguage = '',
   } = getProperties(arcSite)
 
-  function MrssBuildContent() {
-    BuildContent.call(this)
-  }
-  const mrssBuildContent = new MrssBuildContent()
-
   // can't return null for xml return type, must return valid xml template
   return rssTemplate(
     jmespath.search(globalContent, 'playlistItems || content_elements || []') ||
@@ -167,7 +160,6 @@ export function Mrss({ globalContent, customFields, arcSite }) {
       domain: feedDomainURL,
       feedTitle,
       feedLanguage,
-      mrssBuildContent,
     },
   )
 }
