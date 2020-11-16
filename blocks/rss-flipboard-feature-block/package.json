@@ -1,6 +1,6 @@
 {
   "name": "@wpmedia/rss-flipboard-feature-block",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "Fusion components for building flipboard-rss",
   "main": "index.js",
   "files": [
