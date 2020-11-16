@@ -1,6 +1,6 @@
 {
   "name": "@wpmedia/feeds-source-collections-block",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Content source to search for a collection",
   "main": "index.js",
   "files": [

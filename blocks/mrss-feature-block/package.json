@@ -1,6 +1,6 @@
 {
   "name": "@wpmedia/mrss-feature-block",
-  "version": "0.6.1",
+  "version": "0.7.0",
   "description": "Fusion components for building rss",
   "main": "index.js",
   "files": [
