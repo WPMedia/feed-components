@@ -15,7 +15,9 @@ Object {
       "description": "google news",
       "item": Array [
         Object {
-          "description": null,
+          "description": Object {
+            "$": "",
+          },
           "guid": Object {
             "#": "http://demo-prod.origin.arcpublishing.com/video/2020/04/16/inexact-odyssey-a-volcom-snowboarding-film/",
             "@isPermaLink": false,
@@ -39,7 +41,9 @@ Object {
           },
           "pubDate": "Thu, 16 Apr 2020 19:55:25 +0000",
           "referenceid": undefined,
-          "title": "Inexact Odyssey, A Volcom Snowboarding Film",
+          "title": Object {
+            "$": "Inexact Odyssey, A Volcom Snowboarding Film",
+          },
         },
       ],
       "link": "http://demo-prod.origin.arcpublishing.com",

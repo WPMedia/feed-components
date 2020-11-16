@@ -63,6 +63,20 @@ Object {
             "$": "Tips for Safe Hand washing",
           },
         },
+        Object {
+          "description": Object {
+            "$": "",
+          },
+          "guid": Object {
+            "#": "http://demo-prod.origin.arcpublishing.com",
+            "@isPermaLink": true,
+          },
+          "link": "http://demo-prod.origin.arcpublishing.com",
+          "pubDate": "Tue, 07 Apr 2020 15:02:08 +0000",
+          "title": Object {
+            "$": "",
+          },
+        },
       ],
       "language": "en",
       "lastBuildDate": StringMatching /\\\\w\\+, \\\\d\\+ \\\\w\\+ \\\\d\\{4\\} \\\\d\\{2\\}:\\\\d\\{2\\}:\\\\d\\{2\\} \\\\\\+0000/,
@@ -128,6 +142,20 @@ Object {
           "pubDate": "Tue, 07 Apr 2020 15:02:08 +0000",
           "title": Object {
             "$": "Tips for Safe Hand washing",
+          },
+        },
+        Object {
+          "description": Object {
+            "$": "",
+          },
+          "guid": Object {
+            "#": "http://demo-prod.origin.arcpublishing.com",
+            "@isPermaLink": true,
+          },
+          "link": "http://demo-prod.origin.arcpublishing.com",
+          "pubDate": "Tue, 07 Apr 2020 15:02:08 +0000",
+          "title": Object {
+            "$": "",
           },
         },
       ],

@@ -53,7 +53,7 @@ const rssTemplate = (
         '@rel': 'self',
         '@type': 'application/rss+xml',
       },
-      description: { $: `${channelDescription || feedTitle + ' News Feed'}` },
+      description: { $: channelDescription || `${feedTitle} News Feed` },
       ...(feedLanguage && { language: feedLanguage }),
       lastBuildDate: moment
         .utc(new Date())
@@ -72,20 +72,20 @@ const rssTemplate = (
       ...(channelLogo && {
         image: {
           url: buildResizerURL(channelLogo, resizerKey, resizerURL),
-          title: `${channelTitle || feedTitle}`,
-          link: `${domain}`,
+          title: channelTitle || feedTitle,
+          link: domain,
         },
       }),
 
       item: elements.map((s) => {
         let author, body, category
-        const url = `${domain}${s.website_url || s.canonical_url}`
+        const url = `${domain}${s.website_url || s.canonical_url || ''}`
         const img =
           s.promo_items && (s.promo_items.basic || s.promo_items.lead_art)
         return {
-          title: { $: `${jmespath.search(s, itemTitle)}` },
+          title: { $: jmespath.search(s, itemTitle) || '' },
           link: url,
-          description: { $: jmespath.search(s, itemDescription) },
+          description: { $: jmespath.search(s, itemDescription) || '' },
           guid: {
             '#': url,
             '@isPermaLink': true,
@@ -100,9 +100,9 @@ const rssTemplate = (
           ...(itemCategory &&
             (category = jmespath.search(s, itemCategory)) &&
             category && { category: category }),
-          ...(includeContent !== '0' &&
+          ...(includeContent !== 0 &&
             (body = flipboardBuildContent.parse(
-              s.content_elements,
+              s.content_elements || [],
               includeContent,
               domain,
               resizerKey,

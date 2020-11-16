@@ -33,6 +33,12 @@ const articles = {
         primary_section: { name: 'coronvirus' },
       },
     },
+    {
+      _id: 'ABCD',
+      version: '0.10.2',
+      type: 'story',
+      display_date: '2020-04-07T15:02:08.918Z',
+    },
   ],
 }
 
@@ -62,7 +68,7 @@ it('returns RSS template with default values', () => {
       imageTitle: 'title',
       imageCaption: 'caption',
       imageCredits: 'credits.by[].name',
-      includeContent: '0',
+      includeContent: 0,
     },
   })
   expect(rss).toMatchSnapshot({
