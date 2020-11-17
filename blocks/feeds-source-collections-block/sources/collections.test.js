@@ -18,7 +18,9 @@ it('returns query search by _id', () => {
     from: '',
     size: '',
   })
-  expect(query).toMatchSnapshot()
+  expect(query).toBe(
+    'content/v4/collections?_id=NBXKZJC3ONEGRB2VPINBMQTNFA&published=true',
+  )
 })
 
 it('returns query by alias', () => {
@@ -28,5 +30,7 @@ it('returns query by alias', () => {
     from: '5',
     size: '10',
   })
-  expect(query).toMatchSnapshot()
+  expect(query).toBe(
+    'content/v4/collections?content_alias=sports page&from=5&size=10&published=true',
+  )
 })
