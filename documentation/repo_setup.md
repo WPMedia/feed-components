@@ -16,31 +16,24 @@ Pre-requisites:
 git clone git@github.com:wapopartners/ORG-outboundfeeds.git
 ```
 
-2. Create a `.npmrc` in the projects root directory with your github access token. This file is in the .gitignore file and should never be checked into github.
-
-```
-@wpmedia:registry=https://npm.pkg.github.com
-//npm.pkg.github.com/:_authToken={ YOUR AUTH TOKEN HERE }
-```
-
-3. Install the packages
+2. Install the packages
 
 ```
 npm install
 ```
 
-4. Create .env
+3. Create .env
 
    Copy env.example to .env and edit the file to replace the placeholders with your correct values.
 
-   - CONTENT_BASE - Set your org in CONTENT_BASE [ALC](https://redirector.arcpublishing.com/alc/arc-products/pagebuilder/fusion/documentation/recipes/defining-arc-content-source.md#configuring-content_base-and-arc_access_token-for-local-development)
-   - ARC_ACCESS_TOKEN - your readonly developer token. [ALC](https://redirector.arcpublishing.com/alc/arc-products/developer/user-documentation/accessing-the-arc-api/?product=)
+   - `CONTENT_BASE` - Set your org in `https://api.${ORG}.arcpublishing.com` [ALC](https://redirector.arcpublishing.com/alc/arc-products/pagebuilder/fusion/documentation/recipes/defining-arc-content-source.md#configuring-content_base-and-arc_access_token-for-local-development)
+   - `ARC_ACCESS_TOKEN` - your readonly developer token. [ALC](https://redirector.arcpublishing.com/alc/arc-products/developer/user-documentation/accessing-the-arc-api/?product=)
    - resizerKey - your orgs resizerKey. If you don’t have it, please contact your Technical Delivery Manager (TDM)
-   - BLOCK_DIST_TAG - To use production blocks, set this to 'stable', to use the most recent release use 'beta'
+   - `BLOCK_DIST_TAG` - To use production blocks, set this to 'stable', to use development blocks use 'beta'. Fusion defaults to stable if not set.
 
    The .env file is in .gitignore and should never be checked into github.
 
-5. Update Mock websites
+4. Update Mock websites
 
 When running the editor locally the list of websites comes from a local file instead of your site service. To have your websites used, you must update the mock file `mocks/siteservice/api/v3/website` with your websites.
 
@@ -79,7 +72,7 @@ Run the linter with:
 npm run lint
 ```
 
-6. Once you are ready to deploy the bundle you will need to setup environment variables in the `environment/org-outboundfeeds.js` and or `environment/org-outboundfeeds-sandbox.js` files. Use the values from your local .env to set the `CONTENT_BASE` and `resizerKey`. Rename the files, replacing the clients org name with the `org` in the current names. Any values that should not be made public need to be [encrypted](https://redirector.arcpublishing.com/alc/arc-products/pagebuilder/fusion/documentation/recipes/using-environment-secrets.md).
+5. Once you are ready to deploy the bundle you will need to setup environment variables in the `environment/org-outboundfeeds.js` and or `environment/org-outboundfeeds-sandbox.js` files. Use the values from your local .env to set the `CONTENT_BASE` and `resizerKey`. Rename the files, replacing the clients org name with the `org` in the current names. Any values that should not be made public need to be [encrypted](https://redirector.arcpublishing.com/alc/arc-products/pagebuilder/fusion/documentation/recipes/using-environment-secrets.md).
 
 Once you are ready to [deploy](https://staging.arcpublishing.com/alc/arc-products/pagebuilder/fusion/documentation/recipes/deploying-feature-pack.md) a bundle run the zip command.
 
