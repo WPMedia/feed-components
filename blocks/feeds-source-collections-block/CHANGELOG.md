@@ -1,5 +1,11 @@
 # @wpmedia/feeds-source-collections-block
 
+## 0.2.0
+
+### Minor Changes
+
+- [`7dfb9ef`](https://github.com/WPMedia/feed-components/commit/7dfb9ef08875393ca352fd6d58d126ae2fa1f3ff) [#267](https://github.com/WPMedia/feed-components/pull/267) Thanks [@tbrick855](https://github.com/tbrick855)! - push AIO-322 stable tag
+
 ## 0.1.1
 
 ### Patch Changes
