@@ -1,6 +1,6 @@
 {
   "name": "@wpmedia/sitemap-news-feature-block",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "Fusion components for building news sitemaps",
   "main": "index.js",
   "files": [
