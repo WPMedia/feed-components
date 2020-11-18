@@ -49,14 +49,14 @@ const rssTemplate = (
       '@xmlns:media': 'http://search.yahoo.com/mrss/',
     }),
     channel: {
-      title: { $: `${channelTitle || feedTitle}` },
+      title: { $: channelTitle || feedTitle },
       link: `${domain}`,
       'atom:link': {
         '@href': `${domain}${channelPath}`,
         '@rel': 'self',
         '@type': 'application/rss+xml',
       },
-      description: { $: `${channelDescription || feedTitle + ' News Feed'}` },
+      description: { $: channelDescription || `${feedTitle} News Feed` },
       lastBuildDate: moment
         .utc(new Date())
         .format('ddd, DD MMM YYYY HH:mm:ss ZZ'),
@@ -75,18 +75,18 @@ const rssTemplate = (
       ...(channelLogo && {
         image: {
           url: buildResizerURL(channelLogo, resizerKey, resizerURL),
-          title: `${channelTitle || feedTitle}`,
-          link: `${domain}`,
+          title: channelTitle || feedTitle,
+          link: domain,
         },
       }),
 
       item: elements.map((s) => {
         let author, body, category
-        const url = `${domain}${s.website_url || s.canonical_url}`
+        const url = `${domain}${s.website_url || s.canonical_url || ''}`
         const img =
           s.promo_items && (s.promo_items.basic || s.promo_items.lead_art)
         return {
-          title: { $: `${jmespath.search(s, itemTitle)}` },
+          title: { $: jmespath.search(s, itemTitle) || '' },
           link: url,
           guid: {
             '#': url,
@@ -96,16 +96,16 @@ const rssTemplate = (
             author && {
               'dc:creator': { $: author.join(', ') },
             }),
-          description: { $: jmespath.search(s, itemDescription) },
+          description: { $: jmespath.search(s, itemDescription) || '' },
           pubDate: moment
             .utc(s[pubDate])
             .format('ddd, DD MMM YYYY HH:mm:ss ZZ'),
           ...(itemCategory &&
             (category = jmespath.search(s, itemCategory)) &&
             category && { category: category }),
-          ...(includeContent !== '0' &&
+          ...(includeContent !== 0 &&
             (body = rssBuildContent.parse(
-              s.content_elements,
+              s.content_elements || [],
               includeContent,
               domain,
               resizerKey,
