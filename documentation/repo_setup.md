@@ -40,6 +40,25 @@ npm install
 
    The .env file is in .gitignore and should never be checked into github.
 
+5. Update Mock websites
+
+When running the editor locally the list of websites comes from a local file instead of your site service. To have your websites used, you must update the mock file `mocks/siteservice/api/v3/website` with your websites.
+
+```
+[
+  {
+    "_id": "website1",
+    "display_name": "Website 1",
+    "is_default_website": true
+  },
+  {
+    "_id": "website2",
+    "display_name": "Website 2",
+    "is_default_website": false
+  }
+]
+```
+
 Run Fusion locally see [here](https://redirector.arcpublishing.com/alc/arc-products/pagebuilder/fusion/documentation/recipes/running-fusion-locally.md) for more details:
 
 ```
@@ -60,7 +79,7 @@ Run the linter with:
 npm run lint
 ```
 
-5. Once you are ready to deploy the bundle you will need to setup environment variables in the `environment/org-outboundfeeds.js` and or `environment/org-outboundfeeds-sandbox.js` files. Use the values from your local .env to set the `CONTENT_BASE` and `resizerKey`. Rename the files, replacing the clients org name with the `org` in the current names. Any values that should not be made public need to be [encrypted](https://redirector.arcpublishing.com/alc/arc-products/pagebuilder/fusion/documentation/recipes/using-environment-secrets.md).
+6. Once you are ready to deploy the bundle you will need to setup environment variables in the `environment/org-outboundfeeds.js` and or `environment/org-outboundfeeds-sandbox.js` files. Use the values from your local .env to set the `CONTENT_BASE` and `resizerKey`. Rename the files, replacing the clients org name with the `org` in the current names. Any values that should not be made public need to be [encrypted](https://redirector.arcpublishing.com/alc/arc-products/pagebuilder/fusion/documentation/recipes/using-environment-secrets.md).
 
 Once you are ready to [deploy](https://staging.arcpublishing.com/alc/arc-products/pagebuilder/fusion/documentation/recipes/deploying-feature-pack.md) a bundle run the zip command.
 

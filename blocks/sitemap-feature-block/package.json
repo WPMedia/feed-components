@@ -1,6 +1,6 @@
 {
   "name": "@wpmedia/sitemap-feature-block",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "description": "Fusion components for building sitemaps",
   "main": "index.js",
   "files": [
@@ -14,7 +14,7 @@
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/",
-    "access": "restricted"
+    "access": "public"
   },
   "author": "Cameron Woodmansee",
   "contributors": [

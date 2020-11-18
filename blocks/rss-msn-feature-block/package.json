@@ -1,6 +1,6 @@
 {
   "name": "@wpmedia/rss-msn-feature-block",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Fusion components for building msn-rss",
   "main": "index.js",
   "files": [
@@ -14,7 +14,7 @@
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/",
-    "access": "restricted"
+    "access": "public"
   },
   "author": "Saru Kalva <saru.kalva@washpost.com>",
   "contributors": [

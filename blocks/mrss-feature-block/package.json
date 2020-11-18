@@ -1,6 +1,6 @@
 {
   "name": "@wpmedia/mrss-feature-block",
-  "version": "0.6.1",
+  "version": "0.7.0",
   "description": "Fusion components for building rss",
   "main": "index.js",
   "files": [
@@ -14,7 +14,7 @@
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/",
-    "access": "restricted"
+    "access": "public"
   },
   "author": "Saru Kalva <saru.kalva@washpost.com>",
   "contributors": [

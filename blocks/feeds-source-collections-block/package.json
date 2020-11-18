@@ -1,7 +1,7 @@
 {
-  "name": "@wpmedia/feeds-source-content-api-block",
-  "version": "0.7.0",
-  "description": "Fusion components for building sitemaps",
+  "name": "@wpmedia/feeds-source-collections-block",
+  "version": "0.1.1",
+  "description": "Content source to search for a collection",
   "main": "index.js",
   "files": [
     "sources"
@@ -10,7 +10,7 @@
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/WPMedia/feed-components.git",
-    "directory": "blocks/feeds-source-content-api-block"
+    "directory": "blocks/feeds-source-collections-block"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/",
