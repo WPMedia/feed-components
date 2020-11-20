@@ -7,7 +7,6 @@ This is a fusion themes based repository and is intended to be used as the start
 Pre-requisites:
 
 - node / npm installed (node version > 10).
-- github personal access token with `read:packages` access and sso enabled for WPMedia
 - docker
 
 1. Create a template of this repo. Go to https://github.com/wapopartners/outboundfeeds-skeleton and click on the green "Use this template" button to create a new client repo. Name the new repo starting with the clients name like "ORG-outboundfeeds". Only include the prod branch. Once the new repo has been created, clone it to your local machine.
