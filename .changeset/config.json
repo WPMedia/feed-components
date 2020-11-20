@@ -6,6 +6,6 @@
   ],
   "commit": false,
   "linked": [],
-  "access": "restricted",
+  "access": "public",
   "baseBranch": "prod"
 }
