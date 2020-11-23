@@ -1,12 +1,12 @@
 {
   "name": "@wpmedia/feeds-source-collections-block",
-  "version": "0.2.0",
+  "version": "0.0.0",
   "description": "Content source to search for a collection",
   "main": "index.js",
   "files": [
     "sources"
   ],
-  "license": "UNLICENSED",
+  "license": "wapo/arc",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/WPMedia/feed-components.git",
@@ -16,10 +16,11 @@
     "registry": "https://npm.pkg.github.com/",
     "access": "public"
   },
-  "author": "Cameron Woodmansee",
+  "author": "arc-io-dev@washpost.com",
   "contributors": [
+    "Cameron Woodmansee <cameron.woodmansee@washpost.com>",
     "Iyob Beyene <iyob.beyene@washpost.com>",
-    "Tim Kosmider <tim.kosmider@washpost.com>"
+    "Tim Kosmider <timothy.kosmider@washpost.com>"
   ],
   "homepage": "https://github.com/WPMedia/feed-components#readme",
   "dependencies": {},

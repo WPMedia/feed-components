@@ -19,7 +19,9 @@ This is the main configuration file use to control which blocks are imported and
     "@wpmedia/sitemap-news-feature-block",
     "@wpmedia/sitemap-video-feature-block",
     "@wpmedia/sitemap-feature-block",
-    "@wpmedia/sitemap-index-feature-block"
+    "@wpmedia/sitemap-index-feature-block",
+    "@wpmedia/text-output-block",
+    "@wpmedia/textfile-block"
   ],
   "values": {
     "default": {
