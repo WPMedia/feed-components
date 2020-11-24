@@ -1,5 +1,11 @@
 # @wpmedia/feeds-source-video-api-block
 
+## 0.2.1
+
+### Patch Changes
+
+- [`7a54779`](https://github.com/WPMedia/feed-components/commit/7a54779878caca050eb512b84951bb56e3c5b096) [#288](https://github.com/WPMedia/feed-components/pull/288) Thanks [@tbrick855](https://github.com/tbrick855)! - Make public
+
 ## 0.2.0
 
 ### Minor Changes
