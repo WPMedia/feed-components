@@ -1,5 +1,16 @@
 # @wpmedia/sitemaps-news-feature-block
 
+## 0.8.0
+
+### Minor Changes
+
+- [`c80534c`](https://github.com/WPMedia/feed-components/commit/c80534c2c03eb072971c3007a1e83faaffb25510) [#295](https://github.com/WPMedia/feed-components/pull/295) Thanks [@tbrick855](https://github.com/tbrick855)! - change map() to forEach()
+
+### Patch Changes
+
+- Updated dependencies [[`c80534c`](https://github.com/WPMedia/feed-components/commit/c80534c2c03eb072971c3007a1e83faaffb25510)]:
+  - @wpmedia/feeds-resizer@0.3.0
+
 ## 0.7.0
 
 ### Minor Changes
