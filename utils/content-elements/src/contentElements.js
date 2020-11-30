@@ -35,7 +35,7 @@ export function BuildContent() {
     resizeHeight,
   ) => {
     const galleryArray = []
-    element.content_elements.map((galleryItem) => {
+    element.content_elements.forEach((galleryItem) => {
       galleryArray.push(
         this.image(
           galleryItem,
@@ -108,14 +108,14 @@ export function BuildContent() {
     let row
 
     element.header &&
-      element.header.map((headerItem) => {
+      element.header.forEach((headerItem) => {
         header.push(headerItem.content)
       })
 
     element.rows &&
-      element.rows.map((tableRows) => {
+      element.rows.forEach((tableRows) => {
         row = []
-        tableRows.map((rowItem) => {
+        tableRows.forEach((rowItem) => {
           row.push(rowItem.content)
         })
         rows.push({ tr: { td: row } })
@@ -184,7 +184,7 @@ export function BuildContent() {
   this.quote = (element) => {
     const quoteArray = []
 
-    element.content_elements.map((quoteItem) => {
+    element.content_elements.forEach((quoteItem) => {
       switch (quoteItem.type) {
         case 'header':
           quoteArray.push(this.header(quoteItem))
@@ -254,7 +254,7 @@ export function BuildContent() {
     let item
     const body = []
     const maxRows = numRows === 'all' ? 9999 : parseInt(numRows)
-    contentElements.map((element) => {
+    contentElements.forEach((element) => {
       if (body.length <= maxRows) {
         switch (element.type) {
           case 'blockquote':
