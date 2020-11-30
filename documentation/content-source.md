@@ -1,4 +1,4 @@
-# Content Source
+# OBF block development - Content Source
 
 This block is used to call external API's, like Content API or Site-Service API. A content source can also be used to call a third party service like Chartbeat or Google Analytics. The feeds-source-content-api-block calls Content-API and returns a results set. You can find the fusion content source documentation [here](https://redirector.arcpublishing.com/alc/arc-products/pagebuilder/fusion/documentation/recipes/defining-content-source.md?version=2.6).
 

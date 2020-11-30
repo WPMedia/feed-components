@@ -1,4 +1,4 @@
-# Ejecting a block
+# OBF block development - Ejecting a block
 
 To do local development of a feed, either modifying an existing block or creating your own will follow the standard fusion development pattern. Using a local repository add files into the components and content directories, run fusion locally and build pages and templates using your new components.
 
@@ -55,4 +55,3 @@ That is the name that will appear when the PageBuilder Editor lists all features
 ## dependencies
 
 Compare the blocks package.json dependencies with your repos package.json and add anything missing to your repos package.json.
-

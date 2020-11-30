@@ -35,7 +35,7 @@ npm install
    Copy env.example to .env and edit the file to replace the placeholders with your correct values.
 
    - `CONTENT_BASE` - Set your org in `https://api.${ORG}.arcpublishing.com` [ALC](https://redirector.arcpublishing.com/alc/arc-products/pagebuilder/fusion/documentation/recipes/defining-arc-content-source.md#configuring-content_base-and-arc_access_token-for-local-development)
-   - `ARC_ACCESS_TOKEN` - your readonly developer token. [ALC](https://redirector.arcpublishing.com/alc/arc-products/developer/user-documentation/accessing-the-arc-api/?product=)
+   - `ARC_ACCESS_TOKEN` - your readonly developer token. [ALC](https://redirector.arcpublishing.com/alc/arc-products/developer/user-documentation/accessing-the-arc-api/)
    - resizerKey - your orgs resizerKey. If you don’t have it, please contact your Technical Delivery Manager (TDM)
    - `BLOCK_DIST_TAG` - To use production blocks, set this to 'stable', to use development blocks use 'beta'. Fusion defaults to stable if not set.
 

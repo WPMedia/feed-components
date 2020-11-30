@@ -1,4 +1,4 @@
-# blocks.json
+# OBF block development - blocks.json
 
 This is the main configuration file use to control which blocks are imported and to set global variables. The skeleton repo provides a sample blocks.json that contains all of the Out Of the Box feeds already listed in the blocks array. Normally the only things you need to change in blocks.json are the siteProperties.
 

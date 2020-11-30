@@ -1,4 +1,4 @@
-# utilities
+# OBF block development - Utilities
 
 In addition to the blocks that have been created for feeds and content-sources several npm packages have been created to be used as utilities to reduce duplicate code. All of the blocks packages end in "-block" to designate they are blocks and should be in the blocks.json. These utilities are normal npm packages that start with "feeds-" and must be included in the package.json dependencies.
 
@@ -128,4 +128,3 @@ const resizedURL = buildResizerURL(
 ## feeds-xml-output
 
 By default PageBuilder generates html output. To generate xml output a new outputType must be created. The outputType expects an object and uses the xmlbuilder2 module to convert it to xml. In the skeleton repo the feeds-xml-output package has already been [added](./output-types.md) and the output-type configured. By including the parameter `?outputType=xml` in all feeds requests tells fusion to use the xml output-type.
-
