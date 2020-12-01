@@ -41,8 +41,8 @@ You can use an object to group items. The previous example can be rewritten usin
   link: {
     "@": {
        href: "http://www.example.com",
-       type: "application/rss",
-    }, k
+       type: "application/rss"
+    },
     "#": "tag text goes here"
   }
 }
@@ -85,7 +85,7 @@ To wrap data in a CDATA tag use the `$`. We can rewrite the last example to wrap
 ```
 
 It will be converted to:
-`<description>![CDATA[<p>The first sentence</p><p>The second sentence</p>]]</description>`
+`<description><![CDATA[<p>The first sentence</p><p>The second sentence</p>]]></description>`
 
 ### index error
 

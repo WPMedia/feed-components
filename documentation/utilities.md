@@ -1,10 +1,10 @@
 # OBF block development - Utilities
 
-In addition to the blocks that have been created for feeds and content-sources several npm packages have been created to be used as utilities to reduce duplicate code. All of the blocks packages end in "-block" to designate they are blocks and should be in the blocks.json. These utilities are normal npm packages that start with "feeds-" and must be included in the package.json dependencies.
+In addition to the blocks that have been created for feeds and content-sources, several npm packages have been created to be used as utilities to reduce duplicate code. All of the blocks packages end in "-block" to designate they are blocks and should be in the blocks.json. These utilities are normal npm packages that start with "feeds-" and must be included in the package.json dependencies.
 
 ## feeds-content-elements
 
-This package is designed to take an array of content_elements from a story and convert the different content_element types into xml. Each content_element type has it's own parser to convert the ANS to xml.
+This package is designed to take an array of content_elements from a story and convert the different content_element types into xml. Each content_element type has it's own function to convert the ANS to xml.
 Call the parse function and pass in the content_elements array, it will return a string of formatted xml.
 
 ```javascript
@@ -23,7 +23,7 @@ const body = rssBuildContent.parse(
 )
 ```
 
-The parse function determines how much of each article to include and maps each content_element type to the correct parser. By putting each parser into it's own function you can easily change how any content_element type is processed. If we want to change how headers are created we can create a new rssBuildContent function and redefine just the header function like.
+The parse function determines how much of each article to include and maps each content_element type to the correct function. By breaking each into it's own function you can easily change how any content_element type is processed. If we want to change how headers are created we can create a new rssBuildContent function and redefine just the header function like.
 
 ```javascript
 import { BuildContent } from '@wpmedia/feeds-content-elements'

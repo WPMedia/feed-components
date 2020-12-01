@@ -1,6 +1,6 @@
 # OBF block development
 
-Themes allows you to easily use the existing Arc OutboundFeeds (OBF) blocks in your repo by listing them
+Themes allows you to use the existing Arc Outbound Feeds (OBF) blocks in your repo by listing them
 in [blocks.json](./blocks.json.md). Themes also makes it possible to modify the Arc OBF Blocks to change the way they work, or to create completely new custom feeds. Because OBF is based on themes which is based on fusion, a basic understanding of the [fusion development process](https://redirector.arcpublishing.com/alc/arc-products/pagebuilder/fusion/documentation/recipes/intro.md?version=2.6) is recommended. But don't worry, even if you are not currently using themes, you can still use OBF.
 
 ## Blocks
@@ -9,7 +9,7 @@ Outbound Feeds is based on blocks, which are just npm packages. A block can be a
 
 ## features
 
-All OBF feeds are features intended to be the only thing on a page or template. No layout or other components need to added to the page. The feature blocks have the following structure.
+All OBF feeds are features intended to be the only thing on a page or template. No layout or other components need to be added to the page. The feature blocks have the following structure.
 
 ```
 CHANGELOG.md
