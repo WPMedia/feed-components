@@ -1,6 +1,6 @@
 # blocks.json
 
-This is the main configuration file use to control which blocks are imported and to set global variables. The skeleton repo provides a sample blocks.json that contains all of the Out Of the Box feeds already listed in the blocks array. Normally the only things you need to change in blocks.json are the siteProperties.
+This is the main configuration file used to control which blocks are imported and to set global variables. The skeleton repo provides a sample blocks.json that contains all of the Out Of the Box feeds already listed in the blocks array. Normally the only things you need to change in blocks.json are the siteProperties.
 
 ## sample configuration file
 
@@ -60,14 +60,14 @@ This is the main configuration file use to control which blocks are imported and
 - org: The name of the npm repository, is should always be "@wpmedia"
 - useLocal: true or false. If you have a local repo of blocks you can set this to true while doing local development. But generally this is not the recommended client workflow.
 - blocks: An array of npm packages that will be loaded by the arc-fusion/cli at run time
-- values: global configuration variables. The values set in default will be used by all websites. Any values set it a website specific section will override any default settings.
+- values: global configuration variables. The values set in default will be used by all websites. Any values set in a website specific section will override that default settings.
 
 ## site configs
 
-Inside the values key are the site properties. Default values have been provided that should be replaced with your specific site values. They are broken out into two groups; default and sites. The default values will be used unless that value is also set in a website section. You should have a section for each of your websites. The website key must match the website `_id` used in Site Service. For example if all of your websites use English except one, in default you can set `feedLanguage: "en"`. Then in the one website that uses Spanish you can set `feedLangauge: "es"`. No other website would need to have feedLanguage set.
+Inside the values key are the site properties. Default values have been provided that should be replaced with your specific site values. They are broken out into two groups; default and sites. The default values will be used unless that value is also set in a website section. You should have a section for each of your websites. The website key must match the website `_id` used in Site Service. For example if all of your websites use English except one, in default you can set `feedLanguage: "en"`. Then in the one website that uses Spanish you can set `feedLanguage: "es"`. No other website would need to have feedLanguage set.
 
 - feedDomainURL - The fully qualified url for the site. It must not end in a slash.
-- resizerURL - The fully qualified url for the sites resizer. It must not end in a slash. Typically this is the same as the feedDomainURL with a /resizer.
+- resizerURL - The fully qualified url for the sites resizer. It must not end in a slash. Typically this is the same as the feedDomainURL with "/resizer" at the end.
 - feedTitle - The name of your website. This will be used as the title in RSS feeds
 - feedLanguage - The ISO-3166 two letter country code.
 - feedDefaultQuery - Optional, this overrides the default query used in feeds-source-content-api-block which is stories with last_updated_date from the last 2 days. The feedDefaultQuery value must be a valid json array in the format:
