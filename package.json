@@ -9,6 +9,7 @@
     ]
   },
   "preconstruct": {
+    "distFilenameStrategy": "unscoped-package-name",
     "packages": [
       "utils/*"
     ]

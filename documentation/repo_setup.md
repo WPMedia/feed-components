@@ -15,13 +15,22 @@ Pre-requisites:
 git clone git@github.com:wapopartners/ORG-outboundfeeds.git
 ```
 
-2. Install the packages
+2. Create a read-only personal access token in github
+
+To be able to run locally or deploy outbound feeds you need to create a read-only token in [github](https://docs.github.com/en/free-pro-team@latest/github/authenticating-to-github/creating-a-personal-access-token). This token needs to be added to your .npmrc file and will allow you to view and install outboundfeeds blocks. The .npmrc file must never be added to the repo and checked in. Please use the following format when setting up your .npmrc:
+
+```
+@wpmedia:registry=https://npm.pkg.github.com/
+//npm.pkg.github.com/:_authToken=<your personal access token>
+```
+
+3. Install the packages
 
 ```
 npm install
 ```
 
-3. Create .env
+4. Create .env
 
    Copy env.example to .env and edit the file to replace the placeholders with your correct values.
 
@@ -32,7 +41,7 @@ npm install
 
    The .env file is in .gitignore and should never be checked into github.
 
-4. Update Mock websites
+5. Update Mock websites
 
 When running the editor locally the list of websites comes from a local file instead of your site service. To have your websites used, you must update the mock file `mocks/siteservice/api/v3/website` with your websites.
 
@@ -71,9 +80,16 @@ Run the linter with:
 npm run lint
 ```
 
-5. Once you are ready to deploy the bundle you will need to setup environment variables in the `environment/org-outboundfeeds.js` and or `environment/org-outboundfeeds-sandbox.js` files. Use the values from your local .env to set the `CONTENT_BASE` and `resizerKey`. Rename the files, replacing the clients org name with the `org` in the current names. Any values that should not be made public need to be [encrypted](https://redirector.arcpublishing.com/alc/arc-products/pagebuilder/fusion/documentation/recipes/using-environment-secrets.md).
+6. Once you are ready to deploy the bundle you will need to setup environment variables in the `environment/org-outboundfeeds.js` and or `environment/org-outboundfeeds-sandbox.js` files. Use the values from your local .env to set the `DIST_TAG` and `resizerKey`. Rename the files, replacing the clients org name with the `org` in the current names. Any values that should not be made public (resizerKey) need to be [encrypted](https://redirector.arcpublishing.com/alc/arc-products/pagebuilder/fusion/documentation/recipes/using-environment-secrets.md).
 
-Once you are ready to [deploy](https://staging.arcpublishing.com/alc/arc-products/pagebuilder/fusion/documentation/recipes/deploying-feature-pack.md) a bundle run the zip command.
+Copy of your .npmrc to .npmrc-encrypted. Using the [secrets](https://redirector.arcpublishing.com/alc/arc-products/pagebuilder/fusion/documentation/recipes/using-environment-secrets.md) tab in the editor encrypt your github access token.
+
+```
+@wpmedia:registry=https://npm.pkg.github.com/
+//npm.pkg.github.com/:_authToken=%{ your encrypted personal access token }
+```
+
+Once you are ready to [deploy](https://redirector.arcpublishing.com/alc/arc-products/pagebuilder/fusion/documentation/recipes/deploying-feature-pack.md) a bundle, run the zip command.
 
 ```
 npx fusion zip
