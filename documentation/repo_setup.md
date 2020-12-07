@@ -9,10 +9,10 @@ Pre-requisites:
 - node / npm installed (node version > 10).
 - docker
 
-1. Create a template of this repo. Go to https://github.com/wapopartners/outboundfeeds-skeleton and click on the green "Use this template" button to create a new client repo. Name the new repo starting with the clients name like "ORG-outboundfeeds". Only include the prod branch. Once the new repo has been created, clone it to your local machine.
+1. Create a template of this repo. Go to https://github.com/arc-partners/outboundfeeds-skeleton and click on the green "Use this template" button to create a new client repo. Name the new repo starting with the clients name like "ORG-outboundfeeds". Only include the prod branch. Once the new repo has been created, clone it to your local machine.
 
 ```
-git clone git@github.com:wapopartners/ORG-outboundfeeds.git
+git clone git@github.com:arc-partners/ORG-outboundfeeds.git
 ```
 
 2. Create a read-only personal access token in github
@@ -80,7 +80,7 @@ Run the linter with:
 npm run lint
 ```
 
-6. Once you are ready to deploy the bundle you will need to setup environment variables in the `environment/org-outboundfeeds.js` and or `environment/org-outboundfeeds-sandbox.js` files. Use the values from your local .env to set the `DIST_TAG` and `resizerKey`. Rename the files, replacing the clients org name with the `org` in the current names. Any values that should not be made public (resizerKey) need to be [encrypted](https://redirector.arcpublishing.com/alc/arc-products/pagebuilder/fusion/documentation/recipes/using-environment-secrets.md).
+6. Once you are ready to deploy the bundle you will need to setup environment variables in the `environment/org-outboundfeeds.js` and or `environment/org-outboundfeeds-sandbox.js` files. Use the values from your local .env to set the `BLOCK_DIST_TAG` and `resizerKey`. Rename the files, replacing the clients org name with the `org` in the current names. Any values that should not be made public (resizerKey) need to be [encrypted](https://redirector.arcpublishing.com/alc/arc-products/pagebuilder/fusion/documentation/recipes/using-environment-secrets.md).
 
 Copy of your .npmrc to .npmrc-encrypted. Using the [secrets](https://redirector.arcpublishing.com/alc/arc-products/pagebuilder/fusion/documentation/recipes/using-environment-secrets.md) tab in the editor encrypt your github access token.
 
@@ -97,4 +97,11 @@ npx fusion zip
 
 For more information on developing outbound feeds:
 
-- [documentation](documentation/README.md)
+- [intro](https://redirector.arcpublishing.com/alc/arc-products/arcio/user-docs/outbound-feeds-custom-block-development/)
+- [blocks.json](https://redirector.arcpublishing.com/alc/arc-products/arcio/user-docs/blocksjson/)
+- [Ecjecting blocks](https://redirector.arcpublishing.com/alc/arc-products/arcio/user-docs/ejecting-a-block/)
+- [Block Architecture](https://redirector.arcpublishing.com/alc/arc-products/arcio/user-docs/feature-blocks-architecture/)
+- [Dependencies](https://redirector.arcpublishing.com/alc/arc-products/arcio/user-docs/dependencies/)
+- [Utilities](https://redirector.arcpublishing.com/alc/arc-products/arcio/user-docs/outbound-feeds-development-utilities/)
+- [Content Source](https://redirector.arcpublishing.com/alc/arc-products/arcio/user-docs/outbound-feeds-development-content-source/)
+- [Output Types](https://redirector.arcpublishing.com/alc/arc-products/arcio/user-docs/outbound-feeds-development-output-types/)
