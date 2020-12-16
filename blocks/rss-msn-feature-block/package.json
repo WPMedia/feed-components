@@ -1,6 +1,6 @@
 {
   "name": "@wpmedia/rss-msn-feature-block",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "Fusion components for building msn-rss",
   "main": "index.js",
   "files": [
@@ -23,10 +23,10 @@
   ],
   "homepage": "https://github.com/WPMedia/feed-components#readme",
   "dependencies": {
-    "@wpmedia/feeds-content-elements": "^0.3.0",
-    "@wpmedia/feeds-find-video-stream": "^0.1.0",
+    "@wpmedia/feeds-content-elements": "^0.4.0",
+    "@wpmedia/feeds-find-video-stream": "^0.2.0",
     "@wpmedia/feeds-prop-types": "^0.6.0",
-    "@wpmedia/feeds-resizer": "^0.2.2",
+    "@wpmedia/feeds-resizer": "^0.3.0",
     "jmespath": "^0.15.0",
     "moment": "^2.24.0",
     "xmlbuilder2": "^2.1.2"

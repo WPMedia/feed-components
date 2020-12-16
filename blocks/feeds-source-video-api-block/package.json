@@ -1,12 +1,12 @@
 {
   "name": "@wpmedia/feeds-source-video-api-block",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Fusion components for building sitemaps",
   "main": "index.js",
   "files": [
     "sources"
   ],
-  "license": "UNLICENSED",
+  "license": "wapo/arc",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/WPMedia/feed-components.git",
@@ -14,13 +14,9 @@
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/",
-    "access": "restricted"
+    "access": "public"
   },
-  "author": "Saru Kalva",
-  "contributors": [
-    "Iyob Beyene <iyob.beyene@washpost.com>",
-    "Tim Kosmider <tim.kosmider@washpost.com>"
-  ],
+  "author": "arc-io-dev@washpost.com",
   "homepage": "https://github.com/WPMedia/feed-components#readme",
   "dependencies": {},
   "devDependencies": {

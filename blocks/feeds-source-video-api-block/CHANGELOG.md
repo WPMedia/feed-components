@@ -1,5 +1,17 @@
 # @wpmedia/feeds-source-video-api-block
 
+## 0.3.0
+
+### Minor Changes
+
+- [`c80534c`](https://github.com/WPMedia/feed-components/commit/c80534c2c03eb072971c3007a1e83faaffb25510) [#295](https://github.com/WPMedia/feed-components/pull/295) Thanks [@tbrick855](https://github.com/tbrick855)! - change map() to forEach()
+
+## 0.2.1
+
+### Patch Changes
+
+- [`7a54779`](https://github.com/WPMedia/feed-components/commit/7a54779878caca050eb512b84951bb56e3c5b096) [#288](https://github.com/WPMedia/feed-components/pull/288) Thanks [@tbrick855](https://github.com/tbrick855)! - Make public
+
 ## 0.2.0
 
 ### Minor Changes
