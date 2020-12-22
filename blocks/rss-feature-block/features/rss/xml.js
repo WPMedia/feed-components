@@ -33,6 +33,8 @@ const rssTemplate = (
     includePromo,
     includeContent,
     resizerURL,
+    resizerWidth,
+    resizerHeight,
     domain,
     feedTitle,
     feedLanguage,
@@ -110,6 +112,8 @@ const rssTemplate = (
               domain,
               resizerKey,
               resizerURL,
+              resizerWidth,
+              resizerHeight,
             )) &&
             body && {
               'content:encoded': {
@@ -121,7 +125,13 @@ const rssTemplate = (
             img.url && {
               'media:content': {
                 '@type': 'image/jpeg',
-                '@url': buildResizerURL(img.url, resizerKey, resizerURL),
+                '@url': buildResizerURL(
+                  img.url,
+                  resizerKey,
+                  resizerURL,
+                  resizerWidth,
+                  resizerHeight,
+                ),
                 ...(jmespath.search(img, imageCaption) && {
                   'media:description': {
                     '@type': 'plain',
@@ -155,6 +165,7 @@ export function Rss({ globalContent, customFields, arcSite }) {
     feedTitle = '',
     feedLanguage = '',
   } = getProperties(arcSite)
+  const { width = 0, height = 0 } = customFields.resizerKVP || {}
 
   const rssBuildContent = new BuildContent()
 
@@ -162,6 +173,8 @@ export function Rss({ globalContent, customFields, arcSite }) {
   return rssTemplate(get(globalContent, 'content_elements', []), {
     ...customFields,
     resizerURL,
+    resizerWidth: width,
+    resizerHeight: height,
     domain: feedDomainURL,
     feedTitle,
     feedLanguage,

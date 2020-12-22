@@ -17,6 +17,8 @@ const sitemapTemplate = (
     imageCaption,
     resizerURL,
     domain,
+    resizerWidth,
+    resizerHeight,
   },
 ) => ({
   urlset: {
@@ -37,7 +39,13 @@ const sitemapTemplate = (
         ...(includePromo &&
           img && {
             'image:image': {
-              'image:loc': buildResizerURL(img.url, resizerKey, resizerURL),
+              'image:loc': buildResizerURL(
+                img.url,
+                resizerKey,
+                resizerURL,
+                resizerWidth,
+                resizerHeight,
+              ),
               ...(img[imageCaption] && {
                 'image:caption': { $: img[imageCaption] },
               }),
@@ -53,12 +61,15 @@ const sitemapTemplate = (
 
 export function Sitemap({ globalContent, customFields, arcSite }) {
   const { resizerURL = '', feedDomainURL = '' } = getProperties(arcSite)
+  const { width = 0, height = 0 } = customFields.resizerKVP || {}
 
   // can't return null for xml return type, must return valid xml template
   return sitemapTemplate(get(globalContent, 'content_elements', []), {
     ...customFields,
     resizerURL,
     domain: feedDomainURL,
+    resizerWidth: width,
+    resizerHeight: height,
   })
 }
 

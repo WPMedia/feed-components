@@ -1,5 +1,12 @@
 # @wpmedia/rss-google-news-feature-block
 
+## 0.9.1-ttk.0
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @wpmedia/feeds-prop-types@0.7.0-ttk.0
+
 ## 0.9.0
 
 ### Minor Changes

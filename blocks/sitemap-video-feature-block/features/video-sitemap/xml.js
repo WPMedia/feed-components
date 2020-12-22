@@ -17,6 +17,8 @@ const sitemapTemplate = (
     videoTitle,
     domain,
     resizerURL,
+    resizerWidth,
+    resizerHeight,
   },
 ) => ({
   urlset: {
@@ -63,6 +65,8 @@ const sitemapTemplate = (
                 img.url,
                 resizerKey,
                 resizerURL,
+                resizerWidth,
+                resizerHeight,
               ),
             }),
           ...(title && {
@@ -92,12 +96,15 @@ const sitemapTemplate = (
 
 export function VideoSitemap({ globalContent, customFields, arcSite }) {
   const { resizerURL = '', feedDomainURL = '' } = getProperties(arcSite)
+  const { width = 0, height = 0 } = customFields.resizerKVP || {}
 
   // can't return null for xml return type, must return valid xml template
   return sitemapTemplate(get(globalContent, 'content_elements', []), {
     ...customFields,
     domain: feedDomainURL,
     resizerURL,
+    resizerWidth: width,
+    resizerHeight: height,
   })
 }
 
@@ -106,7 +113,8 @@ VideoSitemap.propTypes = {
     videoTitle: PropTypes.string.tag({
       label: 'Video Title',
       group: 'Format',
-      description: 'Which field should be used from headline',
+      description:
+        'Which ANS field should be used for the title.  Defaults to headlines.basic',
       defaultValue: 'headlines.basic',
     }),
     videoKeywords: PropTypes.oneOf(['seo_keywords', 'tags']).tag({
@@ -116,9 +124,9 @@ VideoSitemap.propTypes = {
       defaultValue: 'seo_keywords',
     }),
     sitemapVideoSelect: PropTypes.kvp.tag({
-      label: 'select content_loc using',
+      label: 'Video Encoding',
       group: 'Format',
-      description: 'Which criteria should be used to fetch content_loc',
+      description: 'Which criteria should be used to filter video encodings',
       defaultValue: { bitrate: 5400, stream_type: 'mp4' },
     }),
     ...generatePropsForFeed('sitemap', PropTypes),
