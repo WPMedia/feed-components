@@ -70,6 +70,7 @@ it('returns Google News template with default values', () => {
       imageCaption: 'caption',
       imageCredits: 'credits.by[].name',
       includeContent: 0,
+      resizerKVP: {},
     },
   })
   expect(rss).toMatchSnapshot({
@@ -105,7 +106,7 @@ it('returns RSS template with custom values', () => {
       pubDate: 'display_date',
       itemCredits: 'credits.by._id',
       itemCategory: 'taxonomy.primary_section.name',
-      includePromo: true,
+      resizerKVP: { width: 640, height: 480 },
 
       imageTitle: 'headlines.basic || title',
       imageCaption: 'subheadlines.basic || caption',

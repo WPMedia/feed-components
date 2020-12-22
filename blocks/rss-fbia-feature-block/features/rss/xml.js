@@ -32,6 +32,8 @@ const rssTemplate = (
     includePromo,
     includeContent,
     resizerURL,
+    resizerWidth,
+    resizerHeight,
     domain,
     feedTitle,
     feedLanguage,
@@ -103,7 +105,13 @@ const rssTemplate = (
             (category = jmespath.search(s, itemCategory)) &&
             category && { category: category }),
           ...(includeContent !== 0 &&
-            (body = fbiaBuildContent.parse(s, includeContent, domain)) &&
+            (body = fbiaBuildContent.parse(
+              s,
+              includeContent,
+              domain,
+              resizerWidth,
+              resizerHeight,
+            )) &&
             body && {
               'content:encoded': {
                 $: body,
@@ -114,7 +122,13 @@ const rssTemplate = (
             img.url && {
               'media:content': {
                 '@type': 'image/jpeg',
-                '@url': buildResizerURL(img.url, resizerKey, resizerURL),
+                '@url': buildResizerURL(
+                  img.url,
+                  resizerKey,
+                  resizerURL,
+                  resizerWidth,
+                  resizerHeight,
+                ),
                 ...(jmespath.search(img, imageCaption) && {
                   'media:description': {
                     '@type': 'plain',
@@ -148,6 +162,7 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
     feedTitle = '',
     feedLanguage = '',
   } = getProperties(arcSite)
+  const { width = 0, height = 0 } = customFields.resizerKVP || {}
 
   function FbiaBuildContent(
     domain,
@@ -165,7 +180,7 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
   ) {
     BuildContent.call(this)
 
-    this.buildHTMLHead = (s, domain) => {
+    this.buildHTMLHead = (s, domain, resizerWidth, resizerHeight) => {
       const img =
         s.promo_items && (s.promo_items.basic || s.promo_items.lead_art)
       const url = `${domain}${s.website_url || s.canonical_url || ''}`
@@ -219,7 +234,7 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
         ],
       }
     }
-    this.buildHTMLBody = (s, numRows, domain) => {
+    this.buildHTMLBody = (s, numRows, domain, resizerWidth, resizerHeight) => {
       const authorDescription =
         jmespath.search(s, 'credits.by[].description') || []
       const lastUpdatedDate = jmespath.search(s, 'last_updated_date')
@@ -275,7 +290,13 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
           figure: {
             '@class': 'fb-feed-cover',
             img: {
-              '@src': buildResizerURL(image.url, resizerKey, resizerURL),
+              '@src': buildResizerURL(
+                image.url,
+                resizerKey,
+                resizerURL,
+                resizerWidth,
+                resizerHeight,
+              ),
             },
             ...(customFields.imageCaption &&
               jmespath.search(image, customFields.imageCaption) && {
@@ -308,7 +329,13 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
             '#': header,
           },
           '#': [
-            this.buildContentElements(s, numRows, domain),
+            this.buildContentElements(
+              s,
+              numRows,
+              domain,
+              resizerWidth,
+              resizerHeight,
+            ),
             ...(adScripts && [adScripts]),
           ],
           footer: {
@@ -324,7 +351,14 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
         },
       }
     }
-    this.buildContentElements = (s, numRows, domain) => {
+
+    this.buildContentElements = (
+      s,
+      numRows,
+      domain,
+      resizerWidth,
+      resizerHeight,
+    ) => {
       let item
       const body = []
       const maxRows =
@@ -355,8 +389,8 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
                         element,
                         resizerKey,
                         resizerURL,
-                        resizeWidth,
-                        resizeHeight,
+                        resizerWidth,
+                        resizerHeight,
                       )
                       break
                     case 'header':
@@ -367,8 +401,8 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
                         element,
                         resizerKey,
                         resizerURL,
-                        resizeWidth,
-                        resizeHeight,
+                        resizerWidth,
+                        resizerHeight,
                       )
                       break
                     case 'interstitial_link':
@@ -419,13 +453,25 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
             )
       return body.length ? body : ['']
     }
-    this.image = (element, resizerKey, resizerURL) => {
+    this.image = (
+      element,
+      resizerKey,
+      resizerURL,
+      resizerWidth,
+      resizerHeight,
+    ) => {
       const credits = jmespath.search(element, 'credits.by[].name') || []
       return {
         figure: {
           img: {
             '@': {
-              src: buildResizerURL(element.url, resizerKey, resizerURL),
+              src: buildResizerURL(
+                element.url,
+                resizerKey,
+                resizerURL,
+                resizerWidth,
+                resizerHeight,
+              ),
             },
           },
           ...(element.caption && {
@@ -490,12 +536,18 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
       }
       return item
     }
-    this.parse = (s, numRows, domain) => {
+    this.parse = (s, numRows, domain, resizerWidth, resizerHeight) => {
       const fbiaContent = {
         html: {
           '@lang': feedLanguage,
-          head: this.buildHTMLHead(s, domain),
-          body: this.buildHTMLBody(s, numRows, domain),
+          head: this.buildHTMLHead(s, domain, resizerWidth, resizerHeight),
+          body: this.buildHTMLBody(
+            s,
+            numRows,
+            domain,
+            resizerWidth,
+            resizerHeight,
+          ),
         },
       }
       return '<!doctype html>'.concat(fragment(fbiaContent).toString())
@@ -521,6 +573,8 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
   return rssTemplate(get(globalContent, 'content_elements', []), {
     ...customFields,
     resizerURL,
+    resizerWidth: width,
+    resizerHeight: height,
     domain: feedDomainURL,
     feedTitle,
     feedLanguage,

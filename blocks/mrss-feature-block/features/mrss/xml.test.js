@@ -175,6 +175,7 @@ it('returns RSS template with default values', () => {
       pubDate: 'display_date',
       itemCategory: 'taxonomy.primary_section.name',
       videoInfo: { bitrate: 5400, stream_type: 'mp4' },
+      resizerKVP: {},
     },
   })
   expect(video).toMatchSnapshot({

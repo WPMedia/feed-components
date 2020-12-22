@@ -1,5 +1,12 @@
 # @wpmedia/sitemaps-feature-block
 
+## 0.7.1-ttk.0
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @wpmedia/feeds-prop-types@0.7.0-ttk.0
+
 ## 0.7.0
 
 ### Minor Changes

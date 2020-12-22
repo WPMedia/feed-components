@@ -31,6 +31,8 @@ const rssTemplate = (
     itemCategory,
     includeContent,
     resizerURL,
+    resizerWidth,
+    resizerHeight,
     domain,
     feedTitle,
     feedLanguage,
@@ -132,7 +134,13 @@ const rssTemplate = (
             ...(img &&
               img.url && {
                 'media:thumbnail': {
-                  '@url': buildResizerURL(img.url, resizerKey, resizerURL),
+                  '@url': buildResizerURL(
+                    img.url,
+                    resizerKey,
+                    resizerURL,
+                    resizerWidth,
+                    resizerHeight,
+                  ),
                 },
               }),
           },
@@ -149,6 +157,7 @@ export function Mrss({ globalContent, customFields, arcSite }) {
     feedTitle = '',
     feedLanguage = '',
   } = getProperties(arcSite)
+  const { width = 0, height = 0 } = customFields.resizerKVP || {}
 
   // can't return null for xml return type, must return valid xml template
   return rssTemplate(
@@ -157,6 +166,8 @@ export function Mrss({ globalContent, customFields, arcSite }) {
     {
       ...customFields,
       resizerURL,
+      resizerWidth: width,
+      resizerHeight: height,
       domain: feedDomainURL,
       feedTitle,
       feedLanguage,
