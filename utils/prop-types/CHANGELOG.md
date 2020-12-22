@@ -1,5 +1,11 @@
 # @wpmedia/feeds-prop-types
 
+## 0.7.0
+
+### Minor Changes
+
+- [`0d0604b`](https://github.com/WPMedia/feed-components/commit/0d0604bcedfb07adc79b09785e11947b0fa58505) [#317](https://github.com/WPMedia/feed-components/pull/317) Thanks [@tbrick855](https://github.com/tbrick855)! - Added resizer width and height kvp
+
 ## 0.7.0-ttk.0
 
 ### Minor Changes
