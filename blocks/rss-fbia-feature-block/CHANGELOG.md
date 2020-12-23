@@ -1,5 +1,11 @@
 # @wpmedia/sitemaps-feature-block
 
+## 0.8.0
+
+### Minor Changes
+
+- [`ffedf62`](https://github.com/WPMedia/feed-components/commit/ffedf6263ef14dedf44d59f84444dcce09c1f15b) [#319](https://github.com/WPMedia/feed-components/pull/319) Thanks [@tbrick855](https://github.com/tbrick855)! - Fix issue when there are no FB Ad scripts
+
 ## 0.7.1
 
 ### Patch Changes
