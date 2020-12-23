@@ -165,9 +165,6 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
   const { width = 0, height = 0 } = customFields.resizerKVP || {}
 
   function FbiaBuildContent(
-    domain,
-    resizeWidth,
-    resizeHeight,
     itemTitle,
     itemDescription,
     itemCategory,
@@ -244,6 +241,7 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
         jmespath.search(s, 'taxonomy.primary_section.name') || ''
       const header = []
       let description, author
+      const adScripts = customFields.adScripts || ''
       if (placementSection)
         header.push({
           section: {
@@ -359,98 +357,96 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
       resizerWidth,
       resizerHeight,
     ) => {
-      let item
+      const maxRows = numRows === 'all' ? 9999 : parseInt(numRows)
       const body = []
-      const maxRows =
-        numRows === 'all'
-          ? 9999
-          : parseInt(numRows)(s.content_elements || []).array.forEach(
-              (element) => {
-                if (body.length <= maxRows) {
-                  switch (element.type) {
-                    case 'blockquote':
-                      item = this.blockquote(element)
-                      break
-                    case 'correction':
-                      item = this.correction(element)
-                      break
-                    case 'code':
-                    case 'custom_embed':
-                    case 'divider':
-                    case 'element_group':
-                    case 'story':
-                      item = ''
-                      break
-                    case 'endorsement':
-                      item = this.endorsement(element)
-                      break
-                    case 'gallery':
-                      item = this.gallery(
-                        element,
-                        resizerKey,
-                        resizerURL,
-                        resizerWidth,
-                        resizerHeight,
-                      )
-                      break
-                    case 'header':
-                      item = this.header(element)
-                      break
-                    case 'image':
-                      item = this.image(
-                        element,
-                        resizerKey,
-                        resizerURL,
-                        resizerWidth,
-                        resizerHeight,
-                      )
-                      break
-                    case 'interstitial_link':
-                      item = this.interstitial(element, domain)
-                      break
-                    case 'link_list':
-                      item = this.linkList(element, domain)
-                      break
-                    case 'list':
-                      item = this.list(element)
-                      break
-                    case 'list_element':
-                      item = this.listElement(element)
-                      break
-                    case 'numeric_rating':
-                      item = this.numericRating(element)
-                      break
-                    case 'oembed_response':
-                      item = this.oembed(element)
-                      break
-                    case 'quote':
-                      item = this.quote(element)
-                      break
-                    case 'raw_html':
-                      item = this.text(element)
-                      break
-                    case 'table':
-                      item = this.table(element)
-                      break
-                    case 'text':
-                      item = this.text(element)
-                      break
-                    case 'video':
-                      item = this.video(element)
-                      break
-                    default:
-                      item = this.text(element)
-                      break
-                  }
+      let item
 
-                  // empty array breaks xmlbuilder2, but empty '' is OK
-                  if (Array.isArray(item) && item.length === 0) {
-                    item = ''
-                  }
-                  item && body.push(item)
-                }
-              },
-            )
+        // prettier-ignore
+      ;(s.content_elements || []).forEach((element) => {
+        if (body.length <= maxRows) {
+          switch (element.type) {
+            case 'blockquote':
+              item = this.blockquote(element)
+              break
+            case 'correction':
+              item = this.correction(element)
+              break
+            case 'code':
+            case 'custom_embed':
+            case 'divider':
+            case 'element_group':
+            case 'story':
+              item = ''
+              break
+            case 'endorsement':
+              item = this.endorsement(element)
+              break
+            case 'gallery':
+              item = this.gallery(
+                element,
+                resizerKey,
+                resizerURL,
+                resizerWidth,
+                resizerHeight,
+              )
+              break
+            case 'header':
+              item = this.header(element)
+              break
+            case 'image':
+              item = this.image(
+                element,
+                resizerKey,
+                resizerURL,
+                resizerWidth,
+                resizerHeight,
+              )
+              break
+            case 'interstitial_link':
+              item = this.interstitial(element, domain)
+              break
+            case 'link_list':
+              item = this.linkList(element, domain)
+              break
+            case 'list':
+              item = this.list(element)
+              break
+            case 'list_element':
+              item = this.listElement(element)
+              break
+            case 'numeric_rating':
+              item = this.numericRating(element)
+              break
+            case 'oembed_response':
+              item = this.oembed(element)
+              break
+            case 'quote':
+              item = this.quote(element)
+              break
+            case 'raw_html':
+              item = this.text(element)
+              break
+            case 'table':
+              item = this.table(element)
+              break
+            case 'text':
+              item = this.text(element)
+              break
+            case 'video':
+              item = this.video(element)
+              break
+            default:
+              item = this.text(element)
+              break
+          }
+
+          // empty array breaks xmlbuilder2, but empty '' is OK
+          if (Array.isArray(item) && item.length === 0) {
+            item = ''
+          }
+          item && body.push(item)
+        }
+      })
       return body.length ? body : ['']
     }
     this.image = (
@@ -555,9 +551,6 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
   }
 
   const fbiaBuildContent = new FbiaBuildContent(
-    customFields.domain,
-    customFields.resizeWidth,
-    customFields.resizeHeight,
     customFields.itemTitle,
     customFields.itemDescription,
     customFields.itemCategory,
