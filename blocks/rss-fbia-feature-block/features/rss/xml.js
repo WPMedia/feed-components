@@ -32,6 +32,8 @@ const rssTemplate = (
     includePromo,
     includeContent,
     resizerURL,
+    resizerWidth,
+    resizerHeight,
     domain,
     feedTitle,
     feedLanguage,
@@ -103,7 +105,13 @@ const rssTemplate = (
             (category = jmespath.search(s, itemCategory)) &&
             category && { category: category }),
           ...(includeContent !== 0 &&
-            (body = fbiaBuildContent.parse(s, includeContent, domain)) &&
+            (body = fbiaBuildContent.parse(
+              s,
+              includeContent,
+              domain,
+              resizerWidth,
+              resizerHeight,
+            )) &&
             body && {
               'content:encoded': {
                 $: body,
@@ -114,7 +122,13 @@ const rssTemplate = (
             img.url && {
               'media:content': {
                 '@type': 'image/jpeg',
-                '@url': buildResizerURL(img.url, resizerKey, resizerURL),
+                '@url': buildResizerURL(
+                  img.url,
+                  resizerKey,
+                  resizerURL,
+                  resizerWidth,
+                  resizerHeight,
+                ),
                 ...(jmespath.search(img, imageCaption) && {
                   'media:description': {
                     '@type': 'plain',
@@ -148,11 +162,9 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
     feedTitle = '',
     feedLanguage = '',
   } = getProperties(arcSite)
+  const { width = 0, height = 0 } = customFields.resizerKVP || {}
 
   function FbiaBuildContent(
-    domain,
-    resizeWidth,
-    resizeHeight,
     itemTitle,
     itemDescription,
     itemCategory,
@@ -165,7 +177,7 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
   ) {
     BuildContent.call(this)
 
-    this.buildHTMLHead = (s, domain) => {
+    this.buildHTMLHead = (s, domain, resizerWidth, resizerHeight) => {
       const img =
         s.promo_items && (s.promo_items.basic || s.promo_items.lead_art)
       const url = `${domain}${s.website_url || s.canonical_url || ''}`
@@ -219,7 +231,7 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
         ],
       }
     }
-    this.buildHTMLBody = (s, numRows, domain) => {
+    this.buildHTMLBody = (s, numRows, domain, resizerWidth, resizerHeight) => {
       const authorDescription =
         jmespath.search(s, 'credits.by[].description') || []
       const lastUpdatedDate = jmespath.search(s, 'last_updated_date')
@@ -229,6 +241,7 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
         jmespath.search(s, 'taxonomy.primary_section.name') || ''
       const header = []
       let description, author
+      const adScripts = customFields.adScripts || ''
       if (placementSection)
         header.push({
           section: {
@@ -275,7 +288,13 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
           figure: {
             '@class': 'fb-feed-cover',
             img: {
-              '@src': buildResizerURL(image.url, resizerKey, resizerURL),
+              '@src': buildResizerURL(
+                image.url,
+                resizerKey,
+                resizerURL,
+                resizerWidth,
+                resizerHeight,
+              ),
             },
             ...(customFields.imageCaption &&
               jmespath.search(image, customFields.imageCaption) && {
@@ -308,7 +327,13 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
             '#': header,
           },
           '#': [
-            this.buildContentElements(s, numRows, domain),
+            this.buildContentElements(
+              s,
+              numRows,
+              domain,
+              resizerWidth,
+              resizerHeight,
+            ),
             ...(adScripts && [adScripts]),
           ],
           footer: {
@@ -324,106 +349,125 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
         },
       }
     }
-    this.buildContentElements = (s, numRows, domain) => {
-      let item
-      const body = []
-      const maxRows =
-        numRows === 'all'
-          ? 9999
-          : parseInt(numRows)(s.content_elements || []).map((element) => {
-              if (body.length <= maxRows) {
-                switch (element.type) {
-                  case 'blockquote':
-                    item = this.blockquote(element)
-                    break
-                  case 'correction':
-                    item = this.correction(element)
-                    break
-                  case 'code':
-                  case 'custom_embed':
-                  case 'divider':
-                  case 'element_group':
-                  case 'story':
-                    item = ''
-                    break
-                  case 'endorsement':
-                    item = this.endorsement(element)
-                    break
-                  case 'gallery':
-                    item = this.gallery(
-                      element,
-                      resizerKey,
-                      resizerURL,
-                      resizeWidth,
-                      resizeHeight,
-                    )
-                    break
-                  case 'header':
-                    item = this.header(element)
-                    break
-                  case 'image':
-                    item = this.image(
-                      element,
-                      resizerKey,
-                      resizerURL,
-                      resizeWidth,
-                      resizeHeight,
-                    )
-                    break
-                  case 'interstitial_link':
-                    item = this.interstitial(element, domain)
-                    break
-                  case 'link_list':
-                    item = this.linkList(element, domain)
-                    break
-                  case 'list':
-                    item = this.list(element)
-                    break
-                  case 'list_element':
-                    item = this.listElement(element)
-                    break
-                  case 'numeric_rating':
-                    item = this.numericRating(element)
-                    break
-                  case 'oembed_response':
-                    item = this.oembed(element)
-                    break
-                  case 'quote':
-                    item = this.quote(element)
-                    break
-                  case 'raw_html':
-                    item = this.text(element)
-                    break
-                  case 'table':
-                    item = this.table(element)
-                    break
-                  case 'text':
-                    item = this.text(element)
-                    break
-                  case 'video':
-                    item = this.video(element)
-                    break
-                  default:
-                    item = this.text(element)
-                    break
-                }
 
-                // empty array breaks xmlbuilder2, but empty '' is OK
-                if (Array.isArray(item) && item.length === 0) {
-                  item = ''
-                }
-                item && body.push(item)
-              }
-            })
+    this.buildContentElements = (
+      s,
+      numRows,
+      domain,
+      resizerWidth,
+      resizerHeight,
+    ) => {
+      const maxRows = numRows === 'all' ? 9999 : parseInt(numRows)
+      const body = []
+      let item
+
+        // prettier-ignore
+      ;(s.content_elements || []).forEach((element) => {
+        if (body.length <= maxRows) {
+          switch (element.type) {
+            case 'blockquote':
+              item = this.blockquote(element)
+              break
+            case 'correction':
+              item = this.correction(element)
+              break
+            case 'code':
+            case 'custom_embed':
+            case 'divider':
+            case 'element_group':
+            case 'story':
+              item = ''
+              break
+            case 'endorsement':
+              item = this.endorsement(element)
+              break
+            case 'gallery':
+              item = this.gallery(
+                element,
+                resizerKey,
+                resizerURL,
+                resizerWidth,
+                resizerHeight,
+              )
+              break
+            case 'header':
+              item = this.header(element)
+              break
+            case 'image':
+              item = this.image(
+                element,
+                resizerKey,
+                resizerURL,
+                resizerWidth,
+                resizerHeight,
+              )
+              break
+            case 'interstitial_link':
+              item = this.interstitial(element, domain)
+              break
+            case 'link_list':
+              item = this.linkList(element, domain)
+              break
+            case 'list':
+              item = this.list(element)
+              break
+            case 'list_element':
+              item = this.listElement(element)
+              break
+            case 'numeric_rating':
+              item = this.numericRating(element)
+              break
+            case 'oembed_response':
+              item = this.oembed(element)
+              break
+            case 'quote':
+              item = this.quote(element)
+              break
+            case 'raw_html':
+              item = this.text(element)
+              break
+            case 'table':
+              item = this.table(element)
+              break
+            case 'text':
+              item = this.text(element)
+              break
+            case 'video':
+              item = this.video(element)
+              break
+            default:
+              item = this.text(element)
+              break
+          }
+
+          // empty array breaks xmlbuilder2, but empty '' is OK
+          if (Array.isArray(item) && item.length === 0) {
+            item = ''
+          }
+          item && body.push(item)
+        }
+      })
       return body.length ? body : ['']
     }
-    this.image = (element, resizerKey, resizerURL) => {
+    this.image = (
+      element,
+      resizerKey,
+      resizerURL,
+      resizerWidth,
+      resizerHeight,
+    ) => {
       const credits = jmespath.search(element, 'credits.by[].name') || []
       return {
         figure: {
           img: {
             '@': {
-              src: buildResizerURL(element.url, resizerKey, resizerURL),
+              src: buildResizerURL(
+                element.url,
+                resizerKey,
+                resizerURL,
+                resizerWidth,
+                resizerHeight,
+              ),
             },
           },
           ...(element.caption && {
@@ -488,12 +532,18 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
       }
       return item
     }
-    this.parse = (s, numRows, domain) => {
+    this.parse = (s, numRows, domain, resizerWidth, resizerHeight) => {
       const fbiaContent = {
         html: {
           '@lang': feedLanguage,
-          head: this.buildHTMLHead(s, domain),
-          body: this.buildHTMLBody(s, numRows, domain),
+          head: this.buildHTMLHead(s, domain, resizerWidth, resizerHeight),
+          body: this.buildHTMLBody(
+            s,
+            numRows,
+            domain,
+            resizerWidth,
+            resizerHeight,
+          ),
         },
       }
       return '<!doctype html>'.concat(fragment(fbiaContent).toString())
@@ -501,9 +551,6 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
   }
 
   const fbiaBuildContent = new FbiaBuildContent(
-    customFields.domain,
-    customFields.resizeWidth,
-    customFields.resizeHeight,
     customFields.itemTitle,
     customFields.itemDescription,
     customFields.itemCategory,
@@ -519,6 +566,8 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
   return rssTemplate(get(globalContent, 'content_elements', []), {
     ...customFields,
     resizerURL,
+    resizerWidth: width,
+    resizerHeight: height,
     domain: feedDomainURL,
     feedTitle,
     feedLanguage,

@@ -1,5 +1,4 @@
-# Custom block development
-
+# OBF block development
 
 Themes allows you to use the existing Arc Outbound Feeds (OBF) blocks in your repo by listing them
 in [blocks.json](./blocks.json.md). Themes also makes it possible to modify the Arc OBF Blocks to change the way they work, or to create completely new custom feeds. Because OBF is based on themes which is based on fusion, a basic understanding of the [fusion development process](https://redirector.arcpublishing.com/alc/arc-products/pagebuilder/fusion/documentation/recipes/intro.md?version=2.6) is recommended. But don't worry, even if you are not currently using themes, you can still use OBF.

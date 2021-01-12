@@ -1,5 +1,13 @@
 # @wpmedia/sitemap-index-feature-block
 
+## 0.9.0
+
+### Minor Changes
+
+- [`c80534c`](https://github.com/WPMedia/feed-components/commit/c80534c2c03eb072971c3007a1e83faaffb25510) [#295](https://github.com/WPMedia/feed-components/pull/295) Thanks [@tbrick855](https://github.com/tbrick855)! - change map() to forEach()
+
+* [`c80534c`](https://github.com/WPMedia/feed-components/commit/c80534c2c03eb072971c3007a1e83faaffb25510) [#295](https://github.com/WPMedia/feed-components/pull/295) Thanks [@tbrick855](https://github.com/tbrick855)! - Fix Exclude date in sitemap selection
+
 ## 0.8.0
 
 ### Minor Changes

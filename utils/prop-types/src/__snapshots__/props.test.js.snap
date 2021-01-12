@@ -134,9 +134,9 @@ Object {
   "includePromo": Object {
     "tags": Object {
       "defaultValue": true,
-      "description": "Include the featured image in RSS?",
+      "description": "Include the featured image in <media:content>",
       "group": "Featured Image",
-      "label": "Include promo images?",
+      "label": "Include promo images",
     },
     "type": "bool",
   },
@@ -191,6 +191,18 @@ Object {
       "label": "Publication Date",
     },
     "type": "oneOf",
+  },
+  "resizerKVP": Object {
+    "tags": Object {
+      "defaultValue": Object {
+        "height": 0,
+        "width": 0,
+      },
+      "description": "Optional height and or width to resize all images to",
+      "group": "Featured Image",
+      "label": "Image height and or width",
+    },
+    "type": "kvp",
   },
 }
 `;
@@ -264,6 +276,18 @@ Object {
     },
     "type": "oneOf",
   },
+  "resizerKVP": Object {
+    "tags": Object {
+      "defaultValue": Object {
+        "height": 0,
+        "width": 0,
+      },
+      "description": "Optional height and or width to resize all images to",
+      "group": "Format",
+      "label": "Image height and or width",
+    },
+    "type": "kvp",
+  },
 }
 `;
 
@@ -326,6 +350,18 @@ Object {
       "label": "priority",
     },
     "type": "oneOf",
+  },
+  "resizerKVP": Object {
+    "tags": Object {
+      "defaultValue": Object {
+        "height": 0,
+        "width": 0,
+      },
+      "description": "Optional height and or width to resize all images to",
+      "group": "Format",
+      "label": "Image height and or width",
+    },
+    "type": "kvp",
   },
 }
 `;

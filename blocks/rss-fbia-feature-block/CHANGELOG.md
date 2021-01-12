@@ -1,5 +1,37 @@
 # @wpmedia/sitemaps-feature-block
 
+## 0.8.0
+
+### Minor Changes
+
+- [`ffedf62`](https://github.com/WPMedia/feed-components/commit/ffedf6263ef14dedf44d59f84444dcce09c1f15b) [#319](https://github.com/WPMedia/feed-components/pull/319) Thanks [@tbrick855](https://github.com/tbrick855)! - Fix issue when there are no FB Ad scripts
+
+## 0.7.1
+
+### Patch Changes
+
+- Updated dependencies [[`0d0604b`](https://github.com/WPMedia/feed-components/commit/0d0604bcedfb07adc79b09785e11947b0fa58505)]:
+  - @wpmedia/feeds-prop-types@0.7.0
+
+## 0.7.1-ttk.0
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @wpmedia/feeds-prop-types@0.7.0-ttk.0
+
+## 0.7.0
+
+### Minor Changes
+
+- [`c80534c`](https://github.com/WPMedia/feed-components/commit/c80534c2c03eb072971c3007a1e83faaffb25510) [#295](https://github.com/WPMedia/feed-components/pull/295) Thanks [@tbrick855](https://github.com/tbrick855)! - change map() to forEach()
+
+### Patch Changes
+
+- Updated dependencies [[`c80534c`](https://github.com/WPMedia/feed-components/commit/c80534c2c03eb072971c3007a1e83faaffb25510)]:
+  - @wpmedia/feeds-content-elements@0.4.0
+  - @wpmedia/feeds-resizer@0.3.0
+
 ## 0.6.0
 
 ### Minor Changes

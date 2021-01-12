@@ -37,7 +37,7 @@ export function SitemapIndex({
   const { count: maxCount = 0 } = globalContent
   const lastModDate = jmespath.search(
     globalContent,
-    `content_elements[0].${customFields.lastMod}`,
+    `content_elements[0]."${customFields.lastMod}"`,
   )
   const pathList = new URL.URL(requestUri, feedDomainURL).pathname.split(
     customFields.feedName,

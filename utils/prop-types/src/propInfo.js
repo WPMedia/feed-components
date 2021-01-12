@@ -21,6 +21,15 @@ export const propInfo = {
         defaultValue: true,
       },
     },
+    resizerKVP: {
+      type: 'kvp',
+      tag: {
+        label: 'Image height and or width',
+        group: 'Format',
+        description: 'Optional height and or width to resize all images to',
+        defaultValue: { width: 0, height: 0 },
+      },
+    },
     lastMod: {
       type: 'oneOf',
       args: [
@@ -218,10 +227,19 @@ export const propInfo = {
     includePromo: {
       type: 'bool',
       tag: {
-        label: 'Include promo images?',
+        label: 'Include promo images',
         group: 'Featured Image',
-        description: 'Include the featured image in RSS?',
+        description: 'Include the featured image in <media:content>',
         defaultValue: true,
+      },
+    },
+    resizerKVP: {
+      type: 'kvp',
+      tag: {
+        label: 'Image height and or width',
+        group: 'Featured Image',
+        description: 'Optional height and or width to resize all images to',
+        defaultValue: { width: 0, height: 0 },
       },
     },
     imageTitle: {

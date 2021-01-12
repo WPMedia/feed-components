@@ -23,6 +23,8 @@ const sitemapTemplate = (
     feedTitle,
     feedLanguage,
     resizerURL,
+    resizerWidth,
+    resizerHeight,
   },
 ) => ({
   urlset: {
@@ -75,7 +77,13 @@ const sitemapTemplate = (
           img && {
             'image:image': {
               ...(img.url && {
-                'image:loc': buildResizerURL(img.url, resizerKey, resizerURL),
+                'image:loc': buildResizerURL(
+                  img.url,
+                  resizerKey,
+                  resizerURL,
+                  resizerWidth,
+                  resizerHeight,
+                ),
               }),
               ...(img[imageCaption] && {
                 'image:caption': { $: img[imageCaption] },
@@ -97,6 +105,7 @@ export function GoogleSitemap({ globalContent, customFields, arcSite }) {
     feedTitle = '',
     feedLanguage = '',
   } = getProperties(arcSite)
+  const { width = 0, height = 0 } = customFields.resizerKVP || {}
 
   // can't return null for xml return type, must return valid xml template
   return sitemapTemplate(get(globalContent, 'content_elements', []), {
@@ -105,6 +114,8 @@ export function GoogleSitemap({ globalContent, customFields, arcSite }) {
     feedTitle,
     feedLanguage,
     resizerURL,
+    resizerWidth: width,
+    resizerHeight: height,
   })
 }
 
