@@ -36,6 +36,7 @@ it('returns template with default values', () => {
     customFields: {
       priority: '0.5',
       includePromo: true,
+      resizerKVP: {},
       changeFreq: 'always',
       lastMod: 'last_updated_date',
       imageTitle: 'title',

@@ -1,4 +1,4 @@
-# Feature Blocks Architecture
+# OBF block development - Feature Blocks Architecture
 
 There are three parts that make up each feature.
 
@@ -90,4 +90,3 @@ And finally the function must be exported for it to be used as a feature.
 ```javascript
 export default Consumer(Rss)
 ```
-

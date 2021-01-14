@@ -65,7 +65,7 @@ it('returns MSN template with default values', () => {
       pubDate: 'display_date',
       itemCredits: 'credits.by[].name',
       itemCategory: '',
-
+      resizerKVP: {},
       imageTitle: 'title',
       imageCaption: 'caption',
       imageCredits: 'credits.by[].name',
@@ -106,7 +106,7 @@ it('returns RSS template with custom values', () => {
       itemCredits: 'credits.by._id',
       itemCategory: 'taxonomy.primary_section.name',
       includePromo: true,
-
+      resizerKVP: { width: 640, height: 480 },
       imageTitle: 'headlines.basic || title',
       imageCaption: 'subheadlines.basic || caption',
       imageCredits: 'credits.by[].name',

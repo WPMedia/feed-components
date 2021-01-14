@@ -32,6 +32,8 @@ const rssTemplate = (
     itemCategory,
     includeContent,
     resizerURL,
+    resizerWidth,
+    resizerHeight,
     domain,
     feedTitle,
     feedLanguage,
@@ -110,6 +112,8 @@ const rssTemplate = (
               domain,
               resizerKey,
               resizerURL,
+              resizerWidth,
+              resizerHeight,
             )) &&
             body && {
               'content:encoded': {
@@ -120,7 +124,13 @@ const rssTemplate = (
             img.url && {
               'media:content': {
                 '@type': 'image/jpeg',
-                '@url': buildResizerURL(img.url, resizerKey, resizerURL),
+                '@url': buildResizerURL(
+                  img.url,
+                  resizerKey,
+                  resizerURL,
+                  resizerWidth,
+                  resizerHeight,
+                ),
                 ...(jmespath.search(img, imageCaption) && {
                   'media:description': {
                     '@type': 'plain',
@@ -155,19 +165,34 @@ export function MsnRss({ globalContent, customFields, arcSite }) {
     feedTitle = '',
     feedLanguage = '',
   } = getProperties(arcSite)
+  const { width = 0, height = 0 } = customFields.resizerKVP || {}
 
   function MsnBuildContent() {
     BuildContent.call(this)
 
-    this.image = (element, resizerKey, resizerURL) => {
+    this.image = (
+      element,
+      resizerKey,
+      resizerURL,
+      resizerWidth,
+      resizerHeight,
+    ) => {
       return {
         figure: {
           img: {
             '@': {
-              src: buildResizerURL(element.url, resizerKey, resizerURL),
+              src: buildResizerURL(
+                element.url,
+                resizerKey,
+                resizerURL,
+                resizerWidth,
+                resizerHeight,
+              ),
               alt: element.caption || '',
-              ...(element.height && { height: element.height }),
-              ...(element.width && { width: element.width }),
+              ...(element.height && {
+                height: resizerHeight || element.height,
+              }),
+              ...(element.width && { width: resizerWidth || element.width }),
             },
           },
           ...(element.caption && { figcaption: element.caption }),
@@ -182,6 +207,8 @@ export function MsnRss({ globalContent, customFields, arcSite }) {
   return rssTemplate(get(globalContent, 'content_elements', []), {
     ...customFields,
     resizerURL,
+    resizerWidth: width,
+    resizerHeight: height,
     domain: feedDomainURL,
     feedTitle,
     feedLanguage,

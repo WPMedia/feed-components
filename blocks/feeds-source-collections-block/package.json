@@ -1,7 +1,7 @@
 {
   "name": "@wpmedia/feeds-source-collections-block",
-  "version": "0.0.0",
-  "description": "Content source to search for a collection",
+  "version": "0.1.0",
+  "description": "Content source to search collections by _id or alias",
   "main": "index.js",
   "files": [
     "sources"

@@ -6,6 +6,7 @@ const articles = {
   content_elements: [
     {
       display_date: '2020-04-07T15:02:08.918Z',
+      last_updated_date: '2020-04-08T10:34:41.432Z',
       website_url: '/food/2020/04/07/tips-for-safe-hand-washing',
       promo_items: {
         basic: {
@@ -62,7 +63,7 @@ it('returns RSS template with default values', () => {
       imageTitle: 'title',
       imageCaption: 'caption',
       imageCredits: 'credits.by[].name',
-      includeContent: 0,
+      includeContent: 'all',
       articleStyle: '',
       likesAndComments: '',
       adPlacement: '',
