@@ -8,7 +8,6 @@ it('validate params', () => {
     content_alias: 'text',
     from: 'text',
     size: 'text',
-    includedFields: 'text',
-    ttl: 'number',
+    included_fields: 'text',
   })
 })

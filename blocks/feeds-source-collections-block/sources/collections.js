@@ -6,8 +6,7 @@ const params = {
   content_alias: 'text',
   from: 'text',
   size: 'text',
-  includedFields: 'text',
-  ttl: 'number',
+  included_fields: 'text',
 }
 
 const options = {
@@ -20,10 +19,10 @@ const fetch = (key = {}) => {
   const {
     'arc-site': site,
     _id,
-    contentAlias,
+    content_alias: contentAlias,
     from,
     size,
-    includedFields,
+    included_fields: includedFields,
   } = key
 
   const qs = {
@@ -31,8 +30,9 @@ const fetch = (key = {}) => {
     from: from || 0,
     size: size || 20,
     published: true,
+    ...(_id && { _id: _id }),
+    ...(contentAlias && { content_alias: contentAlias }),
   }
-  _id ? (qs._id = _id) : (qs.content_alias = contentAlias)
 
   return request({
     uri: `${CONTENT_BASE}/content/v4/collections`,
@@ -60,6 +60,7 @@ const fetch = (key = {}) => {
           'last_updated_date',
           'promo_items',
           'publish_date',
+          'source',
           'subheadlines',
           'taxonomy',
           'website_url',
