@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`returns template with sitemap index by section links 1`] = `
+Object {
+  "sitemapindex": Object {
+    "@xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9",
+    "sitemap": Array [
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/politics/?outputType=xml",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/opinion/?outputType=xml",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/economy/?outputType=xml",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/sports/?outputType=xml",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/entertainment/?outputType=xml",
+      },
+    ],
+  },
+}
+`;
+
+exports[`returns template with sitemap index by section links with excluded links 1`] = `
+Object {
+  "sitemapindex": Object {
+    "@xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9",
+    "sitemap": Array [
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/opinion/?outputType=xml",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/economy/?outputType=xml",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/sports/?outputType=xml",
+      },
+    ],
+  },
+}
+`;
