@@ -3,13 +3,27 @@ import getProperties from 'fusion:properties'
 
 const resolve = function resolve(key) {
   const requestUri = `${CONTENT_BASE}/content/v4/search/published`
-  const uriParams = [
+  const paramList = [
     `website=${key['arc-site']}`,
     `size=${key['Feed-Size'] || '100'}`,
     `from=${key['Feed-Offset'] || '0'}`,
     `_sourceExclude=${key['Source-Exclude'] || 'related_content'}`,
     `sort=${key.Sort || 'publish_date:desc'}`,
-  ].join('&')
+  ]
+
+  if (key['Source-Include'])
+    paramList.push(`_sourceInclude=${key['Source-Include']}`)
+  if (key['Inc-Distrib-Name']) {
+    paramList.push(`include_distributor_name=${key['Inc-Distrib-Name']}`)
+  } else if (key['Exc-Distrib-Name']) {
+    paramList.push(`exclude_distributor_name=${key['Exc-Distrib-Name']}`)
+  } else if (key['Inc-Distrib-Cat']) {
+    paramList.push(`include_distributor_category=${key['Inc-Distrib-Cat']}`)
+  } else if (key['Exc-Distrib-Cat']) {
+    paramList.push(`exclude_distributor_category=${key['Exc-Distrib-Cat']}`)
+  }
+
+  const uriParams = paramList.join('&')
 
   const { feedDefaultQuery } = getProperties(key['arc-site'])
 
@@ -155,7 +169,13 @@ export default {
     'Exclude-Terms': 'text',
     'Feed-Size': 'text',
     'Feed-Offset': 'text',
-    'Source-Exclude': 'text',
     Sort: 'text',
+    'Source-Exclude': 'text',
+    'Source-Include': 'text',
+    'Inc-Distrib-Name': 'text',
+    'Exc-Distrib-Name': 'text',
+    'Inc-Distrib-Cat': 'text',
+    'Exc-Distrib-Cat': 'text',
   },
+  ttl: 300,
 }
