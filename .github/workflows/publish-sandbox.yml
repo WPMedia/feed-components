@@ -27,11 +27,23 @@ jobs:
           CI: true
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Create Release Pull Request or Publish to npm
-        uses: changesets/action@master
-        with:
-          #  this runs release:<branch name> which calls changeset publish --tag [beta|stable]
-          publish: npm run release:sandbox
+      # Create new branch in order to persist changesets through to prod branch
+      - name: Create snapshot sandbox branch
+        run: git checkout -b sandbox-tag
+
+      - name: Initialize mandatory git config
+        run: |
+          git config user.name "GitHub Actions"
+          git config user.email noreply@github.com
+
+      - name: Create snaphost release for sandbox
+        run: npm run release:snapshot
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish @beta release to npm
+        # Calls changeset publish --tag [beta|stable]
+        run: npm run release:sandbox
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

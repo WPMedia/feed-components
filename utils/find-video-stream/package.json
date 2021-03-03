@@ -5,9 +5,7 @@
   "main": "dist/feeds-find-video-stream.cjs.js",
   "module": "dist/feeds-find-video-stream.esm.js",
   "source": "index.js",
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "scripts": {
     "clean": "rm -rf dist"
   },
