@@ -174,10 +174,17 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
     adDensity,
     placementSection,
     adScripts,
+    customMeta
   ) {
     BuildContent.call(this)
 
-    this.buildHTMLHead = (s, domain, resizerWidth, resizerHeight) => {
+    this.buildHTMLHead = (s, domain) => {
+      customMetaXml = customMeta.forEach(cf =>{
+        return {
+          '@property': cf.property,
+          '@content': cf.content
+        }
+      })
       const img =
         s.promo_items && (s.promo_items.basic || s.promo_items.lead_art)
       const url = `${domain}${s.website_url || s.canonical_url || ''}`
@@ -228,7 +235,7 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
             '@property': 'fb:likes_and_comments',
             '@content': likesAndComments || 'disable',
           },
-        ],
+        ].concat(customMetaXml),
       }
     }
     this.buildHTMLBody = (s, numRows, domain, resizerWidth, resizerHeight) => {
@@ -560,6 +567,7 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
     customFields.adDensity,
     customFields.placementSection,
     customFields.adScripts,
+    customFields.customMeta,
   )
 
   // can't return null for xml return type, must return valid xml template
@@ -624,6 +632,13 @@ FbiaRss.propTypes = {
       description:
         'Javascript wrapped in the <figure class=‘op-tracker’> tag can be added to the article for ads and analytics. Multiple scripts can be included, usually each in the own iframe',
       defaultValue: '',
+    }),
+    customMeta: PropTypes.string.tag({
+      label: 'Custom Meta',
+      group: 'Facebook Options',
+      description:
+        'Custom <meta> tags for FB-IA output',
+      defaultValue:'',
     }),
     ...generatePropsForFeed('rss', PropTypes),
   }),
