@@ -20,10 +20,10 @@ it('validate params', () => {
     Sort: 'text',
     'Source-Exclude': 'text',
     'Source-Include': 'text',
-    'Inc-Distrib-Name': 'text',
-    'Exc-Distrib-Name': 'text',
-    'Inc-Distrib-Cat': 'text',
-    'Exc-Distrib-Cat': 'text',
+    'Include-Distributor-Name': 'text',
+    'Exclude-Distributor-Name': 'text',
+    'Include-Distributor-Category': 'text',
+    'Exclude-Distributor-Category': 'text',
   })
 })
 
@@ -63,10 +63,10 @@ it('returns query with parameter values', () => {
     Sort: 'display_date:asc',
     'Source-Exclude': 'headlines,description,website_url',
     'Source-Include': 'related_items,content_elements,taxonomy',
-    'Inc-Distrib-Name': 'AP',
-    'Exc-Distrib-Name': 'paid',
-    'Inc-Distrib-Cat': 'promotions',
-    'Exc-Distrib-Cat': 'wires',
+    'Include-Distributor-Name': 'AP',
+    'Exclude-Distributor-Name': 'paid',
+    'Include-Distributor-Category': 'promotions',
+    'Exclude-Distributor-Category': 'wires',
   })
   expect(query).toBe(
     'undefined/content/v4/search/published?body=%7B%22query%22:%7B%22bool%22:%7B%22must%22:%5B%7B%22term%22:%7B%22type%22:%22story%22%7D%7D,%7B%22range%22:%7B%22last_updated_date%22:%7B%22gte%22:%22now-2d%22,%22lte%22:%22now%22%7D%7D%7D%5D%7D%7D%7D&website=demo&size=25&from=3&_sourceExclude=headlines,description,website_url&sort=display_date:asc&_sourceInclude=related_items,content_elements,taxonomy&include_distributor_name=AP',

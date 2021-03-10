@@ -13,14 +13,22 @@ const resolve = function resolve(key) {
 
   if (key['Source-Include'])
     paramList.push(`_sourceInclude=${key['Source-Include']}`)
-  if (key['Inc-Distrib-Name']) {
-    paramList.push(`include_distributor_name=${key['Inc-Distrib-Name']}`)
-  } else if (key['Exc-Distrib-Name']) {
-    paramList.push(`exclude_distributor_name=${key['Exc-Distrib-Name']}`)
-  } else if (key['Inc-Distrib-Cat']) {
-    paramList.push(`include_distributor_category=${key['Inc-Distrib-Cat']}`)
-  } else if (key['Exc-Distrib-Cat']) {
-    paramList.push(`exclude_distributor_category=${key['Exc-Distrib-Cat']}`)
+  if (key['Include-Distributor-Name']) {
+    paramList.push(
+      `include_distributor_name=${key['Include-Distributor-Name']}`,
+    )
+  } else if (key['Exclude-Distributor-Name']) {
+    paramList.push(
+      `exclude_distributor_name=${key['Exclude-Distributor-Name']}`,
+    )
+  } else if (key['Include-Distributor-Category']) {
+    paramList.push(
+      `include_distributor_category=${key['Include-Distributor-Category']}`,
+    )
+  } else if (key['Exclude-Distributor-Category']) {
+    paramList.push(
+      `exclude_distributor_category=${key['Exclude-Distributor-Category']}`,
+    )
   }
 
   const uriParams = paramList.join('&')
@@ -172,10 +180,10 @@ export default {
     Sort: 'text',
     'Source-Exclude': 'text',
     'Source-Include': 'text',
-    'Inc-Distrib-Name': 'text',
-    'Exc-Distrib-Name': 'text',
-    'Inc-Distrib-Cat': 'text',
-    'Exc-Distrib-Cat': 'text',
+    'Include-Distributor-Name': 'text',
+    'Exclude-Distributor-Name': 'text',
+    'Include-Distributor-Category': 'text',
+    'Exclude-Distributor-Category': 'text',
   },
   ttl: 300,
 }
