@@ -179,7 +179,7 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
     BuildContent.call(this)
 
     this.buildHTMLHead = (s, domain) => {
-      customMetaXml = customMeta.forEach(cf =>{
+      const customMetaXml = customMeta.forEach(cf =>{
         return {
           '@property': cf.property,
           '@content': cf.content
@@ -567,7 +567,7 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
     customFields.adDensity,
     customFields.placementSection,
     customFields.adScripts,
-    customFields.customMeta,
+    customFields.customMeta
   )
 
   // can't return null for xml return type, must return valid xml template
