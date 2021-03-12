@@ -12,7 +12,7 @@ const sitemapTemplate = (
   elements,
   {
     lastMod,
-    videoKeywords,
+    videoDescription,
     sitemapVideoSelect,
     videoTitle,
     domain,
@@ -25,22 +25,10 @@ const sitemapTemplate = (
     '@xmlns': 'http://www.sitemaps.org/schemas/sitemap/0.9',
     '@xmlns:video': 'http://www.google.com/schemas/sitemap-video/1.1',
     url: elements.map((v) => {
+      let title, description, category
       // Get promo image object to determine thumbnail_loc
       const img =
         v.promo_items && (v.promo_items.basic || v.promo_items.lead_art)
-
-      // Based on VideoKeywords customField determine what should be used as a value for keywords
-      let keywords
-      if (videoKeywords === 'tags') {
-        keywords = (jmespath.search(v, 'taxonomy.tags[*].text') || []).join(',')
-      } else {
-        keywords = (jmespath.search(v, 'taxonomy.seo_keywords[*]') || []).join(
-          ',',
-        )
-      }
-
-      // Set video title
-      const title = jmespath.search(v, videoTitle)
 
       // Find content_loc based on searchObject site property.
       const searchArray = formatSearchObject(sitemapVideoSelect)
@@ -69,23 +57,24 @@ const sitemapTemplate = (
                 resizerHeight,
               ),
             }),
-          ...(title && {
-            'video:title': { $: title },
-          }),
-          ...(v.description ||
-            (v.subheadlines &&
-              v.subheadlines.basic && {
-                'video:description': {
-                  $: v.description || v.subheadlines.basic,
-                },
-              })),
-          ...(keywords && {
-            'video:tags': { $: keywords },
-          }),
-          ...(v.taxonomy &&
-            v.taxonomy.primary_section &&
-            v.taxonomy.primary_section.name && {
-              'video:category': v.taxonomy.primary_section.name,
+          ...(videoTitle &&
+            (title = jmespath.search(v, videoTitle)) &&
+            title && {
+              'video:title': { $: title },
+            }),
+          ...(videoDescription &&
+            (description = jmespath.search(v, videoDescription)) &&
+            description && {
+              'video:description': {
+                $: description,
+              },
+            }),
+          ...((category = jmespath.search(
+            v,
+            'taxonomy.primary_section.name',
+          )) &&
+            category && {
+              'video:category': category,
             }),
         },
         ...{ lastmod: v[lastMod] },
@@ -117,11 +106,12 @@ VideoSitemap.propTypes = {
         'Which ANS field should be used for the title.  Defaults to headlines.basic',
       defaultValue: 'headlines.basic',
     }),
-    videoKeywords: PropTypes.oneOf(['seo_keywords', 'tags']).tag({
-      label: 'keywords',
+    videoDescription: PropTypes.string.tag({
+      label: 'Description',
       group: 'Format',
-      description: 'Which field should be used from taxonomy',
-      defaultValue: 'seo_keywords',
+      description:
+        'Which ANS field should be used for the description. Defaults to description.basic || subheadlines.basic',
+      defaultValue: 'description.basic || subheadlines.basic',
     }),
     sitemapVideoSelect: PropTypes.kvp.tag({
       label: 'Video Encoding',
