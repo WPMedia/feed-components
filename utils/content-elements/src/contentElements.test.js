@@ -24,6 +24,41 @@ it('generate text content element', () => {
   expect(text).toBe('<p>&lt;i&gt;this is text&lt;/i&gt;&lt;br /&gt;</p>')
 })
 
+it('generate one text content element', () => {
+  const ce = [
+    { type: 'text', content: 'this is text1' },
+    { type: 'text', content: 'this is text2' },
+    { type: 'text', content: 'this is text3' },
+    { type: 'text', content: 'this is text4' },
+  ]
+  const text = MyBuildContent.parse(ce, '1', domain)
+  expect(text).toBe('<p>this is text1</p>')
+})
+
+it('generate two text content element', () => {
+  const ce = [
+    { type: 'text', content: 'this is text1' },
+    { type: 'text', content: 'this is text2' },
+    { type: 'text', content: 'this is text3' },
+    { type: 'text', content: 'this is text4' },
+  ]
+  const text = MyBuildContent.parse(ce, '2', domain)
+  expect(text).toBe('<p>this is text1</p><p>this is text2</p>')
+})
+
+it('generate all text content element', () => {
+  const ce = [
+    { type: 'text', content: 'this is text1' },
+    { type: 'text', content: 'this is text2' },
+    { type: 'text', content: 'this is text3' },
+    { type: 'text', content: 'this is text4' },
+  ]
+  const text = MyBuildContent.parse(ce, 'all', domain)
+  expect(text).toBe(
+    '<p>this is text1</p><p>this is text2</p><p>this is text3</p><p>this is text4</p>',
+  )
+})
+
 it('generate blockquote content element', () => {
   const ce = [{ type: 'blockquote', content: 'this is a quote' }]
   const text = MyBuildContent.parse(ce, 'all', domain, resizerKey, resizerURL)

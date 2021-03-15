@@ -363,7 +363,7 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
 
         // prettier-ignore
       ;(s.content_elements || []).forEach((element) => {
-        if (body.length <= maxRows) {
+        if (body.length < maxRows) {
           switch (element.type) {
             case 'blockquote':
               item = this.blockquote(element)
