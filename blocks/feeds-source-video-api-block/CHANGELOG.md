@@ -1,5 +1,11 @@
 # @wpmedia/feeds-source-video-api-block
 
+## 0.3.1
+
+### Patch Changes
+
+- [`b2db7b1`](https://github.com/WPMedia/feed-components/commit/b2db7b1ef8a8643452df6b154cc80dc2c11266af) [#379](https://github.com/WPMedia/feed-components/pull/379) Thanks [@camdub](https://github.com/camdub)! - Update beta release script
+
 ## 0.3.0
 
 ### Minor Changes
