@@ -3,7 +3,7 @@ name: Release
 on:
   push:
     branches:
-      - sandbox
+      - develop
 
 jobs:
   release:
@@ -28,8 +28,8 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       # Create new branch in order to persist changesets through to prod branch
-      - name: Create snapshot sandbox branch
-        run: git checkout -b sandbox-tag
+      - name: Create snapshot develop branch
+        run: git checkout -b develop-tag
 
       - name: Initialize mandatory git config
         run: |
@@ -37,13 +37,13 @@ jobs:
           git config user.email noreply@github.com
 
       - name: Create snaphost release for sandbox
-        run: npm run release:snapshotSandbox
+        run: npm run release:snapshotDev
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Publish @beta release to npm
-        # Calls changeset publish --tag [beta|stable]
-        run: npm run release:sandbox
+      - name: Publish @canary release to npm
+        # Calls changeset publish --tag [canary|beta|stable]
+        run: npm run release:develop
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
