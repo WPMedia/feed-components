@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`returns RSS template with default values 1`] = `
+exports[`returns FB-IA template with custom values 1`] = `
 Object {
   "rss": Object {
     "@version": "2.0",
@@ -11,7 +11,84 @@ Object {
     "@xmlns:sy": "http://purl.org/rss/1.0/modules/syndication/",
     "channel": Object {
       "atom:link": Object {
-        "@href": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/rss/",
+        "@href": "http://demo-prod.origin.arcpublishing.com/undefined",
+        "@rel": "self",
+        "@type": "application/rss+xml",
+      },
+      "category": "News",
+      "copyright": "Copyright 2021",
+      "description": Object {
+        "$": "Only the best for FB",
+      },
+      "image": Object {
+        "link": "http://demo-prod.origin.arcpublishing.com",
+        "title": "Facebook Instant Articles Feed",
+        "url": "hi/abcdefghijklmnopqrstuvwxyz=/example.com/logo.png",
+      },
+      "item": Array [
+        Object {
+          "content:encoded": Object {
+            "$": "<!doctype html><html lang=\\"en\\"><head><link rel=\\"canonical\\" href=\\"http://demo-prod.origin.arcpublishing.com/food/2020/04/07/tips-for-safe-hand-washing\\"/><title>Tips for Safe Hand washing</title><meta property=\\"og:title\\" content=\\"Tips for Safe Hand washing\\"/><meta property=\\"og:url\\" content=\\"http://demo-prod.origin.arcpublishing.com/food/2020/04/07/tips-for-safe-hand-washing\\"/><meta property=\\"og:description\\" content=\\"This is from the subheadlines\\"/><meta property=\\"fb:use_automatic_ad_placement\\" content=\\"enable=true ad_density=low\\"/><meta property=\\"op:markup_version\\" content=\\"v1.0\\"/><meta property=\\"fb:article_style\\" content=\\"times-bold\\"/><meta property=\\"og:image\\" content=\\"hi/abcdefghijklmnopqrstuvwxyz=/arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png\\"/><meta property=\\"fb:likes_and_comments\\" content=\\"enable\\"/></head><body><article><header><section class=\\"op-ad-template\\"><script>myscript()</script></section><h1>Tips for Safe Hand washing</h1><h2>This is from the subheadlines</h2><time datetime=\\"2020-04-08T10:34:41.432Z\\" class=\\"op_modified\\">2020-04-08T10:34:41.432Z</time><time datetime=\\"2020-04-08T10:34:41.432Z\\" class=\\"op_published\\">2020-04-08T10:34:41.432Z</time><address><a>JOHN-SMITH</a><a>JANE-DOE</a></address><figure class=\\"fb-feed-cover\\"><img src=\\"hi/abcdefghijklmnopqrstuvwxyz=/arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png\\"/><figcaption class=\\"op-vertical-below op-small\\">Hand washing can be fun if you make it a song<cite class=\\"op-small\\">Harold Hands</cite></figcaption></figure><h2 class=\\"op-kicker\\">coronvirus</h2></header><p>try singing the happy birthday song</p><p>be sure to wash your thumbs</p><figure class=\\"op-tracker\\"><iframe><script>alert(\\"hi\\");</script></iframe></figure><footer><small>Copyright 2021</small></footer></article></body></html>",
+          },
+          "dc:creator": Object {
+            "$": "john-smith, jane-doe",
+          },
+          "description": Object {
+            "$": "This is from the subheadlines",
+          },
+          "guid": Object {
+            "#": "http://demo-prod.origin.arcpublishing.com/food/2020/04/07/tips-for-safe-hand-washing",
+            "@isPermaLink": true,
+          },
+          "link": "http://demo-prod.origin.arcpublishing.com/food/2020/04/07/tips-for-safe-hand-washing",
+          "media:content": Object {
+            "@type": "image/jpeg",
+            "@url": "hi/abcdefghijklmnopqrstuvwxyz=/arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png",
+            "media:credit": Object {
+              "#": "Harold Hands",
+              "@role": "author",
+              "@scheme": "urn:ebu",
+            },
+            "media:description": Object {
+              "$": "Hand washing can be fun if you make it a song",
+              "@type": "plain",
+            },
+            "media:title": Object {
+              "$": "Hand Washing",
+            },
+          },
+          "pubDate": "Wed, 08 Apr 2020 10:34:41 +0000",
+          "title": Object {
+            "$": "Tips for Safe Hand washing",
+          },
+        },
+      ],
+      "language": "en",
+      "lastBuildDate": StringMatching /\\\\w\\+, \\\\d\\+ \\\\w\\+ \\\\d\\{4\\} \\\\d\\{2\\}:\\\\d\\{2\\}:\\\\d\\{2\\} \\\\\\+0000/,
+      "link": "http://demo-prod.origin.arcpublishing.com",
+      "sy:updateFrequency": "4",
+      "sy:updatePeriod": "weekly",
+      "title": Object {
+        "$": "Facebook Instant Articles Feed",
+      },
+      "ttl": "5",
+    },
+  },
+}
+`;
+
+exports[`returns FB-IA template with default values 1`] = `
+Object {
+  "rss": Object {
+    "@version": "2.0",
+    "@xmlns:atom": "http://www.w3.org/2005/Atom",
+    "@xmlns:content": "http://purl.org/rss/1.0/modules/content/",
+    "@xmlns:dc": "http://purl.org/dc/elements/1.1/",
+    "@xmlns:media": "http://search.yahoo.com/mrss/",
+    "@xmlns:sy": "http://purl.org/rss/1.0/modules/syndication/",
+    "channel": Object {
+      "atom:link": Object {
+        "@href": "http://demo-prod.origin.arcpublishing.com/undefined",
         "@rel": "self",
         "@type": "application/rss+xml",
       },

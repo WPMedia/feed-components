@@ -37,7 +37,7 @@ const articles = {
   ],
 }
 
-it('returns RSS template with default values', () => {
+it('returns FB-IA template with default values', () => {
   const rss = FbiaRss({
     arcSite: 'demo',
     globalContent: {
@@ -59,7 +59,6 @@ it('returns RSS template with default values', () => {
       itemCredits: 'credits.by[].name',
       itemCategory: '',
       includePromo: true,
-
       imageTitle: 'title',
       imageCaption: 'caption',
       imageCredits: 'credits.by[].name',
@@ -70,6 +69,52 @@ it('returns RSS template with default values', () => {
       adDensity: '',
       placementSection: '',
       adScripts: '',
+    },
+  })
+  expect(rss).toMatchSnapshot({
+    rss: {
+      channel: {
+        lastBuildDate: expect.stringMatching(
+          /\w+, \d+ \w+ \d{4} \d{2}:\d{2}:\d{2} \+0000/,
+        ),
+      },
+    },
+  })
+})
+
+it('returns FB-IA template with custom values', () => {
+  const rss = FbiaRss({
+    arcSite: 'demo',
+    globalContent: {
+      ...articles,
+    },
+    customFields: {
+      channelTitle: 'Facebook Instant Articles Feed',
+      channelDescription: 'Only the best for FB',
+      channelPath: '/arc/outboundfeeds/rss/',
+      channelCopyright: 'Copyright 2021',
+      channelTTL: '5',
+      channelUpdatePeriod: 'weekly',
+      channelUpdateFrequency: '4',
+      channelCategory: 'News',
+      channelLogo: 'https://example.com/logo.png',
+      itemTitle: 'headlines.basic',
+      itemDescription: 'subheadlines.basic || description.basic',
+      pubDate: 'last_updated_date',
+      itemCredits: 'credits.by[]._id',
+      itemCategory: 'News',
+      includePromo: true,
+      imageTitle: 'title',
+      imageCaption: 'caption',
+      imageCredits: 'credits.by[].name',
+      includeContent: 'all',
+      articleStyle: 'times-bold',
+      likesAndComments: 'enable',
+      adPlacement: 'enable',
+      adDensity: 'low',
+      placementSection: '<script>myscript()</script>',
+      adScripts:
+        '<figure class="op-tracker"><iframe><script>alert("hi");</script></iframe></figure>',
     },
   })
   expect(rss).toMatchSnapshot({

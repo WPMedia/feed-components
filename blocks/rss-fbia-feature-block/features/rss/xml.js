@@ -1,6 +1,5 @@
 import PropTypes from 'fusion:prop-types'
 import Consumer from 'fusion:consumer'
-import get from 'lodash/get'
 import moment from 'moment'
 import getProperties from 'fusion:properties'
 import { resizerKey } from 'fusion:environment'
@@ -8,6 +7,7 @@ import { BuildContent } from '@wpmedia/feeds-content-elements'
 import { generatePropsForFeed } from '@wpmedia/feeds-prop-types'
 import { buildResizerURL } from '@wpmedia/feeds-resizer'
 import { fragment } from 'xmlbuilder2'
+import URL from 'url'
 const jmespath = require('jmespath')
 
 const rssTemplate = (
@@ -15,7 +15,6 @@ const rssTemplate = (
   {
     channelTitle,
     channelDescription,
-    channelPath,
     channelCopyright,
     channelTTL,
     channelUpdatePeriod,
@@ -27,10 +26,12 @@ const rssTemplate = (
     imageCredits,
     itemTitle,
     itemDescription,
+    itemCredits,
     pubDate,
     itemCategory,
     includePromo,
     includeContent,
+    requestPath,
     resizerURL,
     resizerWidth,
     resizerHeight,
@@ -53,7 +54,7 @@ const rssTemplate = (
       title: { $: channelTitle || feedTitle },
       link: `${domain}`,
       'atom:link': {
-        '@href': `${domain}${channelPath}`,
+        '@href': `${domain}${requestPath}`,
         '@rel': 'self',
         '@type': 'application/rss+xml',
       },
@@ -93,7 +94,8 @@ const rssTemplate = (
             '#': url,
             '@isPermaLink': true,
           },
-          ...((author = jmespath.search(s, 'credits.by[].name')) &&
+          ...(itemCredits &&
+            (author = jmespath.search(s, itemCredits)) &&
             author && {
               'dc:creator': { $: author.join(', ') },
             }),
@@ -111,6 +113,7 @@ const rssTemplate = (
               domain,
               resizerWidth,
               resizerHeight,
+              itemCredits,
             )) &&
             body && {
               'content:encoded': {
@@ -155,14 +158,15 @@ const rssTemplate = (
   },
 })
 
-export function FbiaRss({ globalContent, customFields, arcSite }) {
+export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
   const {
     resizerURL = '',
-    feedDomainURL = '',
+    feedDomainURL = 'http://localhost.com',
     feedTitle = '',
     feedLanguage = '',
   } = getProperties(arcSite)
   const { width = 0, height = 0 } = customFields.resizerKVP || {}
+  const requestPath = new URL.URL(requestUri, feedDomainURL).pathname
 
   function FbiaBuildContent(
     itemTitle,
@@ -231,7 +235,14 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
         ],
       }
     }
-    this.buildHTMLBody = (s, numRows, domain, resizerWidth, resizerHeight) => {
+    this.buildHTMLBody = (
+      s,
+      numRows,
+      domain,
+      resizerWidth,
+      resizerHeight,
+      itemCredits,
+    ) => {
       const authorDescription =
         jmespath.search(s, 'credits.by[].description') || []
       const lastUpdatedDate = jmespath.search(s, 'last_updated_date')
@@ -276,7 +287,7 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
         ],
       })
 
-      if ((author = jmespath.search(s, 'credits.by[].name')) && author)
+      if (itemCredits && (author = jmespath.search(s, itemCredits)) && author)
         header.push({
           address: {
             // a list of authors
@@ -532,7 +543,14 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
       }
       return item
     }
-    this.parse = (s, numRows, domain, resizerWidth, resizerHeight) => {
+    this.parse = (
+      s,
+      numRows,
+      domain,
+      resizerWidth,
+      resizerHeight,
+      itemCredits,
+    ) => {
       const fbiaContent = {
         html: {
           '@lang': feedLanguage,
@@ -543,6 +561,7 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
             domain,
             resizerWidth,
             resizerHeight,
+            itemCredits,
           ),
         },
       }
@@ -563,8 +582,9 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
   )
 
   // can't return null for xml return type, must return valid xml template
-  return rssTemplate(get(globalContent, 'content_elements', []), {
+  return rssTemplate(globalContent.content_elements || [], {
     ...customFields,
+    requestPath,
     resizerURL,
     resizerWidth: width,
     resizerHeight: height,
@@ -577,13 +597,6 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
 // Reference for fb options: https://developers.facebook.com/docs/instant-articles/reference/article/
 FbiaRss.propTypes = {
   customFields: PropTypes.shape({
-    channelPath: PropTypes.string.tag({
-      label: 'Path',
-      group: 'Channel',
-      description:
-        'Path to the feed excluding the domain, defaults to /arc/outboundfeeds/fb-ia',
-      defaultValue: '/arc/outboundfeeds/fb-ia',
-    }),
     articleStyle: PropTypes.string.tag({
       label: 'Article Style',
       group: 'Facebook Options',
