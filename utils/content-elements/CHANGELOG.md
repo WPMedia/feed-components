@@ -1,5 +1,19 @@
 # @wpmedia/feeds-content-elements
 
+## 1.0.0-tk.0
+
+### Major Changes
+
+- generate html tags instead of JS Objects to prevent tags being encoded
+
+* [#394](https://github.com/WPMedia/feed-components/pull/394) [`1722ea4`](https://github.com/WPMedia/feed-components/commit/1722ea45d12917f332184dc866218a7ba62059b5) Thanks [@tbrick855](https://github.com/tbrick855)! - OBF GA release, content_element bug fix
+
+### Patch Changes
+
+- Updated dependencies [[`1722ea4`](https://github.com/WPMedia/feed-components/commit/1722ea45d12917f332184dc866218a7ba62059b5)]:
+  - @wpmedia/feeds-find-video-stream@1.0.0-tk.0
+  - @wpmedia/feeds-resizer@1.0.0-tk.0
+
 ## 0.4.0
 
 ### Minor Changes

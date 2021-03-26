@@ -1,11 +1,13 @@
 {
   "name": "@wpmedia/feeds-content-elements",
-  "version": "0.4.0",
+  "version": "1.0.0-tk.2",
   "description": "Shared arcio content_elements module",
   "main": "dist/feeds-content-elements.cjs.js",
   "module": "dist/feeds-content-elements.esm.js",
   "source": "index.js",
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "clean": "rm -rf dist"
   },
@@ -21,9 +23,10 @@
   "author": "Tim Kosmider <timothy.kosmider@washpost.com>",
   "license": "UNLICENSED",
   "dependencies": {
-    "@wpmedia/feeds-find-video-stream": "0.2.0",
-    "@wpmedia/feeds-resizer": "0.3.0",
+    "@wpmedia/feeds-find-video-stream": "1.0.0-tk.2",
+    "@wpmedia/feeds-resizer": "1.0.0-tk.2",
+    "he": "^1.2.0",
     "jmespath": "^0.15.0",
-    "xmlbuilder2": "^2.1.2"
+    "xmlbuilder2": "2.1.7"
   }
 }

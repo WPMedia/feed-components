@@ -1,6 +1,6 @@
 {
   "name": "@wpmedia/sitemap-index-feature-block",
-  "version": "0.9.0",
+  "version": "1.0.0-tk.2",
   "description": "Fusion components for building sitemap-index",
   "main": "index.js",
   "files": [

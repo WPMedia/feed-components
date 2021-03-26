@@ -83,6 +83,7 @@ const rssTemplate = (
       }),
 
       item: elements.map((s) => {
+        console.log(s._id)
         let author, body, category
         const url = `${domain}${s.website_url || s.canonical_url}`
         const img =
@@ -107,7 +108,7 @@ const rssTemplate = (
             (category = jmespath.search(s, itemCategory)) &&
             category && { category: category }),
           ...(includeContent !== 0 &&
-            (body = fbiaBuildContent.parse(
+            (body = fbiaBuildContent.buildFBContent(
               s,
               includeContent,
               domain,
@@ -338,10 +339,12 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
             '#': header,
           },
           '#': [
-            this.buildContentElements(
-              s,
+            this.parse(
+              s.content_elements ?? [],
               numRows,
               domain,
+              resizerKey,
+              resizerURL,
               resizerWidth,
               resizerHeight,
             ),
@@ -361,105 +364,6 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
       }
     }
 
-    this.buildContentElements = (
-      s,
-      numRows,
-      domain,
-      resizerWidth,
-      resizerHeight,
-    ) => {
-      const maxRows = numRows === 'all' ? 9999 : parseInt(numRows)
-      const body = []
-      let item
-
-        // prettier-ignore
-      ;(s.content_elements || []).forEach((element) => {
-        if (body.length < maxRows) {
-          switch (element.type) {
-            case 'blockquote':
-              item = this.blockquote(element)
-              break
-            case 'correction':
-              item = this.correction(element)
-              break
-            case 'code':
-            case 'custom_embed':
-            case 'divider':
-            case 'element_group':
-            case 'story':
-              item = ''
-              break
-            case 'endorsement':
-              item = this.endorsement(element)
-              break
-            case 'gallery':
-              item = this.gallery(
-                element,
-                resizerKey,
-                resizerURL,
-                resizerWidth,
-                resizerHeight,
-              )
-              break
-            case 'header':
-              item = this.header(element)
-              break
-            case 'image':
-              item = this.image(
-                element,
-                resizerKey,
-                resizerURL,
-                resizerWidth,
-                resizerHeight,
-              )
-              break
-            case 'interstitial_link':
-              item = this.interstitial(element, domain)
-              break
-            case 'link_list':
-              item = this.linkList(element, domain)
-              break
-            case 'list':
-              item = this.list(element)
-              break
-            case 'list_element':
-              item = this.listElement(element)
-              break
-            case 'numeric_rating':
-              item = this.numericRating(element)
-              break
-            case 'oembed_response':
-              item = this.oembed(element)
-              break
-            case 'quote':
-              item = this.quote(element)
-              break
-            case 'raw_html':
-              item = this.text(element)
-              break
-            case 'table':
-              item = this.table(element)
-              break
-            case 'text':
-              item = this.text(element)
-              break
-            case 'video':
-              item = this.video(element)
-              break
-            default:
-              item = this.text(element)
-              break
-          }
-
-          // empty array breaks xmlbuilder2, but empty '' is OK
-          if (Array.isArray(item) && item.length === 0) {
-            item = ''
-          }
-          item && body.push(item)
-        }
-      })
-      return body.length ? body : ['']
-    }
     this.image = (
       element,
       resizerKey,
@@ -543,7 +447,7 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
       }
       return item
     }
-    this.parse = (
+    this.buildFBContent = (
       s,
       numRows,
       domain,
@@ -565,6 +469,7 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
           ),
         },
       }
+      console.log(JSON.stringify(fbiaContent))
       return '<!doctype html>'.concat(fragment(fbiaContent).toString())
     }
   }

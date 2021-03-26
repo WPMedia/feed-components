@@ -28,7 +28,7 @@ Object {
       "item": Array [
         Object {
           "content:encoded": Object {
-            "$": "<!doctype html><html lang=\\"en\\"><head><link rel=\\"canonical\\" href=\\"http://demo-prod.origin.arcpublishing.com/food/2020/04/07/tips-for-safe-hand-washing\\"/><title>Tips for Safe Hand washing</title><meta property=\\"og:title\\" content=\\"Tips for Safe Hand washing\\"/><meta property=\\"og:url\\" content=\\"http://demo-prod.origin.arcpublishing.com/food/2020/04/07/tips-for-safe-hand-washing\\"/><meta property=\\"og:description\\" content=\\"This is from the subheadlines\\"/><meta property=\\"fb:use_automatic_ad_placement\\" content=\\"enable=true ad_density=low\\"/><meta property=\\"op:markup_version\\" content=\\"v1.0\\"/><meta property=\\"fb:article_style\\" content=\\"times-bold\\"/><meta property=\\"og:image\\" content=\\"hi/abcdefghijklmnopqrstuvwxyz=/arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png\\"/><meta property=\\"fb:likes_and_comments\\" content=\\"enable\\"/></head><body><article><header><section class=\\"op-ad-template\\"><script>myscript()</script></section><h1>Tips for Safe Hand washing</h1><h2>This is from the subheadlines</h2><time datetime=\\"2020-04-08T10:34:41.432Z\\" class=\\"op_modified\\">2020-04-08T10:34:41.432Z</time><time datetime=\\"2020-04-08T10:34:41.432Z\\" class=\\"op_published\\">2020-04-08T10:34:41.432Z</time><address><a>JOHN-SMITH</a><a>JANE-DOE</a></address><figure class=\\"fb-feed-cover\\"><img src=\\"hi/abcdefghijklmnopqrstuvwxyz=/arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png\\"/><figcaption class=\\"op-vertical-below op-small\\">Hand washing can be fun if you make it a song<cite class=\\"op-small\\">Harold Hands</cite></figcaption></figure><h2 class=\\"op-kicker\\">coronvirus</h2></header><p>try singing the happy birthday song</p><p>be sure to wash your thumbs</p><figure class=\\"op-tracker\\"><iframe><script>alert(\\"hi\\");</script></iframe></figure><footer><small>Copyright 2021</small></footer></article></body></html>",
+            "$": "<!doctype html><html lang=\\"en\\"><head><link rel=\\"canonical\\" href=\\"http://demo-prod.origin.arcpublishing.com/food/2020/04/07/tips-for-safe-hand-washing\\"/><title>Tips for Safe Hand washing</title><meta property=\\"og:title\\" content=\\"Tips for Safe Hand washing\\"/><meta property=\\"og:url\\" content=\\"http://demo-prod.origin.arcpublishing.com/food/2020/04/07/tips-for-safe-hand-washing\\"/><meta property=\\"og:description\\" content=\\"This is from the subheadlines\\"/><meta property=\\"fb:use_automatic_ad_placement\\" content=\\"enable=true ad_density=low\\"/><meta property=\\"op:markup_version\\" content=\\"v1.0\\"/><meta property=\\"fb:article_style\\" content=\\"times-bold\\"/><meta property=\\"og:image\\" content=\\"hi/abcdefghijklmnopqrstuvwxyz=/arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png\\"/><meta property=\\"fb:likes_and_comments\\" content=\\"enable\\"/></head><body><article><header><section class=\\"op-ad-template\\"><script>myscript()</script></section><h1>Tips for Safe Hand washing</h1><h2>This is from the subheadlines</h2><time datetime=\\"2020-04-08T10:34:41.432Z\\" class=\\"op_modified\\">2020-04-08T10:34:41.432Z</time><time datetime=\\"2020-04-08T10:34:41.432Z\\" class=\\"op_published\\">2020-04-08T10:34:41.432Z</time><address><a>JOHN-SMITH</a><a>JANE-DOE</a></address><figure class=\\"fb-feed-cover\\"><img src=\\"hi/abcdefghijklmnopqrstuvwxyz=/arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png\\"/><figcaption class=\\"op-vertical-below op-small\\">Hand washing can be fun if you make it a song<cite class=\\"op-small\\">Harold Hands</cite></figcaption></figure><h2 class=\\"op-kicker\\">coronvirus</h2></header><p>try singing the happy birthday song<br/></p><p>be sure to <i>wash</i> your thumbs</p><figure class=\\"op-tracker\\"><iframe><script>alert(\\"hi\\");</script></iframe></figure><footer><small>Copyright 2021</small></footer></article></body></html>",
           },
           "dc:creator": Object {
             "$": "john-smith, jane-doe",
@@ -60,6 +60,23 @@ Object {
           "pubDate": "Wed, 08 Apr 2020 10:34:41 +0000",
           "title": Object {
             "$": "Tips for Safe Hand washing",
+          },
+        },
+        Object {
+          "content:encoded": Object {
+            "$": "<!doctype html><html lang=\\"en\\"><head><link rel=\\"canonical\\" href=\\"http://demo-prod.origin.arcpublishing.com/food/empty-recipe\\"/><title>I'm out of ideas</title><meta property=\\"og:title\\" content=\\"I'm out of ideas\\"/><meta property=\\"og:url\\" content=\\"http://demo-prod.origin.arcpublishing.com/food/empty-recipe\\"/><meta property=\\"og:description\\" content=\\"null\\"/><meta property=\\"fb:use_automatic_ad_placement\\" content=\\"enable=true ad_density=low\\"/><meta property=\\"op:markup_version\\" content=\\"v1.0\\"/><meta property=\\"fb:article_style\\" content=\\"times-bold\\"/><meta property=\\"og:image\\" content=\\"\\"/><meta property=\\"fb:likes_and_comments\\" content=\\"enable\\"/></head><body><article><header><section class=\\"op-ad-template\\"><script>myscript()</script></section><h1>I'm out of ideas</h1><time datetime=\\"2021-04-08T10:34:41.432Z\\" class=\\"op_modified\\">2021-04-08T10:34:41.432Z</time><time datetime=\\"2021-04-08T10:34:41.432Z\\" class=\\"op_published\\">2021-04-08T10:34:41.432Z</time></header></><figure class=\\"op-tracker\\"><iframe><script>alert(\\"hi\\");</script></iframe></figure><footer><small>Copyright 2021</small></footer></article></body></html>",
+          },
+          "description": Object {
+            "$": "",
+          },
+          "guid": Object {
+            "#": "http://demo-prod.origin.arcpublishing.com/food/empty-recipe",
+            "@isPermaLink": true,
+          },
+          "link": "http://demo-prod.origin.arcpublishing.com/food/empty-recipe",
+          "pubDate": "Thu, 08 Apr 2021 10:34:41 +0000",
+          "title": Object {
+            "$": "I'm out of ideas",
           },
         },
       ],
@@ -98,7 +115,7 @@ Object {
       "item": Array [
         Object {
           "content:encoded": Object {
-            "$": "<!doctype html><html lang=\\"en\\"><head><link rel=\\"canonical\\" href=\\"http://demo-prod.origin.arcpublishing.com/food/2020/04/07/tips-for-safe-hand-washing\\"/><title>Tips for Safe Hand washing</title><meta property=\\"og:title\\" content=\\"Tips for Safe Hand washing\\"/><meta property=\\"og:url\\" content=\\"http://demo-prod.origin.arcpublishing.com/food/2020/04/07/tips-for-safe-hand-washing\\"/><meta property=\\"og:description\\" content=\\"Tips to keep you wash for 20 seconds\\"/><meta property=\\"fb:use_automatic_ad_placement\\" content=\\"enable=false\\"/><meta property=\\"op:markup_version\\" content=\\"v1.0\\"/><meta property=\\"fb:article_style\\" content=\\"default\\"/><meta property=\\"og:image\\" content=\\"hi/abcdefghijklmnopqrstuvwxyz=/arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png\\"/><meta property=\\"fb:likes_and_comments\\" content=\\"disable\\"/></head><body><article><header><h1>Tips for Safe Hand washing</h1><h2>Tips to keep you wash for 20 seconds</h2><time datetime=\\"2020-04-08T10:34:41.432Z\\" class=\\"op_modified\\">2020-04-08T10:34:41.432Z</time><time datetime=\\"2020-04-07T15:02:08.918Z\\" class=\\"op_published\\">2020-04-07T15:02:08.918Z</time><address><a>JOHN SMITH</a><a>JANE DOE</a></address><figure class=\\"fb-feed-cover\\"><img src=\\"hi/abcdefghijklmnopqrstuvwxyz=/arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png\\"/><figcaption class=\\"op-vertical-below op-small\\">Hand washing can be fun if you make it a song<cite class=\\"op-small\\">Harold Hands</cite></figcaption></figure><h2 class=\\"op-kicker\\">coronvirus</h2></header><p>try singing the happy birthday song</p><p>be sure to wash your thumbs</p><footer><small>© 2021 google news</small></footer></article></body></html>",
+            "$": "<!doctype html><html lang=\\"en\\"><head><link rel=\\"canonical\\" href=\\"http://demo-prod.origin.arcpublishing.com/food/2020/04/07/tips-for-safe-hand-washing\\"/><title>Tips for Safe Hand washing</title><meta property=\\"og:title\\" content=\\"Tips for Safe Hand washing\\"/><meta property=\\"og:url\\" content=\\"http://demo-prod.origin.arcpublishing.com/food/2020/04/07/tips-for-safe-hand-washing\\"/><meta property=\\"og:description\\" content=\\"Tips to keep you wash for 20 seconds\\"/><meta property=\\"fb:use_automatic_ad_placement\\" content=\\"enable=false\\"/><meta property=\\"op:markup_version\\" content=\\"v1.0\\"/><meta property=\\"fb:article_style\\" content=\\"default\\"/><meta property=\\"og:image\\" content=\\"hi/abcdefghijklmnopqrstuvwxyz=/arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png\\"/><meta property=\\"fb:likes_and_comments\\" content=\\"disable\\"/></head><body><article><header><h1>Tips for Safe Hand washing</h1><h2>Tips to keep you wash for 20 seconds</h2><time datetime=\\"2020-04-08T10:34:41.432Z\\" class=\\"op_modified\\">2020-04-08T10:34:41.432Z</time><time datetime=\\"2020-04-07T15:02:08.918Z\\" class=\\"op_published\\">2020-04-07T15:02:08.918Z</time><address><a>JOHN SMITH</a><a>JANE DOE</a></address><figure class=\\"fb-feed-cover\\"><img src=\\"hi/abcdefghijklmnopqrstuvwxyz=/arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png\\"/><figcaption class=\\"op-vertical-below op-small\\">Hand washing can be fun if you make it a song<cite class=\\"op-small\\">Harold Hands</cite></figcaption></figure><h2 class=\\"op-kicker\\">coronvirus</h2></header><p>try singing the happy birthday song<br/></p><p>be sure to <i>wash</i> your thumbs</p><footer><small>© 2021 google news</small></footer></article></body></html>",
           },
           "dc:creator": Object {
             "$": "John Smith, Jane Doe",
@@ -130,6 +147,23 @@ Object {
           "pubDate": "Tue, 07 Apr 2020 15:02:08 +0000",
           "title": Object {
             "$": "Tips for Safe Hand washing",
+          },
+        },
+        Object {
+          "content:encoded": Object {
+            "$": "<!doctype html><html lang=\\"en\\"><head><link rel=\\"canonical\\" href=\\"http://demo-prod.origin.arcpublishing.com/food/empty-recipe\\"/><title>I'm out of ideas</title><meta property=\\"og:title\\" content=\\"I'm out of ideas\\"/><meta property=\\"og:url\\" content=\\"http://demo-prod.origin.arcpublishing.com/food/empty-recipe\\"/><meta property=\\"og:description\\" content=\\"null\\"/><meta property=\\"fb:use_automatic_ad_placement\\" content=\\"enable=false\\"/><meta property=\\"op:markup_version\\" content=\\"v1.0\\"/><meta property=\\"fb:article_style\\" content=\\"default\\"/><meta property=\\"og:image\\" content=\\"\\"/><meta property=\\"fb:likes_and_comments\\" content=\\"disable\\"/></head><body><article><header><h1>I'm out of ideas</h1><time datetime=\\"2021-04-08T10:34:41.432Z\\" class=\\"op_modified\\">2021-04-08T10:34:41.432Z</time><time datetime=\\"2021-04-07T15:02:08.918Z\\" class=\\"op_published\\">2021-04-07T15:02:08.918Z</time></header></><footer><small>© 2021 google news</small></footer></article></body></html>",
+          },
+          "description": Object {
+            "$": "",
+          },
+          "guid": Object {
+            "#": "http://demo-prod.origin.arcpublishing.com/food/empty-recipe",
+            "@isPermaLink": true,
+          },
+          "link": "http://demo-prod.origin.arcpublishing.com/food/empty-recipe",
+          "pubDate": "Wed, 07 Apr 2021 15:02:08 +0000",
+          "title": Object {
+            "$": "I'm out of ideas",
           },
         },
       ],

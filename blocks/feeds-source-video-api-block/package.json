@@ -1,6 +1,6 @@
 {
   "name": "@wpmedia/feeds-source-video-api-block",
-  "version": "0.3.1",
+  "version": "1.0.0-tk.2",
   "description": "Fusion components for building sitemaps",
   "main": "index.js",
   "files": [
