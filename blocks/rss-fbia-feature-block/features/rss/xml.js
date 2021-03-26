@@ -83,7 +83,6 @@ const rssTemplate = (
       }),
 
       item: elements.map((s) => {
-        console.log(s._id)
         let author, body, category
         const url = `${domain}${s.website_url || s.canonical_url}`
         const img =
@@ -338,18 +337,7 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
           header: {
             '#': header,
           },
-          '#': [
-            this.parse(
-              s.content_elements ?? [],
-              numRows,
-              domain,
-              resizerKey,
-              resizerURL,
-              resizerWidth,
-              resizerHeight,
-            ),
-            ...(adScripts && [adScripts]),
-          ],
+          '#': ['<tHe_BoDy_GoEs_HeRe/>', ...(adScripts && [adScripts])],
           footer: {
             '#': {
               ...(authorDescription.length && {
@@ -469,8 +457,21 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
           ),
         },
       }
-      console.log(JSON.stringify(fbiaContent))
-      return '<!doctype html>'.concat(fragment(fbiaContent).toString())
+      // breaking these up because I'm
+      // seeing xml validation fail on <br> without a closing slash
+      const htmlBody = '<!doctype html>'.concat(
+        fragment(fbiaContent).toString(),
+      )
+      const parsedBody = this.parse(
+        s.content_elements ?? [],
+        numRows,
+        domain,
+        resizerKey,
+        resizerURL,
+        resizerWidth,
+        resizerHeight,
+      )
+      return htmlBody.replace('<tHe_BoDy_GoEs_HeRe/>', parsedBody)
     }
   }
 
