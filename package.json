@@ -22,6 +22,7 @@
     "@changesets/cli": "^2.7.1",
     "@manypkg/cli": "^0.17.0",
     "@preconstruct/cli": "^2.0.0",
+    "core-js": "^3.9.1",
     "eslint": "^7.2.0",
     "eslint-config-prettier": "^8.0.0",
     "eslint-config-standard": "^16.0.2",
