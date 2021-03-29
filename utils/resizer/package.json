@@ -23,6 +23,7 @@
   "author": "Cameron Woodmansee <cameron.woodmansee@washpost.com>",
   "license": "UNLICENSED",
   "dependencies": {
+    "core-js": "^3.9.1",
     "thumbor-lite": "^0.1.8"
   }
 }

@@ -14,12 +14,12 @@ it('validate params', () => {
     {
       displayName: 'From - Integer offset to start from',
       name: 'from',
-      type: 'text',
+      type: 'number',
     },
     {
       displayName: 'Number of records to return, Integer 1 - 20',
       name: 'size',
-      type: 'text',
+      type: 'number',
     },
     {
       displayName: 'ANS Fields to include, use commas between fields',

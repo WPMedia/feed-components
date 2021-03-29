@@ -23,6 +23,7 @@
   "author": "Tim Kosmider <timothy.kosmider@washpost.com>",
   "license": "UNLICENSED",
   "dependencies": {
+    "core-js": "^3.9.1",
     "jmespath": "^0.15.0"
   }
 }
