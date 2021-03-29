@@ -1,5 +1,29 @@
 # @wpmedia/feeds-source-content-api-block
 
+## 1.0.0
+
+### Major Changes
+
+- [#394](https://github.com/WPMedia/feed-components/pull/394) [`1722ea4`](https://github.com/WPMedia/feed-components/commit/1722ea45d12917f332184dc866218a7ba62059b5) Thanks [@tbrick855](https://github.com/tbrick855)! - OBF GA release, content_element bug fix
+
+### Minor Changes
+
+- [#385](https://github.com/WPMedia/feed-components/pull/385) [`250365a`](https://github.com/WPMedia/feed-components/commit/250365a8c477b05ebf5ea169cab630922389168f) Thanks [@tbrick855](https://github.com/tbrick855)! - update parameter names
+
+* [#383](https://github.com/WPMedia/feed-components/pull/383) [`4735728`](https://github.com/WPMedia/feed-components/commit/4735728d6b4041f8b32144a3cfcb5500e463b3fd) Thanks [@tbrick855](https://github.com/tbrick855)! - Added distributor params
+
+## 1.0.0-tk.0
+
+### Major Changes
+
+- [#394](https://github.com/WPMedia/feed-components/pull/394) [`1722ea4`](https://github.com/WPMedia/feed-components/commit/1722ea45d12917f332184dc866218a7ba62059b5) Thanks [@tbrick855](https://github.com/tbrick855)! - OBF GA release, content_element bug fix
+
+### Minor Changes
+
+- [#385](https://github.com/WPMedia/feed-components/pull/385) [`250365a`](https://github.com/WPMedia/feed-components/commit/250365a8c477b05ebf5ea169cab630922389168f) Thanks [@tbrick855](https://github.com/tbrick855)! - update parameter names
+
+* [#383](https://github.com/WPMedia/feed-components/pull/383) [`4735728`](https://github.com/WPMedia/feed-components/commit/4735728d6b4041f8b32144a3cfcb5500e463b3fd) Thanks [@tbrick855](https://github.com/tbrick855)! - Added distributor params
+
 ## 0.9.0
 
 ### Minor Changes

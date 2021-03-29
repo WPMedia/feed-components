@@ -27,12 +27,22 @@ const articles = {
       description: { basic: 'Tips to keep you wash for 20 seconds' },
       subheadlines: { basic: 'This is from the subheadlines' },
       content_elements: [
-        { type: 'text', content: 'try singing the happy birthday song' },
-        { type: 'text', content: 'be sure to wash your thumbs' },
+        { type: 'text', content: 'try singing the happy birthday song<br>' },
+        { type: 'text', content: 'be sure to <i>wash</i> your thumbs' },
+        {
+          type: 'raw_html',
+          content: `<p id="7FCQKPKS2NCH5L6YTO2XCOEDDA"><div style="background:#ffffff; color: #333; margin:100px 0 1rem 0; line-height:28px; font-family: 'Merriweather', serif;"><img style="height:120px; width: 120px; float: left; margin-right: 20px;" src="https://www.elfinanciero.com.mx/graficos/img/novedad-180321.jpg" class="img-responsive" alt="logo" /><img style="height:120px; width: 120px; float: right; " src="https://elfinanciero.com.mx/graficos/interior-nota/abcd_novedad.png" class="img-responsive" alt="logo" /><span style="font-size: 1.1rem; font-weight: 700;"> Concertos for Oboe, Clarinet and Orchestra </span><hr style="border: 0;  height: 1px;   background-image: -webkit-linear-gradient(left, #666666, #ffffff);  background-image: -moz-linear-gradient(left, #666666, #ffffff);  background-image: -ms-linear-gradient(left, #666666, #ffffff);  background-image: -o-linear-gradient(left,  #666666, #ffffff); padding: 0; margin: 0;"/><span style="font-size: .9rem">ARTISTA: Camerata de las Américas, dirigida por Ludwig Carrasco </span><br><span style="font-size: .9rem">SELLO:   Urtext </span><br><span style="font-size: .9rem">PRECIO:   $168n </span></div></p>`,
+        },
       ],
       taxonomy: {
         primary_section: { name: 'coronvirus' },
       },
+    },
+    {
+      display_date: '2021-04-07T15:02:08.918Z',
+      last_updated_date: '2021-04-08T10:34:41.432Z',
+      website_url: '/food/empty-recipe',
+      headlines: { basic: "I'm out of ideas" },
     },
   ],
 }
@@ -65,6 +75,7 @@ it('returns FB-IA template with default values', () => {
       includeContent: 'all',
       articleStyle: '',
       likesAndComments: '',
+      metaTags: '',
       adPlacement: '',
       adDensity: '',
       placementSection: '',
@@ -110,6 +121,7 @@ it('returns FB-IA template with custom values', () => {
       includeContent: 'all',
       articleStyle: 'times-bold',
       likesAndComments: 'enable',
+      metaTags: '<meta property="something" content="other thing" />',
       adPlacement: 'enable',
       adDensity: 'low',
       placementSection: '<script>myscript()</script>',

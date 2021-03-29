@@ -1,5 +1,37 @@
 # @wpmedia/sitemap-video-feature-block
 
+## 1.0.0
+
+### Major Changes
+
+- [#394](https://github.com/WPMedia/feed-components/pull/394) [`1722ea4`](https://github.com/WPMedia/feed-components/commit/1722ea45d12917f332184dc866218a7ba62059b5) Thanks [@tbrick855](https://github.com/tbrick855)! - OBF GA release, content_element bug fix
+
+### Minor Changes
+
+- [#393](https://github.com/WPMedia/feed-components/pull/393) [`2b01603`](https://github.com/WPMedia/feed-components/commit/2b01603b14258a589692f7c92527643a5e948d6f) Thanks [@tbrick855](https://github.com/tbrick855)! - Added description customField, removed video:tags
+
+### Patch Changes
+
+- Updated dependencies [[`1722ea4`](https://github.com/WPMedia/feed-components/commit/1722ea45d12917f332184dc866218a7ba62059b5)]:
+  - @wpmedia/feeds-prop-types@1.0.0
+  - @wpmedia/feeds-resizer@1.0.0
+
+## 1.0.0-tk.0
+
+### Major Changes
+
+- [#394](https://github.com/WPMedia/feed-components/pull/394) [`1722ea4`](https://github.com/WPMedia/feed-components/commit/1722ea45d12917f332184dc866218a7ba62059b5) Thanks [@tbrick855](https://github.com/tbrick855)! - OBF GA release, content_element bug fix
+
+### Minor Changes
+
+- [#393](https://github.com/WPMedia/feed-components/pull/393) [`2b01603`](https://github.com/WPMedia/feed-components/commit/2b01603b14258a589692f7c92527643a5e948d6f) Thanks [@tbrick855](https://github.com/tbrick855)! - Added description customField, removed video:tags
+
+### Patch Changes
+
+- Updated dependencies [[`1722ea4`](https://github.com/WPMedia/feed-components/commit/1722ea45d12917f332184dc866218a7ba62059b5)]:
+  - @wpmedia/feeds-prop-types@1.0.0-tk.0
+  - @wpmedia/feeds-resizer@1.0.0-tk.0
+
 ## 0.7.1
 
 ### Patch Changes

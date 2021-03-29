@@ -21,7 +21,7 @@ it('handle empty text content element', () => {
 it('generate text content element', () => {
   const ce = [{ type: 'text', content: '<i>this is text</i><br />' }]
   const text = MyBuildContent.parse(ce, 'all', domain)
-  expect(text).toBe('<p>&lt;i&gt;this is text&lt;/i&gt;&lt;br /&gt;</p>')
+  expect(text).toBe('<p><i>this is text</i><br /></p>')
 })
 
 it('generate one text content element', () => {
@@ -188,7 +188,7 @@ it('generate raw_html content element', () => {
   ]
   const text = MyBuildContent.parse(ce, 'all', domain, resizerKey, resizerURL)
   expect(text).toBe(
-    '<p>&lt;div class="empty" style="padding: 20px;background-color:#333;color:white;text-align:center;font-size:2em;"&gt;Sample HTML block&lt;/div&gt;</p>',
+    '<p><div class="empty" style="padding: 20px;background-color:#333;color:white;text-align:center;font-size:2em;">Sample HTML block</div></p>',
   )
 })
 
@@ -223,7 +223,7 @@ it('generate twitter oembed_response content element', () => {
   ]
   const text = MyBuildContent.parse(ce, 'all', domain, resizerKey, resizerURL)
   expect(text).toBe(
-    '&lt;blockquote class="twitter-tweet"&gt;&lt;p lang="en" dir="ltr"&gt;Honestly, same. &lt;a href="https://t.co/vhmMXeG7W4"&gt;https://t.co/vhmMXeG7W4&lt;/a&gt; &lt;a href="https://t.co/8VqgOr5WUQ"&gt;pic.twitter.com/8VqgOr5WUQ&lt;/a&gt;&lt;/p&gt;&amp;mdash; Teddy Amenabar (@TeddyAmen) &lt;a href="https://twitter.com/TeddyAmen/status/1167114295123091459?ref_src=twsrc%5Etfw"&gt;August 29, 2019&lt;/a&gt;&lt;/blockquote&gt;',
+    '<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Honestly, same. <a href="https://t.co/vhmMXeG7W4">https://t.co/vhmMXeG7W4</a> <a href="https://t.co/8VqgOr5WUQ">pic.twitter.com/8VqgOr5WUQ</a></p>&mdash; Teddy Amenabar (@TeddyAmen) <a href="https://twitter.com/TeddyAmen/status/1167114295123091459?ref_src=twsrc%5Etfw">August 29, 2019</a></blockquote>',
   )
 })
 
@@ -240,7 +240,7 @@ it('generate youtube oembed_response content element', () => {
   ]
   const text = MyBuildContent.parse(ce, 'all', domain, resizerKey, resizerURL)
   expect(text).toBe(
-    '&lt;iframe width="480" height="270" src="https://www.youtube.com/embed/a6KGPBflhiM?feature=oembed" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen&gt;&lt;/iframe&gt;',
+    '<iframe width="480" height="270" src="https://www.youtube.com/embed/a6KGPBflhiM?feature=oembed" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
   )
 })
 
@@ -272,7 +272,7 @@ it('generate table content element', () => {
         [
           {
             type: 'text',
-            contenT: 'Blue Berries',
+            content: 'Blue Berries',
           },
           {
             type: 'text',
@@ -284,7 +284,7 @@ it('generate table content element', () => {
   ]
   const text = MyBuildContent.parse(ce, 'all', domain, resizerKey, resizerURL)
   expect(text).toBe(
-    '<table><thead><tr><th>Fruit</th><th>Vegetable</th></tr></thead><tbody><tr><td>Apple</td><td>Asparagus</td></tr><tr><td>brussel Sprouts</td></tr></tbody></table>',
+    '<table><thead><tr><th>Fruit</th><th>Vegetable</th></tr></thead><tbody><tr><td>Apple</td><td>Asparagus</td></tr><tr><td>Blue Berries</td><td>brussel Sprouts</td></tr></tbody></table>',
   )
 })
 
@@ -479,7 +479,7 @@ it('generate gallery content elements', () => {
   ]
   const text = MyBuildContent.parse(ce, 'all', domain, resizerKey, resizerURL)
   expect(text).toBe(
-    '<img src="https://www.example.com/resizer/abcdefghijklmnopqrstuvwxyz=/arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/LLNQVAK74VHTFICZG4MAVRVSLE" alt="HOLLYWOOD, CA - FEBRUARY 26:  Host Jimmy Kimmel speaks onstage during the 89th Annual Academy Awards at Hollywood &amp; Highland Center on February 26, 2017 in Hollywood, California.  (Photo by Kevin Winter/Getty Images)" height="3107" width="4373"/><img src="https://www.example.com/resizer/abcdefghijklmnopqrstuvwxyz=/arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/VG7MMON4F5DATFL6DD3VA3Z2BE" alt="Sidney Poitier, left, and Lilia Skala, in scene from the film Lilies of the Field, 1963 for which Poitier won the best actor Oscar in 1964. (AP Photo)" height="2344" width="3011"/><img src="https://www.example.com/resizer/abcdefghijklmnopqrstuvwxyz=/arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/MS75LP7NQBBUTD7KJGOQZ2XLZQ" alt="Left to right Fred Astaire, master of Ceremonies, Joe Makiewicz, who was a two time winner for director and writing (All About Eve), Dr. Ralph Bunche, who made an award, Darryl Zanuck, who won an Oscar and the Thalberg Award, and President of the academy of Motion Picture Arts and Sciences Charles Brackett. Awards were made in Hollywood, Los Angeles on March 29, 1951. (AP Photo)" height="2223" width="3000"/>',
+    '<img src="https://www.example.com/resizer/abcdefghijklmnopqrstuvwxyz=/arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/LLNQVAK74VHTFICZG4MAVRVSLE" alt="HOLLYWOOD, CA - FEBRUARY 26:  Host Jimmy Kimmel speaks onstage during the 89th Annual Academy Awards at Hollywood & Highland Center on February 26, 2017 in Hollywood, California.  (Photo by Kevin Winter/Getty Images)" height="3107" width="4373"/><img src="https://www.example.com/resizer/abcdefghijklmnopqrstuvwxyz=/arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/VG7MMON4F5DATFL6DD3VA3Z2BE" alt="Sidney Poitier, left, and Lilia Skala, in scene from the film Lilies of the Field, 1963 for which Poitier won the best actor Oscar in 1964. (AP Photo)" height="2344" width="3011"/><img src="https://www.example.com/resizer/abcdefghijklmnopqrstuvwxyz=/arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/MS75LP7NQBBUTD7KJGOQZ2XLZQ" alt="Left to right Fred Astaire, master of Ceremonies, Joe Makiewicz, who was a two time winner for director and writing (All About Eve), Dr. Ralph Bunche, who made an award, Darryl Zanuck, who won an Oscar and the Thalberg Award, and President of the academy of Motion Picture Arts and Sciences Charles Brackett. Awards were made in Hollywood, Los Angeles on March 29, 1951. (AP Photo)" height="2223" width="3000"/>',
   )
 })
 
