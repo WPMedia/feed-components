@@ -90,12 +90,12 @@ export default {
     {
       name: 'from',
       displayName: 'From - Integer offset to start from',
-      type: 'text',
+      type: 'number',
     },
     {
       name: 'size',
       displayName: 'Number of records to return, Integer 1 - 20',
-      type: 'text',
+      type: 'number',
     },
     {
       name: 'include_fields',
