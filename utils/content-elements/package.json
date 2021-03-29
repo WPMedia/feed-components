@@ -25,6 +25,7 @@
   "dependencies": {
     "@wpmedia/feeds-find-video-stream": "1.0.0",
     "@wpmedia/feeds-resizer": "1.0.0",
+    "core-js": "^3.9.1",
     "he": "^1.2.0",
     "jmespath": "^0.15.0",
     "xmlbuilder2": "2.1.7"
