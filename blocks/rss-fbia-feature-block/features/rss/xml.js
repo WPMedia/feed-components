@@ -6,7 +6,7 @@ import { resizerKey } from 'fusion:environment'
 import { BuildContent } from '@wpmedia/feeds-content-elements'
 import { generatePropsForFeed } from '@wpmedia/feeds-prop-types'
 import { buildResizerURL } from '@wpmedia/feeds-resizer'
-import { fragment } from 'xmlbuilder2'
+import { convert, fragment } from 'xmlbuilder2'
 import URL from 'url'
 const jmespath = require('jmespath')
 
@@ -167,6 +167,14 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
   } = getProperties(arcSite)
   const { width = 0, height = 0 } = customFields.resizerKVP || {}
   const requestPath = new URL.URL(requestUri, feedDomainURL).pathname
+  let metaTags
+  try {
+    metaTags =
+      customFields.metaTags &&
+      convert(customFields.metaTags, { format: 'object' })
+  } catch {
+    metaTags = ''
+  }
 
   function FbiaBuildContent(
     itemTitle,
@@ -174,6 +182,7 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
     itemCategory,
     articleStyle,
     likesAndComments,
+    metaTags,
     adPlacement,
     adDensity,
     placementSection,
@@ -233,6 +242,7 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
             '@content': likesAndComments || 'disable',
           },
         ],
+        ...(metaTags && { '#': metaTags }),
       }
     }
     this.buildHTMLBody = (
@@ -481,6 +491,7 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
     customFields.itemCategory,
     customFields.articleStyle,
     customFields.likesAndComments,
+    metaTags,
     customFields.adPlacement,
     customFields.adDensity,
     customFields.placementSection,
@@ -515,6 +526,13 @@ FbiaRss.propTypes = {
       name: 'Likes and Comments',
       group: 'Facebook Options',
       description: 'Enable or disable likes and comments on the article',
+    }),
+    metaTags: PropTypes.string.tag({
+      label: 'Additional meta tags',
+      group: 'Facebook Options',
+      description:
+        'Enter additonal meta tags here in the format <meta property="prop" content="content"/> ',
+      defaultValue: '',
     }),
     adPlacement: PropTypes.oneOf(['enable', 'disable']).tag({
       name: 'Auto Ad Placement',
