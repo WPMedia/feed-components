@@ -1,6 +1,6 @@
 {
   "name": "@wpmedia/rss-fbia-feature-block",
-  "version": "1.0.0",
+  "version": "0.9.9",
   "description": "Fusion components for building Facebook Instant Articles",
   "main": "index.js",
   "files": [
