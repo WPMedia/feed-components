@@ -17,6 +17,7 @@
 '@wpmedia/feeds-find-video-stream': patch
 '@wpmedia/feeds-prop-types': patch
 '@wpmedia/feeds-resizer': patch
+'@wpmedia/feeds-xml-output': patch
 ---
 
-Added core-js
+bump to 1.0.1
