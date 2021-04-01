@@ -18,7 +18,7 @@
     "@babel/core": "^7.8.6",
     "@babel/preset-env": "^7.8.6",
     "@babel/preset-react": "^7.8.3",
-    "@changesets/changelog-github": "^0.2.1",
+    "@changesets/changelog-github": "^0.3.0",
     "@changesets/cli": "^2.7.1",
     "@manypkg/cli": "^0.17.0",
     "@preconstruct/cli": "^2.0.0",
@@ -35,7 +35,7 @@
     "husky": "^5.1.0",
     "jest": "^26.0.1",
     "jest-watch-typeahead": "^0.6.0",
-    "lerna": "^3.20.2",
+    "lerna": "^4.0.0",
     "prettier": "^2.0.5",
     "pretty-quick": "^3.0.0",
     "react": "^17.0.1",
@@ -55,7 +55,9 @@
     "test": "jest --config=jest.config.js",
     "ci": "npm run build && npm run lint && npm run test",
     "build": "preconstruct build",
-    "release:snapshot": "changeset version --snapshot beta",
+    "release:snapshotDev": "changeset version --snapshot canary",
+    "release:develop": "preconstruct build && changeset publish --tag canary",
+    "release:snapshotSandbox": "changeset version --snapshot beta",
     "release:sandbox": "preconstruct build && changeset publish --tag beta",
     "release:prod": "preconstruct build && changeset publish --tag stable"
   }

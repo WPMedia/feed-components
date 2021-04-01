@@ -1,5 +1,15 @@
 # @wpmedia/feeds-source-video-api-block
 
+## 1.0.0
+
+### Major Changes
+
+- [`1722ea4`](https://github.com/WPMedia/feed-components/commit/1722ea45d12917f332184dc866218a7ba62059b5) [#394](https://github.com/WPMedia/feed-components/pull/394) Thanks [@tbrick855](https://github.com/tbrick855)! - OBF GA release, content_element bug fix
+
+### Patch Changes
+
+- [`b2db7b1`](https://github.com/WPMedia/feed-components/commit/b2db7b1ef8a8643452df6b154cc80dc2c11266af) [#379](https://github.com/WPMedia/feed-components/pull/379) Thanks [@camdub](https://github.com/camdub)! - Update beta release script
+
 ## 0.3.0
 
 ### Minor Changes

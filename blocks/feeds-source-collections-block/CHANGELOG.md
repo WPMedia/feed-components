@@ -1,5 +1,15 @@
 # @wpmedia/feeds-source-collections-block
 
+## 1.0.0
+
+### Major Changes
+
+- [`1722ea4`](https://github.com/WPMedia/feed-components/commit/1722ea45d12917f332184dc866218a7ba62059b5) [#394](https://github.com/WPMedia/feed-components/pull/394) Thanks [@tbrick855](https://github.com/tbrick855)! - OBF GA release, content_element bug fix
+
+### Minor Changes
+
+- [`63efae5`](https://github.com/WPMedia/feed-components/commit/63efae513aefbd8941920f1f77ddc5611d5bc699) [#370](https://github.com/WPMedia/feed-components/pull/370) Thanks [@tbrick855](https://github.com/tbrick855)! - Inflate collection content with call to ids
+
 ## 0.1.0
 
 ### Minor Changes
