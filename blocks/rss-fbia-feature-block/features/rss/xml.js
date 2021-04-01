@@ -1,13 +1,13 @@
 import PropTypes from 'fusion:prop-types'
 import Consumer from 'fusion:consumer'
-import get from 'lodash/get'
 import moment from 'moment'
 import getProperties from 'fusion:properties'
 import { resizerKey } from 'fusion:environment'
 import { BuildContent } from '@wpmedia/feeds-content-elements'
 import { generatePropsForFeed } from '@wpmedia/feeds-prop-types'
 import { buildResizerURL } from '@wpmedia/feeds-resizer'
-import { fragment } from 'xmlbuilder2'
+import { convert, fragment } from 'xmlbuilder2'
+import URL from 'url'
 const jmespath = require('jmespath')
 
 const rssTemplate = (
@@ -15,7 +15,6 @@ const rssTemplate = (
   {
     channelTitle,
     channelDescription,
-    channelPath,
     channelCopyright,
     channelTTL,
     channelUpdatePeriod,
@@ -27,10 +26,12 @@ const rssTemplate = (
     imageCredits,
     itemTitle,
     itemDescription,
+    itemCredits,
     pubDate,
     itemCategory,
     includePromo,
     includeContent,
+    requestPath,
     resizerURL,
     resizerWidth,
     resizerHeight,
@@ -53,7 +54,7 @@ const rssTemplate = (
       title: { $: channelTitle || feedTitle },
       link: `${domain}`,
       'atom:link': {
-        '@href': `${domain}${channelPath}`,
+        '@href': `${domain}${requestPath}`,
         '@rel': 'self',
         '@type': 'application/rss+xml',
       },
@@ -93,7 +94,8 @@ const rssTemplate = (
             '#': url,
             '@isPermaLink': true,
           },
-          ...((author = jmespath.search(s, 'credits.by[].name')) &&
+          ...(itemCredits &&
+            (author = jmespath.search(s, itemCredits)) &&
             author && {
               'dc:creator': { $: author.join(', ') },
             }),
@@ -105,12 +107,13 @@ const rssTemplate = (
             (category = jmespath.search(s, itemCategory)) &&
             category && { category: category }),
           ...(includeContent !== 0 &&
-            (body = fbiaBuildContent.parse(
+            (body = fbiaBuildContent.buildFBContent(
               s,
               includeContent,
               domain,
               resizerWidth,
               resizerHeight,
+              itemCredits,
             )) &&
             body && {
               'content:encoded': {
@@ -155,14 +158,23 @@ const rssTemplate = (
   },
 })
 
-export function FbiaRss({ globalContent, customFields, arcSite }) {
+export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
   const {
     resizerURL = '',
-    feedDomainURL = '',
+    feedDomainURL = 'http://localhost.com',
     feedTitle = '',
     feedLanguage = '',
   } = getProperties(arcSite)
   const { width = 0, height = 0 } = customFields.resizerKVP || {}
+  const requestPath = new URL.URL(requestUri, feedDomainURL).pathname
+  let metaTags
+  try {
+    metaTags =
+      customFields.metaTags &&
+      convert(customFields.metaTags, { format: 'object' })
+  } catch {
+    metaTags = ''
+  }
 
   function FbiaBuildContent(
     itemTitle,
@@ -170,6 +182,7 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
     itemCategory,
     articleStyle,
     likesAndComments,
+    metaTags,
     adPlacement,
     adDensity,
     placementSection,
@@ -229,9 +242,17 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
             '@content': likesAndComments || 'disable',
           },
         ],
+        ...(metaTags && { '#': metaTags }),
       }
     }
-    this.buildHTMLBody = (s, numRows, domain, resizerWidth, resizerHeight) => {
+    this.buildHTMLBody = (
+      s,
+      numRows,
+      domain,
+      resizerWidth,
+      resizerHeight,
+      itemCredits,
+    ) => {
       const authorDescription =
         jmespath.search(s, 'credits.by[].description') || []
       const lastUpdatedDate = jmespath.search(s, 'last_updated_date')
@@ -276,7 +297,7 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
         ],
       })
 
-      if ((author = jmespath.search(s, 'credits.by[].name')) && author)
+      if (itemCredits && (author = jmespath.search(s, itemCredits)) && author)
         header.push({
           address: {
             // a list of authors
@@ -326,16 +347,7 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
           header: {
             '#': header,
           },
-          '#': [
-            this.buildContentElements(
-              s,
-              numRows,
-              domain,
-              resizerWidth,
-              resizerHeight,
-            ),
-            ...(adScripts && [adScripts]),
-          ],
+          '#': ['<tHe_BoDy_GoEs_HeRe/>', ...(adScripts && [adScripts])],
           footer: {
             '#': {
               ...(authorDescription.length && {
@@ -350,105 +362,6 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
       }
     }
 
-    this.buildContentElements = (
-      s,
-      numRows,
-      domain,
-      resizerWidth,
-      resizerHeight,
-    ) => {
-      const maxRows = numRows === 'all' ? 9999 : parseInt(numRows)
-      const body = []
-      let item
-
-        // prettier-ignore
-      ;(s.content_elements || []).forEach((element) => {
-        if (body.length < maxRows) {
-          switch (element.type) {
-            case 'blockquote':
-              item = this.blockquote(element)
-              break
-            case 'correction':
-              item = this.correction(element)
-              break
-            case 'code':
-            case 'custom_embed':
-            case 'divider':
-            case 'element_group':
-            case 'story':
-              item = ''
-              break
-            case 'endorsement':
-              item = this.endorsement(element)
-              break
-            case 'gallery':
-              item = this.gallery(
-                element,
-                resizerKey,
-                resizerURL,
-                resizerWidth,
-                resizerHeight,
-              )
-              break
-            case 'header':
-              item = this.header(element)
-              break
-            case 'image':
-              item = this.image(
-                element,
-                resizerKey,
-                resizerURL,
-                resizerWidth,
-                resizerHeight,
-              )
-              break
-            case 'interstitial_link':
-              item = this.interstitial(element, domain)
-              break
-            case 'link_list':
-              item = this.linkList(element, domain)
-              break
-            case 'list':
-              item = this.list(element)
-              break
-            case 'list_element':
-              item = this.listElement(element)
-              break
-            case 'numeric_rating':
-              item = this.numericRating(element)
-              break
-            case 'oembed_response':
-              item = this.oembed(element)
-              break
-            case 'quote':
-              item = this.quote(element)
-              break
-            case 'raw_html':
-              item = this.text(element)
-              break
-            case 'table':
-              item = this.table(element)
-              break
-            case 'text':
-              item = this.text(element)
-              break
-            case 'video':
-              item = this.video(element)
-              break
-            default:
-              item = this.text(element)
-              break
-          }
-
-          // empty array breaks xmlbuilder2, but empty '' is OK
-          if (Array.isArray(item) && item.length === 0) {
-            item = ''
-          }
-          item && body.push(item)
-        }
-      })
-      return body.length ? body : ['']
-    }
     this.image = (
       element,
       resizerKey,
@@ -532,7 +445,14 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
       }
       return item
     }
-    this.parse = (s, numRows, domain, resizerWidth, resizerHeight) => {
+    this.buildFBContent = (
+      s,
+      numRows,
+      domain,
+      resizerWidth,
+      resizerHeight,
+      itemCredits,
+    ) => {
       const fbiaContent = {
         html: {
           '@lang': feedLanguage,
@@ -543,10 +463,25 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
             domain,
             resizerWidth,
             resizerHeight,
+            itemCredits,
           ),
         },
       }
-      return '<!doctype html>'.concat(fragment(fbiaContent).toString())
+      // breaking these up because I'm
+      // seeing xml validation fail on <br> without a closing slash
+      const htmlBody = '<!doctype html>'.concat(
+        fragment(fbiaContent).toString(),
+      )
+      const parsedBody = this.parse(
+        s.content_elements ?? [],
+        numRows,
+        domain,
+        resizerKey,
+        resizerURL,
+        resizerWidth,
+        resizerHeight,
+      )
+      return htmlBody.replace('<tHe_BoDy_GoEs_HeRe/>', parsedBody)
     }
   }
 
@@ -556,6 +491,7 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
     customFields.itemCategory,
     customFields.articleStyle,
     customFields.likesAndComments,
+    metaTags,
     customFields.adPlacement,
     customFields.adDensity,
     customFields.placementSection,
@@ -563,8 +499,9 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
   )
 
   // can't return null for xml return type, must return valid xml template
-  return rssTemplate(get(globalContent, 'content_elements', []), {
+  return rssTemplate(globalContent.content_elements || [], {
     ...customFields,
+    requestPath,
     resizerURL,
     resizerWidth: width,
     resizerHeight: height,
@@ -577,13 +514,6 @@ export function FbiaRss({ globalContent, customFields, arcSite }) {
 // Reference for fb options: https://developers.facebook.com/docs/instant-articles/reference/article/
 FbiaRss.propTypes = {
   customFields: PropTypes.shape({
-    channelPath: PropTypes.string.tag({
-      label: 'Path',
-      group: 'Channel',
-      description:
-        'Path to the feed excluding the domain, defaults to /arc/outboundfeeds/fb-ia',
-      defaultValue: '/arc/outboundfeeds/fb-ia',
-    }),
     articleStyle: PropTypes.string.tag({
       label: 'Article Style',
       group: 'Facebook Options',
@@ -596,6 +526,13 @@ FbiaRss.propTypes = {
       name: 'Likes and Comments',
       group: 'Facebook Options',
       description: 'Enable or disable likes and comments on the article',
+    }),
+    metaTags: PropTypes.string.tag({
+      label: 'Additional meta tags',
+      group: 'Facebook Options',
+      description:
+        'Enter additonal meta tags here in the format <meta property="prop" content="content"/> ',
+      defaultValue: '',
     }),
     adPlacement: PropTypes.oneOf(['enable', 'disable']).tag({
       name: 'Auto Ad Placement',

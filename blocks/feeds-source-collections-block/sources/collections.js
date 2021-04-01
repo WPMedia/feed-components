@@ -1,21 +1,38 @@
 import request from 'request-promise-native'
 import { CONTENT_BASE, ARC_ACCESS_TOKEN } from 'fusion:environment'
 
-const params = {
-  _id: 'text',
-  content_alias: 'text',
-  from: 'text',
-  size: 'text',
-  included_fields: 'text',
-}
-
 const options = {
   gzip: true,
   json: true,
   auth: { bearer: ARC_ACCESS_TOKEN },
 }
 
-const fetch = (key = {}) => {
+const defaultIncludedFields = [
+  'content_elements',
+  'created_date',
+  'credits',
+  'description',
+  'display_date',
+  'first_publish_date',
+  'headlines',
+  'last_updated_date',
+  'promo_items',
+  'publish_date',
+  'source',
+  'subheadlines',
+  'taxonomy',
+  'website_url',
+].join(',')
+
+const sortStories = (idsResp, collectionResp, ids) => {
+  idsResp.content_elements.forEach((item) => {
+    const storyIndex = ids.indexOf(item._id)
+    collectionResp.content_elements.splice(storyIndex, 1, item)
+  })
+  return collectionResp
+}
+
+const fetch = async (key = {}) => {
   const {
     'arc-site': site,
     _id,
@@ -34,55 +51,57 @@ const fetch = (key = {}) => {
     ...(contentAlias && { content_alias: contentAlias }),
   }
 
-  return request({
+  // ids results does not include content_elements unless specified in included_fields
+  const idsIncludedFields = includedFields || defaultIncludedFields
+
+  const collectionResp = await request({
     uri: `${CONTENT_BASE}/content/v4/collections`,
     qs: qs,
     ...options,
   })
-    .then((collectionResp) => {
-      const ids = collectionResp.content_elements
-        .map((item) => {
-          return item._id
-        })
-        .join(',')
-
-      // ids results does not include content_elements unless specified in included_fields
-      const idsIncludedFields =
-        includedFields ||
-        [
-          'content_elements',
-          'created_date',
-          'credits',
-          'description',
-          'display_date',
-          'first_publish_date',
-          'headlines',
-          'last_updated_date',
-          'promo_items',
-          'publish_date',
-          'source',
-          'subheadlines',
-          'taxonomy',
-          'website_url',
-        ].join(',')
-
-      return request({
-        uri: `${CONTENT_BASE}/content/v4/ids`,
-        qs: {
-          ids: ids,
-          website: site,
-          included_fields: idsIncludedFields,
-        },
-        ...options,
-      })
-    })
-    .catch((err) => {
-      throw err
-    })
+  const ids = await collectionResp.content_elements.map((item) => {
+    return item._id
+  })
+  const idsResp = await request({
+    uri: `${CONTENT_BASE}/content/v4/ids`,
+    qs: {
+      ids: ids.join(','),
+      website: site,
+      included_fields: idsIncludedFields,
+    },
+    ...options,
+  })
+  return await sortStories(idsResp, collectionResp, ids)
 }
 
 export default {
   fetch,
-  params,
+  params: [
+    {
+      name: '_id',
+      displayName: 'Collection ID',
+      type: 'text',
+    },
+    {
+      name: 'content_alias',
+      displayName: 'Collection Alias (Only populate ID or Alias)',
+      type: 'text',
+    },
+    {
+      name: 'from',
+      displayName: 'From - Integer offset to start from',
+      type: 'number',
+    },
+    {
+      name: 'size',
+      displayName: 'Number of records to return, Integer 1 - 20',
+      type: 'number',
+    },
+    {
+      name: 'include_fields',
+      displayName: 'ANS Fields to include, use commas between fields',
+      type: 'text',
+    },
+  ],
   ttl: 300,
 }
