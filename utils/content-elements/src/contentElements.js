@@ -2,8 +2,9 @@
 
 import { buildResizerURL } from '@wpmedia/feeds-resizer'
 import { findVideo } from '@wpmedia/feeds-find-video-stream'
-const jmespath = require('jmespath')
 const { fragment } = require('xmlbuilder2')
+const { decode } = require('he')
+const jmespath = require('jmespath')
 
 export const absoluteUrl = (url, domain) => {
   // if url isn't fully qualified, try to make it one
@@ -353,6 +354,6 @@ export function BuildContent() {
         item && body.push(item)
       }
     })
-    return body.length ? fragment(body).toString() : ''
+    return body.length ? decode(fragment(body).toString()) : ''
   }
 }

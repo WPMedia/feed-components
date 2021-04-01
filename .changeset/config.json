@@ -5,7 +5,7 @@
     { "repo": "WPMedia/feed-components" }
   ],
   "commit": false,
-  "linked": [["**"]],
+  "linked": [],
   "access": "public",
   "baseBranch": "prod"
 }
