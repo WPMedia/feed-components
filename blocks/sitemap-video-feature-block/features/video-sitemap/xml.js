@@ -1,6 +1,5 @@
 import PropTypes from 'fusion:prop-types'
 import Consumer from 'fusion:consumer'
-import get from 'lodash/get'
 import getProperties from 'fusion:properties'
 import { resizerKey } from 'fusion:environment'
 import { buildResizerURL } from '@wpmedia/feeds-resizer'
@@ -27,9 +26,8 @@ const sitemapTemplate = (
     url: elements.map((v) => {
       let title, description, category
       // Get promo image object to determine thumbnail_loc
-      const img =
-        v.promo_items && (v.promo_items.basic || v.promo_items.lead_art)
-
+      let img = v.promo_items && (v.promo_items.basic || v.promo_items.lead_art)
+      if (img && !img.url && img.promo_image) img = img.promo_image // video
       // Find content_loc based on searchObject site property.
       const searchArray = formatSearchObject(sitemapVideoSelect)
 
@@ -88,7 +86,7 @@ export function VideoSitemap({ globalContent, customFields, arcSite }) {
   const { width = 0, height = 0 } = customFields.resizerKVP || {}
 
   // can't return null for xml return type, must return valid xml template
-  return sitemapTemplate(get(globalContent, 'content_elements', []), {
+  return sitemapTemplate(globalContent.content_elements || [], {
     ...customFields,
     domain: feedDomainURL,
     resizerURL,
