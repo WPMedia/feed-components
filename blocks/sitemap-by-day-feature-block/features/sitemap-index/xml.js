@@ -27,7 +27,7 @@ const sitemapIndexTemplate = ({
   },
 })
 
-export function SitemapIndex({
+export function SitemapByDay({
   globalContent,
   customFields,
   arcSite,
@@ -79,7 +79,7 @@ export function SitemapIndex({
   })
 }
 
-SitemapIndex.propTypes = {
+SitemapByDay.propTypes = {
   customFields: PropTypes.shape({
     lastMod: PropTypes.oneOf([
       'created_date',
@@ -105,7 +105,7 @@ SitemapIndex.propTypes = {
       label: 'Sitemap-Index Name ',
       group: 'Format',
       description: 'Name of the sitemap-index feed in the URL',
-      defaultValue: '/sitemap-index/',
+      defaultValue: '/sitemap-by-day/',
     }),
     feedParam: PropTypes.string.tag({
       label: 'Additional URL Parameters',
@@ -115,5 +115,5 @@ SitemapIndex.propTypes = {
     }),
   }),
 }
-SitemapIndex.label = 'Sitemap Index'
-export default Consumer(SitemapIndex)
+SitemapByDay.label = 'Sitemap By Day'
+export default Consumer(SitemapByDay)
