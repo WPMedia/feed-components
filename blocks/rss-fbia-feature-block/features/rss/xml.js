@@ -417,15 +417,7 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
     }
     // noinspection SpellCheckingInspection
     this.oembed = (element) => {
-      let embed = element.raw_oembed.html // some <blockquote> have a <script> at then end, remove the script tag
-
-      if (
-        embed &&
-        (element.subtype === 'twitter' || element.subtype === 'instagram')
-      ) {
-        const idx = embed.indexOf('</blockquote>')
-        embed = embed.substring(0, idx + 13)
-      }
+      const embed = element.raw_oembed.html // wrap in <figure class="op-interactive">
 
       return {
         figure: {
