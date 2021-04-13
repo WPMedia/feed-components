@@ -32,6 +32,25 @@ Object {
         },
         "priority": "0.5",
       },
+      Object {
+        "changefreq": "always",
+        "lastmod": "2021-11-15T12:18:25.674Z",
+        "loc": "http://demo-prod.origin.arcpublishing.com/food/2021/04/07/best-sourdough-recipes",
+        "news:news": Object {
+          "news:keywords": Object {
+            "$": "food videos",
+          },
+          "news:publication": Object {
+            "news:language": "en",
+            "news:name": "google news",
+          },
+          "news:publication_date": "2021-11-15T12:18:25.674Z",
+          "news:title": Object {
+            "$": "Best Sourdough you have ever made",
+          },
+        },
+        "priority": "0.5",
+      },
     ],
   },
 }
