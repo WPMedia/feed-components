@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`returns template with default values 1`] = `
+Object {
+  "sitemapindex": Object {
+    "@xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9",
+    "sitemap": Array [
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap-by-day/latest?outputType=xml",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap-by-day/2021-04-08?outputType=xml",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap-by-day/2021-04-07?outputType=xml",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap-by-day/2021-04-06?outputType=xml",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap-by-day/2021-04-05?outputType=xml",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap-by-day/2021-04-04?outputType=xml",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap-by-day/2021-04-03?outputType=xml",
+      },
+    ],
+  },
+}
+`;
+
+exports[`returns template with set end date 1`] = `
+Object {
+  "sitemapindex": Object {
+    "@xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9",
+    "sitemap": Array [
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap-by-day/latest?outputType=xml",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap-by-day/2021-04-08?outputType=xml",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap-by-day/2021-04-07?outputType=xml",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap-by-day/2021-04-06?outputType=xml",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap-by-day/2021-04-05?outputType=xml",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap-by-day/2021-04-04?outputType=xml",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap-by-day/2021-04-03?outputType=xml",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap-by-day/2021-04-02?outputType=xml",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap-by-day/2021-04-01?outputType=xml",
+      },
+    ],
+  },
+}
+`;
