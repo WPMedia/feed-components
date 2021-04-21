@@ -3,13 +3,35 @@ import getProperties from 'fusion:properties'
 
 const resolve = function resolve(key) {
   const requestUri = `${CONTENT_BASE}/content/v4/search/published`
-  const uriParams = [
+  const paramList = [
     `website=${key['arc-site']}`,
     `size=${key['Feed-Size'] || '100'}`,
     `from=${key['Feed-Offset'] || '0'}`,
     `_sourceExclude=${key['Source-Exclude'] || 'related_content'}`,
     `sort=${key.Sort || 'publish_date:desc'}`,
-  ].join('&')
+  ]
+
+  if (key['Source-Include'])
+    paramList.push(`_sourceInclude=${key['Source-Include']}`)
+  if (key['Include-Distributor-Name']) {
+    paramList.push(
+      `include_distributor_name=${key['Include-Distributor-Name']}`,
+    )
+  } else if (key['Exclude-Distributor-Name']) {
+    paramList.push(
+      `exclude_distributor_name=${key['Exclude-Distributor-Name']}`,
+    )
+  } else if (key['Include-Distributor-Category']) {
+    paramList.push(
+      `include_distributor_category=${key['Include-Distributor-Category']}`,
+    )
+  } else if (key['Exclude-Distributor-Category']) {
+    paramList.push(
+      `exclude_distributor_category=${key['Exclude-Distributor-Category']}`,
+    )
+  }
+
+  const uriParams = paramList.join('&')
 
   const { feedDefaultQuery } = getProperties(key['arc-site'])
 
@@ -155,7 +177,13 @@ export default {
     'Exclude-Terms': 'text',
     'Feed-Size': 'text',
     'Feed-Offset': 'text',
-    'Source-Exclude': 'text',
     Sort: 'text',
+    'Source-Exclude': 'text',
+    'Source-Include': 'text',
+    'Include-Distributor-Name': 'text',
+    'Exclude-Distributor-Name': 'text',
+    'Include-Distributor-Category': 'text',
+    'Exclude-Distributor-Category': 'text',
   },
+  ttl: 300,
 }
