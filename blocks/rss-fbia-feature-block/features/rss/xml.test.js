@@ -33,6 +33,14 @@ const articles = {
           type: 'raw_html',
           content: `<p id="7FCQKPKS2NCH5L6YTO2XCOEDDA"><div style="background:#ffffff; color: #333; margin:100px 0 1rem 0; line-height:28px; font-family: 'Merriweather', serif;"><img style="height:120px; width: 120px; float: left; margin-right: 20px;" src="https://www.example.com.mx/graficos/img/novedad-180321.jpg" class="img-responsive" alt="logo" /><img style="height:120px; width: 120px; float: right; " src="https://example.com.mx/graficos/interior-nota/abcd_novedad.png" class="img-responsive" alt="logo" /><span style="font-size: 1.1rem; font-weight: 700;"> Concertos for Oboe, Clarinet and Orchestra </span><hr style="border: 0;  height: 1px;   background-image: -webkit-linear-gradient(left, #666666, #ffffff);  background-image: -moz-linear-gradient(left, #666666, #ffffff);  background-image: -ms-linear-gradient(left, #666666, #ffffff);  background-image: -o-linear-gradient(left,  #666666, #ffffff); padding: 0; margin: 0;"/><span style="font-size: .9rem">ARTISTA: Camerata de las Américas, dirigida por Ludwig Carrasco </span><br><span style="font-size: .9rem">SELLO:   Urtext </span><br><span style="font-size: .9rem">PRECIO:   $168n </span></div></p>`,
         },
+        {
+          type: 'oembed_response',
+          subtype: 'twitter',
+          raw_oembed: {
+            html:
+              '<blockquote class="twitter-tweet"><p lang="fr" dir="ltr">21. Je déploie le robot pour reconnaitre OSCAR3.<br>Retour en images sur l’exercice de recherche appliquée organisé les 30 et 31 mars par l’EMIA et le centre de recherche. Robotisation du champ de bataille : sensibiliser les élèves aux enjeux de demain. <a href="https://twitter.com/hashtag/CapaciTERRE?src=hash&amp;ref_src=twsrc%5Etfw">#CapaciTERRE</a> <a href="https://twitter.com/hashtag/Robots?src=hash&amp;ref_src=twsrc%5Etfw">#Robots</a> <a href="https://t.co/HiZ2BFOZPY">pic.twitter.com/HiZ2BFOZPY</a></p>&mdash; Saint-Cyr Coëtquidan (@SaintCyrCoet) <a href="https://twitter.com/SaintCyrCoet/status/1379457690020294665?ref_src=twsrc%5Etfw">April 6, 2021</a></blockquote>\n<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>\n',
+          },
+        },
       ],
       taxonomy: {
         primary_section: { name: 'coronvirus' },

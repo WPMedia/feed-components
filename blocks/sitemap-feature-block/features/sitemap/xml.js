@@ -1,6 +1,5 @@
 import PropTypes from 'fusion:prop-types'
 import Consumer from 'fusion:consumer'
-import get from 'lodash/get'
 import getProperties from 'fusion:properties'
 import { resizerKey } from 'fusion:environment'
 import { buildResizerURL } from '@wpmedia/feeds-resizer'
@@ -27,8 +26,8 @@ const sitemapTemplate = (
       '@xmlns:image': 'http://www.google.com/schemas/sitemap-image/1.1',
     }),
     url: elements.map((s) => {
-      const img =
-        s.promo_items && (s.promo_items.basic || s.promo_items.lead_art)
+      let img = s.promo_items && (s.promo_items.basic || s.promo_items.lead_art)
+      if (img && !img.url && img.promo_image) img = img.promo_image // video
       return {
         loc: `${domain}${s.website_url || s.canonical_url}`,
         ...{ lastmod: s[lastMod] },
@@ -37,7 +36,8 @@ const sitemapTemplate = (
         }),
         ...(priority !== 'Exclude from sitemap' && { priority: priority }),
         ...(includePromo &&
-          img && {
+          img &&
+          img.url && {
             'image:image': {
               'image:loc': buildResizerURL(
                 img.url,
@@ -64,7 +64,7 @@ export function Sitemap({ globalContent, customFields, arcSite }) {
   const { width = 0, height = 0 } = customFields.resizerKVP || {}
 
   // can't return null for xml return type, must return valid xml template
-  return sitemapTemplate(get(globalContent, 'content_elements', []), {
+  return sitemapTemplate(globalContent.content_elements || [], {
     ...customFields,
     resizerURL,
     domain: feedDomainURL,
