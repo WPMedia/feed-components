@@ -1,40 +1,30 @@
-import { CONTENT_BASE } from 'fusion:environment'
+import request from 'request-promise-native'
+import { CONTENT_BASE, ARC_ACCESS_TOKEN } from 'fusion:environment'
 import getProperties from 'fusion:properties'
 import moment from 'moment'
 
-const resolve = function resolve(key) {
-  const requestUri = `${CONTENT_BASE}/content/v4/search/published`
-  const paramList = [
-    `website=${key['arc-site']}`,
-    `size=${key['Feed-Size'] || '100'}`,
-    `from=${key['Feed-Offset'] || '0'}`,
-    `_sourceExclude=${key['Source-Exclude'] || 'related_content'}`,
-    `sort=${key.Sort || 'publish_date:desc'}`,
-  ]
+const options = {
+  gzip: true,
+  json: true,
+  auth: { bearer: ARC_ACCESS_TOKEN },
+}
+const validANSDates = [
+  'created_date',
+  'last_updated_date',
+  'display_date',
+  'first_publish_date',
+  'publish_date',
+]
 
-  if (key['Source-Include'])
-    paramList.push(`_sourceInclude=${key['Source-Include']}`)
-  if (key['Include-Distributor-Name']) {
-    paramList.push(
-      `include_distributor_name=${key['Include-Distributor-Name']}`,
-    )
-  } else if (key['Exclude-Distributor-Name']) {
-    paramList.push(
-      `exclude_distributor_name=${key['Exclude-Distributor-Name']}`,
-    )
-  } else if (key['Include-Distributor-Category']) {
-    paramList.push(
-      `include_distributor_category=${key['Include-Distributor-Category']}`,
-    )
-  } else if (key['Exclude-Distributor-Category']) {
-    paramList.push(
-      `exclude_distributor_category=${key['Exclude-Distributor-Category']}`,
-    )
+const fetch = async (key = {}) => {
+  const paramList = {
+    website: key['arc-site'],
+    size: key['Feed-Size'] || '100',
+    from: key['Feed-Offset'] || '0',
+    _sourceExclude: key['Source-Exclude'] || 'related_content',
   }
 
-  const uriParams = paramList.join('&')
-
-  const { feedDefaultQuery } = getProperties(key['arc-site'])
+  if (key['Source-Include']) paramList._sourceInclude = key['Source-Include']
 
   // basic ES query
   const body = {
@@ -47,6 +37,7 @@ const resolve = function resolve(key) {
 
   // If feedDefaultQuery is set try to use it
   let feedQuery
+  const { feedDefaultQuery } = getProperties(key['arc-site'])
   if (feedDefaultQuery) {
     try {
       feedQuery = JSON.parse(feedDefaultQuery)
@@ -62,13 +53,18 @@ const resolve = function resolve(key) {
     try {
       feedQuery = JSON.parse(key['Include-Terms'])
     } catch (error) {
-      console.warn(`Failed to parse Include-Terms: ${key['Include-Terms']}`)
+      const err = new Error('Invalid Include-Terms')
+      err.statusCode = 500
+      throw err
     }
   }
 
   // default query
   if (!feedQuery) {
-    feedQuery = [{ term: { type: 'story' } }]
+    feedQuery = [
+      { term: { type: 'story' } },
+      { term: { 'revision.published': true } },
+    ]
   }
 
   body.query.bool.must = feedQuery
@@ -79,27 +75,54 @@ const resolve = function resolve(key) {
     try {
       body.query.bool.must_not = JSON.parse(excludeTerms)
     } catch (error) {
-      console.warn(`Failed to parse Exclude-Terms: ${key['Exclude-Terms']}`)
+      const err = new Error('Invalid Exclude-Terms')
+      err.statusCode = 500
+      throw err
     }
   }
 
-  // Append date field to basic query
+  // Validate and append date field to basic query
   const { dateField, dateRange } = key
-  if (dateField && dateRange) {
-    let rangeStart, rangeEnd
-    if (dateRange === 'latest') {
-      rangeEnd = 'now'
-      rangeStart = moment.utc().subtract(1, 'days').format('YYYY-MM-DD')
-    } else {
-      rangeEnd = rangeStart = dateRange
-    }
-
-    body.query.bool.must.push({
-      range: {
-        [dateField]: { gte: rangeStart, lte: rangeEnd },
-      },
-    })
+  if (!dateField || !dateRange) {
+    const err = new Error('Date is required')
+    err.statusCode = 500
+    throw err
   }
+  if (validANSDates.indexOf(dateField) < 0) {
+    const err = new Error('Invalid Date field')
+    err.statusCode = 500
+    throw err
+  }
+  let rangeStart, rangeEnd
+  if (dateRange === 'latest') {
+    rangeEnd = 'now'
+    rangeStart = moment.utc().subtract(1, 'days').format('YYYY-MM-DD')
+  } else {
+    try {
+      const validDate = moment(dateRange, 'YYYY-MM-DD', true)
+      if (
+        validDate > moment.utc().add(2, 'days') ||
+        validDate < moment('2000')
+      ) {
+        const err = new Error(
+          'Invalid Date range, must be after 2000 and not in the future',
+        )
+        err.statusCode = 500
+        throw err
+      }
+    } catch (error) {
+      const err = new Error('Invalid Date, must be in YYYY-MM-DD format')
+      err.statusCode = 500
+      throw err
+    }
+    rangeEnd = rangeStart = dateRange
+  }
+
+  body.query.bool.must.push({
+    range: {
+      [dateField]: { gte: rangeStart, lte: rangeEnd },
+    },
+  })
 
   // Append Author to basic query
   const { Author } = key
@@ -177,33 +200,91 @@ const resolve = function resolve(key) {
     })
   }
 
-  console.log(JSON.stringify(body))
-  const encodedBody = encodeURI(JSON.stringify(body))
-  return `${requestUri}?body=${encodedBody}&${uriParams}`
+  paramList.body = encodeURI(JSON.stringify(body))
+  const paramString = Object.keys(paramList).reduce((acc, key) => {
+    return [...acc, `${key}=${paramList[key]}`]
+  }, [])
+
+  console.log(`${CONTENT_BASE}/content/v4/scan?${paramString.join('&')}`)
+
+  const scanResp = await request({
+    uri: `${CONTENT_BASE}/content/v4/scan?${paramString.join('&')}`,
+    ...options,
+  })
+
+  console.log(scanResp)
+  return scanResp
 }
 
 export default {
-  resolve,
+  fetch,
   schemaName: 'feeds',
-  params: {
-    dateField: 'text',
-    dateRange: 'text',
-    Section: 'text',
-    Author: 'text',
-    Keywords: 'text',
-    'Tags-Text': 'text',
-    'Tags-Slug': 'text',
-    'Include-Terms': 'text',
-    'Exclude-Terms': 'text',
-    'Feed-Size': 'text',
-    'Feed-Offset': 'text',
-    Sort: 'text',
-    'Source-Exclude': 'text',
-    'Source-Include': 'text',
-    'Include-Distributor-Name': 'text',
-    'Exclude-Distributor-Name': 'text',
-    'Include-Distributor-Category': 'text',
-    'Exclude-Distributor-Category': 'text',
-  },
+  params: [
+    {
+      name: 'dateField',
+      displayName: 'Date Field',
+      type: 'text',
+    },
+    {
+      name: 'dateRange',
+      displayName: 'Date Range',
+      type: 'text',
+    },
+    {
+      name: 'Section',
+      displayName: 'Section Name',
+      type: 'text',
+    },
+    {
+      name: 'Author',
+      displayName: 'Author Name',
+      type: 'text',
+    },
+    {
+      name: 'Keywords',
+      displayName: 'Keywords',
+      type: 'text',
+    },
+    {
+      name: 'Tags-Text',
+      displayName: 'Tags Text',
+      type: 'text',
+    },
+    {
+      name: 'Tags-Slug',
+      displayName: 'Tags Slug',
+      type: 'text',
+    },
+    {
+      name: 'Include-Terms',
+      displayName: 'Include Terms',
+      type: 'text',
+    },
+    {
+      name: 'Exclude-Terms',
+      displayName: 'Exclude Terms',
+      type: 'text',
+    },
+    {
+      name: 'Feed-Size',
+      displayName: 'Feed Size',
+      type: 'text',
+    },
+    {
+      name: 'Feed-Offset',
+      displayName: 'Feed Offset',
+      type: 'text',
+    },
+    {
+      name: 'Source-Exclude',
+      displayName: 'Source Exclude (list off ANS fields comma separated)',
+      type: 'text',
+    },
+    {
+      name: 'Source-Include',
+      displayName: 'Source Include (list of ANS fields comma separated)',
+      type: 'text',
+    },
+  ],
   ttl: 300,
 }
