@@ -2,8 +2,9 @@
 
 import { buildResizerURL } from '@wpmedia/feeds-resizer'
 import { findVideo } from '@wpmedia/feeds-find-video-stream'
-const jmespath = require('jmespath')
 const { fragment } = require('xmlbuilder2')
+const { decode } = require('he')
+const jmespath = require('jmespath')
 
 export const absoluteUrl = (url, domain) => {
   // if url isn't fully qualified, try to make it one
@@ -16,11 +17,17 @@ export const absoluteUrl = (url, domain) => {
 }
 
 export function BuildContent() {
-  // A constructor to allow protypal inheritance to override the behavior of member functions
+  // A constructor to allow prototypal inheritance to override the behavior of member functions
   this.correction = (element) =>
     element.text && {
       i: element.text,
     }
+
+  this.code = (element) => ''
+  this.custom_embed = (element) => ''
+  this.divider = (element) => ''
+  this.element_group = (element) => ''
+  this.story = (element) => ''
 
   this.endorsement = (element) =>
     element.endorsement && {
@@ -255,7 +262,7 @@ export function BuildContent() {
     const body = []
     const maxRows = numRows === 'all' ? 9999 : parseInt(numRows)
     contentElements.forEach((element) => {
-      if (body.length <= maxRows) {
+      if (body.length < maxRows) {
         switch (element.type) {
           case 'blockquote':
             item = this.blockquote(element)
@@ -264,11 +271,19 @@ export function BuildContent() {
             item = this.correction(element)
             break
           case 'code':
+            item = this.code(element)
+            break
           case 'custom_embed':
+            item = this.custom_embed(element)
+            break
           case 'divider':
+            item = this.divider(element)
+            break
           case 'element_group':
+            item = this.element_group(element)
+            break
           case 'story':
-            item = ''
+            item = this.story(element)
             break
           case 'endorsement':
             item = this.endorsement(element)
@@ -339,6 +354,6 @@ export function BuildContent() {
         item && body.push(item)
       }
     })
-    return body.length ? fragment(body).toString() : ''
+    return body.length ? decode(fragment(body).toString()) : ''
   }
 }

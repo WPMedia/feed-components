@@ -1,6 +1,10 @@
 # @wpmedia/feeds-source-collections-block
 
-## 0.2.0
+## 1.0.0
+
+### Major Changes
+
+- [`1722ea4`](https://github.com/WPMedia/feed-components/commit/1722ea45d12917f332184dc866218a7ba62059b5) [#394](https://github.com/WPMedia/feed-components/pull/394) Thanks [@tbrick855](https://github.com/tbrick855)! - OBF GA release, content_element bug fix
 
 ### Minor Changes
 
