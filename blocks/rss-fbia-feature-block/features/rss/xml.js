@@ -95,8 +95,8 @@ const rssTemplate = (
             '@isPermaLink': true,
           },
           ...(itemCredits &&
-            (author = jmespath.search(s, itemCredits)) &&
-            author && {
+            (author = jmespath.search(s, itemCredits) || []) &&
+            author.length && {
               'dc:creator': { $: author.join(', ') },
             }),
           description: { $: jmespath.search(s, itemDescription) || '' },
@@ -297,7 +297,11 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
         ],
       })
 
-      if (itemCredits && (author = jmespath.search(s, itemCredits)) && author)
+      if (
+        itemCredits &&
+        (author = jmespath.search(s, itemCredits) || []) &&
+        author.length
+      )
         header.push({
           address: {
             // a list of authors
@@ -530,7 +534,7 @@ FbiaRss.propTypes = {
       name: 'Auto Ad Placement',
       group: 'Facebook Options',
       description:
-        'Enables automatic placement of ads within this article. This parameter is optional and defaults to false if you do not specify',
+        'Enables automatic placement of ads within this article. Only enable this option if you configure an ad.',
       defaultValue: 'disable',
     }),
     adDensity: PropTypes.oneOf(['default', 'medium', 'low']).tag({
