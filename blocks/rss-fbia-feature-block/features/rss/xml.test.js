@@ -51,6 +51,7 @@ const articles = {
       last_updated_date: '2021-04-08T10:34:41.432Z',
       website_url: '/food/empty-recipe',
       headlines: { basic: "I'm out of ideas" },
+      credits: { by: [] },
     },
   ],
 }
