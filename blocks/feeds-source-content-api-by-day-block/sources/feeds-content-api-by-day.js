@@ -3,6 +3,9 @@ import { CONTENT_BASE, ARC_ACCESS_TOKEN } from 'fusion:environment'
 import getProperties from 'fusion:properties'
 import moment from 'moment'
 
+const contentURL = `${CONTENT_BASE}/content/v4/scan/`
+//const contentURL = `${CONTENT_BASE}/content/v4/search/published/`
+
 const options = {
   gzip: true,
   json: true,
@@ -21,7 +24,9 @@ const fetch = async (key = {}) => {
     website: key['arc-site'],
     size: key['Feed-Size'] || '100',
     from: key['Feed-Offset'] || '0',
-    _sourceExclude: key['Source-Exclude'] || 'related_content',
+    //sort: 'last_updated_date:desc',
+    _sourceExclude:
+      'address,additional_properties,content_elements,credits,geo,language,label,owner,planning,publishing,related_content,taxonomy,revision,source,subtype,version,workflow',
   }
 
   if (key['Source-Include']) paramList._sourceInclude = key['Source-Include']
@@ -65,6 +70,8 @@ const fetch = async (key = {}) => {
       { term: { type: 'story' } },
       { term: { 'revision.published': true } },
     ]
+  } else {
+    feedQuery.push({ term: { 'revision.published': true } })
   }
 
   body.query.bool.must = feedQuery
@@ -96,7 +103,9 @@ const fetch = async (key = {}) => {
   let rangeStart, rangeEnd
   if (dateRange === 'latest') {
     rangeEnd = 'now'
-    rangeStart = moment.utc().subtract(1, 'days').format('YYYY-MM-DD')
+    // TESTING TESTING TESTING
+    //rangeStart = moment.utc().subtract(1, 'days').format('YYYY-MM-DD')
+    rangeStart = '2000-01-01' // TODO - Be sure to remove this testing logic ***************************
   } else {
     try {
       const validDate = moment(dateRange, 'YYYY-MM-DD', true)
@@ -201,19 +210,37 @@ const fetch = async (key = {}) => {
   }
 
   paramList.body = encodeURI(JSON.stringify(body))
-  const paramString = Object.keys(paramList).reduce((acc, key) => {
-    return [...acc, `${key}=${paramList[key]}`]
-  }, [])
 
-  console.log(`${CONTENT_BASE}/content/v4/scan?${paramString.join('&')}`)
+  const genParams = (paramList) => {
+    return Object.keys(paramList).reduce((acc, key) => {
+      return [...acc, `${key}=${paramList[key]}`]
+    }, [])
+  }
 
-  const scanResp = await request({
-    uri: `${CONTENT_BASE}/content/v4/scan?${paramString.join('&')}`,
-    ...options,
-  })
+  const getResp = (contentURL, paramList, options) => {
+    const paramString = genParams(paramList)
+    //console.log(`${contentURL}?${paramString.join('&')}`)
+    return request({
+      uri: `${contentURL}?${paramString.join('&')}`,
+      ...options,
+    })
+  }
 
-  console.log(scanResp)
-  return scanResp
+  const startTime = new Date()
+  let allContentElements = []
+  while (true) {
+    const scanResp = await getResp(contentURL, paramList, options)
+
+    //console.log(scanResp)
+    allContentElements = allContentElements.concat(scanResp.content_elements)
+    console.log(allContentElements.length)
+    if (allContentElements.length >= scanResp.count) break
+    paramList.scrollId = scanResp.next
+    //paramList.from = scanResp.next
+  }
+  const endTime = new Date()
+  console.log(endTime - startTime)
+  return { type: 'resp', content_elements: allContentElements }
 }
 
 export default {
