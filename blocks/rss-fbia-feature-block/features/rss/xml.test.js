@@ -19,8 +19,12 @@ const articles = {
       },
       credits: {
         by: [
-          { name: 'John Smith', _id: 'john-smith' },
-          { name: 'Jane Doe', _id: 'jane-doe' },
+          {
+            name: 'John Smith',
+            _id: 'john-smith',
+            description: 'John is a journalist',
+          },
+          { name: 'Jane Doe', _id: 'jane-doe', description: '' },
         ],
       },
       headlines: { basic: 'Tips for Safe Hand washing' },

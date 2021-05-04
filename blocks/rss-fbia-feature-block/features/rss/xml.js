@@ -253,8 +253,9 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
       resizerHeight,
       itemCredits,
     ) => {
-      const authorDescription =
+      const authorDescription = (
         jmespath.search(s, 'credits.by[].description') || []
+      ).filter((i) => i)
       const lastUpdatedDate = jmespath.search(s, 'last_updated_date')
       const image =
         s.promo_items && (s.promo_items.basic || s.promo_items.lead_art)
