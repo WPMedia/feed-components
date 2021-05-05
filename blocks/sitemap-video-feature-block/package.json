@@ -7,7 +7,7 @@
     "features",
     "searchHelper.js"
   ],
-  "license": "UNLICENSED",
+  "license": "CC-BY-NC-ND-4.0",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/WPMedia/feed-components.git",
