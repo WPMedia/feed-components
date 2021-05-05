@@ -11,7 +11,6 @@ const sitemapIndexTemplate = ({
   section,
   domain,
   maxCount,
-  paramList,
   lastModDate,
   buildIndexes,
 }) => ({
@@ -22,13 +21,13 @@ const sitemapIndexTemplate = ({
       domain,
       feedPath,
       section,
-      paramList,
+      feedParam,
       lastModDate,
     ),
   },
 })
 
-export function SitemapIndex({
+export function SitemapByDay({
   globalContent,
   customFields,
   arcSite,
@@ -38,7 +37,6 @@ export function SitemapIndex({
   let { count: maxCount = 0 } = globalContent
   // ES7 caps results at 10k, using ?from=10000 will cause an error
   if (maxCount === 10000) maxCount--
-  const paramList = customFields.feedParam.split('&').filter((i) => i)
   const lastModDate = jmespath.search(
     globalContent,
     `content_elements[0]."${customFields.lastMod}"`,
@@ -53,18 +51,16 @@ export function SitemapIndex({
     feedDomainUrl,
     feedPath,
     section,
-    paramList,
+    feedParam,
     lastModDate,
   ) => {
     const arr = []
     if (maxCount) {
       for (let i = 0; i <= maxCount; i += 100) {
-        // only push from param if it's not zero
-        const newParamList = [...paramList, ...(i ? [`from=${i}`] : [])]
         arr.push({
-          loc: `${feedDomainURL}${feedPath}${section}?${newParamList.join(
-            '&',
-          )}`,
+          loc: `${feedDomainURL}${feedPath}${section}?from=${i}${
+            feedParam || ''
+          }`,
           ...(lastModDate && { lastmod: lastModDate }),
         })
       }
@@ -78,13 +74,12 @@ export function SitemapIndex({
     section,
     domain: feedDomainURL,
     maxCount,
-    paramList,
     lastModDate,
     buildIndexes,
   })
 }
 
-SitemapIndex.propTypes = {
+SitemapByDay.propTypes = {
   customFields: PropTypes.shape({
     lastMod: PropTypes.oneOf([
       'created_date',
@@ -110,7 +105,7 @@ SitemapIndex.propTypes = {
       label: 'Sitemap-Index Name ',
       group: 'Format',
       description: 'Name of the sitemap-index feed in the URL',
-      defaultValue: '/sitemap-index/',
+      defaultValue: '/sitemap-by-day/',
     }),
     feedParam: PropTypes.string.tag({
       label: 'Additional URL Parameters',
@@ -120,5 +115,5 @@ SitemapIndex.propTypes = {
     }),
   }),
 }
-SitemapIndex.label = 'Sitemap Index'
-export default Consumer(SitemapIndex)
+SitemapByDay.label = 'Sitemap By Day'
+export default Consumer(SitemapByDay)
