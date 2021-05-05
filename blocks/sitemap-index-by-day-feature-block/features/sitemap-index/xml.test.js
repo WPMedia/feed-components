@@ -2,6 +2,8 @@
 import Consumer from 'fusion:consumer'
 import { SitemapIndexByDay } from './xml'
 
+jest.useFakeTimers('modern').setSystemTime(new Date('2021-04-09').getTime())
+
 it('returns template with default values', () => {
   const sitemapindex = SitemapIndexByDay({
     arcSite: 'demo',

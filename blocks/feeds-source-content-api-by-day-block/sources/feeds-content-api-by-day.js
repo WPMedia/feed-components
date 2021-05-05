@@ -3,8 +3,7 @@ import { CONTENT_BASE, ARC_ACCESS_TOKEN } from 'fusion:environment'
 import getProperties from 'fusion:properties'
 import moment from 'moment'
 
-const contentURL = `${CONTENT_BASE}/content/v4/scan/`
-//const contentURL = `${CONTENT_BASE}/content/v4/search/published/`
+const contentURL = `${CONTENT_BASE}/content/v4/search/published/`
 
 const options = {
   gzip: true,
@@ -22,9 +21,9 @@ const validANSDates = [
 const fetch = async (key = {}) => {
   const paramList = {
     website: key['arc-site'],
-    size: key['Feed-Size'] || '100',
-    from: key['Feed-Offset'] || '0',
-    //sort: 'last_updated_date:desc',
+    size: key.size || '100',
+    from: key.offset || '0',
+    sort: key.sort || 'last_updated_date:desc',
     _sourceExclude:
       'address,additional_properties,content_elements,credits,geo,language,label,owner,planning,publishing,related_content,taxonomy,revision,source,subtype,version,workflow',
   }
@@ -103,9 +102,7 @@ const fetch = async (key = {}) => {
   let rangeStart, rangeEnd
   if (dateRange === 'latest') {
     rangeEnd = 'now'
-    // TESTING TESTING TESTING
-    //rangeStart = moment.utc().subtract(1, 'days').format('YYYY-MM-DD')
-    rangeStart = '2000-01-01' // TODO - Be sure to remove this testing logic ***************************
+    rangeStart = moment.utc().subtract(1, 'days').format('YYYY-MM-DD')
   } else {
     try {
       const validDate = moment(dateRange, 'YYYY-MM-DD', true)
@@ -219,7 +216,7 @@ const fetch = async (key = {}) => {
 
   const getResp = (contentURL, paramList, options) => {
     const paramString = genParams(paramList)
-    //console.log(`${contentURL}?${paramString.join('&')}`)
+    // console.log(`${contentURL}?${paramString.join('&')}`)
     return request({
       uri: `${contentURL}?${paramString.join('&')}`,
       ...options,
@@ -231,12 +228,11 @@ const fetch = async (key = {}) => {
   while (true) {
     const scanResp = await getResp(contentURL, paramList, options)
 
-    //console.log(scanResp)
+    // console.log(scanResp)
     allContentElements = allContentElements.concat(scanResp.content_elements)
     console.log(allContentElements.length)
     if (allContentElements.length >= scanResp.count) break
-    paramList.scrollId = scanResp.next
-    //paramList.from = scanResp.next
+    paramList.from = scanResp.next
   }
   const endTime = new Date()
   console.log(endTime - startTime)
@@ -293,13 +289,18 @@ export default {
       type: 'text',
     },
     {
-      name: 'Feed-Size',
+      name: 'size',
       displayName: 'Feed Size',
       type: 'text',
     },
     {
-      name: 'Feed-Offset',
+      name: 'offset',
       displayName: 'Feed Offset',
+      type: 'text',
+    },
+    {
+      name: 'sort',
+      displayName: 'Feed Sort',
       type: 'text',
     },
     {
