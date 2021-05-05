@@ -18,6 +18,18 @@ Object {
         "loc": "http://demo-prod.origin.arcpublishing.com/food/2020/04/07/tips-for-safe-hand-washing",
         "priority": "0.5",
       },
+      Object {
+        "changefreq": "always",
+        "lastmod": "2021-04-07T17:02:08.918Z",
+        "loc": "http://demo-prod.origin.arcpublishing.com/food/2021/04/07/will-we-ever-stop-hand-washing",
+        "priority": "0.5",
+      },
+      Object {
+        "changefreq": "always",
+        "lastmod": "2021-04-03T13:02:08.918Z",
+        "loc": "http://demo-prod.origin.arcpublishing.com/food/2021/04/03/best-sourdough-recipes",
+        "priority": "0.5",
+      },
     ],
   },
 }

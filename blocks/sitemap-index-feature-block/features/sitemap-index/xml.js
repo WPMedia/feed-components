@@ -34,7 +34,9 @@ export function SitemapIndex({
   requestUri,
 }) {
   const { feedDomainURL = '' } = getProperties(arcSite)
-  const { count: maxCount = 0 } = globalContent
+  let { count: maxCount = 0 } = globalContent
+  // ES7 caps results at 10k, using ?from=10000 will cause an error
+  if (maxCount === 10000) maxCount--
   const lastModDate = jmespath.search(
     globalContent,
     `content_elements[0]."${customFields.lastMod}"`,

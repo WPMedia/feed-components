@@ -32,16 +32,8 @@ const globalContent = {
         tags: [],
         primary_section: {
           _id: '/video',
-          _website: 'demo',
-          type: 'section',
-          version: '0.6.0',
           name: 'Video',
           description: 'Latest videos from around the site.',
-          path: '/video',
-          parent_id: '/',
-          parent: {
-            default: '/',
-          },
         },
 
         seo_keywords: ['sample', 'demo'],
@@ -57,35 +49,6 @@ const globalContent = {
           width: 1440,
           height: 1080,
         },
-      },
-      related_content: {
-        redirect: [],
-        basic: [],
-      },
-      owner: {
-        sponsored: false,
-        id: 'demo',
-      },
-      planning: {
-        scheduling: {},
-      },
-      revision: {
-        published: true,
-        branch: 'default',
-      },
-      syndication: {
-        search: true,
-      },
-      source: {
-        system: 'video center',
-        edit_url:
-          'https://demo.arcpublishing.com/goldfish/video/5e98b4a44cedfd00019ccd14',
-      },
-      distributor: {
-        category: 'staff',
-      },
-      tracking: {
-        in_url_headline: '16',
       },
       duration: 789060,
       video_type: 'clip',
@@ -136,6 +99,63 @@ const globalContent = {
       website_url:
         '/video/2020/04/16/inexact-odyssey-a-volcom-snowboarding-film/',
     },
+    {
+      type: 'video',
+      version: '0.8.0',
+      canonical_url: '/video/2021/04/16/kittend/',
+      last_updated_date: '2021-04-16T19:55:14Z',
+      display_date: '2021-04-16T19:55:25Z',
+      headlines: {
+        basic: 'Inexact Odyssey, A Volcom Snowboarding Film',
+        title: 'Ababe beso bela',
+      },
+      subheadlines: {
+        basic: 'Video subheadline',
+      },
+      description: {
+        basic: 'Video Description',
+      },
+      credits: {},
+      taxonomy: {
+        tags: [],
+        primary_section: {
+          _id: '/video',
+          name: 'Video',
+          description: 'Latest videos from around the site.',
+        },
+
+        seo_keywords: ['sample', 'demo'],
+      },
+      promo_items: {
+        mobile: {
+          type: 'image',
+          version: '0.5.8',
+          credits: {},
+          caption: 'Inexact Odyssey',
+          url:
+            'https://dv8csq7v0ltdn.cloudfront.net/04-16-2020/t_95d8de29ea3b41caac132f0462c5c71a_name_file_1920x1080_5400_v4_.jpg',
+          width: 1440,
+          height: 1080,
+        },
+      },
+      duration: 789060,
+      video_type: 'clip',
+      streams: [
+        {
+          height: 1080,
+          width: 1440,
+          filesize: 545772131,
+          stream_type: 'mp4',
+          url:
+            'https://d1tf6ure8fkb0l.cloudfront.net/wp-demo/2020/04/16/5e98b4a44cedfd00019ccd14/t_45faafc2013a4185b449ceb539e3df71_name_Inexact_Odyssey__A_Volcom_Snowboarding_Film/file_1920x1080-5400-v4.mp4',
+          bitrate: 5400,
+          provider: 'mediaconvert',
+        },
+      ],
+      website: 'demo',
+      website_url:
+        '/video/2020/04/16/inexact-odyssey-a-volcom-snowboarding-film/',
+    },
   ],
 }
 
@@ -171,7 +191,7 @@ it('returns template with subheadlines.basic values', () => {
     arcSite: 'the-globe',
     globalContent: globalContent,
     customFields: {
-      lastMod: 'last_updated_date',
+      lastMod: 'display_date',
       videoTitle: '',
       sitemapVideoSelect: { foo: 'bar' },
       videoDescription: '',

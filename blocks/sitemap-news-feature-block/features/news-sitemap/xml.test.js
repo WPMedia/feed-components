@@ -31,6 +31,29 @@ it('returns template with default values', () => {
             ],
           },
         },
+        {
+          last_updated_date: '2021-11-15T12:18:25.674Z',
+          canonical_url: '/food/2021/04/07/best-sourdough-recipes',
+          promo_items: {
+            mobile: {
+              title: 'No kneeding around',
+              url:
+                'https://arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png',
+            },
+          },
+          headlines: {
+            basic: 'Best Sourdough as tested by our staff',
+            meta_title: 'Best Sourdough you have ever made',
+          },
+          language: 'en',
+          taxonomy: {
+            tags: [
+              {
+                text: 'food videos',
+              },
+            ],
+          },
+        },
       ],
     },
     customFields: {
