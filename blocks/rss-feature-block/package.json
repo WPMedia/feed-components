@@ -1,6 +1,6 @@
 {
   "name": "@wpmedia/rss-feature-block",
-  "version": "1.0.1",
+  "version": "1.2.0",
   "description": "Fusion components for building rss",
   "main": "index.js",
   "files": [
