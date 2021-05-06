@@ -79,9 +79,7 @@ const rssTemplate = (
                 } || '',
             },
           },
-          pubDate: moment
-            .utc(s[pubDate])
-            .format('ddd, DD MMM YYYY HH:mm:ss ZZ'),
+          pubDate: moment.utc(s[pubDate]),
           ...(itemCategory &&
             (category = jmespath.search(s, itemCategory)) &&
             category && { category: category }),
@@ -94,7 +92,12 @@ const rssTemplate = (
               resizerURL,
               resizerWidth,
               resizerHeight,
-            ))),
+            )) &&
+            body && {
+              'content:encoded': {
+                $: body,
+              },
+            }),
           ...(includePromo &&
             img &&
             img.url && {

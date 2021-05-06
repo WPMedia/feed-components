@@ -1,4 +1,4 @@
-# RSS
+# RSS Alexa
 
 ## Globals
 
@@ -14,13 +14,10 @@ channelDescription: defaults to global website name + "News Feed"
 channelPath: defaults to /arc/outboundfeeds/rss/
 channelCopyright: defaults to Copyright YYYY global website name
 channelTTL: number of mins, defaults to 1
-channelUpdatePeriod: update period hours, days, weeks, months, years. Defaults to hours
-channelUpdateFrequency: Number, defaults to 1
 channelCategory: optional
 channelLogo: Should be a url to their logo, optional
 
 itemTitle: jmespath for title mapping headlines.basic
-itemDescription: jmespath for description mapping description.basic
 pubDate: date field defaults to display_date
 itemCategory: jmespath for category mapping headlines.basic
 includeContent: number of paragraphs to include 0-10, all
