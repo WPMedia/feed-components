@@ -1,127 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`returns RSS template with custom values 1`] = `
-Object {
-  "rss": Object {
-    "@version": "2.0",
-    "@xmlns:atom": "http://www.w3.org/2005/Atom",
-    "@xmlns:content": "http://purl.org/rss/1.0/modules/content/",
-    "@xmlns:dc": "http://purl.org/dc/elements/1.1/",
-    "@xmlns:media": "http://search.yahoo.com/mrss/",
-    "@xmlns:sy": "http://purl.org/rss/1.0/modules/syndication/",
-    "channel": Object {
-      "atom:link": Object {
-        "@href": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/rss/",
-        "@rel": "self",
-        "@type": "application/rss+xml",
-      },
-      "category": "news",
-      "copyright": "2020 The Washington Post LLC",
-      "description": Object {
-        "$": "All the news that's fit to print",
-      },
-      "image": Object {
-        "link": "http://demo-prod.origin.arcpublishing.com",
-        "title": "The Daily Prophet",
-        "url": "hi/abcdefghijklmnopqrstuvwxyz=/arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png",
-      },
-      "item": Array [
-        Object {
-          "category": "coronvirus",
-          "content:encoded": Object {
-            "$": "<p>try singing the happy birthday song</p><p>be sure to wash your thumbs</p>",
-          },
-          "dc:creator": Object {
-            "$": "john-smith, jane-doe",
-          },
-          "description": Object {
-            "$": "This is from the subheadlines",
-          },
-          "guid": Object {
-            "#": "http://demo-prod.origin.arcpublishing.com/food/2020/04/07/tips-for-safe-hand-washing",
-            "@isPermaLink": true,
-          },
-          "link": "http://demo-prod.origin.arcpublishing.com/food/2020/04/07/tips-for-safe-hand-washing",
-          "media:content": Object {
-            "@type": "image/jpeg",
-            "@url": "hi/abcdefghijklmnopqrstuvwxyz=/arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png",
-            "media:credit": Object {
-              "#": "Harold Hands",
-              "@role": "author",
-              "@scheme": "urn:ebu",
-            },
-            "media:description": Object {
-              "$": "Hand washing can be fun if you make it a song",
-              "@type": "plain",
-            },
-            "media:title": Object {
-              "$": "Hand Washing",
-            },
-          },
-          "pubDate": "Tue, 07 Apr 2020 15:02:08 +0000",
-          "title": Object {
-            "$": "Tips for Safe Hand washing",
-          },
-        },
-        Object {
-          "description": Object {
-            "$": "",
-          },
-          "guid": Object {
-            "#": "http://demo-prod.origin.arcpublishing.com",
-            "@isPermaLink": true,
-          },
-          "link": "http://demo-prod.origin.arcpublishing.com",
-          "pubDate": "Tue, 07 Apr 2020 15:02:08 +0000",
-          "title": Object {
-            "$": "",
-          },
-        },
-      ],
-      "language": "en",
-      "lastBuildDate": StringMatching /\\\\w\\+, \\\\d\\+ \\\\w\\+ \\\\d\\{4\\} \\\\d\\{2\\}:\\\\d\\{2\\}:\\\\d\\{2\\} \\\\\\+0000/,
-      "link": "http://demo-prod.origin.arcpublishing.com",
-      "sy:updateFrequency": "1",
-      "sy:updatePeriod": "weekly",
-      "title": Object {
-        "$": "The Daily Prophet",
-      },
-      "ttl": "60",
-    },
-  },
-}
-`;
-
 exports[`returns RSS template with default values 1`] = `
 Object {
   "rss": Object {
     "@version": "2.0",
-    "@xmlns:atom": "http://www.w3.org/2005/Atom",
-    "@xmlns:content": "http://purl.org/rss/1.0/modules/content/",
-    "@xmlns:dc": "http://purl.org/dc/elements/1.1/",
-    "@xmlns:media": "http://search.yahoo.com/mrss/",
-    "@xmlns:sy": "http://purl.org/rss/1.0/modules/syndication/",
     "channel": Object {
-      "atom:link": Object {
-        "@href": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/rss/",
-        "@rel": "self",
-        "@type": "application/rss+xml",
-      },
       "description": Object {
         "$": "google news News Feed",
       },
       "item": Array [
         Object {
-          "dc:creator": Object {
-            "$": "John Smith, Jane Doe",
-          },
           "description": Object {
-            "$": "Tips to keep you wash for 20 seconds",
+            "body": Object {
+              "content:encoded": Object {
+                "$": undefined,
+              },
+            },
           },
-          "guid": Object {
-            "#": "http://demo-prod.origin.arcpublishing.com/food/2020/04/07/tips-for-safe-hand-washing",
-            "@isPermaLink": true,
-          },
+          "guid": undefined,
           "link": "http://demo-prod.origin.arcpublishing.com/food/2020/04/07/tips-for-safe-hand-washing",
           "media:content": Object {
             "@type": "image/jpeg",
@@ -139,21 +35,22 @@ Object {
               "$": "Hand Washing",
             },
           },
-          "pubDate": "Tue, 07 Apr 2020 15:02:08 +0000",
+          "pubDate": "2020-04-07T15:02:08.918Z",
           "title": Object {
             "$": "Tips for Safe Hand washing",
           },
         },
         Object {
           "description": Object {
-            "$": "",
+            "body": Object {
+              "content:encoded": Object {
+                "$": undefined,
+              },
+            },
           },
-          "guid": Object {
-            "#": "http://demo-prod.origin.arcpublishing.com",
-            "@isPermaLink": true,
-          },
+          "guid": "ABCD",
           "link": "http://demo-prod.origin.arcpublishing.com",
-          "pubDate": "Tue, 07 Apr 2020 15:02:08 +0000",
+          "pubDate": "2020-04-07T15:02:08.918Z",
           "title": Object {
             "$": "",
           },
@@ -162,8 +59,6 @@ Object {
       "language": "en",
       "lastBuildDate": StringMatching /\\\\w\\+, \\\\d\\+ \\\\w\\+ \\\\d\\{4\\} \\\\d\\{2\\}:\\\\d\\{2\\}:\\\\d\\{2\\} \\\\\\+0000/,
       "link": "http://demo-prod.origin.arcpublishing.com",
-      "sy:updateFrequency": "1",
-      "sy:updatePeriod": "hourly",
       "title": Object {
         "$": "google news",
       },

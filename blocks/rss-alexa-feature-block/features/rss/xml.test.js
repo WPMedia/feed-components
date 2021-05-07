@@ -54,12 +54,9 @@ it('returns RSS template with default values', () => {
       channelPath: '/arc/outboundfeeds/rss/',
       channelCopyright: '',
       channelTTL: '1',
-      channelUpdatePeriod: 'hourly',
-      channelUpdateFrequency: '1',
       channelCategory: '',
       channelLogo: '',
       itemTitle: 'headlines.basic',
-      itemDescription: 'description.basic',
       pubDate: 'display_date',
       itemCredits: 'credits.by[].name',
       itemCategory: '',
@@ -95,13 +92,10 @@ it('returns RSS template with custom values', () => {
       channelPath: '/arc/outboundfeeds/rss/',
       channelCopyright: '2020 The Washington Post LLC',
       channelTTL: '60',
-      channelUpdatePeriod: 'weekly',
-      channelUpdateFrequency: '1',
       channelCategory: 'news',
       channelLogo:
         'https://arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png',
       itemTitle: 'headlines.seo || headlines.basic',
-      itemDescription: 'subheadlines.basic || description.basic',
       pubDate: 'display_date',
       itemCredits: 'credits.by[]._id',
       itemCategory: 'taxonomy.primary_section.name',
@@ -117,6 +111,11 @@ it('returns RSS template with custom values', () => {
   expect(rss).toMatchSnapshot({
     rss: {
       channel: {
+        lastBuildDate: expect.stringMatching(
+          /\w+, \d+ \w+ \d{4} \d{2}:\d{2}:\d{2} \+0000/,
+        ),
+      },
+      audio: {
         lastBuildDate: expect.stringMatching(
           /\w+, \d+ \w+ \d{4} \d{2}:\d{2}:\d{2} \+0000/,
         ),

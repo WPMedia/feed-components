@@ -71,15 +71,7 @@ const rssTemplate = (
           title: { $: jmespath.search(s, itemTitle) || '' },
           link: url,
           guid: s._id,
-          description: {
-            body: {
-              'content:encoded':
-                {
-                  $: body,
-                } || '',
-            },
-          },
-          pubDate: moment.utc(s[pubDate]),
+          pubDate: s[pubDate],
           ...(itemCategory &&
             (category = jmespath.search(s, itemCategory)) &&
             category && { category: category }),
@@ -94,7 +86,7 @@ const rssTemplate = (
               resizerHeight,
             )) &&
             body && {
-              'content:encoded': {
+              description: {
                 $: body,
               },
             }),
