@@ -1,6 +1,6 @@
 {
   "name": "@wpmedia/sitemap-index-by-day-feature-block",
-  "version": "0.0.0",
+  "version": "1.2.0",
   "description": "Fusion feature for building sitemap-index by day",
   "main": "index.js",
   "files": [

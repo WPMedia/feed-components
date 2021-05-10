@@ -1,12 +1,12 @@
 {
   "name": "@wpmedia/sitemap-section-index-feature-block",
-  "version": "1.0.1",
+  "version": "1.2.0",
   "description": "sitemaps section index using Site Service",
   "main": "index.js",
   "files": [
     "features"
   ],
-  "license": "UNLICENSED",
+  "license": "CC-BY-NC-ND-4.0",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/WPMedia/feed-components.git",
