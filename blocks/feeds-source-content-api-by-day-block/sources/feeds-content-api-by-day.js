@@ -223,21 +223,17 @@ const fetch = async (key = {}) => {
 
   const getResp = (contentURL, paramList, options) => {
     const paramString = genParams(paramList)
-    // console.log(`${contentURL}?${paramString.join('&')}`)
     return request({
       uri: `${contentURL}?${paramString.join('&')}`,
       ...options,
     })
   }
 
-  const startTime = new Date()
   let allContentElements = []
   while (true) {
     const scanResp = await getResp(contentURL, paramList, options)
 
-    // console.log(scanResp)
     allContentElements = allContentElements.concat(scanResp.content_elements)
-    console.log(allContentElements.length)
     if (
       allContentElements.length >= scanResp.count ||
       (rangeFrom && allContentElements.length >= 1000)
@@ -246,8 +242,6 @@ const fetch = async (key = {}) => {
     if (!scanResp.next) break
     paramList.from = scanResp.next
   }
-  const endTime = new Date()
-  console.log(endTime - startTime)
   return { type: 'resp', content_elements: allContentElements }
 }
 

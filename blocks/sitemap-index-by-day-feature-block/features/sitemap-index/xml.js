@@ -58,13 +58,15 @@ export function SitemapIndexByDay({
   ) => {
     const arr = []
     const now = moment.utc(new Date())
+    const splitAllDates =
+      feedDates2Split.all || feedDates2Split.All || feedDates2Split.ALL
     const feedPathKeys = Object.keys(feedPath).map((i) => parseInt(i))
     let pathValue = '/arc/outboundfeeds/sitemap/'
     for (let i = 0; i < maxDays; i++) {
       const pathIndex = feedPathKeys.indexOf(i)
       if (pathIndex !== -1) pathValue = feedPath[i]
       const formattedDate = i === 0 ? 'latest' : now.format('YYYY-MM-DD')
-      const numSplits = feedDates2Split[formattedDate]
+      const numSplits = feedDates2Split[formattedDate] || splitAllDates
       if (numSplits) {
         for (let splits = 1; splits <= numSplits; splits++) {
           arr.push({
@@ -132,7 +134,7 @@ SitemapIndexByDay.propTypes = {
       label: 'Dates with large results',
       group: 'Format',
       description:
-        'Dates that have more than 1000 results might time out. You can enter a date in YYYY-MM-DD format and the number of links of 1000 records to generate',
+        'Dates that have more than 1000 results might time out. You can enter a date in YYYY-MM-DD format and the number of links of 1000 records to generate. Use All to do this on every day.',
       defaultValue: {},
     }),
   }),
