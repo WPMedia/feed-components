@@ -1,7 +1,7 @@
-# Content-API By Day content source
+# Content-API By Day3 content source
 
 Creates an ElasticSearch DSL syntax to query Content-API limited to a single day. This is
-for sitemap/YYYY-MM-DD formats.
+for sitemap/YYYY-MM-DD formats with a 24 hour TTL.
 
 ## Globals
 

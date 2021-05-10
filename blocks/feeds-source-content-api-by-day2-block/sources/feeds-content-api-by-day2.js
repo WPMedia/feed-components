@@ -316,5 +316,5 @@ export default {
       type: 'text',
     },
   ],
-  ttl: 300,
+  ttl: 3600,
 }

@@ -8,12 +8,13 @@ it('returns template with default values', () => {
   const sitemapindex = SitemapIndexByDay({
     arcSite: 'demo',
     customFields: {
-      feedPath: '/arc/outboundfeeds/sitemap-by-day/',
-      feedName: '/sitemap-index-by-day/',
+      feedPath: {},
+      feedName: '/sitemap-index/',
       feedParam: 'outputType=xml',
-      numberOfDays: '7',
+      numberOfDays: '2',
+      feedDates2Split: {},
     },
-    requestUri: '/sitemap-index-by-day/?outputType=xml',
+    requestUri: '/sitemap-index/?outputType=xml',
   })
   expect(sitemapindex).toMatchSnapshot()
 })
@@ -22,12 +23,17 @@ it('returns template with set end date', () => {
   const sitemapindex = SitemapIndexByDay({
     arcSite: 'demo',
     customFields: {
-      feedPath: '/arc/outboundfeeds/sitemap-by-day/',
-      feedName: '/sitemap-index-by-day/',
+      feedPath: {
+        0: '/arc/outboundfeeds/sitemap/',
+        2: '/arc/outboundfeeds/sitemap2/',
+        7: '/arc/outboundfeeds/sitemap3/',
+      },
+      feedName: '/sitemap-index/',
       feedParam: 'outputType=xml',
       numberOfDays: '2021-04-01',
+      feedDates2Split: { '2021-04-06': '4' },
     },
-    requestUri: '/sitemap-index-by-day/?outputType=xml',
+    requestUri: '/sitemap-index/?outputType=xml',
   })
   expect(sitemapindex).toMatchSnapshot()
 })

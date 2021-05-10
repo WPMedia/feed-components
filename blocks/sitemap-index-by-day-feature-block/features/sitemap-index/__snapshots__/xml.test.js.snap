@@ -6,25 +6,10 @@ Object {
     "@xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9",
     "sitemap": Array [
       Object {
-        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap-by-day/latest?outputType=xml",
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/latest?outputType=xml",
       },
       Object {
-        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap-by-day/2021-04-08?outputType=xml",
-      },
-      Object {
-        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap-by-day/2021-04-07?outputType=xml",
-      },
-      Object {
-        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap-by-day/2021-04-06?outputType=xml",
-      },
-      Object {
-        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap-by-day/2021-04-05?outputType=xml",
-      },
-      Object {
-        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap-by-day/2021-04-04?outputType=xml",
-      },
-      Object {
-        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap-by-day/2021-04-03?outputType=xml",
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/2021-04-08?outputType=xml",
       },
     ],
   },
@@ -37,28 +22,37 @@ Object {
     "@xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9",
     "sitemap": Array [
       Object {
-        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap-by-day/latest?outputType=xml",
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/latest?outputType=xml",
       },
       Object {
-        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap-by-day/2021-04-08?outputType=xml",
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/2021-04-08?outputType=xml",
       },
       Object {
-        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap-by-day/2021-04-07?outputType=xml",
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap2/2021-04-07?outputType=xml",
       },
       Object {
-        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap-by-day/2021-04-06?outputType=xml",
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap2/2021-04-06-1?outputType=xml",
       },
       Object {
-        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap-by-day/2021-04-05?outputType=xml",
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap2/2021-04-06-2?outputType=xml",
       },
       Object {
-        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap-by-day/2021-04-04?outputType=xml",
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap2/2021-04-06-3?outputType=xml",
       },
       Object {
-        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap-by-day/2021-04-03?outputType=xml",
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap2/2021-04-06-4?outputType=xml",
       },
       Object {
-        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap-by-day/2021-04-02?outputType=xml",
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap2/2021-04-05?outputType=xml",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap2/2021-04-04?outputType=xml",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap2/2021-04-03?outputType=xml",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap3/2021-04-02?outputType=xml",
       },
     ],
   },
