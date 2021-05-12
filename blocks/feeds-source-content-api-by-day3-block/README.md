@@ -11,7 +11,7 @@ for sitemap/YYYY-MM-DD formats with a 24 hour TTL.
 ## Parameters
 
 - dateField: ANS date field to use in range statement
-- dateRange: date to use in YYYY-MM-DD format or 'latest' for today. latest is use instead of generating todays date because of the chance that the process making the request (fusion) is in a different tz then the ES cluster.
+- dateRange: date to use in YYYY-MM-DD format or 'latest' for today. latest is used instead of generating today's date because of the chance that the process making the request (fusion) is in a different tz then the ES cluster.
 - Section: Maps to taxonomy.sections.\_id. It needs to start with a slash “/news”
 - Author: Maps to credits.by.\_id
 - Keywords: Maps to taxonomy.seo_keywords. It can be a comma separated list of values

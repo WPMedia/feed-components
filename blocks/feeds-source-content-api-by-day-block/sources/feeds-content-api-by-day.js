@@ -88,7 +88,7 @@ const fetch = async (key = {}) => {
     err.statusCode = 500
     throw err
   }
-  if (validANSDates.indexOf(dateField) < 0) {
+  if (validANSDates.indexOf(dateField) === -1) {
     const err = new Error('Invalid Date field')
     err.statusCode = 500
     throw err
