@@ -103,7 +103,7 @@ const fetch = async (key = {}) => {
       paramList.from = (rangeFrom - 1) * 1000
     }
     rangeEnd = 'now'
-    rangeStart = moment.utc().subtract(1, 'days').format('YYYY-MM-DD')
+    rangeStart = moment.utc().format('YYYY-MM-DD')
   } else {
     const matcher = dateRange.match(/\d{4}-\d{2}-\d{2}-(\d*)/)
     if (matcher) {
