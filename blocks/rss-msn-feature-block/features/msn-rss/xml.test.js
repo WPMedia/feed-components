@@ -10,8 +10,7 @@ const articles = {
       promo_items: {
         basic: {
           title: 'Hand Washing',
-          url:
-            'https://arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png',
+          url: 'https://arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png',
           caption: 'Hand washing can be fun if you make it a song',
           credits: { by: [{ name: 'Harold Hands' }] },
         },
@@ -30,8 +29,7 @@ const articles = {
         { type: 'text', content: 'be sure to wash your thumbs' },
         {
           type: 'image',
-          url:
-            'https://arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/QHOCF6YFIZCUFIXBVEAXENGFFM.jpg',
+          url: 'https://arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/QHOCF6YFIZCUFIXBVEAXENGFFM.jpg',
           title: 'Test Title',
           caption: 'test caption',
           credits: { by: [{ name: 'John Smith' }] },

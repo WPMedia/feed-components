@@ -46,7 +46,7 @@ const rssTemplate = (
       link: `${domain}`,
       description: channelDescription || `${feedTitle} News Feed`,
       lastBuildDate: moment
-        .utc(new Date()) 
+        .utc(new Date())
         .format('ddd, DD MMM YYYY HH:mm:ss ZZ'),
       ...(feedLanguage && { language: feedLanguage }),
       ...(channelCategory && { category: channelCategory }),
@@ -63,7 +63,6 @@ const rssTemplate = (
       }),
 
       item: elements.map((s) => {
-       
         let body, category
         const url = `${domain}${s.website_url || s.canonical_url || ''}`
         return {
@@ -75,15 +74,19 @@ const rssTemplate = (
             (category = jmespath.search(s, itemCategory)) &&
             category && { category: category }),
           ...(includeContent !== 0 &&
-            (body = cheerio.load(rssBuildContent.parse(
-              s.content_elements || [],
-              includeContent,
-              domain,
-              resizerKey,
-              resizerURL,
-              resizerWidth,
-              resizerHeight,
-            )).text('bodyContent')  ) &&
+            (body = cheerio
+              .load(
+                rssBuildContent.parse(
+                  s.content_elements || [],
+                  includeContent,
+                  domain,
+                  resizerKey,
+                  resizerURL,
+                  resizerWidth,
+                  resizerHeight,
+                ),
+              )
+              .text('bodyContent')) &&
             body && {
               description: body,
             }),
@@ -99,7 +102,7 @@ export function Rss({ globalContent, customFields, arcSite }) {
     feedDomainURL = '',
     feedTitle = '',
     feedLanguage = '',
-  } = getProperties(arcSite);
+  } = getProperties(arcSite)
 
   const { width = 0, height = 0 } = customFields.resizerKVP || {}
 
