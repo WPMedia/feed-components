@@ -8,9 +8,9 @@ import { BuildContent } from '@wpmedia/feeds-content-elements'
 import { generatePropsForFeed } from '@wpmedia/feeds-prop-types'
 import { buildResizerURL } from '@wpmedia/feeds-resizer'
 
-// const jsdom = require('jsdom')
-
 const jmespath = require('jmespath')
+
+const cheerio = require('cheerio')
 
 const rssTemplate = (
   elements,
@@ -42,11 +42,11 @@ const rssTemplate = (
   rss: {
     '@version': '2.0',
     channel: {
-      title: { $: channelTitle || feedTitle },
+      title: channelTitle || feedTitle,
       link: `${domain}`,
-      description: { $: channelDescription || `${feedTitle} News Feed` },
+      description: channelDescription || `${feedTitle} News Feed`,
       lastBuildDate: moment
-        .utc(new Date())
+        .utc(new Date()) 
         .format('ddd, DD MMM YYYY HH:mm:ss ZZ'),
       ...(feedLanguage && { language: feedLanguage }),
       ...(channelCategory && { category: channelCategory }),
@@ -63,12 +63,11 @@ const rssTemplate = (
       }),
 
       item: elements.map((s) => {
+       
         let body, category
         const url = `${domain}${s.website_url || s.canonical_url || ''}`
-        const img =
-          s.promo_items && (s.promo_items.basic || s.promo_items.lead_art)
         return {
-          title: { $: jmespath.search(s, itemTitle) || '' },
+          title: jmespath.search(s, itemTitle) || '',
           link: url,
           guid: s._id,
           pubDate: s[pubDate],
@@ -76,7 +75,7 @@ const rssTemplate = (
             (category = jmespath.search(s, itemCategory)) &&
             category && { category: category }),
           ...(includeContent !== 0 &&
-            (body = rssBuildContent.parse(
+            (body = cheerio.load(rssBuildContent.parse(
               s.content_elements || [],
               includeContent,
               domain,
@@ -84,43 +83,9 @@ const rssTemplate = (
               resizerURL,
               resizerWidth,
               resizerHeight,
-            )) &&
+            )).text('bodyContent')  ) &&
             body && {
-              description: {
-                $: body,
-              },
-            }),
-          ...(includePromo &&
-            img &&
-            img.url && {
-              'media:content': {
-                '@type': 'image/jpeg',
-                '@url': buildResizerURL(
-                  img.url,
-                  resizerKey,
-                  resizerURL,
-                  resizerWidth,
-                  resizerHeight,
-                ),
-                ...(jmespath.search(img, imageCaption) && {
-                  'media:description': {
-                    '@type': 'plain',
-                    $: jmespath.search(img, imageCaption),
-                  },
-                }),
-                ...(jmespath.search(img, imageTitle) && {
-                  'media:title': {
-                    $: jmespath.search(img, imageTitle),
-                  },
-                }),
-                ...((jmespath.search(img, imageCredits) || []).length && {
-                  'media:credit': {
-                    '@role': 'author',
-                    '@scheme': 'urn:ebu',
-                    '#': jmespath.search(img, imageCredits).join(','),
-                  },
-                }),
-              },
+              description: body,
             }),
         }
       }),
@@ -134,7 +99,8 @@ export function Rss({ globalContent, customFields, arcSite }) {
     feedDomainURL = '',
     feedTitle = '',
     feedLanguage = '',
-  } = getProperties(arcSite)
+  } = getProperties(arcSite);
+
   const { width = 0, height = 0 } = customFields.resizerKVP || {}
 
   const rssBuildContent = new BuildContent()
@@ -158,14 +124,13 @@ Rss.propTypes = {
       label: 'Path',
       group: 'Channel',
       description:
-        'Path to the feed, excluding the domain, defaults to /arc/outboundfeeds/rss',
-      defaultValue: '/arc/outboundfeeds/rss/',
+        'Path to the feed, excluding the domain, defaults to /arc/outboundfeeds/alexa',
+      defaultValue: '/arc/outboundfeeds/alexa/',
     }),
     audioAvailable: PropTypes.kvp.tag({
       label: 'Audio',
       group: 'Audio',
-      description:
-        'Meet Echosim. A new online community tool for developers that simulates the look and feel of an Amazon Echo',
+      description: 'description',
       defaultValue: {
         bitrate: 5400,
         stream_type: 'mp3',
