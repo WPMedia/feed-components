@@ -17,18 +17,13 @@ const rssTemplate = (
   {
     channelTitle,
     channelDescription,
-    channelPath,
     channelCopyright,
     channelTTL,
     channelCategory,
     channelLogo,
-    imageTitle,
-    imageCaption,
-    imageCredits,
     itemTitle,
     pubDate,
     itemCategory,
-    includePromo,
     includeContent,
     resizerURL,
     resizerWidth,
@@ -42,9 +37,9 @@ const rssTemplate = (
   rss: {
     '@version': '2.0',
     channel: {
-      title: channelTitle || feedTitle,
+      ...(channelTitle && {title: channelTitle} || feedTitle),
       link: `${domain}`,
-      description: channelDescription || `${feedTitle} News Feed`,
+      ...(channelDescription && {description: channelDescription} || `${feedTitle} News Feed`),
       lastBuildDate: moment
         .utc(new Date())
         .format('ddd, DD MMM YYYY HH:mm:ss ZZ'),
@@ -84,7 +79,7 @@ const rssTemplate = (
                   resizerURL,
                   resizerWidth,
                   resizerHeight,
-                ),
+                ) || '',
               )
               .text('bodyContent')) &&
             body && {
@@ -123,21 +118,11 @@ export function Rss({ globalContent, customFields, arcSite }) {
 
 Rss.propTypes = {
   customFields: PropTypes.shape({
-    channelPath: PropTypes.string.tag({
-      label: 'Path',
-      group: 'Channel',
-      description:
-        'Path to the feed, excluding the domain, defaults to /arc/outboundfeeds/alexa',
-      defaultValue: '/arc/outboundfeeds/alexa/',
-    }),
     audioAvailable: PropTypes.kvp.tag({
       label: 'Audio',
       group: 'Audio',
       description: 'description',
-      defaultValue: {
-        bitrate: 5400,
-        stream_type: 'mp3',
-      },
+      defaultValue: 'content_elements?[type==audio].streams[0].url'
     }),
     ...generatePropsForFeed('rss', PropTypes),
   }),
