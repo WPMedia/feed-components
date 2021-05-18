@@ -11,6 +11,7 @@ const sitemapIndexTemplate = ({
   section,
   domain,
   maxCount,
+  paramList,
   lastModDate,
   buildIndexes,
 }) => ({
@@ -21,7 +22,7 @@ const sitemapIndexTemplate = ({
       domain,
       feedPath,
       section,
-      feedParam,
+      paramList,
       lastModDate,
     ),
   },
@@ -37,6 +38,7 @@ export function SitemapIndex({
   let { count: maxCount = 0 } = globalContent
   // ES7 caps results at 10k, using ?from=10000 will cause an error
   if (maxCount === 10000) maxCount--
+  const paramList = customFields.feedParam.split('&').filter((i) => i)
   const lastModDate = jmespath.search(
     globalContent,
     `content_elements[0]."${customFields.lastMod}"`,
@@ -51,16 +53,18 @@ export function SitemapIndex({
     feedDomainUrl,
     feedPath,
     section,
-    feedParam,
+    paramList,
     lastModDate,
   ) => {
     const arr = []
     if (maxCount) {
       for (let i = 0; i <= maxCount; i += 100) {
+        // only push from param if it's not zero
+        const newParamList = [...paramList, ...(i ? [`from=${i}`] : [])]
         arr.push({
-          loc: `${feedDomainURL}${feedPath}${section}?from=${i}${
-            feedParam || ''
-          }`,
+          loc: `${feedDomainURL}${feedPath}${section}?${newParamList.join(
+            '&',
+          )}`,
           ...(lastModDate && { lastmod: lastModDate }),
         })
       }
@@ -74,6 +78,7 @@ export function SitemapIndex({
     section,
     domain: feedDomainURL,
     maxCount,
+    paramList,
     lastModDate,
     buildIndexes,
   })

@@ -19,8 +19,12 @@ const articles = {
       },
       credits: {
         by: [
-          { name: 'John Smith', _id: 'john-smith' },
-          { name: 'Jane Doe', _id: 'jane-doe' },
+          {
+            name: 'John Smith',
+            _id: 'john-smith',
+            description: 'John is a journalist',
+          },
+          { name: 'Jane Doe', _id: 'jane-doe', description: '' },
         ],
       },
       headlines: { basic: 'Tips for Safe Hand washing' },
@@ -51,6 +55,7 @@ const articles = {
       last_updated_date: '2021-04-08T10:34:41.432Z',
       website_url: '/food/empty-recipe',
       headlines: { basic: "I'm out of ideas" },
+      credits: { by: [] },
     },
   ],
 }
