@@ -45,7 +45,7 @@ export function SitemapIndexByDay({
     const end = moment(customFields.numberOfDays)
     maxDays = start.diff(end, 'days') + 1
   } else {
-    maxDays = parseInt(customFields.numberOfDays) || 7
+    maxDays = parseInt(customFields.numberOfDays) || 2
   }
 
   const buildIndexes = (
