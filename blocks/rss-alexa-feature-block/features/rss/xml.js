@@ -118,7 +118,7 @@ export function Rss({ globalContent, customFields, arcSite }) {
 
 Rss.propTypes = {
   customFields: PropTypes.shape({
-    audioAvailable: PropTypes.kvp.tag({
+    audioAvailable: PropTypes.string.tag({
       label: 'Audio',
       group: 'Audio',
       description: 'description',
