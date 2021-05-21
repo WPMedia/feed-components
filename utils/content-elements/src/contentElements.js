@@ -209,7 +209,10 @@ export function BuildContent() {
     return quoteArray.length ? { blockquote: { '#': quoteArray } } : ''
   }
 
-  this.video = (element, videoSelect = {bitrate: 2000, stream_type: 'mp4'}) => {
+  this.video = (
+    element,
+    videoSelect = { bitrate: 2000, stream_type: 'mp4' },
+  ) => {
     if (element && element.streams) {
       const promoItems =
         jmespath.search(element, 'promo_items.basic || promo_items.lead_art') ||

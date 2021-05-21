@@ -519,7 +519,7 @@ it('generate quote content element', () => {
 })
 
 it('generate video content element', () => {
-  const videoSelect =  {bitrate: 2000, stream_type: 'ts'}
+  const videoSelect = { bitrate: 2000, stream_type: 'ts' }
   const ce = [
     {
       type: 'video',
@@ -544,7 +544,16 @@ it('generate video content element', () => {
       ],
     },
   ]
-  const text = MyBuildContent.parse(ce, 'all', domain, resizerKey, resizerURL, 0,0,videoSelect)
+  const text = MyBuildContent.parse(
+    ce,
+    'all',
+    domain,
+    resizerKey,
+    resizerURL,
+    0,
+    0,
+    videoSelect,
+  )
   expect(text).toBe(
     '<figure><video height="720" width="1280" poster="https://d1acid63ghtydj.cloudfront.net/05-27-2020/t_593c7e85769e44b0b122b3800650d8ed_name_Hockey_Two.PNG"><source src="https://d3ujdjwa458jgt.cloudfront.net/out/v1/87998c783fb94bf0b965847d5c8b4392/index.m3u8" type="video/mp4"/></video><figcaption>caption here</figcaption></figure>',
   )
