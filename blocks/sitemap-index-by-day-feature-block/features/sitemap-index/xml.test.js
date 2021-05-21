@@ -11,7 +11,7 @@ it('returns template with default values', () => {
       feedPath: {},
       feedName: '/sitemap-index/',
       feedParam: 'outputType=xml',
-      numberOfDays: '2',
+      numberOfDays: '',
       feedDates2Split: {},
     },
     requestUri: '/sitemap-index/?outputType=xml',
