@@ -21,8 +21,6 @@ export function findVideo(video, searchObject) {
       video,
       'streams[?'.concat(searchString.join('&&'), ']'),
     )
-    console.log(`wpmedia search string is ${searchString}`)
-    console.log(`wpmedia video stream is ${JSON.stringify(videoStreams)}`)
 
     if (videoStreams.length) {
       return videoStreams[0]
