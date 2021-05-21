@@ -282,5 +282,14 @@ export const propInfo = {
         defaultValue: 'all',
       },
     },
+    videoSelect: {
+      type: 'kvp',
+      tag: {
+        label: 'Video Encoding',
+        group: 'Format',
+        description: 'Which criteria should be used to filter video encodings',
+        defaultValue: { bitrate: 2000, stream_type: 'mp4' },
+      },
+    },
   },
 }
