@@ -44,8 +44,7 @@ const globalContent = {
           version: '0.5.8',
           credits: {},
           caption: 'Inexact Odyssey',
-          url:
-            'https://dv8csq7v0ltdn.cloudfront.net/04-16-2020/t_95d8de29ea3b41caac132f0462c5c71a_name_file_1920x1080_5400_v4_.jpg',
+          url: 'https://dv8csq7v0ltdn.cloudfront.net/04-16-2020/t_95d8de29ea3b41caac132f0462c5c71a_name_file_1920x1080_5400_v4_.jpg',
           width: 1440,
           height: 1080,
         },
@@ -58,8 +57,7 @@ const globalContent = {
           width: 1440,
           filesize: 474649052,
           stream_type: 'ts',
-          url:
-            'https://d1tf6ure8fkb0l.cloudfront.net/wp-demo/2020/04/16/5e98b4a44cedfd00019ccd14/t_45faafc2013a4185b449ceb539e3df71_name_Inexact_Odyssey__A_Volcom_Snowboarding_Film/hd.m3u8',
+          url: 'https://d1tf6ure8fkb0l.cloudfront.net/wp-demo/2020/04/16/5e98b4a44cedfd00019ccd14/t_45faafc2013a4185b449ceb539e3df71_name_Inexact_Odyssey__A_Volcom_Snowboarding_Film/hd.m3u8',
           bitrate: 4500,
           provider: 'mediaconvert',
         },
@@ -68,8 +66,7 @@ const globalContent = {
           width: 1440,
           filesize: 549824236,
           stream_type: 'ts',
-          url:
-            'https://d1tf6ure8fkb0l.cloudfront.net/wp-demo/2020/04/16/5e98b4a44cedfd00019ccd14/t_45faafc2013a4185b449ceb539e3df71_name_Inexact_Odyssey__A_Volcom_Snowboarding_Film/hlsv4_master.m3u8',
+          url: 'https://d1tf6ure8fkb0l.cloudfront.net/wp-demo/2020/04/16/5e98b4a44cedfd00019ccd14/t_45faafc2013a4185b449ceb539e3df71_name_Inexact_Odyssey__A_Volcom_Snowboarding_Film/hlsv4_master.m3u8',
           bitrate: 5400,
           provider: 'mediaconvert',
         },
@@ -78,8 +75,7 @@ const globalContent = {
           width: 1440,
           filesize: 545772131,
           stream_type: 'mp4',
-          url:
-            'https://d1tf6ure8fkb0l.cloudfront.net/wp-demo/2020/04/16/5e98b4a44cedfd00019ccd14/t_45faafc2013a4185b449ceb539e3df71_name_Inexact_Odyssey__A_Volcom_Snowboarding_Film/file_1920x1080-5400-v4.mp4',
+          url: 'https://d1tf6ure8fkb0l.cloudfront.net/wp-demo/2020/04/16/5e98b4a44cedfd00019ccd14/t_45faafc2013a4185b449ceb539e3df71_name_Inexact_Odyssey__A_Volcom_Snowboarding_Film/file_1920x1080-5400-v4.mp4',
           bitrate: 5400,
           provider: 'mediaconvert',
         },
@@ -90,8 +86,7 @@ const globalContent = {
         version: '0.5.8',
         credits: {},
         caption: 'Inexact Odyssey',
-        url:
-          'https://dv8csq7v0ltdn.cloudfront.net/04-16-2020/t_95d8de29ea3b41caac132f0462c5c71a_name_file_1920x1080_5400_v4_.jpg',
+        url: 'https://dv8csq7v0ltdn.cloudfront.net/04-16-2020/t_95d8de29ea3b41caac132f0462c5c71a_name_file_1920x1080_5400_v4_.jpg',
         width: 1440,
         height: 1080,
       },
@@ -132,8 +127,7 @@ const globalContent = {
           version: '0.5.8',
           credits: {},
           caption: 'Inexact Odyssey',
-          url:
-            'https://dv8csq7v0ltdn.cloudfront.net/04-16-2020/t_95d8de29ea3b41caac132f0462c5c71a_name_file_1920x1080_5400_v4_.jpg',
+          url: 'https://dv8csq7v0ltdn.cloudfront.net/04-16-2020/t_95d8de29ea3b41caac132f0462c5c71a_name_file_1920x1080_5400_v4_.jpg',
           width: 1440,
           height: 1080,
         },
@@ -146,8 +140,7 @@ const globalContent = {
           width: 1440,
           filesize: 545772131,
           stream_type: 'mp4',
-          url:
-            'https://d1tf6ure8fkb0l.cloudfront.net/wp-demo/2020/04/16/5e98b4a44cedfd00019ccd14/t_45faafc2013a4185b449ceb539e3df71_name_Inexact_Odyssey__A_Volcom_Snowboarding_Film/file_1920x1080-5400-v4.mp4',
+          url: 'https://d1tf6ure8fkb0l.cloudfront.net/wp-demo/2020/04/16/5e98b4a44cedfd00019ccd14/t_45faafc2013a4185b449ceb539e3df71_name_Inexact_Odyssey__A_Volcom_Snowboarding_Film/file_1920x1080-5400-v4.mp4',
           bitrate: 5400,
           provider: 'mediaconvert',
         },
