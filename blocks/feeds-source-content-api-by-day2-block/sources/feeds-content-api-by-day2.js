@@ -28,6 +28,15 @@ const fetch = async (key = {}) => {
   }
 
   if (key['Source-Include']) paramList._sourceInclude = key['Source-Include']
+  if (key['Include-Distributor-Name']) {
+    paramList.include_distributor_name = key['Include-Distributor-Name']
+  } else if (key['Exclude-Distributor-Name']) {
+    paramList.exclude_distributor_name = key['Exclude-Distributor-Name']
+  } else if (key['Include-Distributor-Category']) {
+    paramList.include_distributor_category = key['Include-Distributor-Category']
+  } else if (key['Exclude-Distributor-Category']) {
+    paramList.exclude_distributor_category = key['Exclude-Distributor-Category']
+  }
 
   // basic ES query
   const body = {
@@ -137,82 +146,6 @@ const fetch = async (key = {}) => {
     },
   })
 
-  // Append Author to basic query
-  const { Author } = key
-  if (Author) {
-    const author = Author.replace(/^\//, '')
-
-    body.query.bool.must.push({
-      term: {
-        'credits.by._id': author,
-      },
-    })
-  }
-
-  // Append Keywords to basic query
-  // AIO-243 use simple_query_string to support multiple phrases using "phrase 1" | "phrase 2"
-  const { Keywords } = key
-  if (Keywords) {
-    const keywords = Keywords.replace(/^\//, '').replace(/%20/g, '+')
-
-    body.query.bool.must.push({
-      simple_query_string: {
-        query: `"${keywords.split(',').join('" | "')}"`,
-        fields: ['taxonomy.seo_keywords'],
-      },
-    })
-  }
-
-  // Append Tags text to basic query
-  const tagsText = key['Tags-Text']
-  if (tagsText) {
-    const cleanTagsText = tagsText.replace(/^\//, '').replace(/%20/g, '+')
-
-    body.query.bool.must.push({
-      terms: {
-        'taxonomy.tags.text.raw': cleanTagsText.split(','),
-      },
-    })
-  }
-
-  // Append Tags slug to basic query
-  const tagsSlug = key['Tags-Slug']
-  if (tagsSlug) {
-    const cleanTagsSlug = tagsSlug.replace(/^\//, '')
-
-    body.query.bool.must.push({
-      terms: {
-        'taxonomy.tags.slug': cleanTagsSlug.split(','),
-      },
-    })
-  }
-
-  // if Section append section query to basic query
-  const { Section } = key
-  if (Section && Section !== '/') {
-    let section = Section.replace(/\/$/, '')
-    if (!section.startsWith('/')) {
-      section = `/${section}`
-    }
-
-    body.query.bool.must.push({
-      nested: {
-        path: 'taxonomy.sections',
-        query: {
-          bool: {
-            must: [
-              {
-                term: {
-                  'taxonomy.sections._id': `${section}`,
-                },
-              },
-            ],
-          },
-        },
-      },
-    })
-  }
-
   paramList.body = encodeURI(JSON.stringify(body))
 
   const genParams = (paramList) => {
@@ -260,31 +193,6 @@ export default {
       type: 'text',
     },
     {
-      name: 'Section',
-      displayName: 'Section Name',
-      type: 'text',
-    },
-    {
-      name: 'Author',
-      displayName: 'Author Name',
-      type: 'text',
-    },
-    {
-      name: 'Keywords',
-      displayName: 'Keywords',
-      type: 'text',
-    },
-    {
-      name: 'Tags-Text',
-      displayName: 'Tags Text',
-      type: 'text',
-    },
-    {
-      name: 'Tags-Slug',
-      displayName: 'Tags Slug',
-      type: 'text',
-    },
-    {
       name: 'Include-Terms',
       displayName: 'Include Terms',
       type: 'text',
@@ -307,6 +215,26 @@ export default {
     {
       name: 'Source-Include',
       displayName: 'Source Include (list of ANS fields comma separated)',
+      type: 'text',
+    },
+    {
+      name: 'Include-Distributor-Name',
+      displayName: 'Include Distributor Name',
+      type: 'text',
+    },
+    {
+      name: 'Exclude-Distributor-Name',
+      displayName: 'Exclude Distributor Name',
+      type: 'text',
+    },
+    {
+      name: 'Include-Distributor-Category',
+      displayName: 'Include Distributor Category',
+      type: 'text',
+    },
+    {
+      name: 'Exclude-Distributor-Category',
+      displayName: 'Exclude Distributor Category',
       type: 'text',
     },
   ],
