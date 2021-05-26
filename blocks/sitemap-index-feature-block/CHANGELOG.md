@@ -1,5 +1,21 @@
 # @wpmedia/sitemap-index-feature-block
 
+## 1.3.0
+
+### Minor Changes
+
+- [#473](https://github.com/WPMedia/feed-components/pull/473) [`70a2bfe`](https://github.com/WPMedia/feed-components/commit/70a2bfef28ecd6703fbe7df5ab056cdf14a308b9) Thanks [@tbrick855](https://github.com/tbrick855)! - OBF 1.3
+
+### Patch Changes
+
+- [#467](https://github.com/WPMedia/feed-components/pull/467) [`7193ba1`](https://github.com/WPMedia/feed-components/commit/7193ba14eb245672b3e47337aa56e252a5fdbf56) Thanks [@tbrick855](https://github.com/tbrick855)! - Don't include from=0
+
+## 1.2.0
+
+### Minor Changes
+
+- [#449](https://github.com/WPMedia/feed-components/pull/449) [`c2faecb`](https://github.com/WPMedia/feed-components/commit/c2faecbfbe838ae8cdd291671cf3442615f5d7bc) Thanks [@tbrick855](https://github.com/tbrick855)! - sitemap missing image tag, sitemap-index ES7 10K cap
+
 ## 1.0.0
 
 ### Major Changes

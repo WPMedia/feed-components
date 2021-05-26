@@ -286,13 +286,13 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
           {
             '@': {
               datetime: lastUpdatedDate,
-              class: 'op_modified',
+              class: 'op-modified',
             },
             '#': lastUpdatedDate,
           },
           {
             '@datetime': s[customFields.pubDate],
-            '@class': 'op_published',
+            '@class': 'op-published',
             '#': s[customFields.pubDate],
           },
         ],

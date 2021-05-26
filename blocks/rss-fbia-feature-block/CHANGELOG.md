@@ -1,5 +1,23 @@
 # @wpmedia/sitemaps-feature-block
 
+## 1.3.0
+
+### Minor Changes
+
+- [#473](https://github.com/WPMedia/feed-components/pull/473) [`70a2bfe`](https://github.com/WPMedia/feed-components/commit/70a2bfef28ecd6703fbe7df5ab056cdf14a308b9) Thanks [@tbrick855](https://github.com/tbrick855)! - OBF 1.3
+
+### Patch Changes
+
+- [#467](https://github.com/WPMedia/feed-components/pull/467) [`137cbc0`](https://github.com/WPMedia/feed-components/commit/137cbc0f68e5b66b189047aac3305e899a0f5ca7) Thanks [@tbrick855](https://github.com/tbrick855)! - Prevent empty address tag
+
+* [#467](https://github.com/WPMedia/feed-components/pull/467) [`d828203`](https://github.com/WPMedia/feed-components/commit/d82820369cefd7c92ec1864a4f41aa9ca6632668) Thanks [@tbrick855](https://github.com/tbrick855)! - Prevent empty aside tags
+
+## 1.2.0
+
+### Minor Changes
+
+- [#449](https://github.com/WPMedia/feed-components/pull/449) [`c2faecb`](https://github.com/WPMedia/feed-components/commit/c2faecbfbe838ae8cdd291671cf3442615f5d7bc) Thanks [@tbrick855](https://github.com/tbrick855)! - sitemap missing image tag, sitemap-index ES7 10K cap
+
 ## 1.0.0
 
 ### Major Changes

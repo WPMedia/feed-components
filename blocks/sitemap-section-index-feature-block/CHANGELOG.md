@@ -1,5 +1,17 @@
 # @wpmedia/sitemap-section-index-feature-block
 
+## 1.3.0
+
+### Minor Changes
+
+- [#473](https://github.com/WPMedia/feed-components/pull/473) [`70a2bfe`](https://github.com/WPMedia/feed-components/commit/70a2bfef28ecd6703fbe7df5ab056cdf14a308b9) Thanks [@tbrick855](https://github.com/tbrick855)! - OBF 1.3
+
+## 1.2.0
+
+### Minor Changes
+
+- [#449](https://github.com/WPMedia/feed-components/pull/449) [`c2faecb`](https://github.com/WPMedia/feed-components/commit/c2faecbfbe838ae8cdd291671cf3442615f5d7bc) Thanks [@tbrick855](https://github.com/tbrick855)! - sitemap missing image tag, sitemap-index ES7 10K cap
+
 ### Major Changes
 
 - [`1722ea4`](https://github.com/WPMedia/feed-components/commit/1722ea45d12917f332184dc866218a7ba62059b5) [#394](https://github.com/WPMedia/feed-components/pull/394) Thanks [@tbrick855](https://github.com/tbrick855)! - OBF GA release, content_element bug fix
