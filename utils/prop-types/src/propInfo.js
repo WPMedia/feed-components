@@ -286,7 +286,7 @@ export const propInfo = {
       type: 'kvp',
       tag: {
         label: 'Video Encoding',
-        group: 'Format',
+        group: 'Video',
         description: 'Which criteria should be used to filter video encodings',
         defaultValue: { bitrate: 2000, stream_type: 'mp4' },
       },

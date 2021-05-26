@@ -74,19 +74,3 @@ Object {
   },
 }
 `;
-
-exports[`returns template with set end date 2`] = `
-Object {
-  "sitemapindex": Object {
-    "@xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9",
-    "sitemap": Array [
-      Object {
-        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap-news/latest?outputType=xml",
-      },
-      Object {
-        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap-news/2021-04-08?outputType=xml",
-      },
-    ],
-  },
-}
-`;
