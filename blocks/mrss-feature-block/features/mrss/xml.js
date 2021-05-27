@@ -30,13 +30,13 @@ const rssTemplate = (
     itemCredits,
     itemCategory,
     includeContent,
+    selectVideo,
     resizerURL,
     resizerWidth,
     resizerHeight,
     domain,
     feedTitle,
     feedLanguage,
-    selectVideo,
   },
 ) => ({
   rss: {
@@ -62,7 +62,6 @@ const rssTemplate = (
       }),
 
       item: elements.map((s) => {
-        console.log("video Select is " + JSON.stringify(selectVideo));
         const url = `${domain}${s.website_url || s.canonical_url || ''}`
         const img =
           s.promo_items && (s.promo_items.basic || s.promo_items.lead_art)
@@ -195,7 +194,7 @@ Mrss.propTypes = {
         stream_type: 'mp4',
       },
     }),
-    ...generatePropsForFeed('rss', PropTypes),
+    ...generatePropsForFeed('rss', PropTypes, ['videoSelect']),
   }),
 }
 Mrss.label = 'MRSS'

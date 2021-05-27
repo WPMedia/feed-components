@@ -238,7 +238,10 @@ export function BuildContent() {
               source: {
                 '@': {
                   src: videoStream.url,
-                  type: 'video/mp4',
+                  type:
+                    videoSelect.stream_type === 'mp4'
+                      ? 'video/mp4'
+                      : 'video/MP2T',
                 },
               },
             },

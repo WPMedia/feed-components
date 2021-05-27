@@ -211,7 +211,7 @@ Object {
         "stream_type": "mp4",
       },
       "description": "Which criteria should be used to filter video encodings",
-      "group": "Format",
+      "group": "Video",
       "label": "Video Encoding",
     },
     "type": "kvp",

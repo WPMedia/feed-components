@@ -38,6 +38,7 @@ const rssTemplate = (
     feedTitle,
     feedLanguage,
     flipboardBuildContent,
+    videoSelect,
   },
 ) => ({
   rss: {
@@ -111,6 +112,7 @@ const rssTemplate = (
               resizerURL,
               resizerWidth,
               resizerHeight,
+              videoSelect,
             )) &&
             body && {
               'content:encoded': {

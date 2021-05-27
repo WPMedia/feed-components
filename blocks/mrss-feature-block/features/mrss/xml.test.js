@@ -2,7 +2,7 @@
 import Consumer from 'fusion:consumer'
 import { Mrss } from './xml'
 
-it('returns RSS template with default values', () => {
+it.only('returns RSS template with default values', () => {
   const video = Mrss({
     arcSite: 'the-globe',
     globalContent: {
