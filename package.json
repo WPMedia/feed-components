@@ -60,5 +60,6 @@
     "release:snapshotSandbox": "changeset version --snapshot beta",
     "release:sandbox": "preconstruct build && changeset publish --tag beta",
     "release:prod": "preconstruct build && changeset publish --tag stable"
-  }
+  },
+  "version": "0.0.0"
 }
