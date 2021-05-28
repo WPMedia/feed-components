@@ -17,18 +17,15 @@ const rssTemplate = (
   {
     channelTitle,
     channelDescription,
-    channelPath,
     channelCopyright,
     channelTTL,
+    audioAvailable,
     channelCategory,
     channelLogo,
-    imageTitle,
-    imageCaption,
-    imageCredits,
     itemTitle,
     pubDate,
     itemCategory,
-    includePromo,
+    itemDescription,
     includeContent,
     resizerURL,
     resizerWidth,
@@ -42,9 +39,10 @@ const rssTemplate = (
   rss: {
     '@version': '2.0',
     channel: {
-      title: channelTitle || feedTitle,
+      ...(channelTitle && {title: channelTitle}),
+      ...(audioAvailable && {Audio: audioAvailable}),
       link: `${domain}`,
-      description: channelDescription || `${feedTitle} News Feed`,
+      ...(channelDescription && {description: channelDescription }),
       lastBuildDate: moment
         .utc(new Date())
         .format('ddd, DD MMM YYYY HH:mm:ss ZZ'),
@@ -54,6 +52,7 @@ const rssTemplate = (
         copyright: channelCopyright,
       }), // TODO Add default logic
       ...(channelTTL && { ttl: channelTTL }),
+    
       ...(channelLogo && {
         image: {
           url: buildResizerURL(channelLogo, resizerKey, resizerURL),
@@ -69,6 +68,7 @@ const rssTemplate = (
           title: jmespath.search(s, itemTitle) || '',
           link: url,
           guid: s._id,
+          description: jmespath.search(s, itemDescription) || '',
           pubDate: s[pubDate],
           ...(itemCategory &&
             (category = jmespath.search(s, itemCategory)) &&
@@ -84,7 +84,7 @@ const rssTemplate = (
                   resizerURL,
                   resizerWidth,
                   resizerHeight,
-                ),
+                ) || '',
               )
               .text('bodyContent')) &&
             body && {
@@ -106,7 +106,7 @@ export function Rss({ globalContent, customFields, arcSite }) {
 
   const { width = 0, height = 0 } = customFields.resizerKVP || {}
 
-  const rssBuildContent = new BuildContent()
+  const rssBuildContent = new BuildContent();
 
   // can't return null for xml return type, must return valid xml template
   return rssTemplate(get(globalContent, 'content_elements', []), {
@@ -123,21 +123,11 @@ export function Rss({ globalContent, customFields, arcSite }) {
 
 Rss.propTypes = {
   customFields: PropTypes.shape({
-    channelPath: PropTypes.string.tag({
-      label: 'Path',
-      group: 'Channel',
-      description:
-        'Path to the feed, excluding the domain, defaults to /arc/outboundfeeds/alexa',
-      defaultValue: '/arc/outboundfeeds/alexa/',
-    }),
-    audioAvailable: PropTypes.kvp.tag({
+    audioAvailable: PropTypes.string.tag({
       label: 'Audio',
       group: 'Audio',
       description: 'description',
-      defaultValue: {
-        bitrate: 5400,
-        stream_type: 'mp3',
-      },
+      defaultValue: 'content_elements[?type==audio].streams[0].url', 
     }),
     ...generatePropsForFeed('rss', PropTypes),
   }),
