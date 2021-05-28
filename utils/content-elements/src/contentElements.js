@@ -209,7 +209,10 @@ export function BuildContent() {
     return quoteArray.length ? { blockquote: { '#': quoteArray } } : ''
   }
 
-  this.video = (element) => {
+  this.video = (
+    element,
+    videoSelect = { bitrate: 2000, stream_type: 'mp4' },
+  ) => {
     if (element && element.streams) {
       const promoItems =
         jmespath.search(element, 'promo_items.basic || promo_items.lead_art') ||
@@ -222,10 +225,7 @@ export function BuildContent() {
         ',',
       )
       credits = credits ? ` ${credits}` : ''
-      const videoStream = findVideo(element, {
-        bitrate: 2000,
-        stream_type: 'mp4',
-      })
+      const videoStream = findVideo(element, videoSelect)
       if (videoStream) {
         return {
           figure: {
@@ -238,7 +238,10 @@ export function BuildContent() {
               source: {
                 '@': {
                   src: videoStream.url,
-                  type: 'video/mp4',
+                  type:
+                    videoSelect.stream_type === 'mp4'
+                      ? 'video/mp4'
+                      : 'video/MP2T',
                 },
               },
             },
@@ -257,6 +260,7 @@ export function BuildContent() {
     resizerURL,
     resizeWidth,
     resizeHeight,
+    videoSelect,
   ) => {
     let item
     const body = []
@@ -340,7 +344,7 @@ export function BuildContent() {
             item = this.text(element)
             break
           case 'video':
-            item = this.video(element)
+            item = this.video(element, videoSelect)
             break
           default:
             item = this.text(element)

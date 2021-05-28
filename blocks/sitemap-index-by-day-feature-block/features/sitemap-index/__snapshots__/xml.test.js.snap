@@ -1,5 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`invalid date format, should return 2 1`] = `
+Object {
+  "sitemapindex": Object {
+    "@xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9",
+    "sitemap": Array [
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap-news/latest?outputType=xml",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap-news/2021-04-08?outputType=xml",
+      },
+    ],
+  },
+}
+`;
+
 exports[`returns template with default values 1`] = `
 Object {
   "sitemapindex": Object {
@@ -53,6 +69,9 @@ Object {
       },
       Object {
         "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap3/2021-04-02?outputType=xml",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap3/2021-04-01?outputType=xml",
       },
     ],
   },

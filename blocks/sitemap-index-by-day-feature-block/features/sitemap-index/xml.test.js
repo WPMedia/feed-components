@@ -11,7 +11,7 @@ it('returns template with default values', () => {
       feedPath: {},
       feedName: '/sitemap-index/',
       feedParam: 'outputType=xml',
-      numberOfDays: '2',
+      numberOfDays: '',
       feedDates2Split: {},
     },
     requestUri: '/sitemap-index/?outputType=xml',
@@ -34,6 +34,23 @@ it('returns template with set end date', () => {
       feedDates2Split: { '2021-04-06': '4' },
     },
     requestUri: '/sitemap-index/?outputType=xml',
+  })
+  expect(sitemapindex).toMatchSnapshot()
+})
+
+it('invalid date format, should return 2', () => {
+  const sitemapindex = SitemapIndexByDay({
+    arcSite: 'demo',
+    customFields: {
+      feedPath: {
+        0: '/arc/outboundfeeds/sitemap-news/',
+      },
+      feedName: '/sitemap-news-index/',
+      feedParam: 'outputType=xml',
+      numberOfDays: '4/5/21',
+      feedDates2Split: {},
+    },
+    requestUri: '/sitemap-news-index/?outputType=xml',
   })
   expect(sitemapindex).toMatchSnapshot()
 })
