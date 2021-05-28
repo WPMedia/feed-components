@@ -131,11 +131,8 @@ it.only('returns RSS template with default values', () => {
               bitrate: 2000,
               filesize: 549824236,
               stream_type: 'ts',
-<<<<<<< HEAD
               url: 'https://d1tf6ure8fkb0l.cloudfront.net/wp-demo/2020/04/16/5e98b4a44cedfd00019ccd14/t_45faafc2013a4185b449ceb539e3df71_name_Inexact_Odyssey__A_Volcom_Snowboarding_Film/hlsv4_master.m3u8',
               bitrate: 5400,
-=======
->>>>>>> develop
               provider: 'mediaconvert',
             },
             {

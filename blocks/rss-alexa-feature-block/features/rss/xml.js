@@ -68,7 +68,6 @@ const rssTemplate = (
           title: jmespath.search(s, itemTitle) || '',
           link: url,
           guid: s._id,
-          description: jmespath.search(s, itemDescription) || '',
           pubDate: s[pubDate],
           ...(itemCategory &&
             (category = jmespath.search(s, itemCategory)) &&
