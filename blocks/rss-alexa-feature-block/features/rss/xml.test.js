@@ -41,7 +41,7 @@ const articles = {
   ],
 }
 
-it('returns RSS template with default values', () => {
+it('returns Alexa template with default values', () => {
   const rss = Rss({
     arcSite: 'demo',
     globalContent: {
@@ -50,7 +50,7 @@ it('returns RSS template with default values', () => {
     customFields: {
       channelTitle: '',
       channelDescription: '',
-      channelPath: '/arc/outboundfeeds/rss/',
+      channelPath: '/arc/outboundfeeds/alexa/',
       channelCopyright: '',
       channelTTL: '1',
       channelCategory: '',
@@ -79,7 +79,7 @@ it('returns RSS template with default values', () => {
   })
 })
 
-it('returns RSS template with custom values', () => {
+it('returns Alexa template with custom values', () => {
   const rss = Rss({
     arcSite: 'demo',
     globalContent: {
@@ -88,7 +88,7 @@ it('returns RSS template with custom values', () => {
     customFields: {
       channelTitle: 'The Daily Prophet',
       channelDescription: "All the news that's fit to print",
-      channelPath: '/arc/outboundfeeds/rss/',
+      channelPath: '/arc/outboundfeeds/alexa/',
       channelCopyright: '2020 The Washington Post LLC',
       channelTTL: '60',
       channelCategory: 'news',
