@@ -1,12 +1,12 @@
 {
   "name": "@wpmedia/feeds-source-content-api-by-day2-block",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "content source to search by a single day, 1 hour TTL",
   "main": "index.js",
   "files": [
     "sources"
   ],
-  "license": "UNLICENSED",
+  "license": "CC-BY-NC-ND-4.0",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/WPMedia/feed-components.git",
