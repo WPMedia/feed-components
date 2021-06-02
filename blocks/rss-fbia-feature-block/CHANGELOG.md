@@ -1,5 +1,19 @@
 # @wpmedia/sitemaps-feature-block
 
+## 1.4.0
+
+### Minor Changes
+
+- [#487](https://github.com/WPMedia/feed-components/pull/487) [`266cea1`](https://github.com/WPMedia/feed-components/commit/266cea1deca71a96c25c3aa663c0f2b6f9e38ec0) Thanks [@tbrick855](https://github.com/tbrick855)! - OBF 1.4
+
+* [#472](https://github.com/WPMedia/feed-components/pull/472) [`738fe39`](https://github.com/WPMedia/feed-components/commit/738fe398e66b4f60cccbb6ccf36ba46819cbfa29) Thanks [@malavikakoppula](https://github.com/malavikakoppula)! - changed classnames from underscores to dashes
+
+### Patch Changes
+
+- [#467](https://github.com/WPMedia/feed-components/pull/467) [`137cbc0`](https://github.com/WPMedia/feed-components/commit/137cbc0f68e5b66b189047aac3305e899a0f5ca7) Thanks [@tbrick855](https://github.com/tbrick855)! - Prevent empty address tag
+
+* [#467](https://github.com/WPMedia/feed-components/pull/467) [`d828203`](https://github.com/WPMedia/feed-components/commit/d82820369cefd7c92ec1864a4f41aa9ca6632668) Thanks [@tbrick855](https://github.com/tbrick855)! - Prevent empty aside tags
+
 ## 1.3.0
 
 ### Minor Changes

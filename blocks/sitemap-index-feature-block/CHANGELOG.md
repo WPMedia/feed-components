@@ -1,5 +1,15 @@
 # @wpmedia/sitemap-index-feature-block
 
+## 1.4.0
+
+### Minor Changes
+
+- [#487](https://github.com/WPMedia/feed-components/pull/487) [`266cea1`](https://github.com/WPMedia/feed-components/commit/266cea1deca71a96c25c3aa663c0f2b6f9e38ec0) Thanks [@tbrick855](https://github.com/tbrick855)! - OBF 1.4
+
+### Patch Changes
+
+- [#467](https://github.com/WPMedia/feed-components/pull/467) [`7193ba1`](https://github.com/WPMedia/feed-components/commit/7193ba14eb245672b3e47337aa56e252a5fdbf56) Thanks [@tbrick855](https://github.com/tbrick855)! - Don't include from=0
+
 ## 1.3.0
 
 ### Minor Changes
