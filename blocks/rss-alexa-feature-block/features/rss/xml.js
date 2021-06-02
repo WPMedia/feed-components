@@ -72,7 +72,10 @@ const rssTemplate = (
           guid: s._id,
           pubDate: s[pubDate],
           ...(s.content_elements &&  {
-            enclosure: jmespath.search(s, 'content_elements[?type==audio].streams[].url[0]') || '',
+            enclosure: {
+              '@href': `jmespath.search(s, 'content_elements[?type==audio].streams[].url[0]') || ''`,
+              '@type': 'audio/mpeg'
+            }
           }),
           ...(itemCategory &&
             (category = jmespath.search(s, itemCategory)) &&
