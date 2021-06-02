@@ -19,13 +19,16 @@ const rssTemplate = (
     channelDescription,
     channelCopyright,
     channelTTL,
-    audioAvailable,
     channelCategory,
     channelLogo,
+    imageTitle,
+    imageCaption,
+    imageCredits,
     itemTitle,
     pubDate,
     itemCategory,
     itemDescription,
+    includePromo,
     includeContent,
     resizerURL,
     resizerWidth,
@@ -39,10 +42,9 @@ const rssTemplate = (
   rss: {
     '@version': '2.0',
     channel: {
-      ...(channelTitle && {title: channelTitle}),
-      ...(audioAvailable && {Audio: audioAvailable}),
+      ...(channelTitle && { title: channelTitle }),
       link: `${domain}`,
-      ...(channelDescription && {description: channelDescription }),
+      ...(channelDescription && { description: channelDescription }),
       lastBuildDate: moment
         .utc(new Date())
         .format('ddd, DD MMM YYYY HH:mm:ss ZZ'),
@@ -52,7 +54,7 @@ const rssTemplate = (
         copyright: channelCopyright,
       }), // TODO Add default logic
       ...(channelTTL && { ttl: channelTTL }),
-    
+
       ...(channelLogo && {
         image: {
           url: buildResizerURL(channelLogo, resizerKey, resizerURL),
@@ -69,6 +71,9 @@ const rssTemplate = (
           link: url,
           guid: s._id,
           pubDate: s[pubDate],
+          ...(s.content_elements &&  {
+            enclosure: jmespath.search(s, 'content_elements[?type==audio].streams[].url[0]') || '',
+          }),
           ...(itemCategory &&
             (category = jmespath.search(s, itemCategory)) &&
             category && { category: category }),
@@ -85,7 +90,7 @@ const rssTemplate = (
                   resizerHeight,
                 ) || '',
               )
-              .text('bodyContent')) &&
+              .text()) &&
             body && {
               description: body,
             }),
@@ -105,8 +110,8 @@ export function Rss({ globalContent, customFields, arcSite }) {
 
   const { width = 0, height = 0 } = customFields.resizerKVP || {}
 
-  const rssBuildContent = new BuildContent();
-
+  const rssBuildContent = new BuildContent()
+ 
   // can't return null for xml return type, must return valid xml template
   return rssTemplate(get(globalContent, 'content_elements', []), {
     ...customFields,
@@ -126,7 +131,7 @@ Rss.propTypes = {
       label: 'Audio',
       group: 'Audio',
       description: 'description',
-      defaultValue: 'content_elements[?type==audio].streams[0].url', 
+      defaultValue: 'content_elements[?type==audio].streams[].url[0]',
     }),
     ...generatePropsForFeed('rss', PropTypes),
   }),
