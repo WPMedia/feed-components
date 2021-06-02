@@ -1,5 +1,6 @@
 # @wpmedia/feeds-source-content-api-by-day3-block
 
+
 ## 1.4.0
 ### Minor Changes
 
@@ -8,7 +9,6 @@
 - [#487](https://github.com/WPMedia/feed-components/pull/487) [`266cea1`](https://github.com/WPMedia/feed-components/commit/266cea1deca71a96c25c3aa663c0f2b6f9e38ec0) Thanks [@tbrick855](https://github.com/tbrick855)! - OBF 1.4
 
 
-### Patch Changes
 
 
 

@@ -117,7 +117,7 @@ VideoSitemap.propTypes = {
       description: 'Which criteria should be used to filter video encodings',
       defaultValue: { bitrate: 5400, stream_type: 'mp4' },
     }),
-    ...generatePropsForFeed('sitemap', PropTypes),
+    ...generatePropsForFeed('sitemap', PropTypes, ['videoSelect']),
   }),
 }
 VideoSitemap.label = 'Sitemap Video'
