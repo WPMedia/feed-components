@@ -1,7 +1,18 @@
 # @wpmedia/sitemap-index-by-day-feature-block
 
-## 1.2.1-ib.0
+## 1.4.0
+### Minor Changes
+
+
+
+- [#487](https://github.com/WPMedia/feed-components/pull/487) [`266cea1`](https://github.com/WPMedia/feed-components/commit/266cea1deca71a96c25c3aa663c0f2b6f9e38ec0) Thanks [@tbrick855](https://github.com/tbrick855)! - OBF 1.4
+
+
 ### Patch Changes
+
+
+
+- [#477](https://github.com/WPMedia/feed-components/pull/477) [`c81369e`](https://github.com/WPMedia/feed-components/commit/c81369e8c668b4a2a4c4304359d5482bec9a9f52) Thanks [@tbrick855](https://github.com/tbrick855)! - Update default
 
 
 
