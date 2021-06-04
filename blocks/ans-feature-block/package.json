@@ -1,7 +1,7 @@
 {
-  "name": "@wpmedia/sitemap-feature-block",
-  "version": "1.4.0",
-  "description": "Fusion components for building sitemaps",
+  "name": "@wpmedia/ans-feature-block",
+  "version": "1.2.0",
+  "description": "Fusion components for building ANS feeds",
   "main": "index.js",
   "files": [
     "features"
@@ -10,19 +10,20 @@
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/WPMedia/feed-components.git",
-    "directory": "blocks/sitemaps-feature-block"
+    "directory": "blocks/ans-feature-block"
   },
   "publishConfig": {
     "registry": "https://npm.pkg.github.com/",
     "access": "public"
   },
-  "author": "Cameron Woodmansee",
+  "author": "Michelle Mark",
   "contributors": [
-    "Iyob Beyene <iyob.beyene@washpost.com>"
+    "Tim Kosmider <timothy.kosmider@washpost.com>"
   ],
   "homepage": "https://github.com/WPMedia/feed-components#readme",
-  "dependencies": {
-    "@wpmedia/feeds-prop-types": "1.0.2",
-    "@wpmedia/feeds-resizer": "1.0.2"
+  "dependencies": {},
+  "devDependencies": {
+    "@wpmedia/feeds-resizer": "^1.0.2",
+    "prop-types": "^15.7.2"
   }
 }

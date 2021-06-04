@@ -1,5 +1,11 @@
 # @wpmedia/feeds-prop-types
 
+## 1.0.2
+
+### Patch Changes
+
+- [#478](https://github.com/WPMedia/feed-components/pull/478) [`1779de0`](https://github.com/WPMedia/feed-components/commit/1779de0321772cc13680b76752f16974c7fb000c) Thanks [@ibeyene](https://github.com/ibeyene)! - add videoSelect customField
+
 ## 0.7.0
 
 ### Minor Changes
