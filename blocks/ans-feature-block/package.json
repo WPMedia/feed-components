@@ -1,6 +1,6 @@
 {
   "name": "@wpmedia/ans-feature-block",
-  "version": "1.2.0",
+  "version": "1.4.0",
   "description": "Fusion components for building ANS feeds",
   "main": "index.js",
   "files": [
