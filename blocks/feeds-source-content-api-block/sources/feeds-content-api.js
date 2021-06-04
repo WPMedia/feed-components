@@ -150,6 +150,11 @@ const resolve = function resolve(key) {
             must: [
               {
                 term: {
+                  'taxonomy.sections._website': key['arc-site'],
+                },
+              },
+              {
+                term: {
                   'taxonomy.sections._id': `${section}`,
                 },
               },
