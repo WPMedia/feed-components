@@ -19,7 +19,6 @@
   "author": "Cameron Woodmansee",
   "license": "UNLICENSED",
   "dependencies": {
-    "jsdom": "^16.5.3",
     "prop-types": "^15.7.2"
   }
 }
