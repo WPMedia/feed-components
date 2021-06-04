@@ -32,7 +32,6 @@ const rssTemplate = (
     itemCategory,
     includePromo,
     includeContent,
-    videoSelect,
     resizerURL,
     resizerWidth,
     resizerHeight,
@@ -115,7 +114,6 @@ const rssTemplate = (
               resizerURL,
               resizerWidth,
               resizerHeight,
-              videoSelect,
             )) &&
             body && {
               'content:encoded': {

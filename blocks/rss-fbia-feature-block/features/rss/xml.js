@@ -31,7 +31,6 @@ const rssTemplate = (
     itemCategory,
     includePromo,
     includeContent,
-    videoSelect,
     requestPath,
     resizerURL,
     resizerWidth,
@@ -115,7 +114,6 @@ const rssTemplate = (
               resizerWidth,
               resizerHeight,
               itemCredits,
-              videoSelect,
             )) &&
             body && {
               'content:encoded': {
@@ -189,7 +187,6 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
     adDensity,
     placementSection,
     adScripts,
-    videoSelect,
   ) {
     BuildContent.call(this)
 
@@ -452,7 +449,6 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
       resizerWidth,
       resizerHeight,
       itemCredits,
-      videoSelect,
     ) => {
       const fbiaContent = {
         html: {
@@ -465,7 +461,6 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
             resizerWidth,
             resizerHeight,
             itemCredits,
-            videoSelect,
           ),
         },
       }
@@ -482,7 +477,6 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
         resizerURL,
         resizerWidth,
         resizerHeight,
-        videoSelect,
       )
       return htmlBody.replace('<tHe_BoDy_GoEs_HeRe/>', parsedBody)
     }
@@ -499,7 +493,6 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
     customFields.adDensity,
     customFields.placementSection,
     customFields.adScripts,
-    customFields.videoSelect,
   )
 
   // can't return null for xml return type, must return valid xml template

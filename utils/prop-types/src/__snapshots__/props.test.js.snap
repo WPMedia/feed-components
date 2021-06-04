@@ -204,18 +204,6 @@ Object {
     },
     "type": "kvp",
   },
-  "videoSelect": Object {
-    "tags": Object {
-      "defaultValue": Object {
-        "bitrate": 2000,
-        "stream_type": "mp4",
-      },
-      "description": "Which criteria should be used to filter video encodings",
-      "group": "Video",
-      "label": "Video Encoding",
-    },
-    "type": "kvp",
-  },
 }
 `;
 

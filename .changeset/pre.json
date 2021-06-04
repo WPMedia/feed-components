@@ -1,9 +1,0 @@
-{
-  "mode": "exit",
-  "tag": "ib",
-  "initialVersions": {
-    "@wpmedia/feeds-content-elements": "1.0.1",
-    "@wpmedia/feeds-prop-types": "1.0.1"
-  },
-  "changesets": []
-}

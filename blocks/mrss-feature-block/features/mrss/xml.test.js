@@ -2,7 +2,7 @@
 import Consumer from 'fusion:consumer'
 import { Mrss } from './xml'
 
-it.only('returns RSS template with default values', () => {
+it('returns RSS template with default values', () => {
   const video = Mrss({
     arcSite: 'the-globe',
     globalContent: {
@@ -124,14 +124,12 @@ it.only('returns RSS template with default values', () => {
               provider: 'mediaconvert',
             },
             {
-              height: 720,
-              width: 1280,
-              url:
-                'https://d3ujdjwa458jgt.cloudfront.net/out/v1/87998c783fb94bf0b965847d5c8b4392/index.m3u8',
-              bitrate: 2000,
+              height: 1080,
+              width: 1440,
               filesize: 549824236,
               stream_type: 'ts',
-              url: 'https://d1tf6ure8fkb0l.cloudfront.net/wp-demo/2020/04/16/5e98b4a44cedfd00019ccd14/t_45faafc2013a4185b449ceb539e3df71_name_Inexact_Odyssey__A_Volcom_Snowboarding_Film/hlsv4_master.m3u8',
+              url:
+                'https://d1tf6ure8fkb0l.cloudfront.net/wp-demo/2020/04/16/5e98b4a44cedfd00019ccd14/t_45faafc2013a4185b449ceb539e3df71_name_Inexact_Odyssey__A_Volcom_Snowboarding_Film/hlsv4_master.m3u8',
               bitrate: 5400,
               provider: 'mediaconvert',
             },
@@ -172,7 +170,7 @@ it.only('returns RSS template with default values', () => {
       itemDescription: 'subheadlines.basic || description.basic',
       pubDate: 'display_date',
       itemCategory: 'taxonomy.primary_section.name',
-      selectVideo: { bitrate: 2000, stream_type: 'ts' },
+      videoInfo: { bitrate: 5400, stream_type: 'mp4' },
       resizerKVP: {},
     },
   })
