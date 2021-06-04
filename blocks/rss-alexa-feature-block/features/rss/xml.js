@@ -12,23 +12,39 @@ const jmespath = require('jmespath')
 
 const cheerio = require('cheerio')
 
+const getURLType = (url) => {
+  const imgRegex = new RegExp(/(jpe?g|png|webp)$/);
+  const audioRegex = new RegExp('/(.mp3)$/');
+  const videoRegex = new RegExp('/(.mp4|ts)$/');
+  const defaultType = 'audio/mp3';
+  const uri = url.split(".");
+  const type = uri[uri.length -1];
+  if(imgRegex.test(url)) {
+    return `image/${type}`;
+  }
+  if(audioRegex.test(url)){
+    return `audio/${type}`;
+  }
+  if(videoRegex.test(url)){
+    return `video/${type}`;
+  }
+  
+  return defaultType;
+}
+
 const rssTemplate = (
   elements,
   {
+    audioAvailable,
     channelTitle,
     channelDescription,
     channelCopyright,
     channelTTL,
     channelCategory,
     channelLogo,
-    imageTitle,
-    imageCaption,
-    imageCredits,
     itemTitle,
     pubDate,
     itemCategory,
-    itemDescription,
-    includePromo,
     includeContent,
     resizerURL,
     resizerWidth,
@@ -64,17 +80,19 @@ const rssTemplate = (
       }),
 
       item: elements.map((s) => {
-        let body, category
+        let body, category,
+        enclosureurl = jmespath.search(s, audioAvailable);
         const url = `${domain}${s.website_url || s.canonical_url || ''}`
         return {
           title: jmespath.search(s, itemTitle) || '',
           link: url,
           guid: s._id,
           pubDate: s[pubDate],
-          ...(s.content_elements &&  {
+          ...(enclosureurl  &&
+          {
             enclosure: {
-              '@href': `jmespath.search(s, 'content_elements[?type==audio].streams[].url[0]') || ''`,
-              '@type': 'audio/mpeg'
+              '@url': enclosureurl,
+              '@type': getURLType(enclosureurl)
             }
           }),
           ...(itemCategory &&
@@ -111,7 +129,8 @@ export function Rss({ globalContent, customFields, arcSite }) {
     feedLanguage = '',
   } = getProperties(arcSite)
 
-  const { width = 0, height = 0 } = customFields.resizerKVP || {}
+  const { width = 0, height = 0 } = customFields.resizerKVP || {};
+  
 
   const rssBuildContent = new BuildContent()
  
@@ -134,9 +153,9 @@ Rss.propTypes = {
       label: 'Audio',
       group: 'Audio',
       description: 'description',
-      defaultValue: 'content_elements[?type==audio].streams[].url[0]',
+      defaultValue: `content_elements[?type=='audio'].streams[].url|[0]`,
     }),
-    ...generatePropsForFeed('rss', PropTypes),
+    ...generatePropsForFeed('rss', PropTypes, ['audioAvailable']),
   }),
 }
 Rss.label = 'RSS Alexa'
