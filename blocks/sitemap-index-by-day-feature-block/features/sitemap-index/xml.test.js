@@ -2,7 +2,9 @@
 import Consumer from 'fusion:consumer'
 import { SitemapIndexByDay } from './xml'
 
-jest.useFakeTimers('modern').setSystemTime(new Date('2021-04-09').getTime())
+jest
+  .useFakeTimers('modern')
+  .setSystemTime(new Date('2021-04-09T20:15:39.543Z').getTime())
 
 it('returns template with default values', () => {
   const sitemapindex = SitemapIndexByDay({
@@ -19,7 +21,7 @@ it('returns template with default values', () => {
   expect(sitemapindex).toMatchSnapshot()
 })
 
-it('returns template with set end date', () => {
+it('returns template with set end date 2021-04-01', () => {
   const sitemapindex = SitemapIndexByDay({
     arcSite: 'demo',
     customFields: {
@@ -48,6 +50,23 @@ it('invalid date format, should return 2', () => {
       feedName: '/sitemap-news-index/',
       feedParam: 'outputType=xml',
       numberOfDays: '4/5/21',
+      feedDates2Split: {},
+    },
+    requestUri: '/sitemap-news-index/?outputType=xml',
+  })
+  expect(sitemapindex).toMatchSnapshot()
+})
+
+it('invalid date, should return 2', () => {
+  const sitemapindex = SitemapIndexByDay({
+    arcSite: 'demo',
+    customFields: {
+      feedPath: {
+        0: '/arc/outboundfeeds/sitemap-news/',
+      },
+      feedName: '/sitemap-news-index/',
+      feedParam: 'outputType=xml',
+      numberOfDays: '1234-56-78',
       feedDates2Split: {},
     },
     requestUri: '/sitemap-news-index/?outputType=xml',

@@ -41,10 +41,13 @@ export function SitemapIndexByDay({
   // numberOfDays can be an int or a date
   let maxDays
   if (customFields.numberOfDays.match(/\d{4}-\d{2}-\d{2}/)) {
-    const start = moment.utc(new Date())
-    const end = moment(customFields.numberOfDays)
-    maxDays = start.diff(end, 'days') + 1
-  } else {
+    const start = moment.utc(new Date()).startOf('day')
+    const end = moment.utc(customFields.numberOfDays, 'YYYY-MM-DD', true)
+    if (end.isValid() && end.isBefore(start) && end.isAfter('2000')) {
+      maxDays = start.diff(end, 'days') + 1
+    }
+  }
+  if (!maxDays) {
     maxDays =
       (!isNaN(customFields.numberOfDays) &&
         parseInt(customFields.numberOfDays)) ||
