@@ -13,20 +13,23 @@ const jmespath = require('jmespath')
 const cheerio = require('cheerio')
 
 const getURLType = (url) => {
-  const imgRegex = new RegExp(/(jpe?g|png|webp)$/);
-  const audioRegex = new RegExp('/(.mp3)$/');
-  const videoRegex = new RegExp('/(.mp4|ts)$/');
-  const defaultType = 'audio/mp3';
+  const imgRegex = new RegExp(/(jpe?g|png|webp|PNG|JPG|WEBP)$/);
+  const audioRegex = new RegExp('^(https?|ftp|file):\/\/(www.)?(.*?)\.(mp3)$');
+  const videoRegex = new RegExp('^(https?|ftp|file):\/\/(www.)?(.*?)\.(mp4|ts)$');
+  console.log('url', url);
   const uri = url.split(".");
   const type = uri[uri.length -1];
+  console.log('type', type);
+  const defaultType =  {label: 'Audio',type: `audio/${type}`};
   if(imgRegex.test(url)) {
-    return `image/${type}`;
+    return {label: 'image',type: `image/${type}`};
   }
   if(audioRegex.test(url)){
-    return `audio/${type}`;
+   
+    return {label: 'Audio',type: `audio/${type}`};
   }
   if(videoRegex.test(url)){
-    return `video/${type}`;
+    return {label: 'Video',type: `video/${type}`};
   }
   
   return defaultType;
@@ -92,29 +95,27 @@ const rssTemplate = (
           {
             enclosure: {
               '@url': enclosureurl,
-              '@type': getURLType(enclosureurl)
+              '@label':  getURLType(enclosureurl).label,
+              '@group': getURLType(enclosureurl).label,
+              '@type': getURLType(enclosureurl).type
             }
           }),
           ...(itemCategory &&
             (category = jmespath.search(s, itemCategory)) &&
             category && { category: category }),
-          ...(includeContent !== 0 &&
-            (body = cheerio
-              .load(
-                rssBuildContent.parse(
-                  s.content_elements || [],
-                  includeContent,
-                  domain,
-                  resizerKey,
-                  resizerURL,
-                  resizerWidth,
-                  resizerHeight,
-                ) || '',
-              )
-              .text()) &&
-            body && {
-              description: body,
-            }),
+            description: cheerio
+            .load(
+              rssBuildContent.parse(
+                s.content_elements || [],
+                includeContent,
+                domain,
+                resizerKey,
+                resizerURL,
+                resizerWidth,
+                resizerHeight,
+              ) || '',
+            )
+            .text()
         }
       }),
     },
@@ -155,7 +156,7 @@ Rss.propTypes = {
       description: 'description',
       defaultValue: `content_elements[?type=='audio'].streams[].url|[0]`,
     }),
-    ...generatePropsForFeed('rss', PropTypes, ['audioAvailable']),
+    ...generatePropsForFeed('rss', PropTypes, ['featuredImage', 'includePromo']),
   }),
 }
 Rss.label = 'RSS Alexa'

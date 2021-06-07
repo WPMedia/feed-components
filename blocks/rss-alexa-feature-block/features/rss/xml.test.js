@@ -27,6 +27,23 @@ const articles = {
       content_elements: [
         { type: 'text', content: 'try singing the happy birthday song' },
         { type: 'text', content: 'be sure to wash your thumbs' },
+        {
+          _id: 'F3SWUDSWAFCCBIM6TKRM2J6DOA',
+          type: 'audio',
+          version: '0.10.6',
+          streams: [
+            {
+              url: 'https://clark.com/wp-content/uploads/2021/01/Ask-Clark_eBay-Truck-Scam_Jan-2021.mp3',
+            },
+          ],
+          additional_properties: {
+            class: ['wp-audio-shortcode'],
+            controls: 'controls',
+            id: 'audio-182053-5',
+            preload: 'none',
+            style: 'width: 100%;',
+          },
+        },
       ],
       taxonomy: {
         primary_section: { name: 'coronvirus' },
@@ -38,6 +55,7 @@ const articles = {
       type: 'story',
       display_date: '2020-04-07T15:02:08.918Z',
     },
+   
   ],
 }
 
@@ -48,6 +66,7 @@ it('returns Alexa template with default values', () => {
       ...articles,
     },
     customFields: {
+      audioAvailable: `content_elements[?type=='audio'].streams[].url|[0]`,
       channelTitle: '',
       channelDescription: '',
       channelPath: '/arc/outboundfeeds/alexa/',
@@ -57,23 +76,26 @@ it('returns Alexa template with default values', () => {
       channelLogo: '',
       itemTitle: 'headlines.basic',
       pubDate: 'display_date',
-      itemCredits: 'credits.by[].name',
       itemCategory: '',
       includePromo: true,
-      resizerKVP: {},
-
-      imageTitle: 'title',
-      imageCaption: 'caption',
-      imageCredits: 'credits.by[].name',
       includeContent: 0,
     },
   })
+ 
   expect(rss).toMatchSnapshot({
     rss: {
       channel: {
         lastBuildDate: expect.stringMatching(
           /\w+, \d+ \w+ \d{4} \d{2}:\d{2}:\d{2} \+0000/,
         ),
+        item: {
+          enclosure : {
+            '@group': "Audio",
+            "@label": "Audio",
+            "@type": "audio/mp3",
+            "@url": "https://clark.com/wp-content/uploads/2021/01/Ask-Clark_eBay-Truck-Scam_Jan-2021.mp3"
+          }
+        }
       },
     },
   })
@@ -86,6 +108,7 @@ it('returns Alexa template with custom values', () => {
       ...articles,
     },
     customFields: {
+      audioAvailable: "content_elements[?type=='audio'].streams[].url|[0]",
       channelTitle: 'The Daily Prophet',
       channelDescription: "All the news that's fit to print",
       channelPath: '/arc/outboundfeeds/alexa/',
@@ -96,23 +119,26 @@ it('returns Alexa template with custom values', () => {
         'https://arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png',
       itemTitle: 'headlines.seo || headlines.basic',
       pubDate: 'display_date',
-      itemCredits: 'credits.by[]._id',
       itemCategory: 'taxonomy.primary_section.name',
       includePromo: true,
-      resizerKVP: { width: 640, height: 480 },
-
-      imageTitle: 'headlines.basic || title',
-      imageCaption: 'subheadlines.basic || caption',
-      imageCredits: 'credits.by[].name',
       includeContent: 'all',
     },
   })
+ 
   expect(rss).toMatchSnapshot({
     rss: {
       channel: {
         lastBuildDate: expect.stringMatching(
           /\w+, \d+ \w+ \d{4} \d{2}:\d{2}:\d{2} \+0000/,
         ),
+        item: {
+          enclosure : {
+            '@group': "Audio",
+            "@label": "Audio",
+            "@type": "audio/mp3",
+            "@url": "https://clark.com/wp-content/uploads/2021/01/Ask-Clark_eBay-Truck-Scam_Jan-2021.mp3"
+          }
+        }
       },
     },
   })
