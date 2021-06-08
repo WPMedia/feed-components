@@ -18,6 +18,7 @@
   },
   "author": "arc-io-dev@washpost.com",
   "homepage": "https://github.com/WPMedia/feed-components#readme",
+  "dependencies": {},
   "devDependencies": {
     "prop-types": "^15.7.2"
   }
