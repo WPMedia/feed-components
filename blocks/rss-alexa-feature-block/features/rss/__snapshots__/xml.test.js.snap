@@ -1,0 +1,83 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`returns Alexa template with custom values 1`] = `
+Object {
+  "rss": Object {
+    "@version": "2.0",
+    "channel": Object {
+      "category": "news",
+      "copyright": "2020 The Washington Post LLC",
+      "description": "All the news that's fit to print",
+      "image": Object {
+        "link": "http://demo-prod.origin.arcpublishing.com",
+        "title": "The Daily Prophet",
+        "url": "hi/abcdefghijklmnopqrstuvwxyz=/arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png",
+      },
+      "item": Array [
+        Object {
+          "category": "coronvirus",
+          "description": "try singing the happy birthday songbe sure to wash your thumbs",
+          "enclosure": Object {
+            "@group": "Audio",
+            "@label": "Audio",
+            "@type": "audio/mp3",
+            "@url": "https://clark.com/wp-content/uploads/2021/01/Ask-Clark_eBay-Truck-Scam_Jan-2021.mp3",
+          },
+          "guid": undefined,
+          "link": "http://demo-prod.origin.arcpublishing.com/food/2020/04/07/tips-for-safe-hand-washing",
+          "pubDate": "2020-04-07T15:02:08.918Z",
+          "title": "Tips for Safe Hand washing",
+        },
+        Object {
+          "description": "",
+          "guid": "ABCD",
+          "link": "http://demo-prod.origin.arcpublishing.com",
+          "pubDate": "2020-04-07T15:02:08.918Z",
+          "title": "",
+        },
+      ],
+      "language": "en",
+      "lastBuildDate": StringMatching /\\\\w\\+, \\\\d\\+ \\\\w\\+ \\\\d\\{4\\} \\\\d\\{2\\}:\\\\d\\{2\\}:\\\\d\\{2\\} \\\\\\+0000/,
+      "link": "http://demo-prod.origin.arcpublishing.com",
+      "title": "The Daily Prophet",
+      "ttl": "60",
+    },
+  },
+}
+`;
+
+exports[`returns Alexa template with default values 1`] = `
+Object {
+  "rss": Object {
+    "@version": "2.0",
+    "channel": Object {
+      "item": Array [
+        Object {
+          "description": "",
+          "enclosure": Object {
+            "@group": "Audio",
+            "@label": "Audio",
+            "@type": "audio/mp3",
+            "@url": "https://clark.com/wp-content/uploads/2021/01/Ask-Clark_eBay-Truck-Scam_Jan-2021.mp3",
+          },
+          "guid": undefined,
+          "link": "http://demo-prod.origin.arcpublishing.com/food/2020/04/07/tips-for-safe-hand-washing",
+          "pubDate": "2020-04-07T15:02:08.918Z",
+          "title": "Tips for Safe Hand washing",
+        },
+        Object {
+          "description": "",
+          "guid": "ABCD",
+          "link": "http://demo-prod.origin.arcpublishing.com",
+          "pubDate": "2020-04-07T15:02:08.918Z",
+          "title": "",
+        },
+      ],
+      "language": "en",
+      "lastBuildDate": StringMatching /\\\\w\\+, \\\\d\\+ \\\\w\\+ \\\\d\\{4\\} \\\\d\\{2\\}:\\\\d\\{2\\}:\\\\d\\{2\\} \\\\\\+0000/,
+      "link": "http://demo-prod.origin.arcpublishing.com",
+      "ttl": "1",
+    },
+  },
+}
+`;

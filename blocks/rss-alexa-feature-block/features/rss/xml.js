@@ -16,16 +16,13 @@ const getURLType = (url) => {
   const imgRegex = new RegExp(/(jpe?g|png|webp|PNG|JPG|WEBP)$/);
   const audioRegex = new RegExp('^(https?|ftp|file):\/\/(www.)?(.*?)\.(mp3)$');
   const videoRegex = new RegExp('^(https?|ftp|file):\/\/(www.)?(.*?)\.(mp4|ts)$');
-  console.log('url', url);
   const uri = url.split(".");
   const type = uri[uri.length -1];
-  console.log('type', type);
   const defaultType =  {label: 'Audio',type: `audio/${type}`};
   if(imgRegex.test(url)) {
     return {label: 'image',type: `image/${type}`};
   }
   if(audioRegex.test(url)){
-   
     return {label: 'Audio',type: `audio/${type}`};
   }
   if(videoRegex.test(url)){

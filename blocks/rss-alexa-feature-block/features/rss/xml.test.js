@@ -55,7 +55,6 @@ const articles = {
       type: 'story',
       display_date: '2020-04-07T15:02:08.918Z',
     },
-   
   ],
 }
 
@@ -66,7 +65,7 @@ it('returns Alexa template with default values', () => {
       ...articles,
     },
     customFields: {
-      audioAvailable: `content_elements[?type=='audio'].streams[].url|[0]`,
+      audioAvailable: "content_elements[?type=='audio'].streams[].url|[0]",
       channelTitle: '',
       channelDescription: '',
       channelPath: '/arc/outboundfeeds/alexa/',
@@ -81,21 +80,13 @@ it('returns Alexa template with default values', () => {
       includeContent: 0,
     },
   })
- 
+
   expect(rss).toMatchSnapshot({
     rss: {
       channel: {
         lastBuildDate: expect.stringMatching(
           /\w+, \d+ \w+ \d{4} \d{2}:\d{2}:\d{2} \+0000/,
         ),
-        item: {
-          enclosure : {
-            '@group': "Audio",
-            "@label": "Audio",
-            "@type": "audio/mp3",
-            "@url": "https://clark.com/wp-content/uploads/2021/01/Ask-Clark_eBay-Truck-Scam_Jan-2021.mp3"
-          }
-        }
       },
     },
   })
@@ -124,21 +115,32 @@ it('returns Alexa template with custom values', () => {
       includeContent: 'all',
     },
   })
- 
+
   expect(rss).toMatchSnapshot({
     rss: {
       channel: {
         lastBuildDate: expect.stringMatching(
           /\w+, \d+ \w+ \d{4} \d{2}:\d{2}:\d{2} \+0000/,
         ),
-        item: {
-          enclosure : {
-            '@group': "Audio",
-            "@label": "Audio",
-            "@type": "audio/mp3",
-            "@url": "https://clark.com/wp-content/uploads/2021/01/Ask-Clark_eBay-Truck-Scam_Jan-2021.mp3"
-          }
-        }
+        item: [
+          {
+            description: 'try singing the happy birthday songbe sure to wash your thumbs',
+            enclosure: {
+              '@group': 'Audio',
+              '@label': 'Audio',
+              '@type': 'audio/mp3',
+              '@url':
+                'https://clark.com/wp-content/uploads/2021/01/Ask-Clark_eBay-Truck-Scam_Jan-2021.mp3',
+            },
+          },
+          {
+            description: '',
+            guid: 'ABCD',
+            link: 'http://demo-prod.origin.arcpublishing.com',
+            pubDate: '2020-04-07T15:02:08.918Z',
+            title: '',
+          },
+        ],
       },
     },
   })
