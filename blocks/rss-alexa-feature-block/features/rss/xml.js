@@ -13,23 +13,23 @@ const jmespath = require('jmespath')
 const cheerio = require('cheerio')
 
 const getURLType = (url) => {
-  const imgRegex = new RegExp(/(jpe?g|png|webp|PNG|JPG|WEBP)$/);
-  const audioRegex = new RegExp('^(https?|ftp|file):\/\/(www.)?(.*?)\.(mp3)$');
-  const videoRegex = new RegExp('^(https?|ftp|file):\/\/(www.)?(.*?)\.(mp4|ts)$');
-  const uri = url.split(".");
-  const type = uri[uri.length -1];
-  const defaultType =  {label: 'Audio',type: `audio/${type}`};
-  if(imgRegex.test(url)) {
-    return {label: 'image',type: `image/${type}`};
+  const imgRegex = '/(jpe?g|png|webp|PNG|JPG|WEBP)$/'
+  const audioRegex = '^(https?|ftp|file)://(www.)?(.*?).(mp3)$'
+  const videoRegex = '^(https?|ftp|file)://(www.)?(.*?).(mp4|ts)$'
+  const uri = url.split('.')
+  const type = uri[uri.length - 1]
+  const defaultType = { label: 'Audio', type: `audio/${type}` }
+  if (imgRegex.test(url)) {
+    return { label: 'image', type: `image/${type}` }
   }
-  if(audioRegex.test(url)){
-    return {label: 'Audio',type: `audio/${type}`};
+  if (audioRegex.test(url)) {
+    return { label: 'Audio', type: `audio/${type}` }
   }
-  if(videoRegex.test(url)){
-    return {label: 'Video',type: `video/${type}`};
+  if (videoRegex.test(url)) {
+    return { label: 'Video', type: `video/${type}` }
   }
-  
-  return defaultType;
+
+  return defaultType
 }
 
 const rssTemplate = (
@@ -80,27 +80,26 @@ const rssTemplate = (
       }),
 
       item: elements.map((s) => {
-        let body, category,
-        enclosureurl = jmespath.search(s, audioAvailable);
+        let category
+        const enclosureurl = jmespath.search(s, audioAvailable)
         const url = `${domain}${s.website_url || s.canonical_url || ''}`
         return {
           title: jmespath.search(s, itemTitle) || '',
           link: url,
           guid: s._id,
           pubDate: s[pubDate],
-          ...(enclosureurl  &&
-          {
+          ...(enclosureurl && {
             enclosure: {
               '@url': enclosureurl,
-              '@label':  getURLType(enclosureurl).label,
+              '@label': getURLType(enclosureurl).label,
               '@group': getURLType(enclosureurl).label,
-              '@type': getURLType(enclosureurl).type
-            }
+              '@type': getURLType(enclosureurl).type,
+            },
           }),
           ...(itemCategory &&
             (category = jmespath.search(s, itemCategory)) &&
             category && { category: category }),
-            description: cheerio
+          description: cheerio
             .load(
               rssBuildContent.parse(
                 s.content_elements || [],
@@ -112,7 +111,7 @@ const rssTemplate = (
                 resizerHeight,
               ) || '',
             )
-            .text()
+            .text(),
         }
       }),
     },
@@ -127,11 +126,10 @@ export function Rss({ globalContent, customFields, arcSite }) {
     feedLanguage = '',
   } = getProperties(arcSite)
 
-  const { width = 0, height = 0 } = customFields.resizerKVP || {};
-  
+  const { width = 0, height = 0 } = customFields.resizerKVP || {}
 
   const rssBuildContent = new BuildContent()
- 
+
   // can't return null for xml return type, must return valid xml template
   return rssTemplate(get(globalContent, 'content_elements', []), {
     ...customFields,
@@ -153,7 +151,10 @@ Rss.propTypes = {
       description: 'description',
       defaultValue: `content_elements[?type=='audio'].streams[].url|[0]`,
     }),
-    ...generatePropsForFeed('rss', PropTypes, ['featuredImage', 'includePromo']),
+    ...generatePropsForFeed('rss', PropTypes, [
+      'featuredImage',
+      'includePromo',
+    ]),
   }),
 }
 Rss.label = 'RSS Alexa'

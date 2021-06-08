@@ -124,7 +124,8 @@ it('returns Alexa template with custom values', () => {
         ),
         item: [
           {
-            description: 'try singing the happy birthday songbe sure to wash your thumbs',
+            description:
+              'try singing the happy birthday songbe sure to wash your thumbs',
             enclosure: {
               '@group': 'Audio',
               '@label': 'Audio',

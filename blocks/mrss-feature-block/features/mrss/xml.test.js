@@ -126,8 +126,7 @@ it.only('returns RSS template with default values', () => {
             {
               height: 720,
               width: 1280,
-              url:
-                'https://d3ujdjwa458jgt.cloudfront.net/out/v1/87998c783fb94bf0b965847d5c8b4392/index.m3u8',
+              url: 'https://d3ujdjwa458jgt.cloudfront.net/out/v1/87998c783fb94bf0b965847d5c8b4392/index.m3u8',
               bitrate: 2000,
               filesize: 549824236,
               stream_type: 'ts',
