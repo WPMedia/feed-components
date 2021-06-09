@@ -19,13 +19,13 @@ const getURLType = (url) => {
   const uri = url.split('.')
   const type = uri[uri.length - 1]
   const defaultType = { label: 'Audio', type: `audio/${type}` }
-  if (imgRegex.test(url)) {
+  if (new RegExp(imgRegex).test(url)) {
     return { label: 'image', type: `image/${type}` }
   }
-  if (audioRegex.test(url)) {
+  if (new RegExp(audioRegex).test(url)) {
     return { label: 'Audio', type: `audio/${type}` }
   }
-  if (videoRegex.test(url)) {
+  if (new RegExp(videoRegex).test(url)) {
     return { label: 'Video', type: `video/${type}` }
   }
 
