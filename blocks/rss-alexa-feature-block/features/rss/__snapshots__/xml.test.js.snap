@@ -18,10 +18,8 @@ Object {
           "category": "coronvirus",
           "description": "try singing the happy birthday songbe sure to wash your thumbs",
           "enclosure": Object {
-            "@group": "Audio",
-            "@label": "Audio",
             "@type": "audio/mp3",
-            "@url": "https://clark.com/wp-content/uploads/2021/01/Ask-Clark_eBay-Truck-Scam_Jan-2021.mp3",
+            "@url": "https://clark.com/wp-content/uploads/2021/01/Ask-Clark_GameStop_2021.mp3?_=4",
           },
           "guid": undefined,
           "link": "http://demo-prod.origin.arcpublishing.com/food/2020/04/07/tips-for-safe-hand-washing",
@@ -55,10 +53,8 @@ Object {
         Object {
           "description": "",
           "enclosure": Object {
-            "@group": "Audio",
-            "@label": "Audio",
             "@type": "audio/mp3",
-            "@url": "https://clark.com/wp-content/uploads/2021/01/Ask-Clark_eBay-Truck-Scam_Jan-2021.mp3",
+            "@url": "https://clark.com/wp-content/uploads/2021/01/Ask-Clark_GameStop_2021.mp3?_=4",
           },
           "guid": undefined,
           "link": "http://demo-prod.origin.arcpublishing.com/food/2020/04/07/tips-for-safe-hand-washing",

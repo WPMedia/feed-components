@@ -12,18 +12,18 @@ const jmespath = require('jmespath')
 
 const cheerio = require('cheerio')
 
-const getURLType = (url) => {
-  const imgRegex = '/(jpe?g|png|webp|PNG|JPG|WEBP)$/'
+export const getURLType = (url) => {
+  const imgRegex = /jpe?g|png|webp/i
   const audioRegex = '^(https?|ftp|file)://(www.)?(.*?).(mp3)$'
   const videoRegex = '^(https?|ftp|file)://(www.)?(.*?).(mp4|ts)$'
   const uri = url.split('.')
   const type = uri[uri.length - 1]
-  const defaultType = { label: 'Audio', type: `audio/${type}` }
+  const defaultType = { label: 'Audio', type: `audio/mp3` }
   if (new RegExp(imgRegex).test(url)) {
     return { label: 'image', type: `image/${type}` }
   }
   if (new RegExp(audioRegex).test(url)) {
-    return { label: 'Audio', type: `audio/${type}` }
+    return { label: 'Audio', type: `audio/mp3` }
   }
   if (new RegExp(videoRegex).test(url)) {
     return { label: 'Video', type: `video/${type}` }
@@ -91,8 +91,6 @@ const rssTemplate = (
           ...(enclosureurl && {
             enclosure: {
               '@url': enclosureurl,
-              '@label': getURLType(enclosureurl).label,
-              '@group': getURLType(enclosureurl).label,
               '@type': getURLType(enclosureurl).type,
             },
           }),
@@ -146,14 +144,15 @@ export function Rss({ globalContent, customFields, arcSite }) {
 Rss.propTypes = {
   customFields: PropTypes.shape({
     audioAvailable: PropTypes.string.tag({
-      label: 'Audio',
-      group: 'Audio',
-      description: 'description',
+      description: 'contains audio URL that alexa plays',
       defaultValue: `content_elements[?type=='audio'].streams[].url|[0]`,
     }),
     ...generatePropsForFeed('rss', PropTypes, [
-      'featuredImage',
+      'imageTitle',
+      'imageCaption',
+      'imageCredits',
       'includePromo',
+      'resizerKVP',
     ]),
   }),
 }

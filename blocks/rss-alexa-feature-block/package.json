@@ -1,6 +1,6 @@
 {
   "name": "@wpmedia/rss-alexa-feature-block",
-  "version": "0.0.0",
+  "version": "1.4.0",
   "description": "Fusion components for building rss alexa feed",
   "main": "index.js",
   "files": [

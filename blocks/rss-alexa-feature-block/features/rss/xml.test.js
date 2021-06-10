@@ -1,6 +1,6 @@
 // eslint-disable-next-line no-unused-vars
 import Consumer from 'fusion:consumer'
-import { Rss } from './xml'
+import { Rss, getURLType } from './xml'
 
 const articles = {
   content_elements: [
@@ -33,7 +33,7 @@ const articles = {
           version: '0.10.6',
           streams: [
             {
-              url: 'https://clark.com/wp-content/uploads/2021/01/Ask-Clark_eBay-Truck-Scam_Jan-2021.mp3',
+              url: 'https://clark.com/wp-content/uploads/2021/01/Ask-Clark_GameStop_2021.mp3?_=4',
             },
           ],
           additional_properties: {
@@ -122,27 +122,19 @@ it('returns Alexa template with custom values', () => {
         lastBuildDate: expect.stringMatching(
           /\w+, \d+ \w+ \d{4} \d{2}:\d{2}:\d{2} \+0000/,
         ),
-        item: [
-          {
-            description:
-              'try singing the happy birthday songbe sure to wash your thumbs',
-            enclosure: {
-              '@group': 'Audio',
-              '@label': 'Audio',
-              '@type': 'audio/mp3',
-              '@url':
-                'https://clark.com/wp-content/uploads/2021/01/Ask-Clark_eBay-Truck-Scam_Jan-2021.mp3',
-            },
-          },
-          {
-            description: '',
-            guid: 'ABCD',
-            link: 'http://demo-prod.origin.arcpublishing.com',
-            pubDate: '2020-04-07T15:02:08.918Z',
-            title: '',
-          },
-        ],
       },
     },
   })
+})
+
+it('check getURLType', () => {
+  const url = getURLType(
+    'https://cloudfront-us-east-1.images.arcpublishing.com/demo/GSVDM4QTMBBQZNY7GAVHKQGEFM.jpeg',
+  )
+  expect(url.type).toEqual('image/jpeg')
+
+  const vurl = getURLType(
+    'https://cloudfront-us-east-1.images.arcpublishing.com/demo/GSVDM4QTMBBQZNY7GAVHKQGEFM.mp4',
+  )
+  expect(vurl.type).toEqual('video/mp4')
 })
