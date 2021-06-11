@@ -14,22 +14,24 @@ const cheerio = require('cheerio')
 
 export const getURLType = (url) => {
   const imgRegex = /jpe?g|png|webp/i
-  const audioRegex = '^(https?|ftp|file)://(www.)?(.*?).(mp3)$'
-  const videoRegex = '^(https?|ftp|file)://(www.)?(.*?).(mp4|ts)$'
+  const audioRegex = /^(https?|ftp|file):\/\/(www.)?(.*?)\.(mp3)\??(?:&?[^=&]*=[^=&]*)*$/
+  const videoRegex = /^(https?|ftp|file):\/\/(www.)?(.*?)\.(mp4|ts)\??(?:&?[^=&]*=[^=&]*)*$/
   const uri = url.split('.')
   const type = uri[uri.length - 1]
   const defaultType = { label: 'Audio', type: `audio/mp3` }
   if (new RegExp(imgRegex).test(url)) {
     return { label: 'image', type: `image/${type}` }
   }
-  if (new RegExp(audioRegex).test(url)) {
+  else if (new RegExp(audioRegex).test(url)) {
     return { label: 'Audio', type: `audio/mp3` }
   }
-  if (new RegExp(videoRegex).test(url)) {
+  else if (new RegExp(videoRegex).test(url)) {
     return { label: 'Video', type: `video/${type}` }
+  } else {
+    return defaultType
   }
 
-  return defaultType
+  
 }
 
 const rssTemplate = (
@@ -144,7 +146,9 @@ export function Rss({ globalContent, customFields, arcSite }) {
 Rss.propTypes = {
   customFields: PropTypes.shape({
     audioAvailable: PropTypes.string.tag({
-      description: 'contains audio URL that alexa plays',
+      label: 'Audio URL',
+      group: 'Enclosure',
+      description: 'ANS field to use for audio enclosure URL, if blank will be excluded.',
       defaultValue: `content_elements[?type=='audio'].streams[].url|[0]`,
     }),
     ...generatePropsForFeed('rss', PropTypes, [

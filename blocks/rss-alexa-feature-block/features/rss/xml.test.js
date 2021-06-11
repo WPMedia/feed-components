@@ -127,14 +127,46 @@ it('returns Alexa template with custom values', () => {
   })
 })
 
-it('check getURLType', () => {
-  const url = getURLType(
-    'https://cloudfront-us-east-1.images.arcpublishing.com/demo/GSVDM4QTMBBQZNY7GAVHKQGEFM.jpeg',
-  )
-  expect(url.type).toEqual('image/jpeg')
+describe('check getURLType', () => {
+  it('return type is jpeg if url extension id .jpeg', () => {
+    const url = getURLType(
+      'https://cloudfront-us-east-1.images.arcpublishing.com/demo/GSVDM4QTMBBQZNY7GAVHKQGEFM.jpeg',
+    )
+    expect(url.type).toEqual('image/jpeg')
+  })
 
-  const vurl = getURLType(
-    'https://cloudfront-us-east-1.images.arcpublishing.com/demo/GSVDM4QTMBBQZNY7GAVHKQGEFM.mp4',
-  )
-  expect(vurl.type).toEqual('video/mp4')
+  it('return type is JPG if url extension id .JPG', () => {
+    const url = getURLType(
+      'https://cloudfront-us-east-1.images.arcpublishing.com/demo/GSVDM4QTMBBQZNY7GAVHKQGEFM.JPG',
+    )
+    expect(url.type).toEqual('image/JPG')
+  })
+  
+  it('return type is mp4 if url extension id .mp4', () => {
+    const vurl = getURLType(
+      'https://cloudfront-us-east-1.images.arcpublishing.com/demo/GSVDM4QTMBBQZNY7GAVHKQGEFM.mp4',
+    )
+    expect(vurl.type).toEqual('video/mp4')
+  })
+
+  it('show default return type  if url does not have extension', () => {
+    const vurl = getURLType(
+      'https://cloudfront-us-east-1.images.arcpublishing.com/demo/GSVDM4QTMBBQZNY7GAVHKQGEFM',
+    )
+    expect(vurl.type).toEqual('audio/mp3')
+  })
+
+  it('show return type is mp3 if url  have .mp3 AND parameter', () => {
+    const vurl = getURLType(
+      'https://cloudfront-us-east-1.images.arcpublishing.com/demo/GSVDM4QTMBBQZNY7GAVHKQGEFM.mp3?_=4',
+    )
+    expect(vurl.type).toEqual('audio/mp3');
+  })
+
+  it('show return label is Video if url  have .mp4 AND parameter', () => {
+    const vurl = getURLType(
+      'https://cloudfront-us-east-1.images.arcpublishing.com/demo/GSVDM4QTMBBQZNY7GAVHKQGEFM.mp4?_=4',
+    )
+    expect(vurl.label).toEqual('Video');
+  })
 })
