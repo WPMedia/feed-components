@@ -17,9 +17,10 @@ export const getURLType = (url) => {
   const audioRegex = /^(https?|ftp|file):\/\/(www.)?(.*?)\.(mp3)\??(?:&?[^=&]*=[^=&]*)*$/
   const videoRegex = /^(https?|ftp|file):\/\/(www.)?(.*?)\.(mp4|ts)\??(?:&?[^=&]*=[^=&]*)*$/
   const uri = url.split('.')
-  const type = uri[uri.length - 1]
+  let type = uri[uri.length - 1]
   const defaultType = { label: 'Audio', type: `audio/mp3` }
   if (new RegExp(imgRegex).test(url)) {
+    type = new RegExp(/jpe?g/i).test(type) ? 'jpeg' : type;
     return { label: 'image', type: `image/${type}` }
   }
   else if (new RegExp(audioRegex).test(url)) {
@@ -27,11 +28,7 @@ export const getURLType = (url) => {
   }
   else if (new RegExp(videoRegex).test(url)) {
     return { label: 'Video', type: `video/${type}` }
-  } else {
-    return defaultType
-  }
-
-  
+  } 
 }
 
 const rssTemplate = (

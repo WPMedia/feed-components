@@ -139,7 +139,7 @@ describe('check getURLType', () => {
     const url = getURLType(
       'https://cloudfront-us-east-1.images.arcpublishing.com/demo/GSVDM4QTMBBQZNY7GAVHKQGEFM.JPG',
     )
-    expect(url.type).toEqual('image/JPG')
+    expect(url.type).toEqual('image/jpeg');
   })
   
   it('return type is mp4 if url extension id .mp4', () => {
@@ -153,12 +153,12 @@ describe('check getURLType', () => {
     const vurl = getURLType(
       'https://cloudfront-us-east-1.images.arcpublishing.com/demo/GSVDM4QTMBBQZNY7GAVHKQGEFM',
     )
-    expect(vurl.type).toEqual('audio/mp3')
+    expect(vurl).toEqual(undefined)
   })
 
   it('show return type is mp3 if url  have .mp3 AND parameter', () => {
     const vurl = getURLType(
-      'https://cloudfront-us-east-1.images.arcpublishing.com/demo/GSVDM4QTMBBQZNY7GAVHKQGEFM.mp3?_=4',
+      'https://clark.com/wp-content/uploads/2021/01/Ask-Clark_GameStop_2021.mp3?_=4',
     )
     expect(vurl.type).toEqual('audio/mp3');
   })
