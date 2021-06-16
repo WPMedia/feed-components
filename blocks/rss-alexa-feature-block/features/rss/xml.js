@@ -28,7 +28,8 @@ export const getURLType = (url) => {
   }
   else if (new RegExp(videoRegex).test(url)) {
     return { label: 'Video', type: `video/${type}` }
-  } 
+  }
+  return defaultType
 }
 
 const rssTemplate = (
@@ -123,16 +124,14 @@ export function Rss({ globalContent, customFields, arcSite }) {
     feedLanguage = '',
   } = getProperties(arcSite)
 
-  const { width = 0, height = 0 } = customFields.resizerKVP || {}
-
   const rssBuildContent = new BuildContent()
 
   // can't return null for xml return type, must return valid xml template
   return rssTemplate(get(globalContent, 'content_elements', []), {
     ...customFields,
     resizerURL,
-    resizerWidth: width,
-    resizerHeight: height,
+    resizerWidth: 0,
+    resizerHeight: 0,
     domain: feedDomainURL,
     feedTitle,
     feedLanguage,
@@ -153,6 +152,10 @@ Rss.propTypes = {
       'imageCaption',
       'imageCredits',
       'includePromo',
+      'channelUpdatePeriod',
+      'channelUpdateFrequency',
+      'itemDescription',
+      'itemCredits',
       'resizerKVP',
     ]),
   }),

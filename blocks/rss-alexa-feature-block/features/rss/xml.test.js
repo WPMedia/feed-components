@@ -153,7 +153,7 @@ describe('check getURLType', () => {
     const vurl = getURLType(
       'https://cloudfront-us-east-1.images.arcpublishing.com/demo/GSVDM4QTMBBQZNY7GAVHKQGEFM',
     )
-    expect(vurl).toEqual(undefined)
+    expect(vurl.type).toEqual('audio/mp3')
   })
 
   it('show return type is mp3 if url  have .mp3 AND parameter', () => {
