@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`returns template with default values 1`] = `
+Array [
+  Array [
+    Object {
+      "last_updated_date": "2020-04-07T15:02:08.918Z",
+      "promo_items": Object {
+        "basic": Object {
+          "title": "Hand Washing",
+          "url": "hi/abcdefghijklmnopqrstuvwxyz=/arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png",
+        },
+      },
+      "type": "story",
+      "website_url": "/food/2020/04/07/tips-for-safe-hand-washing",
+    },
+    Object {
+      "content_elements": Array [
+        Object {
+          "type": "image",
+          "url": "hi/abcdefghijklmnopqrstuvwxyz=/arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png",
+        },
+      ],
+      "last_updated_date": "2021-04-07T17:02:08.918Z",
+      "type": "story",
+      "website_url": "/food/2021/04/07/will-we-ever-stop-hand-washing",
+    },
+    Object {
+      "last_updated_date": "2021-04-03T13:02:08.918Z",
+      "promo_image": Object {
+        "title": "No kneed recipes",
+        "url": "hi/abcdefghijklmnopqrstuvwxyz=/arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png",
+      },
+      "promo_items": Object {
+        "basic": Object {
+          "type": "video",
+        },
+      },
+      "type": "video",
+      "website_url": "/food/2021/04/03/best-sourdough-recipes",
+    },
+  ],
+]
+`;

@@ -34,6 +34,7 @@ const rssTemplate = (
     resizerURL,
     resizerWidth,
     resizerHeight,
+    videoSelect,
     domain,
     feedTitle,
     feedLanguage,
@@ -114,6 +115,7 @@ const rssTemplate = (
               resizerURL,
               resizerWidth,
               resizerHeight,
+              videoSelect,
             )) &&
             body && {
               'content:encoded': {
