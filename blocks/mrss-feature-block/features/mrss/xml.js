@@ -30,13 +30,13 @@ const rssTemplate = (
     itemCredits,
     itemCategory,
     includeContent,
+    selectVideo,
     resizerURL,
     resizerWidth,
     resizerHeight,
     domain,
     feedTitle,
     feedLanguage,
-    selectVideo,
   },
 ) => ({
   rss: {
@@ -194,7 +194,7 @@ Mrss.propTypes = {
         stream_type: 'mp4',
       },
     }),
-    ...generatePropsForFeed('rss', PropTypes),
+    ...generatePropsForFeed('rss', PropTypes, ['videoSelect']),
   }),
 }
 Mrss.label = 'MRSS'
