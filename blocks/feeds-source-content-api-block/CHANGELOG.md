@@ -1,5 +1,15 @@
 # @wpmedia/feeds-source-content-api-block
 
+## 1.5.0
+
+### Minor Changes
+
+- [#502](https://github.com/WPMedia/feed-components/pull/502) [`001107f`](https://github.com/WPMedia/feed-components/commit/001107fc67a2705df80a6c59615e2c7e5d6f86e7) Thanks [@tbrick855](https://github.com/tbrick855)! - sync them app to get published to same version
+
+### Patch Changes
+
+- [#502](https://github.com/WPMedia/feed-components/pull/502) [`001107f`](https://github.com/WPMedia/feed-components/commit/001107fc67a2705df80a6c59615e2c7e5d6f86e7) Thanks [@tbrick855](https://github.com/tbrick855)! - Add taxonomy.sections.\_website to sections query
+
 ## 1.4.0
 
 ### Minor Changes
