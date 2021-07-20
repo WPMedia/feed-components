@@ -41,13 +41,13 @@ const fetch = async (key = {}) => {
     size,
     included_fields: includedFields,
   } = key
-
+  const id = _id.replace(/\//g, '')
   const qs = {
     website: site,
     from: from || 0,
     size: size || 20,
     published: true,
-    ...(_id && { _id: _id }),
+    ...(id && { _id: id }),
     ...(contentAlias && { content_alias: contentAlias }),
   }
 
