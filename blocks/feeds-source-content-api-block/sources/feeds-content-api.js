@@ -87,7 +87,7 @@ const resolve = function resolve(key) {
   // Append Author to basic query
   const { Author } = key
   if (Author) {
-    const author = Author.replace(/^\//, '')
+    const author = Author.replace(/\//g, '')
 
     body.query.bool.must.push({
       term: {
@@ -100,7 +100,7 @@ const resolve = function resolve(key) {
   // AIO-243 use simple_query_string to support multiple phrases using "phrase 1" | "phrase 2"
   const { Keywords } = key
   if (Keywords) {
-    const keywords = Keywords.replace(/^\//, '').replace(/%20/g, '+')
+    const keywords = Keywords.replace(/\//g, '').replace(/%20/g, '+')
 
     body.query.bool.must.push({
       simple_query_string: {
@@ -113,7 +113,7 @@ const resolve = function resolve(key) {
   // Append Tags text to basic query
   const tagsText = key['Tags-Text']
   if (tagsText) {
-    const cleanTagsText = tagsText.replace(/^\//, '').replace(/%20/g, '+')
+    const cleanTagsText = tagsText.replace(/\//g, '').replace(/%20/g, '+')
 
     body.query.bool.must.push({
       terms: {
@@ -125,7 +125,7 @@ const resolve = function resolve(key) {
   // Append Tags slug to basic query
   const tagsSlug = key['Tags-Slug']
   if (tagsSlug) {
-    const cleanTagsSlug = tagsSlug.replace(/^\//, '')
+    const cleanTagsSlug = tagsSlug.replace(/\//g, '')
 
     body.query.bool.must.push({
       terms: {

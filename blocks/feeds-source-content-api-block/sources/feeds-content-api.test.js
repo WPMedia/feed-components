@@ -73,6 +73,7 @@ it('returns query with parameter values', () => {
   )
 })
 
+
 it('returns query by section', () => {
   const query = resolver.default.resolve({
     Section: 'sports',
@@ -96,7 +97,7 @@ it('returns query by section', () => {
 
 it('returns query by section with leading slash', () => {
   const query = resolver.default.resolve({
-    Section: '/sports',
+    Section: 'sports/',
     Author: '',
     Keywords: '',
     'Tags-Text': '',
@@ -119,6 +120,27 @@ it('returns query by author', () => {
   const query = resolver.default.resolve({
     Section: '',
     Author: 'John Smith',
+    Keywords: '',
+    'Tags-Text': '',
+    'Tags-Slug': '',
+    'arc-site': 'demo',
+    'Include-Terms': '',
+    'Exclude-Terms': '',
+    'Feed-Size': '',
+    'Feed-Offset': '',
+    Sort: '',
+    'Source-Exclude': '',
+    'Source-Include': '',
+  })
+  expect(query).toBe(
+    'undefined/content/v4/search/published?body=%7B%22query%22:%7B%22bool%22:%7B%22must%22:%5B%7B%22term%22:%7B%22type%22:%22story%22%7D%7D,%7B%22range%22:%7B%22last_updated_date%22:%7B%22gte%22:%22now-2d%22,%22lte%22:%22now%22%7D%7D%7D,%7B%22term%22:%7B%22credits.by._id%22:%22John%20Smith%22%7D%7D%5D%7D%7D%7D&website=demo&size=100&from=0&_sourceExclude=related_content&sort=publish_date:desc',
+  )
+})
+
+it('returns query by author with slash', () => {
+  const query = resolver.default.resolve({
+    Section: '',
+    Author: '/John /Smith/',
     Keywords: '',
     'Tags-Text': '',
     'Tags-Slug': '',
@@ -184,7 +206,7 @@ it('returns query by tags slug', () => {
     Author: '',
     Keywords: '',
     'Tags-Text': '',
-    'Tags-Slug': 'football,sports',
+    'Tags-Slug': '/football,/sports/',
     'arc-site': 'demo',
     'Include-Terms': '',
     'Exclude-Terms': '',
