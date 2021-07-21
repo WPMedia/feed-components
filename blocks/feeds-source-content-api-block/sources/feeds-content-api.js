@@ -137,7 +137,7 @@ const resolve = function resolve(key) {
   // if Section append section query to basic query
   const { Section } = key
   if (Section && Section !== '/') {
-    let section = Section.replace(/\//g, '')
+    let section = Section.replace(/\/$/, '')
     if (!section.startsWith('/')) {
       section = `/${section}`
     }
