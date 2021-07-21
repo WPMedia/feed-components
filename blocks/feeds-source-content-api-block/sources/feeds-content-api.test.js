@@ -97,7 +97,7 @@ it('returns query by section', () => {
 
 it('returns query by section with leading slash', () => {
   const query = resolver.default.resolve({
-    Section: '/sports',
+    Section: 'sports/',
     Author: '',
     Keywords: '',
     'Tags-Text': '',
