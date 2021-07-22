@@ -73,7 +73,6 @@ it('returns query with parameter values', () => {
   )
 })
 
-
 it('returns query by section', () => {
   const query = resolver.default.resolve({
     Section: 'sports',

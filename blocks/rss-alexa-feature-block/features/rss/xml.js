@@ -14,8 +14,10 @@ const cheerio = require('cheerio')
 
 export const getURLType = (url) => {
   const imgRegex = /jpe?g|png|webp/i
-  const audioRegex = /^(https?|ftp|file):\/\/(www.)?(.*?)\.(mp3)\??(?:&?[^=&]*=[^=&]*)*$/
-  const videoRegex = /^(https?|ftp|file):\/\/(www.)?(.*?)\.(mp4|ts)\??(?:&?[^=&]*=[^=&]*)*$/
+  const audioRegex =
+    /^(https?|ftp|file):\/\/(www.)?(.*?)\.(mp3)\??(?:&?[^=&]*=[^=&]*)*$/
+  const videoRegex =
+    /^(https?|ftp|file):\/\/(www.)?(.*?)\.(mp4|ts)\??(?:&?[^=&]*=[^=&]*)*$/
   const uri = url.split('.')
   let type = uri[uri.length - 1]
   const defaultType = { label: 'Audio', type: `audio/mp3` }
