@@ -75,8 +75,7 @@ it('generate interstitial_link content element', () => {
   const ce = [
     {
       type: 'interstitial_link',
-      url:
-        '/2020/04/02/expert-predicts-richmond-area-hospitals-fill-up-within-weeks-peak-cases-not-expected-until-late-may/',
+      url: '/2020/04/02/expert-predicts-richmond-area-hospitals-fill-up-within-weeks-peak-cases-not-expected-until-late-may/',
       content:
         'Expert predicts Richmond-area hospitals to fill up within weeks; peak of cases not expected until late-April',
     },
@@ -124,8 +123,7 @@ it('generate correction content element', () => {
     {
       type: 'correction',
       correction_type: 'clarification',
-      text:
-        'In our previous article, we misspelled the name of the restaurant.',
+      text: 'In our previous article, we misspelled the name of the restaurant.',
     },
   ]
   const text = MyBuildContent.parse(ce, 'all', domain, resizerKey, resizerURL)
@@ -197,8 +195,7 @@ it('generate image content element', () => {
     {
       type: 'image',
       height: 1275,
-      url:
-        'https://arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/FK3A3PGSLNFYXCHLKWQGADE2ZA.jpg',
+      url: 'https://arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/FK3A3PGSLNFYXCHLKWQGADE2ZA.jpg',
       width: 1920,
     },
   ]
@@ -216,8 +213,7 @@ it('generate twitter oembed_response content element', () => {
       type: 'oembed_response',
       subtype: 'twitter',
       raw_oembed: {
-        html:
-          '<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Honestly, same. <a href="https://t.co/vhmMXeG7W4">https://t.co/vhmMXeG7W4</a> <a href="https://t.co/8VqgOr5WUQ">pic.twitter.com/8VqgOr5WUQ</a></p>&mdash; Teddy Amenabar (@TeddyAmen) <a href="https://twitter.com/TeddyAmen/status/1167114295123091459?ref_src=twsrc%5Etfw">August 29, 2019</a></blockquote>\n<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>\n',
+        html: '<blockquote class="twitter-tweet"><p lang="en" dir="ltr">Honestly, same. <a href="https://t.co/vhmMXeG7W4">https://t.co/vhmMXeG7W4</a> <a href="https://t.co/8VqgOr5WUQ">pic.twitter.com/8VqgOr5WUQ</a></p>&mdash; Teddy Amenabar (@TeddyAmen) <a href="https://twitter.com/TeddyAmen/status/1167114295123091459?ref_src=twsrc%5Etfw">August 29, 2019</a></blockquote>\n<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>\n',
       },
     },
   ]
@@ -233,8 +229,7 @@ it('generate youtube oembed_response content element', () => {
       type: 'oembed_response',
       subtype: 'youtube',
       raw_oembed: {
-        html:
-          '<iframe width="480" height="270" src="https://www.youtube.com/embed/a6KGPBflhiM?feature=oembed" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
+        html: '<iframe width="480" height="270" src="https://www.youtube.com/embed/a6KGPBflhiM?feature=oembed" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>',
       },
     },
   ]
@@ -361,8 +356,7 @@ it('generate gallery content elements', () => {
           subtitle: '89th Annual Academy Awards - Show',
           taxonomy: { additional_properties: {} },
           type: 'image',
-          url:
-            'https://arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/LLNQVAK74VHTFICZG4MAVRVSLE',
+          url: 'https://arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/LLNQVAK74VHTFICZG4MAVRVSLE',
           version: '0.6.2',
           width: 4373,
           keywords:
@@ -414,8 +408,7 @@ it('generate gallery content elements', () => {
           subtitle: '89th Annual Academy Awards - Show',
           taxonomy: { additional_properties: {} },
           type: 'image',
-          url:
-            'https://arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/LLNQVAK74VHTFICZG4MAVRVSLE',
+          url: 'https://arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/LLNQVAK74VHTFICZG4MAVRVSLE',
           version: '0.6.2',
           width: 4373,
           selectedCountry: {
@@ -442,8 +435,7 @@ it('generate gallery content elements', () => {
           subtitle: 'Sidney Poitier,  Lilia Skala',
           taxonomy: { additional_properties: {} },
           type: 'image',
-          url:
-            'https://arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/VG7MMON4F5DATFL6DD3VA3Z2BE',
+          url: 'https://arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/VG7MMON4F5DATFL6DD3VA3Z2BE',
           version: '0.6.2',
           width: 3011,
           keywords:
@@ -467,8 +459,7 @@ it('generate gallery content elements', () => {
             'Fred Astaire, Joe Makiewicz,  Ralph Bunche, Darryl Zanuck, Charles Brackett',
           taxonomy: { additional_properties: {} },
           type: 'image',
-          url:
-            'https://arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/MS75LP7NQBBUTD7KJGOQZ2XLZQ',
+          url: 'https://arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/MS75LP7NQBBUTD7KJGOQZ2XLZQ',
           version: '0.6.2',
           width: 3000,
           keywords: 'standing side by side smiling holding fame achievement',
@@ -527,8 +518,7 @@ it('generate video content element', () => {
       promo_items: {
         basic: {
           type: 'image',
-          url:
-            'https://d1acid63ghtydj.cloudfront.net/05-27-2020/t_593c7e85769e44b0b122b3800650d8ed_name_Hockey_Two.PNG',
+          url: 'https://d1acid63ghtydj.cloudfront.net/05-27-2020/t_593c7e85769e44b0b122b3800650d8ed_name_Hockey_Two.PNG',
         },
       },
       streams: [
@@ -536,8 +526,7 @@ it('generate video content element', () => {
           height: 720,
           width: 1280,
           stream_type: 'ts',
-          url:
-            'https://d3ujdjwa458jgt.cloudfront.net/out/v1/87998c783fb94bf0b965847d5c8b4392/index.m3u8',
+          url: 'https://d3ujdjwa458jgt.cloudfront.net/out/v1/87998c783fb94bf0b965847d5c8b4392/index.m3u8',
           bitrate: 2000,
           provider: 'elastictranscoder',
         },

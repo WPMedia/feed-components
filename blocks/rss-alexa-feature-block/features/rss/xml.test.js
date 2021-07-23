@@ -10,8 +10,7 @@ const articles = {
       promo_items: {
         basic: {
           title: 'Hand Washing',
-          url:
-            'https://arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png',
+          url: 'https://arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png',
           caption: 'Hand washing can be fun if you make it a song',
           credits: { by: [{ name: 'Harold Hands' }] },
         },
@@ -34,8 +33,7 @@ const articles = {
           version: '0.10.6',
           streams: [
             {
-              url:
-                'https://clark.com/wp-content/uploads/2021/01/Ask-Clark_GameStop_2021.mp3?_=4',
+              url: 'https://clark.com/wp-content/uploads/2021/01/Ask-Clark_GameStop_2021.mp3?_=4',
             },
           ],
           additional_properties: {

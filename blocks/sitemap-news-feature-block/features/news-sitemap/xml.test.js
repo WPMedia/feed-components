@@ -13,8 +13,7 @@ it('returns template with default values', () => {
           promo_items: {
             basic: {
               title: 'Hand Washing',
-              url:
-                'https://arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png',
+              url: 'https://arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png',
             },
           },
           headlines: {
@@ -37,8 +36,7 @@ it('returns template with default values', () => {
           promo_items: {
             mobile: {
               title: 'No kneeding around',
-              url:
-                'https://arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png',
+              url: 'https://arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png',
             },
           },
           headlines: {

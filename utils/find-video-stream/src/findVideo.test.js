@@ -9,8 +9,7 @@ const video = {
       width: 320,
       filesize: 482972,
       stream_type: 'ts',
-      url:
-        'https://d2yx7vlhlkujyx.cloudfront.net/wp-demo/2019/10/21/5dadfa0d4cedfd0009099db1/t_bc8c554113f74eb79c98938db8eb6ee4_name_Rallye___1295/mobile.m3u8',
+      url: 'https://d2yx7vlhlkujyx.cloudfront.net/wp-demo/2019/10/21/5dadfa0d4cedfd0009099db1/t_bc8c554113f74eb79c98938db8eb6ee4_name_Rallye___1295/mobile.m3u8',
       bitrate: 160,
       provider: 'mediaconvert',
     },
@@ -19,8 +18,7 @@ const video = {
       width: 320,
       filesize: 374764,
       stream_type: 'mp4',
-      url:
-        'https://d2yx7vlhlkujyx.cloudfront.net/wp-demo/2019/10/21/5dadfa0d4cedfd0009099db1/t_bc8c554113f74eb79c98938db8eb6ee4_name_Rallye___1295/file_320x180-160-v3.mp4',
+      url: 'https://d2yx7vlhlkujyx.cloudfront.net/wp-demo/2019/10/21/5dadfa0d4cedfd0009099db1/t_bc8c554113f74eb79c98938db8eb6ee4_name_Rallye___1295/file_320x180-160-v3.mp4',
       bitrate: 160,
       provider: 'mediaconvert',
     },
@@ -29,8 +27,7 @@ const video = {
       width: 1920,
       filesize: 7271088,
       stream_type: 'ts',
-      url:
-        'https://d2yx7vlhlkujyx.cloudfront.net/wp-demo/2019/10/21/5dadfa0d4cedfd0009099db1/t_bc8c554113f74eb79c98938db8eb6ee4_name_Rallye___1295/hlsv4_master.m3u8',
+      url: 'https://d2yx7vlhlkujyx.cloudfront.net/wp-demo/2019/10/21/5dadfa0d4cedfd0009099db1/t_bc8c554113f74eb79c98938db8eb6ee4_name_Rallye___1295/hlsv4_master.m3u8',
       bitrate: 5400,
       provider: 'mediaconvert',
     },
@@ -39,8 +36,7 @@ const video = {
       width: 1920,
       filesize: 7063304,
       stream_type: 'mp4',
-      url:
-        'https://d2yx7vlhlkujyx.cloudfront.net/wp-demo/2019/10/21/5dadfa0d4cedfd0009099db1/t_bc8c554113f74eb79c98938db8eb6ee4_name_Rallye___1295/file_1920x1080-5400-v4.mp4',
+      url: 'https://d2yx7vlhlkujyx.cloudfront.net/wp-demo/2019/10/21/5dadfa0d4cedfd0009099db1/t_bc8c554113f74eb79c98938db8eb6ee4_name_Rallye___1295/file_1920x1080-5400-v4.mp4',
       bitrate: 5400,
       provider: 'mediaconvert',
     },
@@ -75,8 +71,7 @@ it('find video stream', () => {
     height: 1080,
     provider: 'mediaconvert',
     stream_type: 'mp4',
-    url:
-      'https://d2yx7vlhlkujyx.cloudfront.net/wp-demo/2019/10/21/5dadfa0d4cedfd0009099db1/t_bc8c554113f74eb79c98938db8eb6ee4_name_Rallye___1295/file_1920x1080-5400-v4.mp4',
+    url: 'https://d2yx7vlhlkujyx.cloudfront.net/wp-demo/2019/10/21/5dadfa0d4cedfd0009099db1/t_bc8c554113f74eb79c98938db8eb6ee4_name_Rallye___1295/file_1920x1080-5400-v4.mp4',
     width: 1920,
   })
 })

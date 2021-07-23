@@ -14,8 +14,7 @@ it('returns template with default values', () => {
           promo_items: {
             basic: {
               title: 'Hand Washing',
-              url:
-                'https://arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png',
+              url: 'https://arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png',
             },
           },
         },
@@ -26,8 +25,7 @@ it('returns template with default values', () => {
           content_elements: [
             {
               type: 'image',
-              url:
-                'https://arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png',
+              url: 'https://arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png',
             },
           ],
         },
@@ -38,8 +36,7 @@ it('returns template with default values', () => {
           promo_items: { basic: { type: 'video' } },
           promo_image: {
             title: 'No kneed recipes',
-            url:
-              'https://arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png',
+            url: 'https://arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png',
           },
         },
       ],
