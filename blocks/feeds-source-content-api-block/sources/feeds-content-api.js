@@ -134,35 +134,125 @@ const resolve = function resolve(key) {
     })
   }
 
-  // if Section append section query to basic query
+  // if Section and Exclude-Section append section query to basic query
   const { Section } = key
-  if (Section && Section !== '/') {
-    let section = Section.replace(/\/$/, '')
-    if (!section.startsWith('/')) {
-      section = `/${section}`
+  const ExcludeSection = key['Exclude-Section']
+
+  let sections
+  let excludeSections
+
+  if (Section || ExcludeSection) {
+    if (Section && Section !== '/') {
+      const unFormattedSections =
+        Section.indexOf(',') > -1
+          ? Section.split(',').map((item) => item.trim().replace(/\/$/, ''))
+          : Section.trim().replace(/\/$/, '').split()
+
+      sections = unFormattedSections.map((item) => {
+        if (!item.startsWith('/')) {
+          return `/${item}`
+        }
+        return `${item}`
+      })
+    }
+    if (ExcludeSection && ExcludeSection !== '/') {
+      const unFormattedExcludeSections =
+        ExcludeSection.indexOf(',') > -1
+          ? ExcludeSection.split(',').map((item) =>
+              item.trim().replace(/\/$/, ''),
+            )
+          : ExcludeSection.trim().replace(/\/$/, '').split()
+      excludeSections = unFormattedExcludeSections.map((item) => {
+        if (!item.startsWith('/')) {
+          return `/${item}`
+        }
+        return `${item}`
+      })
     }
 
-    body.query.bool.must.push({
-      nested: {
-        path: 'taxonomy.sections',
-        query: {
-          bool: {
-            must: [
-              {
-                term: {
-                  'taxonomy.sections._website': key['arc-site'],
+    if (sections && excludeSections) {
+      body.query.bool.must.push({
+        nested: {
+          path: 'taxonomy.sections',
+          query: {
+            bool: {
+              must: [
+                {
+                  term: {
+                    'taxonomy.sections._website': key['arc-site'],
+                  },
                 },
-              },
-              {
-                term: {
-                  'taxonomy.sections._id': `${section}`,
+                {
+                  terms: {
+                    'taxonomy.sections._id': `${sections}`,
+                  },
                 },
-              },
-            ],
+              ],
+              must_not: [
+                {
+                  term: {
+                    'taxonomy.sections._website': key['arc-site'],
+                  },
+                },
+                {
+                  terms: {
+                    'taxonomy.sections._id': `${excludeSections}`,
+                  },
+                },
+              ],
+            },
           },
         },
-      },
-    })
+      })
+    }
+
+    if (sections && !excludeSections) {
+      body.query.bool.must.push({
+        nested: {
+          path: 'taxonomy.sections',
+          query: {
+            bool: {
+              must: [
+                {
+                  term: {
+                    'taxonomy.sections._website': key['arc-site'],
+                  },
+                },
+                {
+                  terms: {
+                    'taxonomy.sections._id': `${sections}`,
+                  },
+                },
+              ],
+            },
+          },
+        },
+      })
+    }
+
+    if (excludeSections && !sections) {
+      body.query.bool.must.push({
+        nested: {
+          path: 'taxonomy.sections',
+          query: {
+            bool: {
+              must_not: [
+                {
+                  term: {
+                    'taxonomy.sections._website': key['arc-site'],
+                  },
+                },
+                {
+                  terms: {
+                    'taxonomy.sections._id': `${excludeSections}`,
+                  },
+                },
+              ],
+            },
+          },
+        },
+      })
+    }
   }
 
   const encodedBody = encodeURI(JSON.stringify(body))
@@ -180,6 +270,7 @@ export default {
     'Tags-Slug': 'text',
     'Include-Terms': 'text',
     'Exclude-Terms': 'text',
+    'Exclude-Sections': 'text',
     'Feed-Size': 'text',
     'Feed-Offset': 'text',
     Sort: 'text',
