@@ -134,127 +134,52 @@ const resolve = function resolve(key) {
     })
   }
 
-  // if Section and Exclude-Section append section query to basic query
+  // if Section and/or Exclude-Sections append section query to basic query
   const { Section } = key
-  const ExcludeSection = key['Exclude-Section']
+  const ExcludeSections = key['Exclude-Sections']
 
-  let sections
-  let excludeSections
+  if (Section || ExcludeSections) {
+    const formatSections = (section) => {
+      const sectionArray = section
+        .split(',')
+        .map((item) => item.trim().replace(/\/$/, ''))
+        .map((item) => (item.startsWith('/') ? item : `/${item}`))
+      return {
+        terms: {
+          'taxonomy.sections._id': sectionArray,
+        },
+      }
+    }
 
-  if (Section || ExcludeSection) {
+    const nested = {
+      nested: {
+        path: 'taxonomy.sections',
+        query: {
+          bool: {
+            must: [
+              {
+                term: {
+                  'taxonomy.sections._website': key['arc-site'],
+                },
+              },
+            ],
+          },
+        },
+      },
+    }
+
     if (Section && Section !== '/') {
-      const unFormattedSections =
-        Section.indexOf(',') > -1
-          ? Section.split(',').map((item) => item.trim().replace(/\/$/, ''))
-          : Section.trim().replace(/\/$/, '').split()
-
-      sections = unFormattedSections.map((item) => {
-        if (!item.startsWith('/')) {
-          return `/${item}`
-        }
-        return `${item}`
-      })
-    }
-    if (ExcludeSection && ExcludeSection !== '/') {
-      const unFormattedExcludeSections =
-        ExcludeSection.indexOf(',') > -1
-          ? ExcludeSection.split(',').map((item) =>
-              item.trim().replace(/\/$/, ''),
-            )
-          : ExcludeSection.trim().replace(/\/$/, '').split()
-      excludeSections = unFormattedExcludeSections.map((item) => {
-        if (!item.startsWith('/')) {
-          return `/${item}`
-        }
-        return `${item}`
-      })
+      nested.nested.query.bool.must.push(formatSections(Section))
     }
 
-    if (sections && excludeSections) {
-      body.query.bool.must.push({
-        nested: {
-          path: 'taxonomy.sections',
-          query: {
-            bool: {
-              must: [
-                {
-                  term: {
-                    'taxonomy.sections._website': key['arc-site'],
-                  },
-                },
-                {
-                  terms: {
-                    'taxonomy.sections._id': `${sections}`,
-                  },
-                },
-              ],
-              must_not: [
-                {
-                  term: {
-                    'taxonomy.sections._website': key['arc-site'],
-                  },
-                },
-                {
-                  terms: {
-                    'taxonomy.sections._id': `${excludeSections}`,
-                  },
-                },
-              ],
-            },
-          },
-        },
-      })
+    if (ExcludeSections && ExcludeSections !== '/') {
+      nested.nested.query.bool.must_not = [formatSections(ExcludeSections)]
     }
 
-    if (sections && !excludeSections) {
-      body.query.bool.must.push({
-        nested: {
-          path: 'taxonomy.sections',
-          query: {
-            bool: {
-              must: [
-                {
-                  term: {
-                    'taxonomy.sections._website': key['arc-site'],
-                  },
-                },
-                {
-                  terms: {
-                    'taxonomy.sections._id': `${sections}`,
-                  },
-                },
-              ],
-            },
-          },
-        },
-      })
-    }
-
-    if (excludeSections && !sections) {
-      body.query.bool.must.push({
-        nested: {
-          path: 'taxonomy.sections',
-          query: {
-            bool: {
-              must_not: [
-                {
-                  term: {
-                    'taxonomy.sections._website': key['arc-site'],
-                  },
-                },
-                {
-                  terms: {
-                    'taxonomy.sections._id': `${excludeSections}`,
-                  },
-                },
-              ],
-            },
-          },
-        },
-      })
-    }
+    body.query.bool.must.push(nested)
   }
 
+  console.log(JSON.stringify(body))
   const encodedBody = encodeURI(JSON.stringify(body))
   return `${requestUri}?body=${encodedBody}&${uriParams}`
 }
