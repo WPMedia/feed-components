@@ -179,7 +179,6 @@ const resolve = function resolve(key) {
     body.query.bool.must.push(nested)
   }
 
-  console.log(JSON.stringify(body))
   const encodedBody = encodeURI(JSON.stringify(body))
   return `${requestUri}?body=${encodedBody}&${uriParams}`
 }
