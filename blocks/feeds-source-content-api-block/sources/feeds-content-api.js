@@ -134,15 +134,24 @@ const resolve = function resolve(key) {
     })
   }
 
-  // if Section append section query to basic query
+  // if Section and/or Exclude-Sections append section query to basic query
   const { Section } = key
-  if (Section && Section !== '/') {
-    let section = Section.replace(/\/$/, '')
-    if (!section.startsWith('/')) {
-      section = `/${section}`
+  const ExcludeSections = key['Exclude-Sections']
+
+  if (Section || ExcludeSections) {
+    const formatSections = (section) => {
+      const sectionArray = section
+        .split(',')
+        .map((item) => item.trim().replace(/\/$/, ''))
+        .map((item) => (item.startsWith('/') ? item : `/${item}`))
+      return {
+        terms: {
+          'taxonomy.sections._id': sectionArray,
+        },
+      }
     }
 
-    body.query.bool.must.push({
+    const nested = {
       nested: {
         path: 'taxonomy.sections',
         query: {
@@ -153,16 +162,21 @@ const resolve = function resolve(key) {
                   'taxonomy.sections._website': key['arc-site'],
                 },
               },
-              {
-                term: {
-                  'taxonomy.sections._id': `${section}`,
-                },
-              },
             ],
           },
         },
       },
-    })
+    }
+
+    if (Section && Section !== '/') {
+      nested.nested.query.bool.must.push(formatSections(Section))
+    }
+
+    if (ExcludeSections && ExcludeSections !== '/') {
+      nested.nested.query.bool.must_not = [formatSections(ExcludeSections)]
+    }
+
+    body.query.bool.must.push(nested)
   }
 
   const encodedBody = encodeURI(JSON.stringify(body))
@@ -180,6 +194,7 @@ export default {
     'Tags-Slug': 'text',
     'Include-Terms': 'text',
     'Exclude-Terms': 'text',
+    'Exclude-Sections': 'text',
     'Feed-Size': 'text',
     'Feed-Offset': 'text',
     Sort: 'text',
