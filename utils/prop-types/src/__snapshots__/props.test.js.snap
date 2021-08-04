@@ -41,7 +41,7 @@ Object {
   "channelTTL": Object {
     "tags": Object {
       "defaultValue": "1",
-      "description": "Number of minutes to wait to check for new content, defaults to 1",
+      "description": "Number of minutes to wait to check for new content, defaults to 1, hint to bots",
       "group": "Channel",
       "label": "Time To Live",
     },
@@ -72,10 +72,11 @@ Object {
       "weekly",
       "monthly",
       "yearly",
+      "Exclude field",
     ],
     "tags": Object {
       "defaultValue": "hourly",
-      "description": "Which period of time should be used, defaults to hourly",
+      "description": "How frequently should bots revisit page, defaults to hourly",
       "group": "Channel",
       "label": "Update Period",
     },
@@ -84,7 +85,7 @@ Object {
   "imageCaption": Object {
     "tags": Object {
       "defaultValue": "caption",
-      "description": "ANS value for associated story image used for the <media:caption> sitemap tag, defaults to caption",
+      "description": "ANS field to use for image caption in <media:caption> tag, defaults to caption",
       "group": "Featured Image",
       "label": "ANS image caption key",
     },
@@ -93,7 +94,7 @@ Object {
   "imageCredits": Object {
     "tags": Object {
       "defaultValue": "credits.by[].name",
-      "description": "ANS value for associated story image credits for the <media:credits> sitemap tag, defaults to credits.by[].name",
+      "description": "ANS field to use for image credits in <media:credits> tag, defaults to credits.by[].name",
       "group": "Featured Image",
       "label": "ANS image credits key",
     },
@@ -102,7 +103,7 @@ Object {
   "imageTitle": Object {
     "tags": Object {
       "defaultValue": "title",
-      "description": "ANS value for associated story used for the <media:title> sitemap tag, defaults to title",
+      "description": "ANS field to use for image title in <media:title> tag, defaults to title",
       "group": "Featured Image",
       "label": "ANS image title key",
     },
@@ -176,6 +177,15 @@ Object {
     },
     "type": "string",
   },
+  "promoItemsJmespath": Object {
+    "tags": Object {
+      "defaultValue": "promo_items.basic || promo_items.lead_art",
+      "description": "ANS fields to use for featured image, defaults to promo_items.basic || promo_items.lead_art",
+      "group": "Featured Image",
+      "label": "Path to promo_items",
+    },
+    "type": "string",
+  },
   "pubDate": Object {
     "args": Array [
       "created_date",
@@ -210,7 +220,7 @@ Object {
         "bitrate": 2000,
         "stream_type": "mp4",
       },
-      "description": "Which criteria should be used to filter video encodings",
+      "description": "Which criteria should be used to filter video encodings, defaults to { bitrate: 2000, stream_type: \\"mp4\\" }",
       "group": "Video",
       "label": "Video Encoding",
     },
@@ -230,11 +240,11 @@ Object {
       "monthly",
       "yearly",
       "never",
-      "Exclude from sitemap",
+      "Exclude field",
     ],
     "tags": Object {
       "defaultValue": "always",
-      "description": "What is the Change frequency of the sitemap",
+      "description": "What is the expected Change frequency of the sitemap, hint for bots",
       "group": "Format",
       "label": "change frequency",
     },
@@ -243,8 +253,8 @@ Object {
   "includePromo": Object {
     "tags": Object {
       "defaultValue": true,
-      "description": "Include an image in the sitemap",
-      "group": "Format",
+      "description": "Include featured image in the sitemap",
+      "group": "Featured Image",
       "label": "Include promo images?",
     },
     "type": "bool",
@@ -278,15 +288,24 @@ Object {
       "0.8",
       "0.9",
       "1.0",
-      "Exclude from sitemap",
+      "Exclude field",
     ],
     "tags": Object {
       "defaultValue": "0.5",
-      "description": "What is the priority of the sitemap",
+      "description": "What is the priority of the content in the sitemap, hint for bots",
       "group": "Format",
       "label": "priority",
     },
     "type": "oneOf",
+  },
+  "promoItemsJmespath": Object {
+    "tags": Object {
+      "defaultValue": "promo_items.basic || promo_items.lead_art",
+      "description": "ANS fields to use for featured image, defaults to promo_items.basic || promo_items.lead_art",
+      "group": "Featured Image",
+      "label": "Path to promo_items",
+    },
+    "type": "string",
   },
   "resizerKVP": Object {
     "tags": Object {
@@ -295,7 +314,7 @@ Object {
         "width": 0,
       },
       "description": "Optional height and or width to resize all images to",
-      "group": "Format",
+      "group": "Featured Image",
       "label": "Image height and or width",
     },
     "type": "kvp",
@@ -314,11 +333,11 @@ Object {
       "monthly",
       "yearly",
       "never",
-      "Exclude from sitemap",
+      "Exclude field",
     ],
     "tags": Object {
       "defaultValue": "always",
-      "description": "What is the Change frequency of the sitemap",
+      "description": "What is the expected Change frequency of the sitemap, hint for bots",
       "group": "Format",
       "label": "change frequency",
     },
@@ -353,15 +372,24 @@ Object {
       "0.8",
       "0.9",
       "1.0",
-      "Exclude from sitemap",
+      "Exclude field",
     ],
     "tags": Object {
       "defaultValue": "0.5",
-      "description": "What is the priority of the sitemap",
+      "description": "What is the priority of the content in the sitemap, hint for bots",
       "group": "Format",
       "label": "priority",
     },
     "type": "oneOf",
+  },
+  "promoItemsJmespath": Object {
+    "tags": Object {
+      "defaultValue": "promo_items.basic || promo_items.lead_art",
+      "description": "ANS fields to use for featured image, defaults to promo_items.basic || promo_items.lead_art",
+      "group": "Featured Image",
+      "label": "Path to promo_items",
+    },
+    "type": "string",
   },
   "resizerKVP": Object {
     "tags": Object {
@@ -370,7 +398,7 @@ Object {
         "width": 0,
       },
       "description": "Optional height and or width to resize all images to",
-      "group": "Format",
+      "group": "Featured Image",
       "label": "Image height and or width",
     },
     "type": "kvp",

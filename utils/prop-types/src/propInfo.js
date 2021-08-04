@@ -16,16 +16,26 @@ export const propInfo = {
       type: 'bool',
       tag: {
         label: 'Include promo images?',
-        group: 'Format',
-        description: 'Include an image in the sitemap',
+        group: 'Featured Image',
+        description: 'Include featured image in the sitemap',
         defaultValue: true,
+      },
+    },
+    promoItemsJmespath: {
+      type: 'string',
+      tag: {
+        label: 'Path to promo_items',
+        group: 'Featured Image',
+        description:
+          'ANS fields to use for featured image, defaults to promo_items.basic || promo_items.lead_art',
+        defaultValue: 'promo_items.basic || promo_items.lead_art',
       },
     },
     resizerKVP: {
       type: 'kvp',
       tag: {
         label: 'Image height and or width',
-        group: 'Format',
+        group: 'Featured Image',
         description: 'Optional height and or width to resize all images to',
         defaultValue: { width: 0, height: 0 },
       },
@@ -60,12 +70,13 @@ export const propInfo = {
         '0.8',
         '0.9',
         '1.0',
-        'Exclude from sitemap',
+        'Exclude field',
       ],
       tag: {
         label: 'priority',
         group: 'Format',
-        description: 'What is the priority of the sitemap',
+        description:
+          'What is the priority of the content in the sitemap, hint for bots',
         defaultValue: '0.5',
       },
     },
@@ -79,12 +90,13 @@ export const propInfo = {
         'monthly',
         'yearly',
         'never',
-        'Exclude from sitemap',
+        'Exclude field',
       ],
       tag: {
         label: 'change frequency',
         group: 'Format',
-        description: 'What is the Change frequency of the sitemap',
+        description:
+          'What is the expected Change frequency of the sitemap, hint for bots',
         defaultValue: 'always',
       },
     },
@@ -124,17 +136,18 @@ export const propInfo = {
         label: 'Time To Live',
         group: 'Channel',
         description:
-          'Number of minutes to wait to check for new content, defaults to 1',
+          'Number of minutes to wait to check for new content, defaults to 1, hint to bots',
         defaultValue: '1',
       },
     },
     channelUpdatePeriod: {
       type: 'oneOf',
-      args: ['hourly', 'daily', 'weekly', 'monthly', 'yearly'],
+      args: ['hourly', 'daily', 'weekly', 'monthly', 'yearly', 'Exclude field'],
       tag: {
         label: 'Update Period',
         group: 'Channel',
-        description: 'Which period of time should be used, defaults to hourly',
+        description:
+          'How frequently should bots revisit page, defaults to hourly',
         defaultValue: 'hourly',
       },
     },
@@ -224,6 +237,16 @@ export const propInfo = {
         defaultValue: '',
       },
     },
+    includeContent: {
+      type: 'oneOf',
+      args: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'all'],
+      tag: {
+        label: 'Number of paragraphs to include',
+        group: 'Item',
+        description: 'Number of paragraphs to include, defaults to all',
+        defaultValue: 'all',
+      },
+    },
     includePromo: {
       type: 'bool',
       tag: {
@@ -231,6 +254,16 @@ export const propInfo = {
         group: 'Featured Image',
         description: 'Include the featured image in <media:content>',
         defaultValue: true,
+      },
+    },
+    promoItemsJmespath: {
+      type: 'string',
+      tag: {
+        label: 'Path to promo_items',
+        group: 'Featured Image',
+        description:
+          'ANS fields to use for featured image, defaults to promo_items.basic || promo_items.lead_art',
+        defaultValue: 'promo_items.basic || promo_items.lead_art',
       },
     },
     resizerKVP: {
@@ -248,7 +281,7 @@ export const propInfo = {
         label: 'ANS image title key',
         group: 'Featured Image',
         description:
-          'ANS value for associated story used for the <media:title> sitemap tag, defaults to title',
+          'ANS field to use for image title in <media:title> tag, defaults to title',
         defaultValue: 'title',
       },
     },
@@ -258,7 +291,7 @@ export const propInfo = {
         label: 'ANS image caption key',
         group: 'Featured Image',
         description:
-          'ANS value for associated story image used for the <media:caption> sitemap tag, defaults to caption',
+          'ANS field to use for image caption in <media:caption> tag, defaults to caption',
         defaultValue: 'caption',
       },
     },
@@ -268,18 +301,8 @@ export const propInfo = {
         label: 'ANS image credits key',
         group: 'Featured Image',
         description:
-          'ANS value for associated story image credits for the <media:credits> sitemap tag, defaults to credits.by[].name',
+          'ANS field to use for image credits in <media:credits> tag, defaults to credits.by[].name',
         defaultValue: 'credits.by[].name',
-      },
-    },
-    includeContent: {
-      type: 'oneOf',
-      args: ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 'all'],
-      tag: {
-        label: 'Number of paragraphs to include',
-        group: 'Item',
-        description: 'Number of paragraphs to include, defaults to all',
-        defaultValue: 'all',
       },
     },
     videoSelect: {
@@ -287,7 +310,8 @@ export const propInfo = {
       tag: {
         label: 'Video Encoding',
         group: 'Video',
-        description: 'Which criteria should be used to filter video encodings',
+        description:
+          'Which criteria should be used to filter video encodings, defaults to { bitrate: 2000, stream_type: "mp4" }',
         defaultValue: { bitrate: 2000, stream_type: 'mp4' },
       },
     },
