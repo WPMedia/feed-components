@@ -224,15 +224,15 @@ export function BuildPromoItems() {
   }
 
   this.parse = ({
-    ans,
-    promoItemsJmespath,
+    ans = {},
+    promoItemsJmespath = 'promo_items.basic || promo_items.lead_art',
     resizerKey,
     resizerURL,
-    resizeWidth,
-    resizeHeight,
-    imageTitle,
-    imageCaption,
-    imageCredits,
+    resizeWidth = 0,
+    resizeHeight = 0,
+    imageTitle = 'title',
+    imageCaption = 'caption',
+    imageCredits = 'credits.by[].name',
     videoSelect,
   }) => {
     let item
