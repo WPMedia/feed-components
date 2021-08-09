@@ -98,6 +98,7 @@ export const propInfo = {
         description:
           'What is the expected Change frequency of the sitemap, hint for bots',
         defaultValue: 'always',
+        ordered: false,
       },
     },
   },
@@ -149,6 +150,7 @@ export const propInfo = {
         description:
           'How frequently should bots revisit page, defaults to hourly',
         defaultValue: 'hourly',
+        ordered: false,
       },
     },
     channelUpdateFrequency: {
