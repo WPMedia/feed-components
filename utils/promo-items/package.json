@@ -1,6 +1,6 @@
 {
   "name": "@wpmedia/feeds-promo-items",
-  "version": "1.0.2",
+  "version": "1.0.3-tk.2",
   "description": "Shared arcio promo_items module",
   "main": "dist/feeds-promo-items.cjs.js",
   "module": "dist/feeds-promo-items.esm.js",

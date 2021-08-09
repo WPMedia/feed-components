@@ -19,8 +19,8 @@ export function BuildPromoItems() {
       promoItemsJmespath,
       resizerKey,
       resizerURL,
-      resizeWidth,
-      resizeHeight,
+      resizerWidth,
+      resizerHeight,
       imageTitle,
       imageCaption,
       imageCredits,
@@ -56,8 +56,8 @@ export function BuildPromoItems() {
       promoItemsJmespath,
       resizerKey,
       resizerURL,
-      resizeWidth,
-      resizeHeight,
+      resizerWidth,
+      resizerHeight,
       imageTitle,
       imageCaption,
       imageCredits,
@@ -119,8 +119,8 @@ export function BuildPromoItems() {
       promoItemsJmespath,
       resizerKey,
       resizerURL,
-      resizeWidth,
-      resizeHeight,
+      resizerWidth,
+      resizerHeight,
       imageTitle,
       imageCaption,
       imageCredits,
@@ -163,18 +163,18 @@ export function BuildPromoItems() {
     element,
     resizerKey,
     resizerURL,
-    resizeWidth,
-    resizeHeight,
-    imageTitle = '',
-    imageCaption = '',
-    imageCredits = '',
+    resizerWidth,
+    resizerHeight,
+    imageTitle,
+    imageCaption,
+    imageCredits,
   }) => ({
     url: buildResizerURL(
       element.url,
       resizerKey,
       resizerURL,
-      resizeWidth,
-      resizeHeight,
+      resizerWidth,
+      resizerHeight,
     ),
     type: `image/${
       ((match = element.url.match(imageRegex)) &&
@@ -186,11 +186,19 @@ export function BuildPromoItems() {
     title: jmespath.search(element, imageTitle),
     caption: jmespath.search(element, imageCaption),
     credits: jmespath.search(element, imageCredits),
-    ...(element.height && { height: resizeHeight || element.height }),
-    ...(element.width && { width: resizeWidth || element.width }),
+    ...(element.height && { height: resizerHeight || element.height }),
+    ...(element.width && { width: resizerWidth || element.width }),
   })
 
-  this.video = ({ element, imageCredits, videoSelect }) => {
+  this.video = ({
+    element,
+    resizerKey,
+    resizerURL,
+    resizerWidth,
+    resizerHeight,
+    imageCredits,
+    videoSelect,
+  }) => {
     if (element && element.streams) {
       const thumbnail = jmespath.search(
         element,
@@ -206,7 +214,15 @@ export function BuildPromoItems() {
       const videoStream = findVideo(element, videoSelect)
       if (videoStream) {
         return {
-          ...(thumbnail && { thumbnail: thumbnail }),
+          ...(thumbnail && {
+            thumbnail: buildResizerURL(
+              thumbnail,
+              resizerKey,
+              resizerURL,
+              resizerWidth,
+              resizerHeight,
+            ),
+          }),
           url: videoStream.url,
           type: videoStream.stream_type === 'ts' ? 'video/MP2T' : 'video/mp4',
           medium: 'video',
@@ -228,8 +244,8 @@ export function BuildPromoItems() {
     promoItemsJmespath = 'promo_items.basic || promo_items.lead_art',
     resizerKey,
     resizerURL,
-    resizeWidth = 0,
-    resizeHeight = 0,
+    resizerWidth = 0,
+    resizerHeight = 0,
     imageTitle = 'title',
     imageCaption = 'caption',
     imageCredits = 'credits.by[].name',
@@ -244,8 +260,8 @@ export function BuildPromoItems() {
             element,
             resizerKey,
             resizerURL,
-            resizeWidth,
-            resizeHeight,
+            resizerWidth,
+            resizerHeight,
             imageTitle,
             imageCaption,
             imageCredits,
@@ -256,15 +272,23 @@ export function BuildPromoItems() {
             element,
             resizerKey,
             resizerURL,
-            resizeWidth,
-            resizeHeight,
+            resizerWidth,
+            resizerHeight,
             imageTitle,
             imageCaption,
             imageCredits,
           })
           break
         case 'video':
-          item = this.video({ element, imageCredits, videoSelect })
+          item = this.video({
+            element,
+            resizerKey,
+            resizerURL,
+            resizerWidth,
+            resizerHeight,
+            imageCredits,
+            videoSelect,
+          })
           break
       }
       return item

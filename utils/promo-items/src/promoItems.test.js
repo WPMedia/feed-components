@@ -127,11 +127,8 @@ const options = {
 
 const MyPromoItems = new BuildPromoItems()
 
-it('handle empty ans', () => {
-  const img = MyPromoItems.imageTag({
-    ...options,
-    ans: {},
-  })
+it('handle empty everything', () => {
+  const img = MyPromoItems.imageTag({})
   expect(img).toBe(undefined)
 })
 
@@ -174,7 +171,7 @@ it('handle lead_art image promo_items', () => {
       'image:image': {
         'image:caption': { $: 'subhead here' },
         'image:loc':
-          'https://d1acid63ghtydj.cloudfront.net/05-27-2020/t_593c7e85769e44b0b122b3800650d8ed_name_Hockey_Two.PNG',
+          'https://www.example.com/resizer/abcdefghijklmnopqrstuvwxyz=/d1acid63ghtydj.cloudfront.net/05-27-2020/t_593c7e85769e44b0b122b3800650d8ed_name_Hockey_Two.PNG',
         'image:title': { $: 'head here' },
       },
     },
@@ -233,7 +230,7 @@ it('handle lead_art video media promo_items', () => {
         },
         'media:thumbnail': {
           '@url':
-            'https://d1acid63ghtydj.cloudfront.net/05-27-2020/t_593c7e85769e44b0b122b3800650d8ed_name_Hockey_Two.PNG',
+            'https://www.example.com/resizer/abcdefghijklmnopqrstuvwxyz=/d1acid63ghtydj.cloudfront.net/05-27-2020/t_593c7e85769e44b0b122b3800650d8ed_name_Hockey_Two.PNG',
         },
       },
     },
