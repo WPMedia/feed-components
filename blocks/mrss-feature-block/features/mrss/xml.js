@@ -3,10 +3,10 @@ import Consumer from 'fusion:consumer'
 import moment from 'moment'
 import getProperties from 'fusion:properties'
 import { resizerKey } from 'fusion:environment'
+import { BuildPromoItems } from '@wpmedia/feeds-promo-items'
 import { generatePropsForFeed } from '@wpmedia/feeds-prop-types'
 import { buildResizerURL } from '@wpmedia/feeds-resizer'
-import { findVideo } from '@wpmedia/feeds-find-video-stream'
-
+import URL from 'url'
 const jmespath = require('jmespath')
 
 const rssTemplate = (
@@ -14,12 +14,6 @@ const rssTemplate = (
   {
     channelTitle,
     channelDescription,
-    channelPath,
-    channelCopyright,
-    channelTTL,
-    channelUpdatePeriod,
-    channelUpdateFrequency,
-    channelCategory,
     channelLogo,
     imageTitle,
     imageCaption,
@@ -30,6 +24,8 @@ const rssTemplate = (
     itemCredits,
     itemCategory,
     includeContent,
+    requestPath,
+    promoItemsJmespath,
     selectVideo,
     resizerURL,
     resizerWidth,
@@ -37,6 +33,7 @@ const rssTemplate = (
     domain,
     feedTitle,
     feedLanguage,
+    PromoItems,
   },
 ) => ({
   rss: {
@@ -47,7 +44,7 @@ const rssTemplate = (
       title: channelTitle || `${feedTitle} Videos`,
       link: domain,
       'atom:link': {
-        '@href': `${domain}${channelPath}`,
+        '@href': `${domain}${requestPath}`,
         '@rel': 'self',
         '@type': 'application/rss+xml',
       },
@@ -63,10 +60,18 @@ const rssTemplate = (
 
       item: elements.map((s) => {
         const url = `${domain}${s.website_url || s.canonical_url || ''}`
-        const img =
-          s.promo_items && (s.promo_items.basic || s.promo_items.lead_art)
-        const videoStream = findVideo(s, selectVideo)
-        let caption, primarySection
+        const img = PromoItems.mediaTag({
+          ans: s,
+          promoItemsJmespath: '@',
+          resizerKey,
+          resizerURL,
+          resizerWidth,
+          resizerHeight,
+          imageTitle,
+          imageCaption,
+          imageCredits,
+          videoSelect: selectVideo,
+        })
 
         return {
           title: { $: jmespath.search(s, itemTitle) || '' },
@@ -82,82 +87,94 @@ const rssTemplate = (
           pubDate: moment
             .utc(s[pubDate])
             .format('ddd, DD MMM YYYY HH:mm:ss ZZ'),
-
-          'media:content': {
-            '@': {
-              isDefault: 'true',
-              ...(s.duration && {
-                duration: Math.trunc(s.duration / 1000),
-              }),
-              ...(videoStream && {
-                ...(videoStream.url && { url: videoStream.url }),
-                ...(videoStream.height && { height: videoStream.height }),
-                ...(videoStream.width && { width: videoStream.width }),
-                ...(videoStream.bitrate && { bitrate: videoStream.bitrate }),
-                ...((videoStream.stream_type &&
-                  videoStream.stream_type === 'mp4' && {
-                    type: 'video/mp4',
-                  }) ||
-                  (videoStream.stream_type === 'ts' && {
-                    type: 'video/MP2T',
-                  })),
-              }),
-            },
-            ...(itemCredits &&
-              (jmespath.search(img, itemCredits) || []).length && {
-                'media:credit': {
-                  '@role': 'producer',
-                  $: jmespath.search(img, itemCredits).join(','),
-                },
-              }),
-            'media:keywords': (
-              jmespath.search(s, 'taxonomy.seo_keywords[*]') || []
-            ).join(','),
-            ...((caption = jmespath.search(
-              s,
-              'description.basic || subheadlines.basic',
-            )) &&
-              caption && {
-                'media:caption': {
-                  $: caption,
-                },
-              }),
-            ...(s.transcript && { 'media:transcript': s.transcript }),
-
-            ...((primarySection = jmespath.search(
-              s,
-              'taxonomy.primary_section.name',
-            )) &&
-              primarySection && {
-                'media:category': primarySection,
-              }),
-            ...(img &&
-              img.url && {
-                'media:thumbnail': {
-                  '@url': buildResizerURL(
-                    img.url,
-                    resizerKey,
-                    resizerURL,
-                    resizerWidth,
-                    resizerHeight,
-                  ),
-                },
-              }),
-          },
+          '#': img,
         }
       }),
     },
   },
 })
 
-export function Mrss({ globalContent, customFields, arcSite }) {
+export function Mrss({ globalContent, customFields, arcSite, requestUri }) {
   const {
     resizerURL = '',
-    feedDomainURL = '',
+    feedDomainURL = 'http://localhost.com',
     feedTitle = '',
     feedLanguage = '',
   } = getProperties(arcSite)
   const { width = 0, height = 0 } = customFields.resizerKVP || {}
+  const requestPath = new URL.URL(requestUri, feedDomainURL).pathname
+
+  function MrssPromoItems() {
+    /*
+    Using feeds-promo-items to generate the media:content tag
+    hard coded promoItemsJmespath:@ so it matches the entire
+    ANS instead of it just looking at promo_items.basic
+
+    Added primary_section, category and @isDefault  
+    */
+    BuildPromoItems.call(this)
+
+    this.mediaTag = (options) => {
+      const { ans } = options
+      let primarySection
+      let imgs = this.parse(options)
+      if (!imgs) return
+      if (imgs && !Array.isArray(imgs)) imgs = [imgs]
+
+      return imgs.map((img) => ({
+        'media:content': {
+          '@isDefault': 'true',
+          '@url': img.url,
+          '@type': img.type,
+          ...(img.duration && {
+            '@duration': img.duration,
+          }),
+          ...(img.bitrate && {
+            '@bitrate': img.bitrate,
+          }),
+          ...(img.height && {
+            '@height': img.height,
+          }),
+          ...(img.width && {
+            '@width': img.width,
+          }),
+          ...(img.filesize && {
+            '@fileSize': img.filesize,
+          }),
+          ...(img.caption && {
+            'media:description': { '@type': 'plain', $: img.caption },
+          }),
+          ...(img.title && {
+            'media:title': { $: img.title },
+          }),
+          ...(img.credits && {
+            'media:credit': {
+              '@role': 'author',
+              '@scheme': 'urn:ebu',
+              '#': img.credits.join(','),
+            },
+          }),
+          ...(img.thumbnail && {
+            'media:thumbnail': {
+              '@url': img.thumbnail,
+            },
+          }),
+          'media:keywords': (
+            jmespath.search(ans, 'taxonomy.seo_keywords[*]') || []
+          ).join(','),
+          ...(ans.transcript && { 'media:transcript': ans.transcript }),
+          ...((primarySection = jmespath.search(
+            ans,
+            'taxonomy.primary_section.name',
+          )) &&
+            primarySection && {
+              'media:category': primarySection,
+            }),
+        },
+      }))
+    }
+  }
+  const PromoItems = new MrssPromoItems()
 
   // can't return null for xml return type, must return valid xml template
   return rssTemplate(
@@ -165,25 +182,20 @@ export function Mrss({ globalContent, customFields, arcSite }) {
       [],
     {
       ...customFields,
+      requestPath,
       resizerURL,
       resizerWidth: width,
       resizerHeight: height,
       domain: feedDomainURL,
       feedTitle,
       feedLanguage,
+      PromoItems,
     },
   )
 }
 
 Mrss.propTypes = {
   customFields: PropTypes.shape({
-    channelPath: PropTypes.string.tag({
-      label: 'Path',
-      group: 'Channel',
-      description:
-        'Path to the feed, excluding the domain, defaults to /arc/outboundfeeds/mrss',
-      defaultValue: '/arc/outboundfeeds/mrss/',
-    }),
     selectVideo: PropTypes.kvp.tag({
       label: 'Select video using',
       group: 'Video',
@@ -194,7 +206,18 @@ Mrss.propTypes = {
         stream_type: 'mp4',
       },
     }),
-    ...generatePropsForFeed('rss', PropTypes, ['videoSelect']),
+    ...generatePropsForFeed('rss', PropTypes, [
+      'videoSelect',
+      'channelCopyright',
+      'channelTTL',
+      'channelUpdatePeriod',
+      'channelUpdateFrequency',
+      'channelCategory',
+      'itemCredits',
+      'itemCategory',
+      'includeContent',
+      'promoItemsJmespath',
+    ]),
   }),
 }
 Mrss.label = 'MRSS'

@@ -2,8 +2,9 @@
 import Consumer from 'fusion:consumer'
 import { Mrss } from './xml'
 
-it.only('returns RSS template with default values', () => {
+it.only('returns MRSS template with default values', () => {
   const video = Mrss({
+    requestUri: 'http://localhost.com/arc/outboundfeeds/mrss/?outputType=xml',
     arcSite: 'the-globe',
     globalContent: {
       content_elements: [
@@ -11,9 +12,6 @@ it.only('returns RSS template with default values', () => {
           type: 'video',
           version: '0.8.0',
           canonical_url:
-            '/video/2020/04/16/inexact-odyssey-a-volcom-snowboarding-film/',
-          canonical_website: 'demo',
-          short_url:
             '/video/2020/04/16/inexact-odyssey-a-volcom-snowboarding-film/',
           created_date: '2020-04-16T19:40:20Z',
           last_updated_date: '2020-04-16T19:55:14Z',
@@ -27,34 +25,6 @@ it.only('returns RSS template with default values', () => {
           credits: {},
           taxonomy: {
             tags: [],
-            primary_site: {
-              _id: '/video',
-              type: 'site',
-              version: '0.5.8',
-              name: 'Video',
-              description: 'Latest videos from around the site.',
-              path: '/video',
-              parent_id: '/',
-              additional_properties: {
-                original: {
-                  _id: '/video',
-                  site: {
-                    site_title: 'Video',
-                    site_url: '/video',
-                    site_description: 'Latest videos from around the site.',
-                    site_keywords: 'video,play',
-                  },
-                  name: 'Video',
-                  parent: '/',
-                  _admin: {
-                    alias_ids: ['/video'],
-                  },
-                  inactive: false,
-                  order: 1013,
-                  node_type: 'section',
-                },
-              },
-            },
             primary_section: {
               _id: '/video',
               _website: 'demo',
@@ -68,7 +38,6 @@ it.only('returns RSS template with default values', () => {
                 default: '/',
               },
             },
-
             seo_keywords: ['sample', 'demo'],
           },
           promo_items: {
@@ -81,35 +50,6 @@ it.only('returns RSS template with default values', () => {
               width: 1440,
               height: 1080,
             },
-          },
-          related_content: {
-            redirect: [],
-            basic: [],
-          },
-          owner: {
-            sponsored: false,
-            id: 'demo',
-          },
-          planning: {
-            scheduling: {},
-          },
-          revision: {
-            published: true,
-            branch: 'default',
-          },
-          syndication: {
-            search: true,
-          },
-          source: {
-            system: 'video center',
-            edit_url:
-              'https://demo.arcpublishing.com/goldfish/video/5e98b4a44cedfd00019ccd14',
-          },
-          distributor: {
-            category: 'staff',
-          },
-          tracking: {
-            in_url_headline: '16',
           },
           duration: 789060,
           video_type: 'clip',
@@ -171,6 +111,7 @@ it.only('returns RSS template with default values', () => {
       itemCategory: 'taxonomy.primary_section.name',
       selectVideo: { bitrate: 2000, stream_type: 'ts' },
       resizerKVP: {},
+      promoItemsJmespath: 'promo_items.basic',
     },
   })
   expect(video).toMatchSnapshot({

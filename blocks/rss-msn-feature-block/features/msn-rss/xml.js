@@ -1,13 +1,13 @@
 import PropTypes from 'fusion:prop-types'
 import Consumer from 'fusion:consumer'
-import get from 'lodash/get'
 import moment from 'moment'
 import getProperties from 'fusion:properties'
 import { resizerKey } from 'fusion:environment'
 import { BuildContent } from '@wpmedia/feeds-content-elements'
+import { BuildPromoItems } from '@wpmedia/feeds-promo-items'
 import { generatePropsForFeed } from '@wpmedia/feeds-prop-types'
 import { buildResizerURL } from '@wpmedia/feeds-resizer'
-
+import URL from 'url'
 const jmespath = require('jmespath')
 
 const rssTemplate = (
@@ -15,7 +15,6 @@ const rssTemplate = (
   {
     channelTitle,
     channelDescription,
-    channelPath,
     channelCopyright,
     channelTTL,
     channelUpdatePeriod,
@@ -31,6 +30,8 @@ const rssTemplate = (
     itemCredits,
     itemCategory,
     includeContent,
+    promoItemsJmespath,
+    requestPath,
     resizerURL,
     resizerWidth,
     resizerHeight,
@@ -39,13 +40,17 @@ const rssTemplate = (
     feedTitle,
     feedLanguage,
     msnBuildContent,
+    PromoItems,
   },
 ) => ({
   rss: {
     '@xmlns:atom': 'http://www.w3.org/2005/Atom',
     '@xmlns:content': 'http://purl.org/rss/1.0/modules/content/',
     '@xmlns:dc': 'http://purl.org/dc/elements/1.1/',
-    '@xmlns:sy': 'http://purl.org/rss/1.0/modules/syndication/',
+    ...(channelUpdatePeriod &&
+      channelUpdatePeriod !== 'Exclude field' && {
+        '@xmlns:sy': 'http://purl.org/rss/1.0/modules/syndication/',
+      }),
     '@xmlns:media': 'http://search.yahoo.com/mrss/',
     '@xmlns:dcterms': 'https://purl.org/dc/terms/',
 
@@ -54,7 +59,7 @@ const rssTemplate = (
       title: { $: channelTitle || feedTitle },
       link: `${domain}`,
       'atom:link': {
-        '@href': `${domain}${channelPath}`,
+        '@href': `${domain}${requestPath}`,
         '@rel': 'self',
         '@type': 'application/rss+xml',
       },
@@ -68,12 +73,14 @@ const rssTemplate = (
         copyright: channelCopyright,
       }), // TODO Add default logic
       ...(channelTTL && { ttl: channelTTL }),
-      ...(channelUpdatePeriod && {
-        'sy:updatePeriod': channelUpdatePeriod,
-      }),
-      ...(channelUpdateFrequency && {
-        'sy:updateFrequency': channelUpdateFrequency,
-      }),
+      ...(channelUpdatePeriod &&
+        channelUpdatePeriod !== 'Exclude field' && {
+          'sy:updatePeriod': channelUpdatePeriod,
+        }),
+      ...(channelUpdateFrequency &&
+        channelUpdatePeriod !== 'Exclude field' && {
+          'sy:updateFrequency': channelUpdateFrequency,
+        }),
       ...(channelLogo && {
         image: {
           url: buildResizerURL(channelLogo, resizerKey, resizerURL),
@@ -85,8 +92,20 @@ const rssTemplate = (
       item: elements.map((s) => {
         let author, body, category
         const url = `${domain}${s.website_url || s.canonical_url || ''}`
-        const img =
-          s.promo_items && (s.promo_items.basic || s.promo_items.lead_art)
+        const img = PromoItems.mediaTag({
+          ans: s,
+          promoItemsJmespath,
+          resizerKey,
+          resizerURL,
+          resizerWidth,
+          resizerHeight,
+          imageTitle,
+          imageCaption,
+          imageCredits,
+          videoSelect,
+          channelTitle,
+          feedTitle,
+        })
         return {
           title: { $: jmespath.search(s, itemTitle) || '' },
           link: url,
@@ -122,52 +141,77 @@ const rssTemplate = (
                 $: body,
               },
             }),
-          ...(img &&
-            img.url && {
-              'media:content': {
-                '@type': 'image/jpeg',
-                '@url': buildResizerURL(
-                  img.url,
-                  resizerKey,
-                  resizerURL,
-                  resizerWidth,
-                  resizerHeight,
-                ),
-                ...(jmespath.search(img, imageCaption) && {
-                  'media:description': {
-                    '@type': 'plain',
-                    $: jmespath.search(img, imageCaption),
-                  },
-                }),
-                ...(jmespath.search(img, imageTitle) && {
-                  'media:title': {
-                    $: jmespath.search(img, imageTitle),
-                  },
-                }),
-                ...((jmespath.search(img, imageCredits) || []).length && {
-                  'media:credit': {
-                    '@role': 'author',
-                    '@scheme': 'urn:ebu',
-                    '#': jmespath.search(img, imageCredits).join(','),
-                  },
-                }),
-              },
-              'media:text': `${channelTitle || feedTitle}`,
-            }),
+          ...(img && {
+            '#': img,
+          }),
         }
       }),
     },
   },
 })
 
-export function MsnRss({ globalContent, customFields, arcSite }) {
+export function MsnRss({ globalContent, customFields, arcSite, requestUri }) {
   const {
     resizerURL = '',
-    feedDomainURL = '',
+    feedDomainURL = 'http://localhost.com',
     feedTitle = '',
     feedLanguage = '',
   } = getProperties(arcSite)
   const { width = 0, height = 0 } = customFields.resizerKVP || {}
+  const requestPath = new URL.URL(requestUri, feedDomainURL).pathname
+
+  function MsnPromoItems() {
+    BuildPromoItems.call(this)
+
+    this.mediaTag = (options) => {
+      const { channelTitle, feedTitle } = options
+      let imgs = this.parse(options)
+      if (!imgs) return
+      if (imgs && !Array.isArray(imgs)) imgs = [imgs]
+
+      return imgs.map((img) => ({
+        'media:content': {
+          '@url': img.url,
+          '@type': img.type,
+          ...(img.duration && {
+            '@duration': img.duration,
+          }),
+          ...(img.bitrate && {
+            '@bitrate': img.bitrate,
+          }),
+          ...(img.height && {
+            '@height': img.height,
+          }),
+          ...(img.width && {
+            '@width': img.width,
+          }),
+          ...(img.filesize && {
+            '@fileSize': img.filesize,
+          }),
+          ...(img.caption && {
+            'media:description': { '@type': 'plain', $: img.caption },
+          }),
+          ...(img.title && {
+            'media:title': { $: img.title },
+          }),
+          ...(img.credits && {
+            'media:credit': {
+              '@role': 'author',
+              '@scheme': 'urn:ebu',
+              '#': img.credits.join(','),
+            },
+          }),
+          ...(img.thumbnail && {
+            'media:thumbnail': {
+              '@url': img.thumbnail,
+            },
+          }),
+          'media:text': `${channelTitle || feedTitle}`,
+        },
+      }))
+    }
+  }
+  const PromoItems = new MsnPromoItems()
 
   function MsnBuildContent() {
     BuildContent.call(this)
@@ -206,8 +250,9 @@ export function MsnRss({ globalContent, customFields, arcSite }) {
   const msnBuildContent = new MsnBuildContent()
 
   // can't return null for xml return type, must return valid xml template
-  return rssTemplate(get(globalContent, 'content_elements', []), {
+  return rssTemplate(globalContent.content_elements || [], {
     ...customFields,
+    requestPath,
     resizerURL,
     resizerWidth: width,
     resizerHeight: height,
@@ -215,18 +260,12 @@ export function MsnRss({ globalContent, customFields, arcSite }) {
     feedTitle,
     feedLanguage,
     msnBuildContent,
+    PromoItems,
   })
 }
 
 MsnRss.propTypes = {
   customFields: PropTypes.shape({
-    channelPath: PropTypes.string.tag({
-      label: 'Path',
-      group: 'Channel',
-      description:
-        'Path to the feed excluding the domain, defaults to /arc/outboundfeeds/msn/',
-      defaultValue: '/arc/outboundfeeds/msn/',
-    }),
     ...generatePropsForFeed('rss', PropTypes, ['channelPath', 'includePromo']),
   }),
 }

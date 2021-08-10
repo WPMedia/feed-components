@@ -9,6 +9,7 @@ const articles = {
       website_url: '/food/2020/04/07/tips-for-safe-hand-washing',
       promo_items: {
         basic: {
+          type: 'image',
           title: 'Hand Washing',
           url: 'https://arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png',
           caption: 'Hand washing can be fun if you make it a song',
@@ -42,8 +43,9 @@ const articles = {
   ],
 }
 
-it('returns Google News template with default values', () => {
+it('returns Flipboard template with default values', () => {
   const rss = FlipboardRss({
+    requestUri: 'http://localhost/arc/outboundfeeds/flipboard/?outputType=xml',
     arcSite: 'demo',
     globalContent: {
       ...articles,
@@ -63,7 +65,7 @@ it('returns Google News template with default values', () => {
       pubDate: 'display_date',
       itemCredits: 'credits.by[].name',
       itemCategory: '',
-
+      promoItemsJmespath: 'promo_items.basic',
       imageTitle: 'title',
       imageCaption: 'caption',
       imageCredits: 'credits.by[].name',
@@ -82,8 +84,9 @@ it('returns Google News template with default values', () => {
   })
 })
 
-it('returns RSS template with custom values', () => {
+it('returns Flipboard template with custom values', () => {
   const rss = FlipboardRss({
+    requestUri: 'http://localhost/arc/outboundfeeds/flipboard/?outputType=xml',
     arcSite: 'demo',
     globalContent: {
       ...articles,
@@ -105,7 +108,7 @@ it('returns RSS template with custom values', () => {
       itemCredits: 'credits.by._id',
       itemCategory: 'taxonomy.primary_section.name',
       resizerKVP: { width: 640, height: 480 },
-
+      promoItemsJmespath: 'promo_items.basic',
       imageTitle: 'headlines.basic || title',
       imageCaption: 'subheadlines.basic || caption',
       imageCredits: 'credits.by[].name',

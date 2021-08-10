@@ -8,13 +8,17 @@ Object {
     "@xmlns:news": "http://www.google.com/schemas/sitemap-news/0.9",
     "url": Array [
       Object {
-        "changefreq": "always",
-        "image:image": Object {
-          "image:loc": "hi/abcdefghijklmnopqrstuvwxyz=/arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png",
-          "image:title": Object {
-            "$": "Hand Washing",
+        "#": Array [
+          Object {
+            "image:image": Object {
+              "image:loc": "hi/abcdefghijklmnopqrstuvwxyz=/arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/STORY_ONE_IMAGE.png",
+              "image:title": Object {
+                "$": "Hand Washing",
+              },
+            },
           },
-        },
+        ],
+        "changefreq": "always",
         "lastmod": "2018-10-05T14:28:25.674Z",
         "loc": "http://demo-prod.origin.arcpublishing.com/food/2020/04/07/tips-for-safe-hand-washing",
         "news:news": Object {
