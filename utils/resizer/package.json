@@ -1,6 +1,6 @@
 {
   "name": "@wpmedia/feeds-resizer",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Utilities to manage image resizing",
   "main": "dist/feeds-resizer.cjs.js",
   "module": "dist/feeds-resizer.esm.js",
