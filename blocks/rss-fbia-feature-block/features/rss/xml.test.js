@@ -61,6 +61,7 @@ const articles = {
 
 it('returns FB-IA template with default values', () => {
   const rss = FbiaRss({
+    requestUri: 'https://localhost.com/arc/outboundfeeds/fb-ia/?outputType=xml',
     arcSite: 'demo',
     globalContent: {
       ...articles,
@@ -107,6 +108,7 @@ it('returns FB-IA template with default values', () => {
 
 it('returns FB-IA template with custom values', () => {
   const rss = FbiaRss({
+    requestUri: 'https://localhost.com/arc/outboundfeeds/fb-ia/?outputType=xml',
     arcSite: 'demo',
     globalContent: {
       ...articles,
