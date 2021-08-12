@@ -10,6 +10,7 @@ const articles = {
       website_url: '/food/2020/04/07/tips-for-safe-hand-washing',
       promo_items: {
         basic: {
+          type: 'image',
           title: 'Hand Washing',
           url: 'https://arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png',
           caption: 'Hand washing can be fun if you make it a song',
@@ -60,6 +61,7 @@ const articles = {
 
 it('returns FB-IA template with default values', () => {
   const rss = FbiaRss({
+    requestUri: 'https://localhost.com/arc/outboundfeeds/fb-ia/?outputType=xml',
     arcSite: 'demo',
     globalContent: {
       ...articles,
@@ -106,6 +108,7 @@ it('returns FB-IA template with default values', () => {
 
 it('returns FB-IA template with custom values', () => {
   const rss = FbiaRss({
+    requestUri: 'https://localhost.com/arc/outboundfeeds/fb-ia/?outputType=xml',
     arcSite: 'demo',
     globalContent: {
       ...articles,

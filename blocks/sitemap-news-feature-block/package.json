@@ -23,9 +23,8 @@
   ],
   "homepage": "https://github.com/WPMedia/feed-components#readme",
   "dependencies": {
-    "@wpmedia/feeds-prop-types": "1.0.2",
-    "@wpmedia/feeds-resizer": "1.0.2",
-    "jmespath": "^0.15.0",
-    "thumbor-lite": "^0.1.8"
+    "@wpmedia/feeds-promo-items": "1.0.3",
+    "@wpmedia/feeds-prop-types": "1.0.3",
+    "jmespath": "^0.15.0"
   }
 }

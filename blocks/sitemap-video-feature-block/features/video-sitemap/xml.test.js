@@ -6,11 +6,7 @@ const globalContent = {
   content_elements: [
     {
       type: 'video',
-      version: '0.8.0',
       canonical_url:
-        '/video/2020/04/16/inexact-odyssey-a-volcom-snowboarding-film/',
-      canonical_website: 'demo',
-      short_url:
         '/video/2020/04/16/inexact-odyssey-a-volcom-snowboarding-film/',
       created_date: '2020-04-16T19:40:20Z',
       last_updated_date: '2020-04-16T19:55:14Z',
@@ -35,13 +31,11 @@ const globalContent = {
           name: 'Video',
           description: 'Latest videos from around the site.',
         },
-
         seo_keywords: ['sample', 'demo'],
       },
       promo_items: {
         basic: {
           type: 'image',
-          version: '0.5.8',
           credits: {},
           caption: 'Inexact Odyssey',
           url: 'https://dv8csq7v0ltdn.cloudfront.net/04-16-2020/t_95d8de29ea3b41caac132f0462c5c71a_name_file_1920x1080_5400_v4_.jpg',
@@ -83,20 +77,17 @@ const globalContent = {
       subtitles: {},
       promo_image: {
         type: 'image',
-        version: '0.5.8',
         credits: {},
         caption: 'Inexact Odyssey',
         url: 'https://dv8csq7v0ltdn.cloudfront.net/04-16-2020/t_95d8de29ea3b41caac132f0462c5c71a_name_file_1920x1080_5400_v4_.jpg',
         width: 1440,
         height: 1080,
       },
-      website: 'demo',
       website_url:
         '/video/2020/04/16/inexact-odyssey-a-volcom-snowboarding-film/',
     },
     {
       type: 'video',
-      version: '0.8.0',
       canonical_url: '/video/2021/04/16/kittend/',
       last_updated_date: '2021-04-16T19:55:14Z',
       display_date: '2021-04-16T19:55:25Z',
@@ -118,7 +109,6 @@ const globalContent = {
           name: 'Video',
           description: 'Latest videos from around the site.',
         },
-
         seo_keywords: ['sample', 'demo'],
       },
       promo_items: {
@@ -145,7 +135,6 @@ const globalContent = {
           provider: 'mediaconvert',
         },
       ],
-      website: 'demo',
       website_url:
         '/video/2020/04/16/inexact-odyssey-a-volcom-snowboarding-film/',
     },
@@ -188,6 +177,7 @@ it('returns template with subheadlines.basic values', () => {
       videoTitle: '',
       sitemapVideoSelect: { foo: 'bar' },
       videoDescription: '',
+      promoItemsJmespath: 'promo_items.basic || promo_items.lead_art',
     },
   })
   expect(videoSitemap).toMatchSnapshot()

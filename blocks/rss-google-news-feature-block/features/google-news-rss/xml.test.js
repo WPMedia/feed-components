@@ -9,6 +9,7 @@ const articles = {
       website_url: '/food/2020/04/07/tips-for-safe-hand-washing',
       promo_items: {
         basic: {
+          type: 'image',
           title: 'Hand Washing',
           url: 'https://arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png',
           caption: 'Hand washing can be fun if you make it a song',
@@ -44,6 +45,8 @@ const articles = {
 
 it('returns Google News template with default values', () => {
   const rss = GoogleNewsRss({
+    requestUri:
+      'http://localhost.com/arc/outboundfeeds/google-news-feed/?outputType=xml',
     arcSite: 'demo',
     globalContent: {
       ...articles,
@@ -51,7 +54,6 @@ it('returns Google News template with default values', () => {
     customFields: {
       channelTitle: '',
       channelDescription: '',
-      channelPath: '/arc/outboundfeeds/rss/',
       channelCopyright: '',
       channelTTL: '1',
       channelUpdatePeriod: 'hourly',
@@ -68,6 +70,7 @@ it('returns Google News template with default values', () => {
       imageCaption: 'caption',
       imageCredits: 'credits.by[].name',
       includeContent: 0,
+      promoItemsJmespath: 'promo_items.basic',
     },
   })
   expect(rss).toMatchSnapshot({
@@ -81,8 +84,10 @@ it('returns Google News template with default values', () => {
   })
 })
 
-it('returns RSS template with custom values', () => {
+it('returns Google News template with custom values', () => {
   const rss = GoogleNewsRss({
+    requestUri:
+      'http://localhost.com/arc/outboundfeeds/google-news-feed/?outputType=xml',
     arcSite: 'demo',
     globalContent: {
       ...articles,
@@ -109,6 +114,7 @@ it('returns RSS template with custom values', () => {
       imageCaption: 'subheadlines.basic || caption',
       imageCredits: 'credits.by[].name',
       includeContent: 'all',
+      promoItemsJmespath: 'promo_items.basic',
     },
   })
   expect(rss).toMatchSnapshot({

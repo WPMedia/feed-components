@@ -1,6 +1,5 @@
 import PropTypes from 'fusion:prop-types'
 import Consumer from 'fusion:consumer'
-import get from 'lodash/get'
 import moment from 'moment'
 import getProperties from 'fusion:properties'
 import { resizerKey } from 'fusion:environment'
@@ -59,7 +58,7 @@ const rssTemplate = (
     '@version': '2.0',
     channel: {
       ...(channelTitle && { title: channelTitle }),
-      link: `${domain}`,
+      link: domain,
       ...(channelDescription && { description: channelDescription }),
       lastBuildDate: moment
         .utc(new Date())
@@ -68,7 +67,7 @@ const rssTemplate = (
       ...(channelCategory && { category: channelCategory }),
       ...(channelCopyright && {
         copyright: channelCopyright,
-      }), // TODO Add default logic
+      }),
       ...(channelTTL && { ttl: channelTTL }),
 
       ...(channelLogo && {
@@ -127,7 +126,7 @@ export function Rss({ globalContent, customFields, arcSite }) {
   const rssBuildContent = new BuildContent()
 
   // can't return null for xml return type, must return valid xml template
-  return rssTemplate(get(globalContent, 'content_elements', []), {
+  return rssTemplate(globalContent.content_elements || [], {
     ...customFields,
     resizerURL,
     resizerWidth: 0,
@@ -159,6 +158,7 @@ Rss.propTypes = {
       'itemCredits',
       'videoSelect',
       'resizerKVP',
+      'promoItemsJmespath',
     ]),
   }),
 }

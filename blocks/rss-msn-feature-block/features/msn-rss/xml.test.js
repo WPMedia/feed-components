@@ -5,10 +5,12 @@ import { MsnRss } from './xml'
 const articles = {
   content_elements: [
     {
+      last_update_date: '2020-04-10T12:12:38.483Z',
       display_date: '2020-04-07T15:02:08.918Z',
       website_url: '/food/2020/04/07/tips-for-safe-hand-washing',
       promo_items: {
         basic: {
+          type: 'image',
           title: 'Hand Washing',
           url: 'https://arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png',
           caption: 'Hand washing can be fun if you make it a song',
@@ -44,6 +46,7 @@ const articles = {
 
 it('returns MSN template with default values', () => {
   const rss = MsnRss({
+    requestUri: 'http://localhost/arc/outboundfeeds/msn/?outputType=xml',
     arcSite: 'demo',
     globalContent: {
       ...articles,
@@ -51,7 +54,6 @@ it('returns MSN template with default values', () => {
     customFields: {
       channelTitle: '',
       channelDescription: '',
-      channelPath: '/arc/outboundfeeds/msn/',
       channelCopyright: '',
       channelTTL: '1',
       channelUpdatePeriod: 'hourly',
@@ -68,6 +70,7 @@ it('returns MSN template with default values', () => {
       imageCaption: 'caption',
       imageCredits: 'credits.by[].name',
       includeContent: 0,
+      promoItemsJmespath: 'promo_items.basic',
     },
   })
   expect(rss).toMatchSnapshot({
@@ -81,8 +84,9 @@ it('returns MSN template with default values', () => {
   })
 })
 
-it('returns RSS template with custom values', () => {
+it('returns MSN template with custom values', () => {
   const rss = MsnRss({
+    requestUri: 'http://localhost/arc/outboundfeeds/msn/?outputType=xml',
     arcSite: 'demo',
     globalContent: {
       ...articles,
@@ -90,7 +94,6 @@ it('returns RSS template with custom values', () => {
     customFields: {
       channelTitle: 'The Daily Prophet',
       channelDescription: "All the news that's fit to print",
-      channelPath: '/arc/outboundfeeds/rss/',
       channelCopyright: '2020 The Washington Post LLC',
       channelTTL: '60',
       channelUpdatePeriod: 'weekly',
@@ -109,6 +112,7 @@ it('returns RSS template with custom values', () => {
       imageCaption: 'subheadlines.basic || caption',
       imageCredits: 'credits.by[].name',
       includeContent: 'all',
+      promoItemsJmespath: 'promo_items.basic',
     },
   })
   expect(rss).toMatchSnapshot({
