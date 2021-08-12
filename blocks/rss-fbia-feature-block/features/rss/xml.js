@@ -168,7 +168,7 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
     metaTags = ''
   }
 
-  function FbiaBuildContent(
+  function FbiaBuildContent({
     itemTitle,
     itemDescription,
     itemCategory,
@@ -180,7 +180,7 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
     placementSection,
     adScripts,
     videoSelect,
-  ) {
+  }) {
     BuildContent.call(this)
 
     this.buildHTMLHead = (s, domain, resizerWidth, resizerHeight) => {
@@ -478,19 +478,10 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
     }
   }
 
-  const fbiaBuildContent = new FbiaBuildContent(
-    customFields.itemTitle,
-    customFields.itemDescription,
-    customFields.itemCategory,
-    customFields.articleStyle,
-    customFields.likesAndComments,
+  const fbiaBuildContent = new FbiaBuildContent({
+    ...customFields,
     metaTags,
-    customFields.adPlacement,
-    customFields.adDensity,
-    customFields.placementSection,
-    customFields.adScripts,
-    customFields.videoSelect,
-  )
+  })
 
   const PromoItems = new BuildPromoItems()
 
