@@ -173,7 +173,7 @@ const resolve = function resolve(key) {
     if (Section && Section !== '/') {
       mustNested.nested.query.bool.must.push(formatSections(Section))
     }
-    body.query.bool.must.push(nested)
+    body.query.bool.must.push(mustNested)
 
     if (ExcludeSections && ExcludeSections !== '/') {
       const notNested = JSON.parse(JSON.stringify(nested))
