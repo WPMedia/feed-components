@@ -168,15 +168,19 @@ const resolve = function resolve(key) {
       },
     }
 
+    const mustNested = JSON.parse(JSON.stringify(nested))
+
     if (Section && Section !== '/') {
-      nested.nested.query.bool.must.push(formatSections(Section))
+      mustNested.nested.query.bool.must.push(formatSections(Section))
     }
+    body.query.bool.must.push(mustNested)
 
     if (ExcludeSections && ExcludeSections !== '/') {
-      nested.nested.query.bool.must_not = [formatSections(ExcludeSections)]
+      const notNested = JSON.parse(JSON.stringify(nested))
+      notNested.nested.query.bool.must = [formatSections(ExcludeSections)]
+      if (!body.query.bool.must_not) body.query.bool.must_not = []
+      body.query.bool.must_not.push(notNested)
     }
-
-    body.query.bool.must.push(nested)
   }
 
   const encodedBody = encodeURI(JSON.stringify(body))
