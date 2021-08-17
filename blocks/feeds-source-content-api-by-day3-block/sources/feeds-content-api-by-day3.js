@@ -124,10 +124,10 @@ const fetch = async (key = {}) => {
       const validDate = moment(dateRange, 'YYYY-MM-DD', true)
       if (
         validDate > moment.utc().add(2, 'days') ||
-        validDate < moment('2000')
+        validDate < moment('1990')
       ) {
         const err = new Error(
-          'Invalid Date range, must be after 2000 and not in the future',
+          'Invalid Date range, must be after 1990 and not in the future',
         )
         err.statusCode = 500
         throw err
