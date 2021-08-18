@@ -137,8 +137,8 @@ it('handle empty promo_items', () => {
     ...options,
     ans: {
       promo_items: {
-        basic: { version: '10.0.1' },
-        lead_art: { version: '10.0.1' },
+        basic: { type: 'image', version: '10.0.1' },
+        lead_art: { type: 'image', version: '10.0.1' },
       },
     },
   })
@@ -156,6 +156,22 @@ it('handle basic image promo_items', () => {
         'image:loc':
           'https://www.example.com/resizer/abcdefghijklmnopqrstuvwxyz=/arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/FK3A3PGSLNFYXCHLKWQGADE2ZA.jpg',
         'image:title': { $: 'Basic Title' },
+      },
+    },
+  ])
+})
+
+it('handle no title or caption image promo_items', () => {
+  const img = MyPromoItems.imageTag({
+    ...options,
+    imageTitle: '',
+    imageCaption: '',
+  })
+  expect(img).toMatchObject([
+    {
+      'image:image': {
+        'image:loc':
+          'https://www.example.com/resizer/abcdefghijklmnopqrstuvwxyz=/arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/FK3A3PGSLNFYXCHLKWQGADE2ZA.jpg',
       },
     },
   ])

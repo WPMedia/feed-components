@@ -168,27 +168,38 @@ export function BuildPromoItems() {
     imageTitle,
     imageCaption,
     imageCredits,
-  }) => ({
-    url: buildResizerURL(
-      element.url,
-      resizerKey,
-      resizerURL,
-      resizerWidth,
-      resizerHeight,
-    ),
-    type: `image/${
-      ((match = element.url.match(imageRegex)) &&
-        match &&
-        match[0].replace('.', '').toLowerCase().replace('jpg', 'jpeg')) ||
-      'jpeg'
-    }`,
-    medium: 'image',
-    title: jmespath.search(element, imageTitle),
-    caption: jmespath.search(element, imageCaption),
-    credits: jmespath.search(element, imageCredits),
-    ...(element.height && { height: resizerHeight || element.height }),
-    ...(element.width && { width: resizerWidth || element.width }),
-  })
+  }) => {
+    if (element && element.url) {
+      let title, caption, credits
+      return {
+        url: buildResizerURL(
+          element.url,
+          resizerKey,
+          resizerURL,
+          resizerWidth,
+          resizerHeight,
+        ),
+        type: `image/${
+          ((match = element.url.match(imageRegex)) &&
+            match &&
+            match[0].replace('.', '').toLowerCase().replace('jpg', 'jpeg')) ||
+          'jpeg'
+        }`,
+        medium: 'image',
+        ...(imageTitle &&
+          (title = jmespath.search(element, imageTitle)) &&
+          title && { title: title }),
+        ...(imageCaption &&
+          (caption = jmespath.search(element, imageCaption)) &&
+          caption && { caption: caption }),
+        ...(imageCredits &&
+          (credits = jmespath.search(element, imageCredits)) &&
+          credits && { credits: credits }),
+        ...(element.height && { height: resizerHeight || element.height }),
+        ...(element.width && { width: resizerWidth || element.width }),
+      }
+    }
+  }
 
   this.video = ({
     element,
