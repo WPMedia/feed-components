@@ -23,9 +23,9 @@
   ],
   "homepage": "https://github.com/WPMedia/feed-components#readme",
   "dependencies": {
-    "@wpmedia/feeds-content-elements": "^1.0.3",
-    "@wpmedia/feeds-prop-types": "^1.0.3",
-    "@wpmedia/feeds-resizer": "^1.0.3",
+    "@wpmedia/feeds-content-elements": "^1.0.4",
+    "@wpmedia/feeds-prop-types": "^1.0.4",
+    "@wpmedia/feeds-resizer": "^1.0.4",
     "cheerio": "^1.0.0-rc.6",
     "jmespath": "^0.15.0",
     "moment": "^2.24.0"
