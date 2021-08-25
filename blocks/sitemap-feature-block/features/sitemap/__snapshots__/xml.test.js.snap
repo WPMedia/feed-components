@@ -8,12 +8,6 @@ Object {
     "url": Array [
       Object {
         "changefreq": "always",
-        "image:image": Object {
-          "image:loc": "hi/abcdefghijklmnopqrstuvwxyz=/arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png",
-          "image:title": Object {
-            "$": "Hand Washing",
-          },
-        },
         "lastmod": "2020-04-07T15:02:08.918Z",
         "loc": "http://demo-prod.origin.arcpublishing.com/food/2020/04/07/tips-for-safe-hand-washing",
         "priority": "0.5",
@@ -25,6 +19,13 @@ Object {
         "priority": "0.5",
       },
       Object {
+        "#": Array [
+          Object {
+            "image:image": Object {
+              "image:loc": "hi/abcdefghijklmnopqrstuvwxyz=/arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/VIDEO_ONE_IMAGE.png",
+            },
+          },
+        ],
         "changefreq": "always",
         "lastmod": "2021-04-03T13:02:08.918Z",
         "loc": "http://demo-prod.origin.arcpublishing.com/food/2021/04/03/best-sourdough-recipes",

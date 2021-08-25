@@ -4,13 +4,14 @@ import getProperties from 'fusion:properties'
 import { resizerKey } from 'fusion:environment'
 import { buildResizerURL } from '@wpmedia/feeds-resizer'
 import { generatePropsForFeed } from '@wpmedia/feeds-prop-types'
-import formatSearchObject from '../../searchHelper'
+import { findVideo } from '@wpmedia/feeds-find-video-stream'
 const jmespath = require('jmespath')
 
 const sitemapTemplate = (
   elements,
   {
     lastMod,
+    promoItemsJmespath = 'promo_items.basic || promo_items.lead_art',
     videoDescription,
     sitemapVideoSelect,
     videoTitle,
@@ -26,22 +27,15 @@ const sitemapTemplate = (
     url: elements.map((v) => {
       let title, description, category
       // Get promo image object to determine thumbnail_loc
-      let img = v.promo_items && (v.promo_items.basic || v.promo_items.lead_art)
+      let img = jmespath.search(v, promoItemsJmespath)
       if (img && !img.url && img.promo_image) img = img.promo_image // video
       // Find content_loc based on searchObject site property.
-      const searchArray = formatSearchObject(sitemapVideoSelect)
-
-      let contentLoc = jmespath.search(
-        v,
-        `streams[?${searchArray.join('&&')}]`,
-      )[0]
-
-      contentLoc = contentLoc ? contentLoc.url : ''
+      const contentLoc = findVideo(v, sitemapVideoSelect)
 
       return {
         loc: `${domain}${v.website_url || v.canonical_url}`,
         'video:video': {
-          ...(contentLoc && { 'video:content_loc': contentLoc }),
+          ...(contentLoc && { 'video:content_loc': contentLoc.url }),
           ...(v.duration && {
             'video:duration': Math.trunc(v.duration / 1000),
           }),

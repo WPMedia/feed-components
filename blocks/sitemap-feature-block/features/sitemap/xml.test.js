@@ -14,8 +14,7 @@ it('returns template with default values', () => {
           promo_items: {
             basic: {
               title: 'Hand Washing',
-              url:
-                'https://arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png',
+              url: 'https://arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/STORY_ONE_IMAGE.png',
             },
           },
         },
@@ -26,8 +25,7 @@ it('returns template with default values', () => {
           promo_items: {
             mobile: {
               title: 'More Hand Washing',
-              url:
-                'https://arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png',
+              url: 'https://arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/STORY_TWO_IMAGE.png',
             },
           },
         },
@@ -35,18 +33,20 @@ it('returns template with default values', () => {
           type: 'video',
           last_updated_date: '2021-04-03T13:02:08.918Z',
           website_url: '/food/2021/04/03/best-sourdough-recipes',
-          promo_items: { basic: { type: 'video' } },
-          promo_image: {
-            title: 'No kneed recipes',
-            url:
-              'https://arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png',
+          promo_items: {
+            basic: {
+              type: 'image',
+              subtitle: 'No kneed recipes',
+              url: 'https://arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/VIDEO_ONE_IMAGE.png',
+            },
           },
         },
       ],
     },
     customFields: {
-      priority: '0.5',
       includePromo: true,
+      promoItemsJmespath: 'promo_items.basic || promo_items.lead_art',
+      priority: '0.5',
       changeFreq: 'always',
       lastMod: 'last_updated_date',
       imageTitle: 'title',

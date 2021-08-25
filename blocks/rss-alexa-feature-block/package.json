@@ -1,0 +1,33 @@
+{
+  "name": "@wpmedia/rss-alexa-feature-block",
+  "version": "1.5.0",
+  "description": "Fusion components for building rss alexa feed",
+  "main": "index.js",
+  "files": [
+    "features"
+  ],
+  "license": "CC-BY-NC-ND-4.0",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/WPMedia/feed-components.git",
+    "directory": "blocks/rss-alexa-feature-block"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/",
+    "access": "public"
+  },
+  "author": "Malavika Koppula <malavika.koppula@washpost.com>",
+  "contributors": [
+    "Tim Kosminder <tim.kosminder@washpost.com>",
+    "Cameron Woodmansee <cameron.woodmansee@washpost.com>"
+  ],
+  "homepage": "https://github.com/WPMedia/feed-components#readme",
+  "dependencies": {
+    "@wpmedia/feeds-content-elements": "^1.0.4",
+    "@wpmedia/feeds-prop-types": "^1.0.4",
+    "@wpmedia/feeds-resizer": "^1.0.4",
+    "cheerio": "^1.0.0-rc.6",
+    "jmespath": "^0.15.0",
+    "moment": "^2.24.0"
+  }
+}
