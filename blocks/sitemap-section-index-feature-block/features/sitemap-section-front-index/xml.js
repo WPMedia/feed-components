@@ -43,6 +43,16 @@ export function SitemapSectionFrontIndex({
         accum.push({
           loc: `${feedDomainURL}${feedPath}${sectionId}/?${feedParam || ''}`,
         })
+        if (section.children?.length) {
+          const subSections = buildSitemapIndexLinks(
+            section.children,
+            excludeSections,
+            feedDomainURL,
+            feedPath,
+            feedParam,
+          )
+          accum.push(...subSections)
+        }
       }
       return accum
     }, [])
