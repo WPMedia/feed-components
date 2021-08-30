@@ -170,6 +170,9 @@ Object {
         "@rel": "self",
         "@type": "application/rss+xml",
       },
+      "description": Object {
+        "$": "google news News Feed",
+      },
       "item": Array [
         Object {
           "dcterms:modified": undefined,
@@ -184,6 +187,9 @@ Object {
       "language": "en",
       "lastBuildDate": StringMatching /\\\\w\\+, \\\\d\\+ \\\\w\\+ \\\\d\\{4\\} \\\\d\\{2\\}:\\\\d\\{2\\}:\\\\d\\{2\\} \\\\\\+0000/,
       "link": "http://demo-prod.origin.arcpublishing.com",
+      "title": Object {
+        "$": "google news",
+      },
     },
   },
 }

@@ -58,18 +58,14 @@ const rssTemplate = (
 
     '@version': '2.0',
     channel: {
-      ...(itemTitle && {
-        title: { $: channelTitle || feedTitle },
-      }),
+      title: { $: channelTitle || feedTitle },
       link: `${domain}`,
       'atom:link': {
         '@href': `${domain}${requestPath}`,
         '@rel': 'self',
         '@type': 'application/rss+xml',
       },
-      ...(itemDescription && {
-        description: { $: channelDescription || `${feedTitle} News Feed` },
-      }),
+      description: { $: channelDescription || `${feedTitle} News Feed` },
       lastBuildDate: moment
         .utc(new Date())
         .format('ddd, DD MMM YYYY HH:mm:ss ZZ'),
