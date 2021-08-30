@@ -24,6 +24,7 @@ const fetch = async (key = {}) => {
     size: 100,
     sort: key.sort || 'last_updated_date:desc',
     _sourceExclude:
+      key['Source-Exclude'] ||
       'address,additional_properties,content_elements,credits,geo,language,label,owner,planning,publishing,related_content,taxonomy,revision,source,subtype,version,workflow',
   }
 
@@ -105,6 +106,7 @@ const fetch = async (key = {}) => {
   // if dateRange end in an extra -d like 2020-01-01-5 use it as (offset -1) * 1000
   // and only return 1000 results. This is for days with over 1000 results
   let rangeStart, rangeEnd, rangeFrom
+  dateRange = dateRange.replace(/\/$/, '')
   if (dateRange.startsWith('latest')) {
     const matcher = dateRange.match(/latest-(\d*)/)
     if (matcher) {
@@ -146,6 +148,36 @@ const fetch = async (key = {}) => {
     },
   })
 
+  const ExcludeSections = key['Exclude-Sections']
+
+  if (ExcludeSections && ExcludeSections !== '/') {
+    const formatSections = (section) => {
+      const sectionArray = section
+        .split(',')
+        .map((item) => item.trim().replace(/\/$/, ''))
+        .map((item) => (item.startsWith('/') ? item : `/${item}`))
+      return {
+        terms: {
+          'taxonomy.sections._id': sectionArray,
+        },
+      }
+    }
+
+    const nested = {
+      nested: {
+        path: 'taxonomy.sections',
+        query: {
+          bool: {
+            must: [formatSections(ExcludeSections)],
+          },
+        },
+      },
+    }
+
+    if (!body.query.bool.must_not) body.query.bool.must_not = []
+    body.query.bool.must_not.push(nested)
+  }
+
   paramList.body = encodeURI(JSON.stringify(body))
 
   const genParams = (paramList) => {
@@ -184,12 +216,12 @@ export default {
   params: [
     {
       name: 'dateField',
-      displayName: 'Date Field',
+      displayName: 'ANS Date Field',
       type: 'text',
     },
     {
       name: 'dateRange',
-      displayName: 'Date Range',
+      displayName: 'Date',
       type: 'text',
     },
     {
@@ -200,6 +232,11 @@ export default {
     {
       name: 'Exclude-Terms',
       displayName: 'Exclude Terms',
+      type: 'text',
+    },
+    {
+      name: 'Exclude-Sections',
+      displayName: 'Exclude Sections',
       type: 'text',
     },
     {
