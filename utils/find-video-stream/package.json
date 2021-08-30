@@ -1,6 +1,6 @@
 {
   "name": "@wpmedia/feeds-find-video-stream",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Utility to search video stream for desired encoding",
   "main": "dist/feeds-find-video-stream.cjs.js",
   "module": "dist/feeds-find-video-stream.esm.js",
