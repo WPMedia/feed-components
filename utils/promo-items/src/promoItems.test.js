@@ -132,6 +132,18 @@ it('handle empty everything', () => {
   expect(img).toBe(undefined)
 })
 
+it('handle empty options which is different from no options above', () => {
+  const img = MyPromoItems.imageTag({
+    ...options,
+    promoItemsJmespath: '',
+    imageTitle: '',
+    imageCaption: '',
+    imageCredits: '',
+    videoSelect: {},
+  })
+  expect(img).toBe(undefined)
+})
+
 it('handle empty promo_items', () => {
   const img = MyPromoItems.imageTag({
     ...options,
