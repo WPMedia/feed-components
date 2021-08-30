@@ -53,7 +53,6 @@ it('returns Flipboard template with default values', () => {
     customFields: {
       channelTitle: '',
       channelDescription: '',
-      channelPath: '/arc/outboundfeeds/rss/',
       channelCopyright: '',
       channelTTL: '1',
       channelUpdatePeriod: 'hourly',
@@ -94,7 +93,6 @@ it('returns Flipboard template with custom values', () => {
     customFields: {
       channelTitle: 'The Daily Prophet',
       channelDescription: "All the news that's fit to print",
-      channelPath: '/arc/outboundfeeds/rss/',
       channelCopyright: '2020 The Washington Post LLC',
       channelTTL: '60',
       channelUpdatePeriod: 'weekly',
@@ -113,6 +111,46 @@ it('returns Flipboard template with custom values', () => {
       imageCaption: 'subheadlines.basic || caption',
       imageCredits: 'credits.by[].name',
       includeContent: 'all',
+    },
+  })
+  expect(rss).toMatchSnapshot({
+    rss: {
+      channel: {
+        lastBuildDate: expect.stringMatching(
+          /\w+, \d+ \w+ \d{4} \d{2}:\d{2}:\d{2} \+0000/,
+        ),
+      },
+    },
+  })
+})
+
+it('returns Flipboard template with empty values', () => {
+  const rss = FlipboardRss({
+    requestUri: 'http://localhost/arc/outboundfeeds/flipboard/?outputType=xml',
+    arcSite: 'demo',
+    globalContent: {
+      ...articles,
+    },
+    customFields: {
+      channelTitle: '',
+      channelDescription: '',
+      channelCopyright: '',
+      channelTTL: '',
+      channelUpdatePeriod: '',
+      channelUpdateFrequency: '',
+      channelCategory: '',
+      channelLogo: '',
+      itemTitle: '',
+      itemDescription: '',
+      pubDate: 'display_date',
+      itemCredits: '',
+      itemCategory: '',
+      promoItemsJmespath: '',
+      imageTitle: '',
+      imageCaption: '',
+      imageCredits: '',
+      includeContent: '',
+      resizerKVP: {},
     },
   })
   expect(rss).toMatchSnapshot({

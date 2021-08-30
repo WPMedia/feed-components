@@ -79,13 +79,13 @@ Sitemap.propTypes = {
   customFields: PropTypes.shape({
     imageTitle: PropTypes.string.tag({
       label: 'ANS image title key',
-      group: 'Field Mapping',
+      group: 'Featured Media',
       description: 'ANS value for the <image:title> sitemap tag',
       defaultValue: 'title',
     }),
     imageCaption: PropTypes.string.tag({
       label: 'ANS image caption key',
-      group: 'Field Mapping',
+      group: 'Featured Media',
       description: 'ANS value for the <image:caption> sitemap tag',
       defaultValue: 'caption',
     }),

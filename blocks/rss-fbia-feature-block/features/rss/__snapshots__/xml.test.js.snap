@@ -70,7 +70,7 @@ Object {
         },
         Object {
           "content:encoded": Object {
-            "$": "<!doctype html><html lang=\\"en\\"><head><link rel=\\"canonical\\" href=\\"http://demo-prod.origin.arcpublishing.com/food/empty-recipe\\"/><title>I'm out of ideas</title><meta property=\\"og:title\\" content=\\"I'm out of ideas\\"/><meta property=\\"og:url\\" content=\\"http://demo-prod.origin.arcpublishing.com/food/empty-recipe\\"/><meta property=\\"og:description\\" content=\\"null\\"/><meta property=\\"fb:use_automatic_ad_placement\\" content=\\"enable=true ad_density=low\\"/><meta property=\\"op:markup_version\\" content=\\"v1.0\\"/><meta property=\\"fb:article_style\\" content=\\"times-bold\\"/><meta property=\\"og:image\\" content=\\"\\"/><meta property=\\"fb:likes_and_comments\\" content=\\"enable\\"/><meta property=\\"something\\" content=\\"other thing\\"/></head><body><article><header><section class=\\"op-ad-template\\"><script>myscript()</script></section><h1>I'm out of ideas</h1><time datetime=\\"2021-04-08T10:34:41.432Z\\" class=\\"op-modified\\">2021-04-08T10:34:41.432Z</time><time datetime=\\"2021-04-08T10:34:41.432Z\\" class=\\"op-published\\">2021-04-08T10:34:41.432Z</time></header><figure class=\\"op-tracker\\"><iframe><script>alert(\\"hi\\");</script></iframe></figure><footer><small>Copyright 2021</small></footer></article></body></html>",
+            "$": "<!doctype html><html lang=\\"en\\"><head><link rel=\\"canonical\\" href=\\"http://demo-prod.origin.arcpublishing.com/food/empty-recipe\\"/><title>I'm out of ideas</title><meta property=\\"og:title\\" content=\\"I'm out of ideas\\"/><meta property=\\"og:url\\" content=\\"http://demo-prod.origin.arcpublishing.com/food/empty-recipe\\"/><meta property=\\"og:description\\" content=\\"\\"/><meta property=\\"fb:use_automatic_ad_placement\\" content=\\"enable=true ad_density=low\\"/><meta property=\\"op:markup_version\\" content=\\"v1.0\\"/><meta property=\\"fb:article_style\\" content=\\"times-bold\\"/><meta property=\\"og:image\\" content=\\"\\"/><meta property=\\"fb:likes_and_comments\\" content=\\"enable\\"/><meta property=\\"something\\" content=\\"other thing\\"/></head><body><article><header><section class=\\"op-ad-template\\"><script>myscript()</script></section><h1>I'm out of ideas</h1><time datetime=\\"2021-04-08T10:34:41.432Z\\" class=\\"op-modified\\">2021-04-08T10:34:41.432Z</time><time datetime=\\"2021-04-08T10:34:41.432Z\\" class=\\"op-published\\">2021-04-08T10:34:41.432Z</time></header><figure class=\\"op-tracker\\"><iframe><script>alert(\\"hi\\");</script></iframe></figure><footer><small>Copyright 2021</small></footer></article></body></html>",
           },
           "description": Object {
             "$": "",
@@ -163,7 +163,7 @@ Object {
         },
         Object {
           "content:encoded": Object {
-            "$": "<!doctype html><html lang=\\"en\\"><head><link rel=\\"canonical\\" href=\\"http://demo-prod.origin.arcpublishing.com/food/empty-recipe\\"/><title>I'm out of ideas</title><meta property=\\"og:title\\" content=\\"I'm out of ideas\\"/><meta property=\\"og:url\\" content=\\"http://demo-prod.origin.arcpublishing.com/food/empty-recipe\\"/><meta property=\\"og:description\\" content=\\"null\\"/><meta property=\\"fb:use_automatic_ad_placement\\" content=\\"enable=false\\"/><meta property=\\"op:markup_version\\" content=\\"v1.0\\"/><meta property=\\"fb:article_style\\" content=\\"default\\"/><meta property=\\"og:image\\" content=\\"\\"/><meta property=\\"fb:likes_and_comments\\" content=\\"disable\\"/></head><body><article><header><h1>I'm out of ideas</h1><time datetime=\\"2021-04-08T10:34:41.432Z\\" class=\\"op-modified\\">2021-04-08T10:34:41.432Z</time><time datetime=\\"2021-04-07T15:02:08.918Z\\" class=\\"op-published\\">2021-04-07T15:02:08.918Z</time></header><footer><small>© 2021 google news</small></footer></article></body></html>",
+            "$": "<!doctype html><html lang=\\"en\\"><head><link rel=\\"canonical\\" href=\\"http://demo-prod.origin.arcpublishing.com/food/empty-recipe\\"/><title>I'm out of ideas</title><meta property=\\"og:title\\" content=\\"I'm out of ideas\\"/><meta property=\\"og:url\\" content=\\"http://demo-prod.origin.arcpublishing.com/food/empty-recipe\\"/><meta property=\\"og:description\\" content=\\"\\"/><meta property=\\"fb:use_automatic_ad_placement\\" content=\\"enable=false\\"/><meta property=\\"op:markup_version\\" content=\\"v1.0\\"/><meta property=\\"fb:article_style\\" content=\\"default\\"/><meta property=\\"og:image\\" content=\\"\\"/><meta property=\\"fb:likes_and_comments\\" content=\\"disable\\"/></head><body><article><header><h1>I'm out of ideas</h1><time datetime=\\"2021-04-08T10:34:41.432Z\\" class=\\"op-modified\\">2021-04-08T10:34:41.432Z</time><time datetime=\\"2021-04-07T15:02:08.918Z\\" class=\\"op-published\\">2021-04-07T15:02:08.918Z</time></header><footer><small>© 2021 google news</small></footer></article></body></html>",
           },
           "description": Object {
             "$": "",
@@ -188,6 +188,57 @@ Object {
         "$": "google news",
       },
       "ttl": "1",
+    },
+  },
+}
+`;
+
+exports[`returns FB-IA template with empty values 1`] = `
+Object {
+  "rss": Object {
+    "@version": "2.0",
+    "@xmlns:atom": "http://www.w3.org/2005/Atom",
+    "@xmlns:content": "http://purl.org/rss/1.0/modules/content/",
+    "@xmlns:media": "http://search.yahoo.com/mrss/",
+    "channel": Object {
+      "atom:link": Object {
+        "@href": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/fb-ia/",
+        "@rel": "self",
+        "@type": "application/rss+xml",
+      },
+      "description": Object {
+        "$": "google news News Feed",
+      },
+      "item": Array [
+        Object {
+          "content:encoded": Object {
+            "$": "<!doctype html><html lang=\\"en\\"><head><link rel=\\"canonical\\" href=\\"http://demo-prod.origin.arcpublishing.com/food/2020/04/07/tips-for-safe-hand-washing\\"/><title/><meta property=\\"og:title\\" content=\\"\\"/><meta property=\\"og:url\\" content=\\"http://demo-prod.origin.arcpublishing.com/food/2020/04/07/tips-for-safe-hand-washing\\"/><meta property=\\"og:description\\" content=\\"\\"/><meta property=\\"fb:use_automatic_ad_placement\\" content=\\"enable=false\\"/><meta property=\\"op:markup_version\\" content=\\"v1.0\\"/><meta property=\\"fb:article_style\\" content=\\"default\\"/><meta property=\\"og:image\\" content=\\"hi/abcdefghijklmnopqrstuvwxyz=/arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png\\"/><meta property=\\"fb:likes_and_comments\\" content=\\"disable\\"/></head><body><article><header><h1/><time datetime=\\"2020-04-08T10:34:41.432Z\\" class=\\"op-modified\\">2020-04-08T10:34:41.432Z</time><time datetime=\\"2020-04-08T10:34:41.432Z\\" class=\\"op-published\\">2020-04-08T10:34:41.432Z</time><figure class=\\"fb-feed-cover\\"><img src=\\"hi/abcdefghijklmnopqrstuvwxyz=/arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png\\"/></figure><h2 class=\\"op-kicker\\">coronvirus</h2></header><footer><aside>John is a journalist</aside><small>© 2021 google news</small></footer></article></body></html>",
+          },
+          "guid": Object {
+            "#": "http://demo-prod.origin.arcpublishing.com/food/2020/04/07/tips-for-safe-hand-washing",
+            "@isPermaLink": true,
+          },
+          "link": "http://demo-prod.origin.arcpublishing.com/food/2020/04/07/tips-for-safe-hand-washing",
+          "pubDate": "Wed, 08 Apr 2020 10:34:41 +0000",
+        },
+        Object {
+          "content:encoded": Object {
+            "$": "<!doctype html><html lang=\\"en\\"><head><link rel=\\"canonical\\" href=\\"http://demo-prod.origin.arcpublishing.com/food/empty-recipe\\"/><title/><meta property=\\"og:title\\" content=\\"\\"/><meta property=\\"og:url\\" content=\\"http://demo-prod.origin.arcpublishing.com/food/empty-recipe\\"/><meta property=\\"og:description\\" content=\\"\\"/><meta property=\\"fb:use_automatic_ad_placement\\" content=\\"enable=false\\"/><meta property=\\"op:markup_version\\" content=\\"v1.0\\"/><meta property=\\"fb:article_style\\" content=\\"default\\"/><meta property=\\"og:image\\" content=\\"\\"/><meta property=\\"fb:likes_and_comments\\" content=\\"disable\\"/></head><body><article><header><h1/><time datetime=\\"2021-04-08T10:34:41.432Z\\" class=\\"op-modified\\">2021-04-08T10:34:41.432Z</time><time datetime=\\"2021-04-08T10:34:41.432Z\\" class=\\"op-published\\">2021-04-08T10:34:41.432Z</time></header><footer><small>© 2021 google news</small></footer></article></body></html>",
+          },
+          "guid": Object {
+            "#": "http://demo-prod.origin.arcpublishing.com/food/empty-recipe",
+            "@isPermaLink": true,
+          },
+          "link": "http://demo-prod.origin.arcpublishing.com/food/empty-recipe",
+          "pubDate": "Thu, 08 Apr 2021 10:34:41 +0000",
+        },
+      ],
+      "language": "en",
+      "lastBuildDate": StringMatching /\\\\w\\+, \\\\d\\+ \\\\w\\+ \\\\d\\{4\\} \\\\d\\{2\\}:\\\\d\\{2\\}:\\\\d\\{2\\} \\\\\\+0000/,
+      "link": "http://demo-prod.origin.arcpublishing.com",
+      "title": Object {
+        "$": "google news",
+      },
     },
   },
 }

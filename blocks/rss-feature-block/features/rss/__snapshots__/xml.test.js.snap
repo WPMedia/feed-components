@@ -180,3 +180,48 @@ Object {
   },
 }
 `;
+
+exports[`returns RSS template with empty values 1`] = `
+Object {
+  "rss": Object {
+    "@version": "2.0",
+    "@xmlns:atom": "http://www.w3.org/2005/Atom",
+    "@xmlns:content": "http://purl.org/rss/1.0/modules/content/",
+    "@xmlns:media": "http://search.yahoo.com/mrss/",
+    "channel": Object {
+      "atom:link": Object {
+        "@href": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/rss/",
+        "@rel": "self",
+        "@type": "application/rss+xml",
+      },
+      "description": Object {
+        "$": "google news News Feed",
+      },
+      "item": Array [
+        Object {
+          "guid": Object {
+            "#": "http://demo-prod.origin.arcpublishing.com/food/2020/04/07/tips-for-safe-hand-washing",
+            "@isPermaLink": true,
+          },
+          "link": "http://demo-prod.origin.arcpublishing.com/food/2020/04/07/tips-for-safe-hand-washing",
+          "pubDate": "Tue, 07 Apr 2020 15:02:08 +0000",
+        },
+        Object {
+          "guid": Object {
+            "#": "http://demo-prod.origin.arcpublishing.com",
+            "@isPermaLink": true,
+          },
+          "link": "http://demo-prod.origin.arcpublishing.com",
+          "pubDate": "Tue, 07 Apr 2020 15:02:08 +0000",
+        },
+      ],
+      "language": "en",
+      "lastBuildDate": StringMatching /\\\\w\\+, \\\\d\\+ \\\\w\\+ \\\\d\\{4\\} \\\\d\\{2\\}:\\\\d\\{2\\}:\\\\d\\{2\\} \\\\\\+0000/,
+      "link": "http://demo-prod.origin.arcpublishing.com",
+      "title": Object {
+        "$": "google news",
+      },
+    },
+  },
+}
+`;

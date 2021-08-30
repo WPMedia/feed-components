@@ -46,7 +46,9 @@ const rssTemplate = (
   rss: {
     '@xmlns:atom': 'http://www.w3.org/2005/Atom',
     '@xmlns:content': 'http://purl.org/rss/1.0/modules/content/',
-    '@xmlns:dc': 'http://purl.org/dc/elements/1.1/',
+    ...(itemCredits && {
+      '@xmlns:dc': 'http://purl.org/dc/elements/1.1/',
+    }),
     ...(channelUpdatePeriod &&
       channelUpdatePeriod !== 'Exclude field' && {
         '@xmlns:sy': 'http://purl.org/rss/1.0/modules/syndication/',
@@ -56,14 +58,18 @@ const rssTemplate = (
 
     '@version': '2.0',
     channel: {
-      title: { $: channelTitle || feedTitle },
+      ...(itemTitle && {
+        title: { $: channelTitle || feedTitle },
+      }),
       link: `${domain}`,
       'atom:link': {
         '@href': `${domain}${requestPath}`,
         '@rel': 'self',
         '@type': 'application/rss+xml',
       },
-      description: { $: channelDescription || `${feedTitle} News Feed` },
+      ...(itemDescription && {
+        description: { $: channelDescription || `${feedTitle} News Feed` },
+      }),
       lastBuildDate: moment
         .utc(new Date())
         .format('ddd, DD MMM YYYY HH:mm:ss ZZ'),
@@ -107,17 +113,22 @@ const rssTemplate = (
           feedTitle,
         })
         return {
-          title: { $: jmespath.search(s, itemTitle) || '' },
+          ...(itemTitle && {
+            title: { $: jmespath.search(s, itemTitle) || '' },
+          }),
           link: url,
           guid: {
             '@isPermaLink': false,
             '#': s._id,
           },
-          ...((author = jmespath.search(s, itemCredits)) &&
+          ...(itemCredits &&
+            (author = jmespath.search(s, itemCredits)) &&
             author && {
               'dc:creator': { $: author.join(', ') },
             }),
-          description: { $: jmespath.search(s, itemDescription) || '' },
+          ...(itemDescription && {
+            description: { $: jmespath.search(s, itemDescription) || '' },
+          }),
           pubDate: moment
             .utc(s[pubDate])
             .format('ddd, DD MMM YYYY HH:mm:ss ZZ'),
@@ -266,7 +277,7 @@ export function MsnRss({ globalContent, customFields, arcSite, requestUri }) {
 
 MsnRss.propTypes = {
   customFields: PropTypes.shape({
-    ...generatePropsForFeed('rss', PropTypes, ['channelPath', 'includePromo']),
+    ...generatePropsForFeed('rss', PropTypes, ['includePromo']),
   }),
 }
 
