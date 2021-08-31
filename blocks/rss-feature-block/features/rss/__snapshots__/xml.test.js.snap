@@ -27,6 +27,26 @@ Object {
       },
       "item": Array [
         Object {
+          "#": Array [
+            Object {
+              "media:content": Object {
+                "@type": "image/png",
+                "@url": "hi/abcdefghijklmnopqrstuvwxyz=/arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png",
+                "media:credit": Object {
+                  "#": "Harold Hands",
+                  "@role": "author",
+                  "@scheme": "urn:ebu",
+                },
+                "media:description": Object {
+                  "$": "Hand washing can be fun if you make it a song",
+                  "@type": "plain",
+                },
+                "media:title": Object {
+                  "$": "Hand Washing",
+                },
+              },
+            },
+          ],
           "category": "coronvirus",
           "content:encoded": Object {
             "$": "<p>try singing the happy birthday song</p><p>be sure to wash your thumbs</p>",
@@ -42,22 +62,6 @@ Object {
             "@isPermaLink": true,
           },
           "link": "http://demo-prod.origin.arcpublishing.com/food/2020/04/07/tips-for-safe-hand-washing",
-          "media:content": Object {
-            "@type": "image/jpeg",
-            "@url": "hi/abcdefghijklmnopqrstuvwxyz=/arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png",
-            "media:credit": Object {
-              "#": "Harold Hands",
-              "@role": "author",
-              "@scheme": "urn:ebu",
-            },
-            "media:description": Object {
-              "$": "Hand washing can be fun if you make it a song",
-              "@type": "plain",
-            },
-            "media:title": Object {
-              "$": "Hand Washing",
-            },
-          },
           "pubDate": "Tue, 07 Apr 2020 15:02:08 +0000",
           "title": Object {
             "$": "Tips for Safe Hand washing",
@@ -112,6 +116,26 @@ Object {
       },
       "item": Array [
         Object {
+          "#": Array [
+            Object {
+              "media:content": Object {
+                "@type": "image/png",
+                "@url": "hi/abcdefghijklmnopqrstuvwxyz=/arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png",
+                "media:credit": Object {
+                  "#": "Harold Hands",
+                  "@role": "author",
+                  "@scheme": "urn:ebu",
+                },
+                "media:description": Object {
+                  "$": "Hand washing can be fun if you make it a song",
+                  "@type": "plain",
+                },
+                "media:title": Object {
+                  "$": "Hand Washing",
+                },
+              },
+            },
+          ],
           "dc:creator": Object {
             "$": "John Smith, Jane Doe",
           },
@@ -123,22 +147,6 @@ Object {
             "@isPermaLink": true,
           },
           "link": "http://demo-prod.origin.arcpublishing.com/food/2020/04/07/tips-for-safe-hand-washing",
-          "media:content": Object {
-            "@type": "image/jpeg",
-            "@url": "hi/abcdefghijklmnopqrstuvwxyz=/arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png",
-            "media:credit": Object {
-              "#": "Harold Hands",
-              "@role": "author",
-              "@scheme": "urn:ebu",
-            },
-            "media:description": Object {
-              "$": "Hand washing can be fun if you make it a song",
-              "@type": "plain",
-            },
-            "media:title": Object {
-              "$": "Hand Washing",
-            },
-          },
           "pubDate": "Tue, 07 Apr 2020 15:02:08 +0000",
           "title": Object {
             "$": "Tips for Safe Hand washing",

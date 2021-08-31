@@ -87,7 +87,7 @@ const resolve = function resolve(key) {
   // Append Author to basic query
   const { Author } = key
   if (Author) {
-    const author = Author.replace(/^\//, '')
+    const author = Author.replace(/\//g, '')
 
     body.query.bool.must.push({
       term: {
@@ -100,7 +100,7 @@ const resolve = function resolve(key) {
   // AIO-243 use simple_query_string to support multiple phrases using "phrase 1" | "phrase 2"
   const { Keywords } = key
   if (Keywords) {
-    const keywords = Keywords.replace(/^\//, '').replace(/%20/g, '+')
+    const keywords = Keywords.replace(/\//g, '').replace(/%20/g, '+')
 
     body.query.bool.must.push({
       simple_query_string: {
@@ -113,7 +113,7 @@ const resolve = function resolve(key) {
   // Append Tags text to basic query
   const tagsText = key['Tags-Text']
   if (tagsText) {
-    const cleanTagsText = tagsText.replace(/^\//, '').replace(/%20/g, '+')
+    const cleanTagsText = tagsText.replace(/\//g, '').replace(/%20/g, '+')
 
     body.query.bool.must.push({
       terms: {
@@ -125,7 +125,7 @@ const resolve = function resolve(key) {
   // Append Tags slug to basic query
   const tagsSlug = key['Tags-Slug']
   if (tagsSlug) {
-    const cleanTagsSlug = tagsSlug.replace(/^\//, '')
+    const cleanTagsSlug = tagsSlug.replace(/\//g, '')
 
     body.query.bool.must.push({
       terms: {
@@ -134,15 +134,24 @@ const resolve = function resolve(key) {
     })
   }
 
-  // if Section append section query to basic query
+  // if Section and/or Exclude-Sections append section query to basic query
   const { Section } = key
-  if (Section && Section !== '/') {
-    let section = Section.replace(/\/$/, '')
-    if (!section.startsWith('/')) {
-      section = `/${section}`
+  const ExcludeSections = key['Exclude-Sections']
+
+  if (Section || ExcludeSections) {
+    const formatSections = (section) => {
+      const sectionArray = section
+        .split(',')
+        .map((item) => item.trim().replace(/\/$/, ''))
+        .map((item) => (item.startsWith('/') ? item : `/${item}`))
+      return {
+        terms: {
+          'taxonomy.sections._id': sectionArray,
+        },
+      }
     }
 
-    body.query.bool.must.push({
+    const nested = {
       nested: {
         path: 'taxonomy.sections',
         query: {
@@ -153,16 +162,25 @@ const resolve = function resolve(key) {
                   'taxonomy.sections._website': key['arc-site'],
                 },
               },
-              {
-                term: {
-                  'taxonomy.sections._id': `${section}`,
-                },
-              },
             ],
           },
         },
       },
-    })
+    }
+
+    const mustNested = JSON.parse(JSON.stringify(nested))
+
+    if (Section && Section !== '/') {
+      mustNested.nested.query.bool.must.push(formatSections(Section))
+    }
+    body.query.bool.must.push(mustNested)
+
+    if (ExcludeSections && ExcludeSections !== '/') {
+      const notNested = JSON.parse(JSON.stringify(nested))
+      notNested.nested.query.bool.must = [formatSections(ExcludeSections)]
+      if (!body.query.bool.must_not) body.query.bool.must_not = []
+      body.query.bool.must_not.push(notNested)
+    }
   }
 
   const encodedBody = encodeURI(JSON.stringify(body))
@@ -180,6 +198,7 @@ export default {
     'Tags-Slug': 'text',
     'Include-Terms': 'text',
     'Exclude-Terms': 'text',
+    'Exclude-Sections': 'text',
     'Feed-Size': 'text',
     'Feed-Offset': 'text',
     Sort: 'text',

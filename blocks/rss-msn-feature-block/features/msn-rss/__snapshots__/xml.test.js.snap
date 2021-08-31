@@ -1,5 +1,87 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`returns MSN template with custom values 1`] = `
+Object {
+  "rss": Object {
+    "@version": "2.0",
+    "@xmlns:atom": "http://www.w3.org/2005/Atom",
+    "@xmlns:content": "http://purl.org/rss/1.0/modules/content/",
+    "@xmlns:dc": "http://purl.org/dc/elements/1.1/",
+    "@xmlns:dcterms": "https://purl.org/dc/terms/",
+    "@xmlns:media": "http://search.yahoo.com/mrss/",
+    "@xmlns:sy": "http://purl.org/rss/1.0/modules/syndication/",
+    "channel": Object {
+      "atom:link": Object {
+        "@href": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/msn/",
+        "@rel": "self",
+        "@type": "application/rss+xml",
+      },
+      "category": "news",
+      "copyright": "2020 The Washington Post LLC",
+      "description": Object {
+        "$": "All the news that's fit to print",
+      },
+      "image": Object {
+        "link": "http://demo-prod.origin.arcpublishing.com",
+        "title": "The Daily Prophet",
+        "url": "hi/abcdefghijklmnopqrstuvwxyz=/arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png",
+      },
+      "item": Array [
+        Object {
+          "#": Array [
+            Object {
+              "media:content": Object {
+                "@type": "image/png",
+                "@url": "hi/abcdefghijklmnopqrstuvwxyz=/arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png",
+                "media:credit": Object {
+                  "#": "Harold Hands",
+                  "@role": "author",
+                  "@scheme": "urn:ebu",
+                },
+                "media:description": Object {
+                  "$": "Hand washing can be fun if you make it a song",
+                  "@type": "plain",
+                },
+                "media:text": "The Daily Prophet",
+                "media:title": Object {
+                  "$": "Hand Washing",
+                },
+              },
+            },
+          ],
+          "category": "coronvirus",
+          "content:encoded": Object {
+            "$": "<p>try singing the happy birthday song</p><p>be sure to wash your thumbs</p><figure><img src=\\"hi/abcdefghijklmnopqrstuvwxyz=/arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/QHOCF6YFIZCUFIXBVEAXENGFFM.jpg\\" alt=\\"test caption\\"/><figcaption>test caption</figcaption></figure>",
+          },
+          "dcterms:modified": undefined,
+          "description": Object {
+            "$": "This is from the subheadlines",
+          },
+          "guid": Object {
+            "#": undefined,
+            "@isPermaLink": false,
+          },
+          "link": "http://demo-prod.origin.arcpublishing.com/food/2020/04/07/tips-for-safe-hand-washing",
+          "pubDate": "Tue, 07 Apr 2020 15:02:08 +0000",
+          "title": Object {
+            "$": "Tips for Safe Hand washing",
+          },
+        },
+      ],
+      "language": "en",
+      "lastBuildDate": StringMatching /\\\\w\\+, \\\\d\\+ \\\\w\\+ \\\\d\\{4\\} \\\\d\\{2\\}:\\\\d\\{2\\}:\\\\d\\{2\\} \\\\\\+0000/,
+      "link": "http://demo-prod.origin.arcpublishing.com",
+      "sy:updateFrequency": "1",
+      "sy:updatePeriod": "weekly",
+      "title": Object {
+        "$": "The Daily Prophet",
+      },
+      "ttl": "60",
+    },
+  },
+}
+`;
+
 exports[`returns MSN template with default values 1`] = `
 Object {
   "rss": Object {
@@ -21,6 +103,27 @@ Object {
       },
       "item": Array [
         Object {
+          "#": Array [
+            Object {
+              "media:content": Object {
+                "@type": "image/png",
+                "@url": "hi/abcdefghijklmnopqrstuvwxyz=/arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png",
+                "media:credit": Object {
+                  "#": "Harold Hands",
+                  "@role": "author",
+                  "@scheme": "urn:ebu",
+                },
+                "media:description": Object {
+                  "$": "Hand washing can be fun if you make it a song",
+                  "@type": "plain",
+                },
+                "media:text": "google news",
+                "media:title": Object {
+                  "$": "Hand Washing",
+                },
+              },
+            },
+          ],
           "dc:creator": Object {
             "$": "John Smith, Jane Doe",
           },
@@ -33,23 +136,6 @@ Object {
             "@isPermaLink": false,
           },
           "link": "http://demo-prod.origin.arcpublishing.com/food/2020/04/07/tips-for-safe-hand-washing",
-          "media:content": Object {
-            "@type": "image/jpeg",
-            "@url": "hi/abcdefghijklmnopqrstuvwxyz=/arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png",
-            "media:credit": Object {
-              "#": "Harold Hands",
-              "@role": "author",
-              "@scheme": "urn:ebu",
-            },
-            "media:description": Object {
-              "$": "Hand washing can be fun if you make it a song",
-              "@type": "plain",
-            },
-            "media:title": Object {
-              "$": "Hand Washing",
-            },
-          },
-          "media:text": "google news",
           "pubDate": "Tue, 07 Apr 2020 15:02:08 +0000",
           "title": Object {
             "$": "Tips for Safe Hand washing",
@@ -65,84 +151,6 @@ Object {
         "$": "google news",
       },
       "ttl": "1",
-    },
-  },
-}
-`;
-
-exports[`returns RSS template with custom values 1`] = `
-Object {
-  "rss": Object {
-    "@version": "2.0",
-    "@xmlns:atom": "http://www.w3.org/2005/Atom",
-    "@xmlns:content": "http://purl.org/rss/1.0/modules/content/",
-    "@xmlns:dc": "http://purl.org/dc/elements/1.1/",
-    "@xmlns:dcterms": "https://purl.org/dc/terms/",
-    "@xmlns:media": "http://search.yahoo.com/mrss/",
-    "@xmlns:sy": "http://purl.org/rss/1.0/modules/syndication/",
-    "channel": Object {
-      "atom:link": Object {
-        "@href": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/rss/",
-        "@rel": "self",
-        "@type": "application/rss+xml",
-      },
-      "category": "news",
-      "copyright": "2020 The Washington Post LLC",
-      "description": Object {
-        "$": "All the news that's fit to print",
-      },
-      "image": Object {
-        "link": "http://demo-prod.origin.arcpublishing.com",
-        "title": "The Daily Prophet",
-        "url": "hi/abcdefghijklmnopqrstuvwxyz=/arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png",
-      },
-      "item": Array [
-        Object {
-          "category": "coronvirus",
-          "content:encoded": Object {
-            "$": "<p>try singing the happy birthday song</p><p>be sure to wash your thumbs</p><figure><img src=\\"hi/abcdefghijklmnopqrstuvwxyz=/arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/QHOCF6YFIZCUFIXBVEAXENGFFM.jpg\\" alt=\\"test caption\\"/><figcaption>test caption</figcaption></figure>",
-          },
-          "dcterms:modified": undefined,
-          "description": Object {
-            "$": "This is from the subheadlines",
-          },
-          "guid": Object {
-            "#": undefined,
-            "@isPermaLink": false,
-          },
-          "link": "http://demo-prod.origin.arcpublishing.com/food/2020/04/07/tips-for-safe-hand-washing",
-          "media:content": Object {
-            "@type": "image/jpeg",
-            "@url": "hi/abcdefghijklmnopqrstuvwxyz=/arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png",
-            "media:credit": Object {
-              "#": "Harold Hands",
-              "@role": "author",
-              "@scheme": "urn:ebu",
-            },
-            "media:description": Object {
-              "$": "Hand washing can be fun if you make it a song",
-              "@type": "plain",
-            },
-            "media:title": Object {
-              "$": "Hand Washing",
-            },
-          },
-          "media:text": "The Daily Prophet",
-          "pubDate": "Tue, 07 Apr 2020 15:02:08 +0000",
-          "title": Object {
-            "$": "Tips for Safe Hand washing",
-          },
-        },
-      ],
-      "language": "en",
-      "lastBuildDate": StringMatching /\\\\w\\+, \\\\d\\+ \\\\w\\+ \\\\d\\{4\\} \\\\d\\{2\\}:\\\\d\\{2\\}:\\\\d\\{2\\} \\\\\\+0000/,
-      "link": "http://demo-prod.origin.arcpublishing.com",
-      "sy:updateFrequency": "1",
-      "sy:updatePeriod": "weekly",
-      "title": Object {
-        "$": "The Daily Prophet",
-      },
-      "ttl": "60",
     },
   },
 }

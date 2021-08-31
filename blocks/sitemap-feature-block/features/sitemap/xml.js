@@ -2,14 +2,15 @@ import PropTypes from 'fusion:prop-types'
 import Consumer from 'fusion:consumer'
 import getProperties from 'fusion:properties'
 import { resizerKey } from 'fusion:environment'
-import { buildResizerURL } from '@wpmedia/feeds-resizer'
 import { generatePropsForFeed } from '@wpmedia/feeds-prop-types'
+import { BuildPromoItems } from '@wpmedia/feeds-promo-items'
 
 const sitemapTemplate = (
   elements,
   {
     changeFreq,
     includePromo,
+    promoItemsJmespath,
     priority,
     lastMod,
     imageTitle,
@@ -18,6 +19,7 @@ const sitemapTemplate = (
     domain,
     resizerWidth,
     resizerHeight,
+    PromoItems,
   },
 ) => ({
   urlset: {
@@ -26,34 +28,31 @@ const sitemapTemplate = (
       '@xmlns:image': 'http://www.google.com/schemas/sitemap-image/1.1',
     }),
     url: elements.map((s) => {
-      let img = s.promo_items && (s.promo_items.basic || s.promo_items.lead_art)
-      if (img && !img.url && img.promo_image) img = img.promo_image // video
+      let img
+      if (includePromo) {
+        img = PromoItems.imageTag({
+          ans: s,
+          promoItemsJmespath,
+          resizerKey,
+          resizerURL,
+          resizerWidth,
+          resizerHeight,
+          imageTitle,
+          imageCaption,
+        })
+      }
       return {
         loc: `${domain}${s.website_url || s.canonical_url}`,
         ...{ lastmod: s[lastMod] },
-        ...(changeFreq !== 'Exclude from sitemap' && {
-          changefreq: changeFreq,
-        }),
-        ...(priority !== 'Exclude from sitemap' && { priority: priority }),
-        ...(includePromo &&
-          img &&
-          img.url && {
-            'image:image': {
-              'image:loc': buildResizerURL(
-                img.url,
-                resizerKey,
-                resizerURL,
-                resizerWidth,
-                resizerHeight,
-              ),
-              ...(img[imageCaption] && {
-                'image:caption': { $: img[imageCaption] },
-              }),
-              ...(img[imageTitle] && {
-                'image:title': { $: img[imageTitle] },
-              }),
-            },
+        ...(changeFreq !== 'Exclude field' &&
+          changeFreq !== 'Exclude from sitemap' && {
+            changefreq: changeFreq,
           }),
+        ...(priority !== 'Exclude field' &&
+          changeFreq !== 'Exclude from sitemap' && { priority: priority }),
+        ...(img && {
+          '#': img,
+        }),
       }
     }),
   },
@@ -63,6 +62,8 @@ export function Sitemap({ globalContent, customFields, arcSite }) {
   const { resizerURL = '', feedDomainURL = '' } = getProperties(arcSite)
   const { width = 0, height = 0 } = customFields.resizerKVP || {}
 
+  const PromoItems = new BuildPromoItems()
+
   // can't return null for xml return type, must return valid xml template
   return sitemapTemplate(globalContent.content_elements || [], {
     ...customFields,
@@ -70,6 +71,7 @@ export function Sitemap({ globalContent, customFields, arcSite }) {
     domain: feedDomainURL,
     resizerWidth: width,
     resizerHeight: height,
+    PromoItems,
   })
 }
 

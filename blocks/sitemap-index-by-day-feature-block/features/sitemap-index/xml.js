@@ -32,7 +32,7 @@ export function SitemapIndexByDay({
   arcSite,
   requestUri,
 }) {
-  const { feedDomainURL = '' } = getProperties(arcSite)
+  const { feedDomainURL = 'http://localhost' } = getProperties(arcSite)
   const pathList = new URL.URL(requestUri, feedDomainURL).pathname.split(
     customFields.feedName,
   )
@@ -43,7 +43,7 @@ export function SitemapIndexByDay({
   if (customFields.numberOfDays.match(/\d{4}-\d{2}-\d{2}/)) {
     const start = moment.utc(new Date()).startOf('day')
     const end = moment.utc(customFields.numberOfDays, 'YYYY-MM-DD', true)
-    if (end.isValid() && end.isBefore(start) && end.isAfter('2000')) {
+    if (end.isValid() && end.isBefore(start) && end.isAfter('1994-12-31')) {
       maxDays = start.diff(end, 'days') + 1
     }
   }
@@ -109,7 +109,7 @@ SitemapIndexByDay.propTypes = {
       label: 'Number of Days to include',
       group: 'Format',
       description:
-        'How many days should be included in the Sitemap Index. Enter a date in YYYY-MM-DD format to use a specific end date.',
+        'How many days should be included in the Sitemap Index. Enter a date in YYYY-MM-DD format to use a specific end date. The earliest date is 1995-01-01.',
       defaultValue: '2',
     }),
     feedPath: PropTypes.kvp.tag({
