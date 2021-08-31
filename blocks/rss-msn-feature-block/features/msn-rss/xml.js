@@ -119,7 +119,7 @@ const rssTemplate = (
           },
           ...(itemCredits &&
             (author = jmespath.search(s, itemCredits)) &&
-            author && {
+            author.length && {
               'dc:creator': { $: author.join(', ') },
             }),
           ...(itemDescription && {
