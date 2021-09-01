@@ -2,7 +2,6 @@
 import Consumer from 'fusion:consumer'
 import { GoogleSitemap } from './xml'
 
-
 const articles = {
   content_elements: [
     {
