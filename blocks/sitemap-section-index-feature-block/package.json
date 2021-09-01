@@ -1,6 +1,6 @@
 {
   "name": "@wpmedia/sitemap-section-index-feature-block",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "description": "sitemaps section index using Site Service",
   "main": "index.js",
   "files": [
