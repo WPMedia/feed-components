@@ -4,6 +4,7 @@ import moment from 'moment'
 import getProperties from 'fusion:properties'
 import { resizerKey } from 'fusion:environment'
 import { BuildContent } from '@wpmedia/feeds-content-elements'
+import { BuildPromoItems } from '@wpmedia/feeds-promo-items'
 import { generatePropsForFeed } from '@wpmedia/feeds-prop-types'
 import { buildResizerURL } from '@wpmedia/feeds-resizer'
 import { convert, fragment } from 'xmlbuilder2'
@@ -39,6 +40,8 @@ const rssTemplate = (
     domain,
     feedTitle,
     feedLanguage,
+    promoItemsJmespath = 'promo_items.basic || promo_items.lead_art',
+    PromoItems,
     fbiaBuildContent,
   },
 ) => ({
@@ -46,7 +49,10 @@ const rssTemplate = (
     '@xmlns:atom': 'http://www.w3.org/2005/Atom',
     '@xmlns:content': 'http://purl.org/rss/1.0/modules/content/',
     '@xmlns:dc': 'http://purl.org/dc/elements/1.1/',
-    '@xmlns:sy': 'http://purl.org/rss/1.0/modules/syndication/',
+    ...(channelUpdatePeriod &&
+      channelUpdatePeriod !== 'Exclude field' && {
+        '@xmlns:sy': 'http://purl.org/rss/1.0/modules/syndication/',
+      }),
     '@version': '2.0',
     ...(includePromo && {
       '@xmlns:media': 'http://search.yahoo.com/mrss/',
@@ -69,12 +75,14 @@ const rssTemplate = (
         copyright: channelCopyright,
       }), // TODO Add default logic
       ...(channelTTL && { ttl: channelTTL }),
-      ...(channelUpdatePeriod && {
-        'sy:updatePeriod': channelUpdatePeriod,
-      }),
-      ...(channelUpdateFrequency && {
-        'sy:updateFrequency': channelUpdateFrequency,
-      }),
+      ...(channelUpdatePeriod &&
+        channelUpdatePeriod !== 'Exclude field' && {
+          'sy:updatePeriod': channelUpdatePeriod,
+        }),
+      ...(channelUpdateFrequency &&
+        channelUpdatePeriod !== 'Exclude field' && {
+          'sy:updateFrequency': channelUpdateFrequency,
+        }),
       ...(channelLogo && {
         image: {
           url: buildResizerURL(channelLogo, resizerKey, resizerURL),
@@ -86,8 +94,18 @@ const rssTemplate = (
       item: elements.map((s) => {
         let author, body, category
         const url = `${domain}${s.website_url || s.canonical_url}`
-        const img =
-          s.promo_items && (s.promo_items.basic || s.promo_items.lead_art)
+        const img = PromoItems.mediaTag({
+          ans: s,
+          promoItemsJmespath,
+          resizerKey,
+          resizerURL,
+          resizerWidth,
+          resizerHeight,
+          imageTitle,
+          imageCaption,
+          imageCredits,
+          videoSelect,
+        })
         return {
           title: { $: jmespath.search(s, itemTitle) || '' },
           link: url,
@@ -123,36 +141,8 @@ const rssTemplate = (
               },
             }),
           ...(includePromo &&
-            img &&
-            img.url && {
-              'media:content': {
-                '@type': 'image/jpeg',
-                '@url': buildResizerURL(
-                  img.url,
-                  resizerKey,
-                  resizerURL,
-                  resizerWidth,
-                  resizerHeight,
-                ),
-                ...(jmespath.search(img, imageCaption) && {
-                  'media:description': {
-                    '@type': 'plain',
-                    $: jmespath.search(img, imageCaption),
-                  },
-                }),
-                ...(jmespath.search(img, imageTitle) && {
-                  'media:title': {
-                    $: jmespath.search(img, imageTitle),
-                  },
-                }),
-                ...((jmespath.search(img, imageCredits) || []).length && {
-                  'media:credit': {
-                    '@role': 'author',
-                    '@scheme': 'urn:ebu',
-                    '#': jmespath.search(img, imageCredits).join(','),
-                  },
-                }),
-              },
+            img && {
+              '#': img,
             }),
         }
       }),
@@ -178,7 +168,7 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
     metaTags = ''
   }
 
-  function FbiaBuildContent(
+  function FbiaBuildContent({
     itemTitle,
     itemDescription,
     itemCategory,
@@ -190,7 +180,7 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
     placementSection,
     adScripts,
     videoSelect,
-  ) {
+  }) {
     BuildContent.call(this)
 
     this.buildHTMLHead = (s, domain, resizerWidth, resizerHeight) => {
@@ -488,19 +478,12 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
     }
   }
 
-  const fbiaBuildContent = new FbiaBuildContent(
-    customFields.itemTitle,
-    customFields.itemDescription,
-    customFields.itemCategory,
-    customFields.articleStyle,
-    customFields.likesAndComments,
+  const fbiaBuildContent = new FbiaBuildContent({
+    ...customFields,
     metaTags,
-    customFields.adPlacement,
-    customFields.adDensity,
-    customFields.placementSection,
-    customFields.adScripts,
-    customFields.videoSelect,
-  )
+  })
+
+  const PromoItems = new BuildPromoItems()
 
   // can't return null for xml return type, must return valid xml template
   return rssTemplate(globalContent.content_elements || [], {
@@ -513,6 +496,7 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
     feedTitle,
     feedLanguage,
     fbiaBuildContent,
+    PromoItems,
   })
 }
 // Reference for fb options: https://developers.facebook.com/docs/instant-articles/reference/article/

@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import Consumer from 'fusion:consumer'
 import { GoogleSitemap } from './xml'
-jest.mock('thumbor-lite')
+
 it('returns template with default values', () => {
   const googleSitemap = GoogleSitemap({
     arcSite: 'the-globe',
@@ -12,9 +12,9 @@ it('returns template with default values', () => {
           canonical_url: '/food/2020/04/07/tips-for-safe-hand-washing',
           promo_items: {
             basic: {
+              type: 'image',
               title: 'Hand Washing',
-              url:
-                'https://arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png',
+              url: 'https://arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/STORY_ONE_IMAGE.png',
             },
           },
           headlines: {
@@ -36,9 +36,9 @@ it('returns template with default values', () => {
           canonical_url: '/food/2021/04/07/best-sourdough-recipes',
           promo_items: {
             mobile: {
+              type: 'image',
               title: 'No kneeding around',
-              url:
-                'https://arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png',
+              url: 'https://arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/STORY_TWO_IMAGE.png',
             },
           },
           headlines: {

@@ -2,7 +2,7 @@ import PropTypes from 'fusion:prop-types'
 import Consumer from 'fusion:consumer'
 import getProperties from 'fusion:properties'
 import { resizerKey } from 'fusion:environment'
-import { buildResizerURL } from '@wpmedia/feeds-resizer'
+import { BuildPromoItems } from '@wpmedia/feeds-promo-items'
 import { generatePropsForFeed } from '@wpmedia/feeds-prop-types'
 const jmespath = require('jmespath')
 
@@ -11,12 +11,12 @@ const sitemapTemplate = (
   {
     changeFreq,
     includePromo,
+    promoItemsJmespath,
     priority,
     lastMod,
     imageTitle,
     imageCaption,
     publicationName,
-    newsKeywords,
     newsTitle,
     domain,
     feedTitle,
@@ -24,6 +24,8 @@ const sitemapTemplate = (
     resizerURL,
     resizerWidth,
     resizerHeight,
+    newsKeywordsJmespath,
+    PromoItems,
   },
 ) => ({
   urlset: {
@@ -34,26 +36,33 @@ const sitemapTemplate = (
     }),
 
     url: elements.map((s) => {
-      let img = s.promo_items && (s.promo_items.basic || s.promo_items.lead_art)
-      if (img && !img.url && img.promo_image) img = img.promo_image // video
-      let keywords
-      if (newsKeywords === 'tags') {
-        keywords = (jmespath.search(s, 'taxonomy.tags[*].text') || []).join(',')
-      } else {
-        keywords = (jmespath.search(s, 'taxonomy.seo_keywords[*]') || []).join(
-          ',',
-        )
+      let img
+      if (includePromo) {
+        img = PromoItems.imageTag({
+          ans: s,
+          promoItemsJmespath,
+          resizerKey,
+          resizerURL,
+          resizerWidth,
+          resizerHeight,
+          imageTitle,
+          imageCaption,
+        })
       }
-
+      const keywords = (jmespath.search(s, newsKeywordsJmespath) || []).join(
+        ',',
+      )
       const title = jmespath.search(s, newsTitle)
 
       return {
         loc: `${domain}${s.website_url || s.canonical_url}`,
         ...{ lastmod: s[lastMod] },
-        ...(changeFreq !== 'Exclude from sitemap' && {
-          changefreq: changeFreq,
-        }),
-        ...(priority !== 'Exclude from sitemap' && { priority: priority }),
+        ...(changeFreq !== 'Exclude from sitemap' &&
+          changeFreq !== 'Exclude field' && {
+            changefreq: changeFreq,
+          }),
+        ...(priority !== 'Exclude from sitemap' &&
+          priority !== 'Exclude field' && { priority: priority }),
         'news:news': {
           'news:publication': {
             'news:name': publicationName || feedTitle,
@@ -71,27 +80,9 @@ const sitemapTemplate = (
               'news:stock_tickers': s.taxonomy.stock_symbols.join(','),
             }),
         },
-        ...(includePromo &&
-          img &&
-          img.url && {
-            'image:image': {
-              ...(img.url && {
-                'image:loc': buildResizerURL(
-                  img.url,
-                  resizerKey,
-                  resizerURL,
-                  resizerWidth,
-                  resizerHeight,
-                ),
-              }),
-              ...(img[imageCaption] && {
-                'image:caption': { $: img[imageCaption] },
-              }),
-              ...(img[imageTitle] && {
-                'image:title': { $: img[imageTitle] },
-              }),
-            },
-          }),
+        ...(img && {
+          '#': img,
+        }),
       }
     }),
   },
@@ -105,6 +96,12 @@ export function GoogleSitemap({ globalContent, customFields, arcSite }) {
     feedLanguage = '',
   } = getProperties(arcSite)
   const { width = 0, height = 0 } = customFields.resizerKVP || {}
+  const newsKeywordsJmespath =
+    customFields.newsKeywords === 'tags'
+      ? 'taxonomy.tags[*].text'
+      : 'taxonomy.seo_keywords[*]'
+
+  const PromoItems = new BuildPromoItems()
 
   // can't return null for xml return type, must return valid xml template
   return sitemapTemplate(globalContent.content_elements || [], {
@@ -115,6 +112,8 @@ export function GoogleSitemap({ globalContent, customFields, arcSite }) {
     resizerURL,
     resizerWidth: width,
     resizerHeight: height,
+    newsKeywordsJmespath,
+    PromoItems,
   })
 }
 

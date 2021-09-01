@@ -1,0 +1,30 @@
+{
+  "name": "@wpmedia/feeds-promo-items",
+  "version": "1.0.4",
+  "description": "Shared arcio promo_items module",
+  "main": "dist/feeds-promo-items.cjs.js",
+  "module": "dist/feeds-promo-items.esm.js",
+  "source": "index.js",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "clean": "rm -rf dist"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/WPMedia/feed-components.git",
+    "directory": "utils/promo-items"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/",
+    "access": "restricted"
+  },
+  "author": "Tim Kosmider <timothy.kosmider@washpost.com>",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "@wpmedia/feeds-find-video-stream": "1.0.4",
+    "@wpmedia/feeds-resizer": "1.0.4",
+    "jmespath": "^0.15.0"
+  }
+}
