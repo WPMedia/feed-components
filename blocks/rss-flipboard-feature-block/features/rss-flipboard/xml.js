@@ -46,7 +46,9 @@ const rssTemplate = (
   rss: {
     '@xmlns:atom': 'http://www.w3.org/2005/Atom',
     '@xmlns:content': 'http://purl.org/rss/1.0/modules/content/',
-    '@xmlns:dc': 'http://purl.org/dc/elements/1.1/',
+    ...(itemCredits && {
+      '@xmlns:dc': 'http://purl.org/dc/elements/1.1/',
+    }),
     ...(channelUpdatePeriod &&
       channelUpdatePeriod !== 'Exclude field' && {
         '@xmlns:sy': 'http://purl.org/rss/1.0/modules/syndication/',
@@ -103,15 +105,20 @@ const rssTemplate = (
           videoSelect,
         })
         return {
-          title: { $: jmespath.search(s, itemTitle) || '' },
+          ...(itemTitle && {
+            title: { $: jmespath.search(s, itemTitle) || '' },
+          }),
           link: url,
-          description: { $: jmespath.search(s, itemDescription) || '' },
+          ...(itemDescription && {
+            description: { $: jmespath.search(s, itemDescription) || '' },
+          }),
           guid: {
             '#': url,
             '@isPermaLink': true,
           },
-          ...((author = jmespath.search(s, itemCredits)) &&
-            author && {
+          ...(itemCredits &&
+            (author = jmespath.search(s, itemCredits)) &&
+            author.length && {
               'dc:creator': { $: author.join(', ') },
             }),
           pubDate: moment
@@ -212,7 +219,7 @@ export function FlipboardRss({
 
 FlipboardRss.propTypes = {
   customFields: PropTypes.shape({
-    ...generatePropsForFeed('rss', PropTypes, ['channelPath', 'includePromo']),
+    ...generatePropsForFeed('rss', PropTypes, ['includePromo']),
   }),
 }
 

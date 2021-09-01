@@ -73,3 +73,18 @@ it('invalid date, should return 2', () => {
   })
   expect(sitemapindex).toMatchSnapshot()
 })
+
+it('returns template with empty values', () => {
+  const sitemapindex = SitemapIndexByDay({
+    requestUri: '/sitemap-news-index/?outputType=xml',
+    arcSite: 'demo',
+    customFields: {
+      feedPath: {},
+      feedName: '',
+      feedParam: '',
+      numberOfDays: '',
+      feedDates2Split: {},
+    },
+  })
+  expect(sitemapindex).toMatchSnapshot()
+})

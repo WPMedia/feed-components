@@ -69,7 +69,6 @@ it('returns FB-IA template with default values', () => {
     customFields: {
       channelTitle: '',
       channelDescription: '',
-      channelPath: '/arc/outboundfeeds/rss/',
       channelCopyright: '',
       channelTTL: '1',
       channelUpdatePeriod: 'hourly',
@@ -116,7 +115,6 @@ it('returns FB-IA template with custom values', () => {
     customFields: {
       channelTitle: 'Facebook Instant Articles Feed',
       channelDescription: 'Only the best for FB',
-      channelPath: '/arc/outboundfeeds/rss/',
       channelCopyright: 'Copyright 2021',
       channelTTL: '5',
       channelUpdatePeriod: 'weekly',
@@ -141,6 +139,53 @@ it('returns FB-IA template with custom values', () => {
       placementSection: '<script>myscript()</script>',
       adScripts:
         '<figure class="op-tracker"><iframe><script>alert("hi");</script></iframe></figure>',
+    },
+  })
+  expect(rss).toMatchSnapshot({
+    rss: {
+      channel: {
+        lastBuildDate: expect.stringMatching(
+          /\w+, \d+ \w+ \d{4} \d{2}:\d{2}:\d{2} \+0000/,
+        ),
+      },
+    },
+  })
+})
+
+it('returns FB-IA template with empty values', () => {
+  const rss = FbiaRss({
+    requestUri: 'https://localhost.com/arc/outboundfeeds/fb-ia/?outputType=xml',
+    arcSite: 'demo',
+    globalContent: {
+      ...articles,
+    },
+    customFields: {
+      channelTitle: '',
+      channelDescription: '',
+      channelCopyright: '',
+      channelTTL: '',
+      channelUpdatePeriod: '',
+      channelUpdateFrequency: '',
+      channelCategory: '',
+      channelLogo: '',
+      itemTitle: '',
+      itemDescription: '',
+      pubDate: 'last_updated_date',
+      itemCredits: '',
+      itemCategory: '',
+      includePromo: true,
+      imageTitle: '',
+      imageCaption: '',
+      imageCredits: '',
+      includeContent: '',
+      articleStyle: '',
+      likesAndComments: '',
+      metaTags: '',
+      adPlacement: '',
+      adDensity: '',
+      placementSection: '',
+      adScripts: '',
+      promoItemsJmespath: '',
     },
   })
   expect(rss).toMatchSnapshot({

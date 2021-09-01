@@ -182,3 +182,18 @@ it('returns template with subheadlines.basic values', () => {
   })
   expect(videoSitemap).toMatchSnapshot()
 })
+
+it('returns template with empty values', () => {
+  const videoSitemap = VideoSitemap({
+    arcSite: 'the-globe',
+    globalContent: globalContent,
+    customFields: {
+      lastMod: '',
+      videoTitle: '',
+      sitemapVideoSelect: {},
+      videoDescription: '',
+      promoItemsJmespath: '',
+    },
+  })
+  expect(videoSitemap).toMatchSnapshot()
+})
