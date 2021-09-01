@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import Consumer from 'fusion:consumer'
 import { GoogleSitemap } from './xml'
-jest.mock('thumbor-lite')
+
 
 const articles = {
   content_elements: [
