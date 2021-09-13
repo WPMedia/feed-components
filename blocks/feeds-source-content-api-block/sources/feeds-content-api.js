@@ -3,16 +3,62 @@ import getProperties from 'fusion:properties'
 
 const resolve = function resolve(key) {
   const requestUri = `${CONTENT_BASE}/content/v4/search/published`
+  const ansFields = [
+    'canonical_url',
+    'canonical_website',
+    'content_elements',
+    'created_date',
+    'credits',
+    'description',
+    'display_date',
+    'duration',
+    'first_publish_date',
+    'headlines',
+    'last_updated_date',
+    'promo_image',
+    'promo_items',
+    'publish_date',
+    'streams',
+    'subheadlines',
+    'subtitles',
+    'subtype',
+    'taxonomy.primary_section',
+    'taxonomy.seo_keywords',
+    'taxonomy.tags',
+    'type',
+    'video_type',
+  ]
+
   const paramList = [
     `website=${key['arc-site']}`,
     `size=${key['Feed-Size'] || '100'}`,
     `from=${key['Feed-Offset'] || '0'}`,
-    `_sourceExclude=${key['Source-Exclude'] || 'related_content'}`,
     `sort=${key.Sort || 'publish_date:desc'}`,
   ]
 
-  if (key['Source-Include'])
-    paramList.push(`_sourceInclude=${key['Source-Include']}`)
+  // limit C-API response to just this websites sections to reduce size
+  ansFields.push(`websites.${key['arc-site']}`)
+
+  if (key['Source-Exclude']) {
+    const sourceExcludes = []
+    key['Source-Exclude'].split(',').forEach((i) => {
+      if (i && ansFields.indexOf(i) !== -1) {
+        ansFields.splice(ansFields.indexOf(i), 1)
+      } else {
+        i && sourceExcludes.push(i)
+      }
+    })
+    if (sourceExcludes.length)
+      paramList.push(`_sourceExcludes=${sourceExcludes.join(',')}`)
+  }
+
+  if (key['Source-Include']) {
+    key['Source-Include']
+      .split(',')
+      .forEach((i) => i && !ansFields.includes(i) && ansFields.push(i))
+  }
+  paramList.push(`_sourceIncludes=${ansFields.join(',')}`)
+
   if (key['Include-Distributor-Name']) {
     paramList.push(
       `include_distributor_name=${key['Include-Distributor-Name']}`,
@@ -187,9 +233,29 @@ const resolve = function resolve(key) {
   return `${requestUri}?body=${encodedBody}&${uriParams}`
 }
 
+const transform = (data, query) => {
+  const source = data || {}
+  const website = query['arc-site']
+  if (source.content_elements && source.content_elements.length) {
+    const transformedContent = source.content_elements.map((i) => {
+      if (i?.websites?.[website]?.website_section && !i?.taxonomy?.sections) {
+        if (!i.taxonomy) i.taxonomy = {}
+        i.taxonomy.sections = [i.websites[website].website_section]
+      }
+      if (i?.websites?.[website]?.website_url)
+        i.website_url = i.websites[website].website_url
+      i.website = website
+      return i
+    })
+    source.content_elements = transformedContent
+    return source
+  }
+}
+
 export default {
   resolve,
   schemaName: 'feeds',
+  transform,
   params: {
     Section: 'text',
     Author: 'text',
