@@ -1,55 +1,6 @@
 import request from 'request-promise-native'
 import { CONTENT_BASE, ARC_ACCESS_TOKEN } from 'fusion:environment'
 
-const options = {
-  gzip: true,
-  json: true,
-  auth: { bearer: ARC_ACCESS_TOKEN },
-}
-
-const ansFields = [
-  'canonical_url',
-  'canonical_website',
-  'content_elements',
-  'created_date',
-  'credits',
-  'description',
-  'display_date',
-  'duration',
-  'first_publish_date',
-  'headlines',
-  'last_updated_date',
-  'promo_image',
-  'promo_items',
-  'publish_date',
-  'source',
-  'streams',
-  'subheadlines',
-  'subtitles',
-  'subtype',
-  'taxonomy.primary_section',
-  'taxonomy.seo_keywords',
-  'taxonomy.tags',
-  'type',
-  'video_type',
-]
-
-const sortStories = (idsResp, collectionResp, ids, site) => {
-  idsResp.content_elements.forEach((item) => {
-    const storyIndex = ids.indexOf(item._id)
-    // transform websites to sections
-    if (item?.websites?.[site]?.website_section && !item?.taxonomy?.sections) {
-      if (!item.taxonomy) item.taxonomy = {}
-      item.taxonomy.sections = [item.websites[site].website_section]
-    }
-    if (item?.websites?.[site]?.website_url)
-      item.website_url = item.websites[site].website_url
-    item.website = site
-    collectionResp.content_elements.splice(storyIndex, 1, item)
-  })
-  return collectionResp
-}
-
 const fetch = async (key = {}) => {
   const {
     'arc-site': site,
@@ -68,6 +19,58 @@ const fetch = async (key = {}) => {
     published: true,
     ...(id && { _id: id }),
     ...(contentAlias && { content_alias: contentAlias }),
+  }
+
+  const options = {
+    gzip: true,
+    json: true,
+    auth: { bearer: ARC_ACCESS_TOKEN },
+  }
+
+  const ansFields = [
+    'canonical_url',
+    'canonical_website',
+    'content_elements',
+    'created_date',
+    'credits',
+    'description',
+    'display_date',
+    'duration',
+    'first_publish_date',
+    'headlines',
+    'last_updated_date',
+    'promo_image',
+    'promo_items',
+    'publish_date',
+    'source',
+    'streams',
+    'subheadlines',
+    'subtitles',
+    'subtype',
+    'taxonomy.primary_section',
+    'taxonomy.seo_keywords',
+    'taxonomy.tags',
+    'type',
+    'video_type',
+  ]
+
+  const sortStories = (idsResp, collectionResp, ids, site) => {
+    idsResp.content_elements.forEach((item) => {
+      const storyIndex = ids.indexOf(item._id)
+      // transform websites to sections
+      if (
+        item?.websites?.[site]?.website_section &&
+        !item?.taxonomy?.sections
+      ) {
+        if (!item.taxonomy) item.taxonomy = {}
+        item.taxonomy.sections = [item.websites[site].website_section]
+      }
+      if (item?.websites?.[site]?.website_url)
+        item.website_url = item.websites[site].website_url
+      item.website = site
+      collectionResp.content_elements.splice(storyIndex, 1, item)
+    })
+    return collectionResp
   }
 
   // limit C-API response to just this websites sections to reduce size
