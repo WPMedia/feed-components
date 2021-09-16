@@ -2,52 +2,29 @@ import request from 'request-promise-native'
 import { CONTENT_BASE, ARC_ACCESS_TOKEN } from 'fusion:environment'
 import getProperties from 'fusion:properties'
 import moment from 'moment'
+import {
+  defaultANSFields,
+  formatSections,
+  generateDistributor,
+  transform,
+  validANSDates,
+} from '@wpmedia/feeds-source-content-api-block'
 
 const contentURL = `${CONTENT_BASE}/content/v4/search/published/`
 // Excludes content_elements
-const ansFields = [
-  'canonical_url',
-  'canonical_website',
-  'created_date',
-  'credits',
-  'description',
-  'display_date',
-  'duration',
-  'first_publish_date',
-  'headlines',
-  'last_updated_date',
-  'promo_image',
-  'promo_items',
-  'publish_date',
-  'streams',
-  'subheadlines',
-  'subtitles',
-  'subtype',
-  'taxonomy.primary_section',
-  'taxonomy.seo_keywords',
-  'taxonomy.tags',
-  'type',
-  'video_type',
-]
+const ansFields = [...defaultANSFields]
 
 const options = {
   gzip: true,
   json: true,
   auth: { bearer: ARC_ACCESS_TOKEN },
 }
-const validANSDates = [
-  'created_date',
-  'last_updated_date',
-  'display_date',
-  'first_publish_date',
-  'publish_date',
-]
 
 const fetch = async (key = {}) => {
   const paramList = {
     website: key['arc-site'],
     size: 100,
-    sort: key.sort || 'last_updated_date:desc',
+    sort: key.sort || `${key.dateField}:desc`,
   }
 
   // limit C-API response to just this websites sections to reduce size
@@ -73,15 +50,7 @@ const fetch = async (key = {}) => {
   }
   paramList._sourceIncludes = ansFields.join(',')
 
-  if (key['Include-Distributor-Name']) {
-    paramList.include_distributor_name = key['Include-Distributor-Name']
-  } else if (key['Exclude-Distributor-Name']) {
-    paramList.exclude_distributor_name = key['Exclude-Distributor-Name']
-  } else if (key['Include-Distributor-Category']) {
-    paramList.include_distributor_category = key['Include-Distributor-Category']
-  } else if (key['Exclude-Distributor-Category']) {
-    paramList.exclude_distributor_category = key['Exclude-Distributor-Category']
-  }
+  generateDistributor(key, paramList)
 
   // basic ES query
   const body = {
@@ -195,18 +164,6 @@ const fetch = async (key = {}) => {
   const ExcludeSections = key['Exclude-Sections']
 
   if (ExcludeSections && ExcludeSections !== '/') {
-    const formatSections = (section) => {
-      const sectionArray = section
-        .split(',')
-        .map((item) => item.trim().replace(/\/$/, ''))
-        .map((item) => (item.startsWith('/') ? item : `/${item}`))
-      return {
-        terms: {
-          'taxonomy.sections._id': sectionArray,
-        },
-      }
-    }
-
     const nested = {
       nested: {
         path: 'taxonomy.sections',
@@ -222,18 +179,12 @@ const fetch = async (key = {}) => {
     body.query.bool.must_not.push(nested)
   }
 
-  paramList.body = encodeURI(JSON.stringify(body))
-
-  const genParams = (paramList) => {
-    return Object.keys(paramList).reduce((acc, key) => {
-      return [...acc, `${key}=${paramList[key]}`]
-    }, [])
-  }
+  paramList.body = JSON.stringify(body)
 
   const getResp = (contentURL, paramList, options) => {
-    const paramString = genParams(paramList)
     return request({
-      uri: `${contentURL}?${paramString.join('&')}`,
+      uri: contentURL,
+      qs: paramList,
       ...options,
     })
   }
@@ -252,25 +203,6 @@ const fetch = async (key = {}) => {
     paramList.from = scanResp.next
   }
   return { type: 'resp', content_elements: allContentElements }
-}
-
-const transform = (data, query) => {
-  const source = data || {}
-  const website = query['arc-site']
-  if (source.content_elements && source.content_elements.length) {
-    const transformedContent = source.content_elements.map((i) => {
-      if (i?.websites?.[website]?.website_section && !i?.taxonomy?.sections) {
-        if (!i.taxonomy) i.taxonomy = {}
-        i.taxonomy.sections = [i.websites[website].website_section]
-      }
-      if (i?.websites?.[website]?.website_url)
-        i.website_url = i.websites[website].website_url
-      i.website = website
-      return i
-    })
-    source.content_elements = transformedContent
-    return source
-  }
 }
 
 export default {

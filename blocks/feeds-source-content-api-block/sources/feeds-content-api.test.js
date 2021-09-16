@@ -2,48 +2,6 @@
 import Consumer from 'fusion:consumer'
 const resolver = require('./feeds-content-api')
 
-const globalContent = {
-  content_elements: [
-    {
-      taxonomy: {
-        tags: [],
-      },
-      websites: {
-        demo: {
-          website_url: '/news/test-article-1',
-          website_section: {
-            _id: '/news',
-          },
-        },
-      },
-    },
-    {
-      taxonomy: {
-        tags: [],
-        sections: [{ _id: '/sports' }],
-      },
-      websites: {
-        demo: {
-          website_url: '/news/test-article-2',
-          website_section: {
-            _id: '/news',
-          },
-        },
-      },
-    },
-    {
-      websites: {
-        demo: {
-          website_url: '/news/test-article-3',
-          website_section: {
-            _id: '/news',
-          },
-        },
-      },
-    },
-  ],
-}
-
 it('validate schemaName', () => {
   expect(resolver.default.schemaName).toBe('feeds')
 })
@@ -338,55 +296,4 @@ it('returns query by Exclude-Terms', () => {
   })
   expect(query).toContain('%22term%22:%7B%22type%22:%22story%22')
   expect(query).toContain('%22term%22:%7B%22subtype%22:%22premium%22')
-})
-
-it('Test transform with empty data', () => {
-  const transform = resolver.default.transform(undefined, {
-    'arc-site': 'demo',
-  })
-  expect(transform).toBe(undefined)
-})
-
-// Every article should have a website and website_url. Only replace sections if !exist
-it('Test transform', () => {
-  const transform = resolver.default.transform(globalContent, {
-    'arc-site': 'demo',
-  })
-  expect(transform).toEqual({
-    content_elements: [
-      {
-        taxonomy: { sections: [{ _id: '/news' }], tags: [] },
-        website: 'demo',
-        website_url: '/news/test-article-1',
-        websites: {
-          demo: {
-            website_section: { _id: '/news' },
-            website_url: '/news/test-article-1',
-          },
-        },
-      },
-      {
-        taxonomy: { sections: [{ _id: '/sports' }], tags: [] },
-        website: 'demo',
-        website_url: '/news/test-article-2',
-        websites: {
-          demo: {
-            website_section: { _id: '/news' },
-            website_url: '/news/test-article-2',
-          },
-        },
-      },
-      {
-        taxonomy: { sections: [{ _id: '/news' }] },
-        website: 'demo',
-        website_url: '/news/test-article-3',
-        websites: {
-          demo: {
-            website_section: { _id: '/news' },
-            website_url: '/news/test-article-3',
-          },
-        },
-      },
-    ],
-  })
 })

@@ -1,5 +1,6 @@
 import request from 'request-promise-native'
 import { CONTENT_BASE, ARC_ACCESS_TOKEN } from 'fusion:environment'
+import { defaultANSFields } from '@wpmedia/feeds-content-source-utils'
 
 const fetch = async (key = {}) => {
   const {
@@ -27,32 +28,7 @@ const fetch = async (key = {}) => {
     auth: { bearer: ARC_ACCESS_TOKEN },
   }
 
-  const ansFields = [
-    'canonical_url',
-    'canonical_website',
-    'content_elements',
-    'created_date',
-    'credits',
-    'description',
-    'display_date',
-    'duration',
-    'first_publish_date',
-    'headlines',
-    'last_updated_date',
-    'promo_image',
-    'promo_items',
-    'publish_date',
-    'source',
-    'streams',
-    'subheadlines',
-    'subtitles',
-    'subtype',
-    'taxonomy.primary_section',
-    'taxonomy.seo_keywords',
-    'taxonomy.tags',
-    'type',
-    'video_type',
-  ]
+  const ansFields = [...defaultANSFields, 'content_elements']
 
   const sortStories = (idsResp, collectionResp, ids, site) => {
     idsResp.content_elements.forEach((item) => {

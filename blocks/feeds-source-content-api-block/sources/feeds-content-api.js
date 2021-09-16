@@ -1,40 +1,23 @@
 import { CONTENT_BASE } from 'fusion:environment'
 import getProperties from 'fusion:properties'
+import {
+  defaultANSFields,
+  formatSections,
+  generateDistributor,
+  generateParamList,
+  transform,
+} from '@wpmedia/feeds-source-content-api-block'
 
 const resolve = function resolve(key) {
   const requestUri = `${CONTENT_BASE}/content/v4/search/published`
-  const ansFields = [
-    'canonical_url',
-    'canonical_website',
-    'content_elements',
-    'created_date',
-    'credits',
-    'description',
-    'display_date',
-    'duration',
-    'first_publish_date',
-    'headlines',
-    'last_updated_date',
-    'promo_image',
-    'promo_items',
-    'publish_date',
-    'streams',
-    'subheadlines',
-    'subtitles',
-    'subtype',
-    'taxonomy.primary_section',
-    'taxonomy.seo_keywords',
-    'taxonomy.tags',
-    'type',
-    'video_type',
-  ]
+  const ansFields = [...defaultANSFields, 'content_elements']
 
-  const paramList = [
-    `website=${key['arc-site']}`,
-    `size=${key['Feed-Size'] || '100'}`,
-    `from=${key['Feed-Offset'] || '0'}`,
-    `sort=${key.Sort || 'publish_date:desc'}`,
-  ]
+  const paramList = {
+    website: key['arc-site'],
+    size: key['Feed-Size'] || '100',
+    from: key['Feed-Offset'] || '0',
+    sort: key.Sort || 'publish_date:desc',
+  }
 
   // limit C-API response to just this websites sections to reduce size
   ansFields.push(`websites.${key['arc-site']}`)
@@ -49,7 +32,7 @@ const resolve = function resolve(key) {
       }
     })
     if (sourceExcludes.length)
-      paramList.push(`_sourceExcludes=${sourceExcludes.join(',')}`)
+      paramList._sourceExcludes = sourceExcludes.join(',')
   }
 
   if (key['Source-Include']) {
@@ -57,29 +40,9 @@ const resolve = function resolve(key) {
       .split(',')
       .forEach((i) => i && !ansFields.includes(i) && ansFields.push(i))
   }
-  paramList.push(`_sourceIncludes=${ansFields.join(',')}`)
+  paramList._sourceIncludes = ansFields.join(',')
 
-  if (key['Include-Distributor-Name']) {
-    paramList.push(
-      `include_distributor_name=${key['Include-Distributor-Name']}`,
-    )
-  } else if (key['Exclude-Distributor-Name']) {
-    paramList.push(
-      `exclude_distributor_name=${key['Exclude-Distributor-Name']}`,
-    )
-  } else if (key['Include-Distributor-Category']) {
-    paramList.push(
-      `include_distributor_category=${key['Include-Distributor-Category']}`,
-    )
-  } else if (key['Exclude-Distributor-Category']) {
-    paramList.push(
-      `exclude_distributor_category=${key['Exclude-Distributor-Category']}`,
-    )
-  }
-
-  const uriParams = paramList.join('&')
-
-  const { feedDefaultQuery } = getProperties(key['arc-site'])
+  generateDistributor(key, paramList)
 
   // basic ES query
   const body = {
@@ -92,6 +55,7 @@ const resolve = function resolve(key) {
 
   // If feedDefaultQuery is set try to use it
   let feedQuery
+  const { feedDefaultQuery } = getProperties(key['arc-site'])
   if (feedDefaultQuery) {
     try {
       feedQuery = JSON.parse(feedDefaultQuery)
@@ -107,6 +71,9 @@ const resolve = function resolve(key) {
       feedQuery = JSON.parse(key['Include-Terms'])
     } catch (error) {
       console.warn(`Failed to parse Include-Terms: ${key['Include-Terms']}`)
+      const err = new Error('Invalid Include-Terms')
+      err.statusCode = 500
+      throw err
     }
   }
 
@@ -127,6 +94,9 @@ const resolve = function resolve(key) {
       body.query.bool.must_not = JSON.parse(excludeTerms)
     } catch (error) {
       console.warn(`Failed to parse Exclude-Terms: ${key['Exclude-Terms']}`)
+      const err = new Error('Invalid Exclude-Terms')
+      err.statusCode = 500
+      throw err
     }
   }
 
@@ -185,18 +155,6 @@ const resolve = function resolve(key) {
   const ExcludeSections = key['Exclude-Sections']
 
   if (Section || ExcludeSections) {
-    const formatSections = (section) => {
-      const sectionArray = section
-        .split(',')
-        .map((item) => item.trim().replace(/\/$/, ''))
-        .map((item) => (item.startsWith('/') ? item : `/${item}`))
-      return {
-        terms: {
-          'taxonomy.sections._id': sectionArray,
-        },
-      }
-    }
-
     const nested = {
       nested: {
         path: 'taxonomy.sections',
@@ -230,26 +188,7 @@ const resolve = function resolve(key) {
   }
 
   const encodedBody = encodeURI(JSON.stringify(body))
-  return `${requestUri}?body=${encodedBody}&${uriParams}`
-}
-
-const transform = (data, query) => {
-  const source = data || {}
-  const website = query['arc-site']
-  if (source.content_elements && source.content_elements.length) {
-    const transformedContent = source.content_elements.map((i) => {
-      if (i?.websites?.[website]?.website_section && !i?.taxonomy?.sections) {
-        if (!i.taxonomy) i.taxonomy = {}
-        i.taxonomy.sections = [i.websites[website].website_section]
-      }
-      if (i?.websites?.[website]?.website_url)
-        i.website_url = i.websites[website].website_url
-      i.website = website
-      return i
-    })
-    source.content_elements = transformedContent
-    return source
-  }
+  return `${requestUri}?body=${encodedBody}&${generateParamList(paramList)}`
 }
 
 export default {
