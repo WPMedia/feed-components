@@ -19,7 +19,7 @@
   "author": "Tim Kosmider <tim.kosmider@washpost.com>",
   "homepage": "https://github.com/WPMedia/feed-components#readme",
   "dependencies": {
-    "@wpmedia/feeds-content-source-utils": "1.0.1",
+    "@wpmedia/feeds-content-source-utils": "1.0.7",
     "moment": "^2.29.1"
   },
   "devDependencies": {

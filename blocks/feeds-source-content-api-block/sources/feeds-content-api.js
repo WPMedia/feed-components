@@ -4,12 +4,13 @@ import {
   defaultANSFields,
   formatSections,
   generateDistributor,
-  generateParamList,
+  genParams,
   transform,
-} from '@wpmedia/feeds-source-content-api-block'
+} from '@wpmedia/feeds-content-source-utils'
 
 const resolve = function resolve(key) {
   const requestUri = `${CONTENT_BASE}/content/v4/search/published`
+  // const ansFields = [...defaultANSFields, 'content_elements']
   const ansFields = [...defaultANSFields, 'content_elements']
 
   const paramList = {
@@ -18,6 +19,7 @@ const resolve = function resolve(key) {
     from: key['Feed-Offset'] || '0',
     sort: key.Sort || 'publish_date:desc',
   }
+  generateDistributor(key, paramList)
 
   // limit C-API response to just this websites sections to reduce size
   ansFields.push(`websites.${key['arc-site']}`)
@@ -41,8 +43,6 @@ const resolve = function resolve(key) {
       .forEach((i) => i && !ansFields.includes(i) && ansFields.push(i))
   }
   paramList._sourceIncludes = ansFields.join(',')
-
-  generateDistributor(key, paramList)
 
   // basic ES query
   const body = {
@@ -188,7 +188,7 @@ const resolve = function resolve(key) {
   }
 
   const encodedBody = encodeURI(JSON.stringify(body))
-  return `${requestUri}?body=${encodedBody}&${generateParamList(paramList)}`
+  return `${requestUri}?body=${encodedBody}&${genParams(paramList)}`
 }
 
 export default {

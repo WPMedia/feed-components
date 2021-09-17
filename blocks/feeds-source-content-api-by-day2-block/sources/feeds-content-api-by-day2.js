@@ -8,7 +8,7 @@ import {
   generateDistributor,
   transform,
   validANSDates,
-} from '@wpmedia/feeds-source-content-api-block'
+} from '@wpmedia/feeds-content-source-utils'
 
 const contentURL = `${CONTENT_BASE}/content/v4/search/published/`
 // Excludes content_elements
@@ -26,6 +26,7 @@ const fetch = async (key = {}) => {
     size: 100,
     sort: key.sort || `${key.dateField}:desc`,
   }
+  generateDistributor(key, paramList)
 
   // limit C-API response to just this websites sections to reduce size
   ansFields.push(`websites.${key['arc-site']}`)
@@ -49,8 +50,6 @@ const fetch = async (key = {}) => {
       .forEach((i) => i && !ansFields.includes(i) && ansFields.push(i))
   }
   paramList._sourceIncludes = ansFields.join(',')
-
-  generateDistributor(key, paramList)
 
   // basic ES query
   const body = {
