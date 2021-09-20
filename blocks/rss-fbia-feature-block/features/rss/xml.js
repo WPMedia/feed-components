@@ -186,6 +186,8 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
     placementSection,
     adScripts,
     videoSelect,
+    iframeHxW = {},
+    wrapRawHTML,
   }) {
     BuildContent.call(this)
 
@@ -410,12 +412,26 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
       // all have a string in element.content
       // this is also used by buildContentQuote
       let item
+      const { width = 0, height = 0 } = iframeHxW
       if (element.content && typeof element.content === 'string') {
-        item = {
-          p: {
-            '@id': element._id,
-            '#': element.content,
-          },
+        if (element.type === 'raw_html' && wrapRawHTML) {
+          return {
+            figure: {
+              '@class': 'op-interactive',
+              iframe: {
+                ...(width && { '@width': width }),
+                ...(height && { '@height': height }),
+                '#': element.content,
+              },
+            },
+          }
+        } else {
+          item = {
+            p: {
+              '@id': element._id,
+              '#': element.content,
+            },
+          }
         }
       }
       return item
@@ -423,11 +439,14 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
     // noinspection SpellCheckingInspection
     this.oembed = (element) => {
       const embed = element.raw_oembed.html // wrap in <figure class="op-interactive">
+      const { width = 0, height = 0 } = iframeHxW
 
       return {
         figure: {
           '@class': 'op-interactive',
           iframe: {
+            ...(width && { '@width': width }),
+            ...(height && { '@height': height }),
             '#': embed,
           },
         },
@@ -556,6 +575,22 @@ FbiaRss.propTypes = {
       description:
         'Javascript wrapped in the <figure class=‘op-tracker’> tag can be added to the article for ads and analytics. Multiple scripts can be included, usually each in the own iframe',
       defaultValue: '',
+    }),
+    iframeHxW: PropTypes.kvp.tag({
+      label: 'oembed iframe height and width',
+      group: 'Facebook Options',
+      description: 'Height and/or width to use in oembed iframes',
+      defaultValue: {
+        width: 560,
+        height: 0,
+      },
+    }),
+    wrapRawHTML: PropTypes.bool.tag({
+      label: 'Wrap raw_html in figure',
+      group: 'Facebook Options',
+      description:
+        'Put raw_html in <figure class="op-interactive"> <iframe> tags',
+      defaultValue: false,
     }),
     ...generatePropsForFeed('rss', PropTypes),
   }),
