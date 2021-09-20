@@ -581,7 +581,7 @@ FbiaRss.propTypes = {
       group: 'Facebook Options',
       description: 'Height and/or width to use in oembed iframes',
       defaultValue: {
-        width: 560,
+        width: 0,
         height: 0,
       },
     }),
