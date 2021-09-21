@@ -41,14 +41,13 @@ const fetch = async (key = {}) => {
     size,
     included_fields: includedFields,
   } = key
-  const id = _id.replace(/\//g, '')
   const qs = {
     website: site,
     from: from || 0,
     size: size || 20,
     published: true,
-    ...(id && { _id: id }),
-    ...(contentAlias && { content_alias: contentAlias }),
+    ...(_id && { _id: _id.replace(/\//g, '') }),
+    ...(contentAlias && { content_alias: contentAlias.replace(/\/$/, '') }),
   }
 
   // ids results does not include content_elements unless specified in included_fields
