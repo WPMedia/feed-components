@@ -1,6 +1,6 @@
 {
   "name": "@wpmedia/feeds-prop-types",
-  "version": "1.0.4",
+  "version": "1.0.6",
   "description": "Shared fusion prop-type tag info",
   "main": "dist/feeds-prop-types.cjs.js",
   "module": "dist/feeds-prop-types.esm.js",

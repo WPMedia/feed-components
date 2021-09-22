@@ -42,6 +42,35 @@ Object {
 }
 `;
 
+exports[`returns template with empty values 1`] = `
+Object {
+  "urlset": Object {
+    "@xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9",
+    "@xmlns:video": "http://www.google.com/schemas/sitemap-video/1.1",
+    "url": Array [
+      Object {
+        "lastmod": undefined,
+        "loc": "http://demo-prod.origin.arcpublishing.com/video/2020/04/16/inexact-odyssey-a-volcom-snowboarding-film/",
+        "video:video": Object {
+          "video:category": "Video",
+          "video:content_loc": "https://d3ujdjwa458jgt.cloudfront.net/out/v1/87998c783fb94bf0b965847d5c8b4392/index.m3u8",
+          "video:duration": 789,
+        },
+      },
+      Object {
+        "lastmod": undefined,
+        "loc": "http://demo-prod.origin.arcpublishing.com/video/2020/04/16/inexact-odyssey-a-volcom-snowboarding-film/",
+        "video:video": Object {
+          "video:category": "Video",
+          "video:content_loc": "https://d3ujdjwa458jgt.cloudfront.net/out/v1/87998c783fb94bf0b965847d5c8b4392/index.m3u8",
+          "video:duration": 789,
+        },
+      },
+    ],
+  },
+}
+`;
+
 exports[`returns template with headlines.title, description.basic 2000 values 1`] = `
 Object {
   "urlset": Object {

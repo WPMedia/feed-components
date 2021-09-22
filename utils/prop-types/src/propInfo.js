@@ -15,9 +15,9 @@ export const propInfo = {
     includePromo: {
       type: 'bool',
       tag: {
-        label: 'Include promo images?',
-        group: 'Featured Image',
-        description: 'Include featured image in the sitemap',
+        label: 'Include promo items',
+        group: 'Featured Media',
+        description: 'Include featured media in the sitemap',
         defaultValue: true,
       },
     },
@@ -25,9 +25,9 @@ export const propInfo = {
       type: 'string',
       tag: {
         label: 'Path to promo_items',
-        group: 'Featured Image',
+        group: 'Featured Media',
         description:
-          'ANS fields to use for featured image, defaults to promo_items.basic || promo_items.lead_art',
+          'ANS fields to use for featured media, defaults to promo_items.basic || promo_items.lead_art',
         defaultValue: 'promo_items.basic || promo_items.lead_art',
       },
     },
@@ -35,7 +35,7 @@ export const propInfo = {
       type: 'kvp',
       tag: {
         label: 'Image height and or width',
-        group: 'Featured Image',
+        group: 'Featured Media',
         description: 'Optional height and or width to resize all images to',
         defaultValue: { width: 0, height: 0 },
       },
@@ -252,9 +252,9 @@ export const propInfo = {
     includePromo: {
       type: 'bool',
       tag: {
-        label: 'Include promo images',
-        group: 'Featured Image',
-        description: 'Include the featured image in <media:content>',
+        label: 'Include promo items',
+        group: 'Featured Media',
+        description: 'Include featured media in <media:content>',
         defaultValue: true,
       },
     },
@@ -262,9 +262,9 @@ export const propInfo = {
       type: 'string',
       tag: {
         label: 'Path to promo_items',
-        group: 'Featured Image',
+        group: 'Featured Media',
         description:
-          'ANS fields to use for featured image, defaults to promo_items.basic || promo_items.lead_art',
+          'ANS fields to use for featured media, defaults to promo_items.basic || promo_items.lead_art',
         defaultValue: 'promo_items.basic || promo_items.lead_art',
       },
     },
@@ -272,7 +272,7 @@ export const propInfo = {
       type: 'kvp',
       tag: {
         label: 'Image height and or width',
-        group: 'Featured Image',
+        group: 'Featured Media',
         description: 'Optional height and or width to resize all images to',
         defaultValue: { width: 0, height: 0 },
       },
@@ -281,9 +281,9 @@ export const propInfo = {
       type: 'string',
       tag: {
         label: 'ANS image title key',
-        group: 'Featured Image',
+        group: 'Featured Media',
         description:
-          'ANS field to use for image title in <media:title> tag, defaults to title',
+          'ANS field to use for featured media title in <media:title> tag, defaults to title',
         defaultValue: 'title',
       },
     },
@@ -291,7 +291,7 @@ export const propInfo = {
       type: 'string',
       tag: {
         label: 'ANS image caption key',
-        group: 'Featured Image',
+        group: 'Featured Media',
         description:
           'ANS field to use for image caption in <media:caption> tag, defaults to caption',
         defaultValue: 'caption',
@@ -301,7 +301,7 @@ export const propInfo = {
       type: 'string',
       tag: {
         label: 'ANS image credits key',
-        group: 'Featured Image',
+        group: 'Featured Media',
         description:
           'ANS field to use for image credits in <media:credits> tag, defaults to credits.by[].name',
         defaultValue: 'credits.by[].name',

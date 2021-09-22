@@ -8,8 +8,11 @@
 '@wpmedia/rss-google-news-feature-block': patch
 '@wpmedia/rss-msn-feature-block': patch
 '@wpmedia/sitemap-feature-block': patch
+'@wpmedia/sitemap-index-by-day-feature-block': patch
+'@wpmedia/sitemap-index-feature-block': patch
 '@wpmedia/sitemap-news-feature-block': patch
+'@wpmedia/sitemap-section-index-feature-block': patch
 '@wpmedia/sitemap-video-feature-block': patch
 ---
 
-Upgrade to utils 1.0.4 for empty image fix
+Test for empty customField, upgrade to utils 1.0.6

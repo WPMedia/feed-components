@@ -125,3 +125,43 @@ it('returns MSN template with custom values', () => {
     },
   })
 })
+
+it('returns MSN template with empty values', () => {
+  const rss = MsnRss({
+    requestUri: 'http://localhost/arc/outboundfeeds/msn/?outputType=xml',
+    arcSite: 'demo',
+    globalContent: {
+      ...articles,
+    },
+    customFields: {
+      channelTitle: '',
+      channelDescription: '',
+      channelCopyright: '',
+      channelTTL: '',
+      channelUpdatePeriod: '',
+      channelUpdateFrequency: '',
+      channelCategory: '',
+      channelLogo: '',
+      itemTitle: '',
+      itemDescription: '',
+      pubDate: 'display_date',
+      itemCredits: '',
+      itemCategory: '',
+      resizerKVP: {},
+      imageTitle: '',
+      imageCaption: '',
+      imageCredits: '',
+      includeContent: '',
+      promoItemsJmespath: '',
+    },
+  })
+  expect(rss).toMatchSnapshot({
+    rss: {
+      channel: {
+        lastBuildDate: expect.stringMatching(
+          /\w+, \d+ \w+ \d{4} \d{2}:\d{2}:\d{2} \+0000/,
+        ),
+      },
+    },
+  })
+})

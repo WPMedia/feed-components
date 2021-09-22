@@ -80,10 +80,11 @@ const rssTemplate = (
 
       item: elements.map((s) => {
         let category
-        const enclosureurl = jmespath.search(s, audioAvailable)
+        const enclosureurl =
+          audioAvailable && jmespath.search(s, audioAvailable)
         const url = `${domain}${s.website_url || s.canonical_url || ''}`
         return {
-          title: jmespath.search(s, itemTitle) || '',
+          ...(itemTitle && { title: jmespath.search(s, itemTitle) || '' }),
           link: url,
           guid: s._id,
           pubDate: s[pubDate],

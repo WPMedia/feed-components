@@ -87,7 +87,7 @@ Object {
     "tags": Object {
       "defaultValue": "caption",
       "description": "ANS field to use for image caption in <media:caption> tag, defaults to caption",
-      "group": "Featured Image",
+      "group": "Featured Media",
       "label": "ANS image caption key",
     },
     "type": "string",
@@ -96,7 +96,7 @@ Object {
     "tags": Object {
       "defaultValue": "credits.by[].name",
       "description": "ANS field to use for image credits in <media:credits> tag, defaults to credits.by[].name",
-      "group": "Featured Image",
+      "group": "Featured Media",
       "label": "ANS image credits key",
     },
     "type": "string",
@@ -104,8 +104,8 @@ Object {
   "imageTitle": Object {
     "tags": Object {
       "defaultValue": "title",
-      "description": "ANS field to use for image title in <media:title> tag, defaults to title",
-      "group": "Featured Image",
+      "description": "ANS field to use for featured media title in <media:title> tag, defaults to title",
+      "group": "Featured Media",
       "label": "ANS image title key",
     },
     "type": "string",
@@ -136,9 +136,9 @@ Object {
   "includePromo": Object {
     "tags": Object {
       "defaultValue": true,
-      "description": "Include the featured image in <media:content>",
-      "group": "Featured Image",
-      "label": "Include promo images",
+      "description": "Include featured media in <media:content>",
+      "group": "Featured Media",
+      "label": "Include promo items",
     },
     "type": "bool",
   },
@@ -181,8 +181,8 @@ Object {
   "promoItemsJmespath": Object {
     "tags": Object {
       "defaultValue": "promo_items.basic || promo_items.lead_art",
-      "description": "ANS fields to use for featured image, defaults to promo_items.basic || promo_items.lead_art",
-      "group": "Featured Image",
+      "description": "ANS fields to use for featured media, defaults to promo_items.basic || promo_items.lead_art",
+      "group": "Featured Media",
       "label": "Path to promo_items",
     },
     "type": "string",
@@ -210,7 +210,7 @@ Object {
         "width": 0,
       },
       "description": "Optional height and or width to resize all images to",
-      "group": "Featured Image",
+      "group": "Featured Media",
       "label": "Image height and or width",
     },
     "type": "kvp",
@@ -255,9 +255,9 @@ Object {
   "includePromo": Object {
     "tags": Object {
       "defaultValue": true,
-      "description": "Include featured image in the sitemap",
-      "group": "Featured Image",
-      "label": "Include promo images?",
+      "description": "Include featured media in the sitemap",
+      "group": "Featured Media",
+      "label": "Include promo items",
     },
     "type": "bool",
   },
@@ -303,8 +303,8 @@ Object {
   "promoItemsJmespath": Object {
     "tags": Object {
       "defaultValue": "promo_items.basic || promo_items.lead_art",
-      "description": "ANS fields to use for featured image, defaults to promo_items.basic || promo_items.lead_art",
-      "group": "Featured Image",
+      "description": "ANS fields to use for featured media, defaults to promo_items.basic || promo_items.lead_art",
+      "group": "Featured Media",
       "label": "Path to promo_items",
     },
     "type": "string",
@@ -316,7 +316,7 @@ Object {
         "width": 0,
       },
       "description": "Optional height and or width to resize all images to",
-      "group": "Featured Image",
+      "group": "Featured Media",
       "label": "Image height and or width",
     },
     "type": "kvp",
@@ -388,8 +388,8 @@ Object {
   "promoItemsJmespath": Object {
     "tags": Object {
       "defaultValue": "promo_items.basic || promo_items.lead_art",
-      "description": "ANS fields to use for featured image, defaults to promo_items.basic || promo_items.lead_art",
-      "group": "Featured Image",
+      "description": "ANS fields to use for featured media, defaults to promo_items.basic || promo_items.lead_art",
+      "group": "Featured Media",
       "label": "Path to promo_items",
     },
     "type": "string",
@@ -401,7 +401,7 @@ Object {
         "width": 0,
       },
       "description": "Optional height and or width to resize all images to",
-      "group": "Featured Image",
+      "group": "Featured Media",
       "label": "Image height and or width",
     },
     "type": "kvp",

@@ -18,6 +18,15 @@ Object {
         "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/sports/?outputType=xml",
       },
       Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/sports/football/?outputType=xml",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/sports/baseball/?outputType=xml",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/sports/basketball/?outputType=xml",
+      },
+      Object {
         "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/entertainment/?outputType=xml",
       },
     ],
