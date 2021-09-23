@@ -21,9 +21,6 @@ const rssTemplate = (
     itemTitle,
     itemDescription,
     pubDate,
-    itemCredits,
-    itemCategory,
-    includeContent,
     requestPath,
     promoItemsJmespath,
     selectVideo,
@@ -74,7 +71,9 @@ const rssTemplate = (
         })
 
         return {
-          title: { $: jmespath.search(s, itemTitle) || '' },
+          ...(itemTitle && {
+            title: { $: jmespath.search(s, itemTitle) || '' },
+          }),
           link: url,
           ...(itemDescription && {
             description: { $: jmespath.search(s, itemDescription) || '' },

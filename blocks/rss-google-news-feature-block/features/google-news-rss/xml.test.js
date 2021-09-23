@@ -95,7 +95,6 @@ it('returns Google News template with custom values', () => {
     customFields: {
       channelTitle: 'The Daily Prophet',
       channelDescription: "All the news that's fit to print",
-      channelPath: '/arc/outboundfeeds/rss/',
       channelCopyright: '2020 The Washington Post LLC',
       channelTTL: '60',
       channelUpdatePeriod: 'weekly',
@@ -115,6 +114,48 @@ it('returns Google News template with custom values', () => {
       imageCredits: 'credits.by[].name',
       includeContent: 'all',
       promoItemsJmespath: 'promo_items.basic',
+    },
+  })
+  expect(rss).toMatchSnapshot({
+    rss: {
+      channel: {
+        lastBuildDate: expect.stringMatching(
+          /\w+, \d+ \w+ \d{4} \d{2}:\d{2}:\d{2} \+0000/,
+        ),
+      },
+    },
+  })
+})
+
+it('returns Google News template with empty values', () => {
+  const rss = GoogleNewsRss({
+    requestUri:
+      'http://localhost.com/arc/outboundfeeds/google-news-feed/?outputType=xml',
+    arcSite: 'demo',
+    globalContent: {
+      ...articles,
+    },
+    customFields: {
+      channelTitle: '',
+      channelDescription: '',
+      channelCopyright: '',
+      channelTTL: '',
+      channelUpdatePeriod: '',
+      channelUpdateFrequency: '',
+      channelCategory: '',
+      channelLogo: '',
+      itemTitle: '',
+      itemDescription: '',
+      pubDate: 'display_date',
+      itemCredits: '',
+      itemCategory: '',
+      includePromo: true,
+      resizerKVP: {},
+      imageTitle: '',
+      imageCaption: '',
+      imageCredits: '',
+      includeContent: '',
+      promoItemsJmespath: '',
     },
   })
   expect(rss).toMatchSnapshot({

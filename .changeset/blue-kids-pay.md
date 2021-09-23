@@ -4,7 +4,4 @@
 '@wpmedia/feeds-source-content-api-by-day3-block': patch
 ---
 
-Changed min start date AIO-706
-
-Make the matching change from sitemap-index by day here also
-Both try to prevent goinng too far back in time
+Added Exclude Sections to content sources

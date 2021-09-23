@@ -27,7 +27,7 @@ const sitemapTemplate = (
     url: elements.map((v) => {
       let title, description, category
       // Get promo image object to determine thumbnail_loc
-      let img = jmespath.search(v, promoItemsJmespath)
+      let img = promoItemsJmespath && jmespath.search(v, promoItemsJmespath)
       if (img && !img.url && img.promo_image) img = img.promo_image // video
       // Find content_loc based on searchObject site property.
       const contentLoc = findVideo(v, sitemapVideoSelect)

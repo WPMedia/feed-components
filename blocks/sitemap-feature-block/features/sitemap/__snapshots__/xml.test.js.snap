@@ -35,3 +35,32 @@ Object {
   },
 }
 `;
+
+exports[`returns template with empty values 1`] = `
+Object {
+  "urlset": Object {
+    "@xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9",
+    "@xmlns:image": "http://www.google.com/schemas/sitemap-image/1.1",
+    "url": Array [
+      Object {
+        "changefreq": "",
+        "lastmod": undefined,
+        "loc": "http://demo-prod.origin.arcpublishing.com/food/2020/04/07/tips-for-safe-hand-washing",
+        "priority": "",
+      },
+      Object {
+        "changefreq": "",
+        "lastmod": undefined,
+        "loc": "http://demo-prod.origin.arcpublishing.com/food/2021/04/07/will-we-ever-stop-hand-washing",
+        "priority": "",
+      },
+      Object {
+        "changefreq": "",
+        "lastmod": undefined,
+        "loc": "http://demo-prod.origin.arcpublishing.com/food/2021/04/03/best-sourdough-recipes",
+        "priority": "",
+      },
+    ],
+  },
+}
+`;

@@ -60,6 +60,31 @@ Object {
 }
 `;
 
+exports[`returns template with empty values 1`] = `
+Object {
+  "sitemapindex": Object {
+    "@xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9",
+    "sitemap": Array [
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com?",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com?from=100",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com?from=200",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com?from=300",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com?from=400",
+      },
+    ],
+  },
+}
+`;
+
 exports[`returns template with no content 1`] = `
 Object {
   "sitemapindex": Object {
