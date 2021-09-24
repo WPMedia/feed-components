@@ -149,7 +149,56 @@ it('returns FB-IA template with custom values', () => {
       adScripts:
         '<figure class="op-tracker"><iframe><script>alert("hi");</script></iframe></figure>',
       iframeHxW: { width: '560' },
-      wrapRawHTML: true,
+      raw_html_processing: 'wrap',
+    },
+  })
+  expect(rss).toMatchSnapshot({
+    rss: {
+      channel: {
+        lastBuildDate: expect.stringMatching(
+          /\w+, \d+ \w+ \d{4} \d{2}:\d{2}:\d{2} \+0000/,
+        ),
+      },
+    },
+  })
+})
+
+it('returns FB-IA template with include value', () => {
+  const rss = FbiaRss({
+    requestUri: 'https://localhost.com/arc/outboundfeeds/fb-ia/?outputType=xml',
+    arcSite: 'demo',
+    globalContent: {
+      ...articles,
+    },
+    customFields: {
+      channelTitle: 'Facebook Instant Articles Feed',
+      channelDescription: 'Only the best for FB',
+      channelCopyright: 'Copyright 2021',
+      channelTTL: '5',
+      channelUpdatePeriod: 'weekly',
+      channelUpdateFrequency: '4',
+      channelCategory: 'News',
+      channelLogo: 'https://example.com/logo.png',
+      itemTitle: 'headlines.basic',
+      itemDescription: 'subheadlines.basic || description.basic',
+      pubDate: 'last_updated_date',
+      itemCredits: 'credits.by[]._id',
+      itemCategory: 'News',
+      includePromo: true,
+      imageTitle: 'title',
+      imageCaption: 'caption',
+      imageCredits: 'credits.by[].name',
+      includeContent: 'all',
+      articleStyle: 'times-bold',
+      likesAndComments: 'enable',
+      metaTags: '<meta property="something" content="other thing" />',
+      adPlacement: 'enable',
+      adDensity: 'low',
+      placementSection: '<script>myscript()</script>',
+      adScripts:
+        '<figure class="op-tracker"><iframe><script>alert("hi");</script></iframe></figure>',
+      iframeHxW: { width: '560' },
+      raw_html_processing: 'include',
     },
   })
   expect(rss).toMatchSnapshot({
