@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import PropTypes from 'fusion:prop-types'
 import Consumer from 'fusion:consumer'
 import moment from 'moment'
@@ -186,6 +187,8 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
     placementSection,
     adScripts,
     videoSelect,
+    iframeHxW = {},
+    raw_html_processing = 'exclulde',
   }) {
     BuildContent.call(this)
 
@@ -410,12 +413,35 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
       // all have a string in element.content
       // this is also used by buildContentQuote
       let item
+      const { width = 0, height = 0 } = iframeHxW
       if (element.content && typeof element.content === 'string') {
-        item = {
-          p: {
-            '@id': element._id,
-            '#': element.content,
-          },
+        if (element.type === 'raw_html') {
+          switch (raw_html_processing) {
+            case 'wrap':
+              item = {
+                figure: {
+                  '@class': 'op-interactive',
+                  iframe: {
+                    ...(width && { '@width': width }),
+                    ...(height && { '@height': height }),
+                    '#': element.content,
+                  },
+                },
+              }
+              break
+            case 'include':
+              item = {
+                '#': element.content,
+              }
+              break
+          }
+        } else {
+          item = {
+            p: {
+              '@id': element._id,
+              '#': element.content,
+            },
+          }
         }
       }
       return item
@@ -423,11 +449,14 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
     // noinspection SpellCheckingInspection
     this.oembed = (element) => {
       const embed = element.raw_oembed.html // wrap in <figure class="op-interactive">
+      const { width = 0, height = 0 } = iframeHxW
 
       return {
         figure: {
           '@class': 'op-interactive',
           iframe: {
+            ...(width && { '@width': width }),
+            ...(height && { '@height': height }),
             '#': embed,
           },
         },
@@ -556,6 +585,26 @@ FbiaRss.propTypes = {
       description:
         'Javascript wrapped in the <figure class=‘op-tracker’> tag can be added to the article for ads and analytics. Multiple scripts can be included, usually each in the own iframe',
       defaultValue: '',
+    }),
+    iframeHxW: PropTypes.kvp.tag({
+      label: 'oembed iframe height and width',
+      group: 'Facebook Options',
+      description: 'Height and/or width to use in oembed iframes',
+      defaultValue: {
+        width: 0,
+        height: 0,
+      },
+    }),
+    raw_html_processing: PropTypes.oneOf(['exclude', 'include', 'wrap']).tag({
+      label: {
+        exclude: 'raw_html elements',
+        include: 'raw_html elements',
+        wrap: 'wrap in <figure class="op-interactive"> <iframe>',
+      },
+      group: 'Facebook Options',
+      description:
+        'Should raw_html elements be excluded, included or wrapped in <figure class="op-interactive"> <iframe> tags. default exclude',
+      defaultValue: 'exclude',
     }),
     ...generatePropsForFeed('rss', PropTypes),
   }),
