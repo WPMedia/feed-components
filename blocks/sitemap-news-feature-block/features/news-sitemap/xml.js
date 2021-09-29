@@ -52,7 +52,7 @@ const sitemapTemplate = (
       const keywords = (jmespath.search(s, newsKeywordsJmespath) || []).join(
         ',',
       )
-      const title = jmespath.search(s, newsTitle)
+      const title = newsTitle && jmespath.search(s, newsTitle)
 
       return {
         loc: `${domain}${s.website_url || s.canonical_url}`,
@@ -121,14 +121,14 @@ GoogleSitemap.propTypes = {
   customFields: PropTypes.shape({
     imageTitle: PropTypes.string.tag({
       label: 'ANS image title key',
-      group: 'Field Mapping',
+      group: 'Feaured Media',
       description:
         'ANS value for associated story used for the <image:title> sitemap tag',
       defaultValue: 'title',
     }),
     imageCaption: PropTypes.string.tag({
       label: 'ANS image caption key',
-      group: 'Field Mapping',
+      group: 'Featured Media',
       description:
         'ANS value for associated story image used for the <image:caption> sitemap tag',
       defaultValue: 'caption',
@@ -147,7 +147,7 @@ GoogleSitemap.propTypes = {
     }),
     newsKeywords: PropTypes.oneOf(['seo_keywords', 'tags']).tag({
       label: 'keywords',
-      group: 'Format',
+      group: 'Field Mapping',
       description: 'Which field should be used from taxonomy',
       defaultValue: 'seo_keywords',
     }),

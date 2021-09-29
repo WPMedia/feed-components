@@ -1,4 +1,9 @@
-# RSS
+# MRSS
+
+Intended for videos. Uses media:content tag with additions of
+<media:keywords>
+<media:transcript>
+<media:category>
 
 ## Globals
 
@@ -11,7 +16,6 @@ feedResizer
 
 channelTitle: defaults to global website name
 channelDescription: defaults to global website name + "News Feed"
-channelPath: defaults to /arc/outboundfeeds/mrss/
 channelCopyright: defaults to Copyright YYYY global website name
 channelTTL: number of mins, defaults to 1
 channelUpdatePeriod: update period hours, days, weeks, months, years. Defaults to hours
@@ -25,7 +29,8 @@ pubDate: date field defaults to display_date
 itemCategory: jmespath for category (eg. taxonomy.primary_section.name), defaults to no category
 includeContent: number of paragraphs to include 0-10, all
 
-includePromo: bool to include promo image
+promoItemsJmespath: Hard coded to \* since all content is assumed to be videos
+resizerKVP: key value pair of width and or height to use with the resizer
 imageTitle: defaults to title
 imageCaption: defaults to caption
 ImageCredits: defaults to credits.by[].name

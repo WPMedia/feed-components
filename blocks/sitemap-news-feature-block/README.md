@@ -7,6 +7,8 @@ These Sitemaps identify the title and publication date of every article. Article
 
 - lastMod - The date field to use to display the lastmod.
 - includePromo - Include an image in Sitemap
+- promoItemsJmespath: jmespath to promo_items (promo_items.basic || promo_items.lead_art)
+- resizerKVP: key value pair of width and or height to use with the resizer
 - imageTitle - The title for the image.
 - imageCaption - The caption for the image
 - publicationName - The name of the publication

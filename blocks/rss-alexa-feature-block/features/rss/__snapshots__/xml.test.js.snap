@@ -77,3 +77,30 @@ Object {
   },
 }
 `;
+
+exports[`returns Alexa template with empty values 1`] = `
+Object {
+  "rss": Object {
+    "@version": "2.0",
+    "channel": Object {
+      "item": Array [
+        Object {
+          "description": "try singing the happy birthday songbe sure to wash your thumbs",
+          "guid": undefined,
+          "link": "http://demo-prod.origin.arcpublishing.com/food/2020/04/07/tips-for-safe-hand-washing",
+          "pubDate": "2020-04-07T15:02:08.918Z",
+        },
+        Object {
+          "description": "",
+          "guid": "ABCD",
+          "link": "http://demo-prod.origin.arcpublishing.com",
+          "pubDate": "2020-04-07T15:02:08.918Z",
+        },
+      ],
+      "language": "en",
+      "lastBuildDate": StringMatching /\\\\w\\+, \\\\d\\+ \\\\w\\+ \\\\d\\{4\\} \\\\d\\{2\\}:\\\\d\\{2\\}:\\\\d\\{2\\} \\\\\\+0000/,
+      "link": "http://demo-prod.origin.arcpublishing.com",
+    },
+  },
+}
+`;
