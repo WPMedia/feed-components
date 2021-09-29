@@ -1,6 +1,6 @@
 {
   "name": "@wpmedia/feeds-source-content-api-block",
-  "version": "1.6.0",
+  "version": "1.7.0",
   "description": "Fusion components for building sitemaps",
   "main": "index.js",
   "files": [
