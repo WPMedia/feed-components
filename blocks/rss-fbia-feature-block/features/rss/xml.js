@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 import PropTypes from 'fusion:prop-types'
 import Consumer from 'fusion:consumer'
 import moment from 'moment'
@@ -48,7 +49,9 @@ const rssTemplate = (
   rss: {
     '@xmlns:atom': 'http://www.w3.org/2005/Atom',
     '@xmlns:content': 'http://purl.org/rss/1.0/modules/content/',
-    '@xmlns:dc': 'http://purl.org/dc/elements/1.1/',
+    ...(itemCredits && {
+      '@xmlns:dc': 'http://purl.org/dc/elements/1.1/',
+    }),
     ...(channelUpdatePeriod &&
       channelUpdatePeriod !== 'Exclude field' && {
         '@xmlns:sy': 'http://purl.org/rss/1.0/modules/syndication/',
@@ -107,7 +110,9 @@ const rssTemplate = (
           videoSelect,
         })
         return {
-          title: { $: jmespath.search(s, itemTitle) || '' },
+          ...(itemTitle && {
+            title: { $: jmespath.search(s, itemTitle) || '' },
+          }),
           link: url,
           guid: {
             '#': url,
@@ -118,7 +123,9 @@ const rssTemplate = (
             author.length && {
               'dc:creator': { $: author.join(', ') },
             }),
-          description: { $: jmespath.search(s, itemDescription) || '' },
+          ...(itemDescription && {
+            description: { $: jmespath.search(s, itemDescription) || '' },
+          }),
           pubDate: moment
             .utc(s[pubDate])
             .format('ddd, DD MMM YYYY HH:mm:ss ZZ'),
@@ -180,6 +187,8 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
     placementSection,
     adScripts,
     videoSelect,
+    iframeHxW = {},
+    raw_html_processing = 'exclulde',
   }) {
     BuildContent.call(this)
 
@@ -187,16 +196,17 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
       const img =
         s.promo_items && (s.promo_items.basic || s.promo_items.lead_art)
       const url = `${domain}${s.website_url || s.canonical_url || ''}`
+      const title = (itemTitle && jmespath.search(s, itemTitle)) || ''
       return {
         link: {
           '@rel': 'canonical',
           '@href': url,
         },
-        title: `${jmespath.search(s, itemTitle)}`,
+        title: title,
         meta: [
           {
             '@property': 'og:title',
-            '@content': `${jmespath.search(s, itemTitle)}`,
+            '@content': title,
           },
           {
             '@property': 'og:url',
@@ -204,18 +214,14 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
           },
           {
             '@property': 'og:description',
-            '@content': `${jmespath.search(s, itemDescription)}`,
+            '@content': jmespath.search(s, itemDescription || '_blank') || '',
           },
-          adPlacement.toLowerCase().startsWith('enable')
-            ? {
-                '@property': 'fb:use_automatic_ad_placement',
-                '@content':
-                  'enable=true ' + 'ad_density=' + (adDensity || 'default'),
-              }
-            : {
-                '@property': 'fb:use_automatic_ad_placement',
-                '@content': 'enable=false',
-              },
+          {
+            '@property': 'fb:use_automatic_ad_placement',
+            '@content': adPlacement.toLowerCase().startsWith('enable')
+              ? `enable=true ad_density=${adDensity || 'default'}`
+              : 'enable=false',
+          },
           {
             // The version of Instant Articles markup format being used by this article.
             '@property': 'op:markup_version',
@@ -265,14 +271,14 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
           },
         })
 
-      header.push({ h1: `${jmespath.search(s, itemTitle)}` })
+      header.push({ h1: jmespath.search(s, itemTitle || '_blank') || '' })
 
       if (
         itemDescription &&
         (description = jmespath.search(s, itemDescription)) &&
         description
       )
-        header.push({ h2: `${jmespath.search(s, itemDescription)}` })
+        header.push({ h2: description })
 
       header.push({
         time: [
@@ -320,8 +326,12 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
                 figcaption: {
                   '@class': 'op-vertical-below op-small',
                   '#': `${jmespath.search(image, customFields.imageCaption)}`,
-                  ...((jmespath.search(image, customFields.imageCredits) || [])
-                    .length && {
+                  ...((
+                    jmespath.search(
+                      image,
+                      customFields.imageCredits || '_blank',
+                    ) || []
+                  ).length && {
                     cite: {
                       '@class': 'op-small',
                       '#': jmespath
@@ -403,12 +413,35 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
       // all have a string in element.content
       // this is also used by buildContentQuote
       let item
+      const { width = 0, height = 0 } = iframeHxW
       if (element.content && typeof element.content === 'string') {
-        item = {
-          p: {
-            '@id': element._id,
-            '#': element.content,
-          },
+        if (element.type === 'raw_html') {
+          switch (raw_html_processing) {
+            case 'wrap':
+              item = {
+                figure: {
+                  '@class': 'op-interactive',
+                  iframe: {
+                    ...(width && { '@width': width }),
+                    ...(height && { '@height': height }),
+                    '#': element.content,
+                  },
+                },
+              }
+              break
+            case 'include':
+              item = {
+                '#': element.content,
+              }
+              break
+          }
+        } else {
+          item = {
+            p: {
+              '@id': element._id,
+              '#': element.content,
+            },
+          }
         }
       }
       return item
@@ -416,11 +449,14 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
     // noinspection SpellCheckingInspection
     this.oembed = (element) => {
       const embed = element.raw_oembed.html // wrap in <figure class="op-interactive">
+      const { width = 0, height = 0 } = iframeHxW
 
       return {
         figure: {
           '@class': 'op-interactive',
           iframe: {
+            ...(width && { '@width': width }),
+            ...(height && { '@height': height }),
             '#': embed,
           },
         },
@@ -549,6 +585,26 @@ FbiaRss.propTypes = {
       description:
         'Javascript wrapped in the <figure class=‘op-tracker’> tag can be added to the article for ads and analytics. Multiple scripts can be included, usually each in the own iframe',
       defaultValue: '',
+    }),
+    iframeHxW: PropTypes.kvp.tag({
+      label: 'oembed iframe height and width',
+      group: 'Facebook Options',
+      description: 'Height and/or width to use in oembed iframes',
+      defaultValue: {
+        width: 0,
+        height: 0,
+      },
+    }),
+    raw_html_processing: PropTypes.oneOf(['exclude', 'include', 'wrap']).tag({
+      label: {
+        exclude: 'raw_html elements',
+        include: 'raw_html elements',
+        wrap: 'wrap in <figure class="op-interactive"> <iframe>',
+      },
+      group: 'Facebook Options',
+      description:
+        'Should raw_html elements be excluded, included or wrapped in <figure class="op-interactive"> <iframe> tags. default exclude',
+      defaultValue: 'exclude',
     }),
     ...generatePropsForFeed('rss', PropTypes),
   }),

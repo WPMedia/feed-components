@@ -220,7 +220,7 @@ export function BuildPromoItems() {
         element,
         'description.basic || subheadlines.basic',
       )
-      const credits = jmespath.search(element, imageCredits)
+      const credits = imageCredits && jmespath.search(element, imageCredits)
       const duration = element.duration
       const videoStream = findVideo(element, videoSelect)
       if (videoStream) {
@@ -263,7 +263,8 @@ export function BuildPromoItems() {
     videoSelect,
   }) => {
     let item
-    const element = jmespath.search(ans, promoItemsJmespath)
+    const element =
+      promoItemsJmespath && jmespath.search(ans, promoItemsJmespath)
     if (element && element.type) {
       switch (element.type) {
         case 'gallery':

@@ -31,11 +31,20 @@ const articles = {
       description: { basic: 'Tips to keep you wash for 20 seconds' },
       subheadlines: { basic: 'This is from the subheadlines' },
       content_elements: [
-        { type: 'text', content: 'try singing the happy birthday song<br>' },
-        { type: 'text', content: 'be sure to <i>wash</i> your thumbs' },
         {
+          _id: 'AAAAA',
+          type: 'text',
+          content: 'try singing the happy birthday song<br>',
+        },
+        {
+          _id: 'BBBBB',
+          type: 'text',
+          content: 'be sure to <i>wash</i> your thumbs',
+        },
+        {
+          _id: 'CCCCC',
           type: 'raw_html',
-          content: `<p id="7FCQKPKS2NCH5L6YTO2XCOEDDA"><div style="background:#ffffff; color: #333; margin:100px 0 1rem 0; line-height:28px; font-family: 'Merriweather', serif;"><img style="height:120px; width: 120px; float: left; margin-right: 20px;" src="https://www.example.com.mx/graficos/img/novedad-180321.jpg" class="img-responsive" alt="logo" /><img style="height:120px; width: 120px; float: right; " src="https://example.com.mx/graficos/interior-nota/abcd_novedad.png" class="img-responsive" alt="logo" /><span style="font-size: 1.1rem; font-weight: 700;"> Concertos for Oboe, Clarinet and Orchestra </span><hr style="border: 0;  height: 1px;   background-image: -webkit-linear-gradient(left, #666666, #ffffff);  background-image: -moz-linear-gradient(left, #666666, #ffffff);  background-image: -ms-linear-gradient(left, #666666, #ffffff);  background-image: -o-linear-gradient(left,  #666666, #ffffff); padding: 0; margin: 0;"/><span style="font-size: .9rem">ARTISTA: Camerata de las Américas, dirigida por Ludwig Carrasco </span><br><span style="font-size: .9rem">SELLO:   Urtext </span><br><span style="font-size: .9rem">PRECIO:   $168n </span></div></p>`,
+          content: `<div style="background:#ffffff; color: #333; margin:100px 0 1rem 0; line-height:28px; font-family: 'Merriweather', serif;"><img style="height:120px; width: 120px; float: left; margin-right: 20px;" src="https://www.example.com.mx/graficos/img/novedad-180321.jpg" class="img-responsive" alt="logo" /><img style="height:120px; width: 120px; float: right; " src="https://example.com.mx/graficos/interior-nota/abcd_novedad.png" class="img-responsive" alt="logo" /><span style="font-size: 1.1rem; font-weight: 700;"> Concertos for Oboe, Clarinet and Orchestra </span><hr style="border: 0;  height: 1px;   background-image: -webkit-linear-gradient(left, #666666, #ffffff);  background-image: -moz-linear-gradient(left, #666666, #ffffff);  background-image: -ms-linear-gradient(left, #666666, #ffffff);  background-image: -o-linear-gradient(left,  #666666, #ffffff); padding: 0; margin: 0;"/><span style="font-size: .9rem">ARTISTA: Camerata de las Américas, dirigida por Ludwig Carrasco </span><br><span style="font-size: .9rem">SELLO:   Urtext </span><br><span style="font-size: .9rem">PRECIO:   $168n </span></div>`,
         },
         {
           type: 'oembed_response',
@@ -69,7 +78,6 @@ it('returns FB-IA template with default values', () => {
     customFields: {
       channelTitle: '',
       channelDescription: '',
-      channelPath: '/arc/outboundfeeds/rss/',
       channelCopyright: '',
       channelTTL: '1',
       channelUpdatePeriod: 'hourly',
@@ -116,7 +124,6 @@ it('returns FB-IA template with custom values', () => {
     customFields: {
       channelTitle: 'Facebook Instant Articles Feed',
       channelDescription: 'Only the best for FB',
-      channelPath: '/arc/outboundfeeds/rss/',
       channelCopyright: 'Copyright 2021',
       channelTTL: '5',
       channelUpdatePeriod: 'weekly',
@@ -141,6 +148,104 @@ it('returns FB-IA template with custom values', () => {
       placementSection: '<script>myscript()</script>',
       adScripts:
         '<figure class="op-tracker"><iframe><script>alert("hi");</script></iframe></figure>',
+      iframeHxW: { width: '560' },
+      raw_html_processing: 'wrap',
+    },
+  })
+  expect(rss).toMatchSnapshot({
+    rss: {
+      channel: {
+        lastBuildDate: expect.stringMatching(
+          /\w+, \d+ \w+ \d{4} \d{2}:\d{2}:\d{2} \+0000/,
+        ),
+      },
+    },
+  })
+})
+
+it('returns FB-IA template with include value', () => {
+  const rss = FbiaRss({
+    requestUri: 'https://localhost.com/arc/outboundfeeds/fb-ia/?outputType=xml',
+    arcSite: 'demo',
+    globalContent: {
+      ...articles,
+    },
+    customFields: {
+      channelTitle: 'Facebook Instant Articles Feed',
+      channelDescription: 'Only the best for FB',
+      channelCopyright: 'Copyright 2021',
+      channelTTL: '5',
+      channelUpdatePeriod: 'weekly',
+      channelUpdateFrequency: '4',
+      channelCategory: 'News',
+      channelLogo: 'https://example.com/logo.png',
+      itemTitle: 'headlines.basic',
+      itemDescription: 'subheadlines.basic || description.basic',
+      pubDate: 'last_updated_date',
+      itemCredits: 'credits.by[]._id',
+      itemCategory: 'News',
+      includePromo: true,
+      imageTitle: 'title',
+      imageCaption: 'caption',
+      imageCredits: 'credits.by[].name',
+      includeContent: 'all',
+      articleStyle: 'times-bold',
+      likesAndComments: 'enable',
+      metaTags: '<meta property="something" content="other thing" />',
+      adPlacement: 'enable',
+      adDensity: 'low',
+      placementSection: '<script>myscript()</script>',
+      adScripts:
+        '<figure class="op-tracker"><iframe><script>alert("hi");</script></iframe></figure>',
+      iframeHxW: { width: '560' },
+      raw_html_processing: 'include',
+    },
+  })
+  expect(rss).toMatchSnapshot({
+    rss: {
+      channel: {
+        lastBuildDate: expect.stringMatching(
+          /\w+, \d+ \w+ \d{4} \d{2}:\d{2}:\d{2} \+0000/,
+        ),
+      },
+    },
+  })
+})
+
+it('returns FB-IA template with empty values', () => {
+  const rss = FbiaRss({
+    requestUri: 'https://localhost.com/arc/outboundfeeds/fb-ia/?outputType=xml',
+    arcSite: 'demo',
+    globalContent: {
+      ...articles,
+    },
+    customFields: {
+      channelTitle: '',
+      channelDescription: '',
+      channelCopyright: '',
+      channelTTL: '',
+      channelUpdatePeriod: '',
+      channelUpdateFrequency: '',
+      channelCategory: '',
+      channelLogo: '',
+      itemTitle: '',
+      itemDescription: '',
+      pubDate: 'last_updated_date',
+      itemCredits: '',
+      itemCategory: '',
+      includePromo: true,
+      imageTitle: '',
+      imageCaption: '',
+      imageCredits: '',
+      includeContent: '',
+      articleStyle: '',
+      likesAndComments: '',
+      metaTags: '',
+      adPlacement: '',
+      adDensity: '',
+      placementSection: '',
+      adScripts: '',
+      promoItemsJmespath: '',
     },
   })
   expect(rss).toMatchSnapshot({

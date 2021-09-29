@@ -68,7 +68,6 @@ it('returns Alexa template with default values', () => {
       audioAvailable: "content_elements[?type=='audio'].streams[].url|[0]",
       channelTitle: '',
       channelDescription: '',
-      channelPath: '/arc/outboundfeeds/alexa/',
       channelCopyright: '',
       channelTTL: '1',
       channelCategory: '',
@@ -102,7 +101,6 @@ it('returns Alexa template with custom values', () => {
       audioAvailable: "content_elements[?type=='audio'].streams[].url|[0]",
       channelTitle: 'The Daily Prophet',
       channelDescription: "All the news that's fit to print",
-      channelPath: '/arc/outboundfeeds/alexa/',
       channelCopyright: '2020 The Washington Post LLC',
       channelTTL: '60',
       channelCategory: 'news',
@@ -111,6 +109,39 @@ it('returns Alexa template with custom values', () => {
       itemTitle: 'headlines.seo || headlines.basic',
       pubDate: 'display_date',
       itemCategory: 'taxonomy.primary_section.name',
+      includePromo: true,
+      includeContent: 'all',
+    },
+  })
+
+  expect(rss).toMatchSnapshot({
+    rss: {
+      channel: {
+        lastBuildDate: expect.stringMatching(
+          /\w+, \d+ \w+ \d{4} \d{2}:\d{2}:\d{2} \+0000/,
+        ),
+      },
+    },
+  })
+})
+
+it('returns Alexa template with empty values', () => {
+  const rss = Rss({
+    arcSite: 'demo',
+    globalContent: {
+      ...articles,
+    },
+    customFields: {
+      audioAvailable: '',
+      channelTitle: '',
+      channelDescription: '',
+      channelCopyright: '',
+      channelTTL: '',
+      channelCategory: '',
+      channelLogo: '',
+      itemTitle: '',
+      pubDate: 'display_date',
+      itemCategory: '',
       includePromo: true,
       includeContent: 'all',
     },

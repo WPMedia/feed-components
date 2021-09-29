@@ -10,7 +10,14 @@ it('returns template with sitemap index by section links', () => {
         { _id: '/politics' },
         { _id: '/opinion' },
         { _id: '/economy' },
-        { _id: '/sports' },
+        {
+          _id: '/sports',
+          children: [
+            { _id: '/sports/football' },
+            { _id: '/sports/baseball' },
+            { _id: '/sports/basketball' },
+          ],
+        },
         { _id: '/entertainment' },
       ],
     },

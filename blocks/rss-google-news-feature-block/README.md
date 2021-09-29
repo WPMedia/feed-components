@@ -1,5 +1,7 @@
 # google-news-feed
 
+Always includes Featured Media. <img> tags are wrapped in <figure> tag
+
 ## Globals
 
 feedTitle
@@ -9,7 +11,6 @@ feedResizer
 
 ## Custom Fields
 
-channelPath: defaults to /arc/outboundfeeds/google-news-feed/
 channelTitle: defaults to global website name
 channelDescription: defaults to global website name + "News Feed"
 channelCopyright: defaults to Copyright YYYY global website name
@@ -25,7 +26,8 @@ pubDate: date field defaults to display_date
 itemCategory: jmespath for category mapping headlines.basic
 includeContent: number of paragraphs to include 0-10, all
 
-includePromo: bool to include promo image
+promoItemsJmespath: jmespath to promo_items (promo_items.basic || promo_items.lead_art)
+resizerKVP: key value pair of width and or height to use with the resizer
 imageTitle defaults to title
 imageCaption defaults to caption
 ImageCredits defaults to credits.by[].name
