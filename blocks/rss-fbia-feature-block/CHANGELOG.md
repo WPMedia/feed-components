@@ -1,5 +1,23 @@
 # @wpmedia/sitemaps-feature-block
 
+## 1.7.0
+
+### Minor Changes
+
+- [#494](https://github.com/WPMedia/feed-components/pull/494) [`a66fe31`](https://github.com/WPMedia/feed-components/commit/a66fe3141e5474d2598bd4d2b09c96a60bed433d) Thanks [@ibeyene](https://github.com/ibeyene)! - Update all feeds to 1.5.0
+
+* [#534](https://github.com/WPMedia/feed-components/pull/534) [`d57bdd0`](https://github.com/WPMedia/feed-components/commit/d57bdd01c466053add2a6e1d7ac5bcc04ca0d3db) Thanks [@tbrick855](https://github.com/tbrick855)! - OBF-1.7
+
+- [#495](https://github.com/WPMedia/feed-components/pull/495) [`49d9ad0`](https://github.com/WPMedia/feed-components/commit/49d9ad01560dc4ae0b83ea73ac78de67dd2214d4) Thanks [@ibeyene](https://github.com/ibeyene)! - sync them app to get published to same version
+
+### Patch Changes
+
+- [#533](https://github.com/WPMedia/feed-components/pull/533) [`d261d4c`](https://github.com/WPMedia/feed-components/commit/d261d4cdda9fbb0ebd5a3baef8a9bf0bcddb094a) Thanks [@tbrick855](https://github.com/tbrick855)! - Added raw_html_processing customField
+
+* [#520](https://github.com/WPMedia/feed-components/pull/520) [`cb51b2a`](https://github.com/WPMedia/feed-components/commit/cb51b2a4514078dc1b908cb353b9e4ed281102fd) Thanks [@tbrick855](https://github.com/tbrick855)! - Test for empty customField, upgrade to utils 1.0.6
+
+- [#533](https://github.com/WPMedia/feed-components/pull/533) [`aa8cc14`](https://github.com/WPMedia/feed-components/commit/aa8cc14a980f50038bd4d3d9617f29393805a635) Thanks [@tbrick855](https://github.com/tbrick855)! - Add iframeHxW and wrapRawHTML customFields to fb-ia
+
 ## 1.6.0
 
 ### Minor Changes
