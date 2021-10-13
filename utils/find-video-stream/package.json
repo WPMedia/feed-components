@@ -1,6 +1,6 @@
 {
   "name": "@wpmedia/feeds-find-video-stream",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Utility to search video stream for desired encoding",
   "main": "dist/feeds-find-video-stream.cjs.js",
   "module": "dist/feeds-find-video-stream.esm.js",
@@ -21,7 +21,7 @@
     "access": "restricted"
   },
   "author": "Tim Kosmider <timothy.kosmider@washpost.com>",
-  "license": "UNLICENSED",
+  "license": "CC-BY-NC-ND-4.0",
   "dependencies": {
     "jmespath": "^0.15.0"
   }

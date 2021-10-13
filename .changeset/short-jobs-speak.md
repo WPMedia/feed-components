@@ -15,4 +15,4 @@
 '@wpmedia/sitemap-video-feature-block': patch
 ---
 
-Test for empty customField, upgrade to utils 1.0.6
+Update utils to 1.0.7

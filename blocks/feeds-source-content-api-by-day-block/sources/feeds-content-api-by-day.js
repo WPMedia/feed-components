@@ -2,42 +2,54 @@ import request from 'request-promise-native'
 import { CONTENT_BASE, ARC_ACCESS_TOKEN } from 'fusion:environment'
 import getProperties from 'fusion:properties'
 import moment from 'moment'
+import {
+  defaultANSFields,
+  formatSections,
+  generateDistributor,
+  transform,
+  validANSDates,
+} from '@wpmedia/feeds-content-source-utils'
 
 const contentURL = `${CONTENT_BASE}/content/v4/search/published/`
+// Excludes content_elements
+const ansFields = [...defaultANSFields]
 
 const options = {
   gzip: true,
   json: true,
   auth: { bearer: ARC_ACCESS_TOKEN },
 }
-const validANSDates = [
-  'created_date',
-  'last_updated_date',
-  'display_date',
-  'first_publish_date',
-  'publish_date',
-]
 
 const fetch = async (key = {}) => {
   const paramList = {
     website: key['arc-site'],
     size: 100,
-    sort: key.sort || 'last_updated_date:desc',
-    _sourceExclude:
-      key['Source-Exclude'] ||
-      'address,additional_properties,content_elements,credits,geo,language,label,owner,planning,publishing,related_content,taxonomy,revision,source,subtype,version,workflow',
+    sort: key.sort || `${key.dateField}:desc`,
+  }
+  generateDistributor(key, paramList)
+
+  // limit C-API response to just this websites sections to reduce size
+  ansFields.push(`websites.${key['arc-site']}`)
+
+  if (key['Source-Exclude']) {
+    const sourceExcludes = []
+    key['Source-Exclude'].split(',').forEach((i) => {
+      if (i && ansFields.indexOf(i) !== -1) {
+        ansFields.splice(ansFields.indexOf(i), 1)
+      } else {
+        i && sourceExcludes.push(i)
+      }
+    })
+    if (sourceExcludes.length)
+      paramList._sourceExcludes = sourceExcludes.join(',')
   }
 
-  if (key['Source-Include']) paramList._sourceInclude = key['Source-Include']
-  if (key['Include-Distributor-Name']) {
-    paramList.include_distributor_name = key['Include-Distributor-Name']
-  } else if (key['Exclude-Distributor-Name']) {
-    paramList.exclude_distributor_name = key['Exclude-Distributor-Name']
-  } else if (key['Include-Distributor-Category']) {
-    paramList.include_distributor_category = key['Include-Distributor-Category']
-  } else if (key['Exclude-Distributor-Category']) {
-    paramList.exclude_distributor_category = key['Exclude-Distributor-Category']
+  if (key['Source-Include']) {
+    key['Source-Include']
+      .split(',')
+      .forEach((i) => i && !ansFields.includes(i) && ansFields.push(i))
   }
+  paramList._sourceIncludes = ansFields.join(',')
 
   // basic ES query
   const body = {
@@ -151,18 +163,6 @@ const fetch = async (key = {}) => {
   const ExcludeSections = key['Exclude-Sections']
 
   if (ExcludeSections && ExcludeSections !== '/') {
-    const formatSections = (section) => {
-      const sectionArray = section
-        .split(',')
-        .map((item) => item.trim().replace(/\/$/, ''))
-        .map((item) => (item.startsWith('/') ? item : `/${item}`))
-      return {
-        terms: {
-          'taxonomy.sections._id': sectionArray,
-        },
-      }
-    }
-
     const nested = {
       nested: {
         path: 'taxonomy.sections',
@@ -178,18 +178,12 @@ const fetch = async (key = {}) => {
     body.query.bool.must_not.push(nested)
   }
 
-  paramList.body = encodeURI(JSON.stringify(body))
-
-  const genParams = (paramList) => {
-    return Object.keys(paramList).reduce((acc, key) => {
-      return [...acc, `${key}=${paramList[key]}`]
-    }, [])
-  }
+  paramList.body = JSON.stringify(body)
 
   const getResp = (contentURL, paramList, options) => {
-    const paramString = genParams(paramList)
     return request({
-      uri: `${contentURL}?${paramString.join('&')}`,
+      uri: contentURL,
+      qs: paramList,
       ...options,
     })
   }
@@ -213,6 +207,7 @@ const fetch = async (key = {}) => {
 export default {
   fetch,
   schemaName: 'feeds',
+  transform,
   params: [
     {
       name: 'dateField',
@@ -245,13 +240,13 @@ export default {
       type: 'text',
     },
     {
-      name: 'Source-Exclude',
-      displayName: 'Source Exclude (list of ANS fields comma separated)',
+      name: 'Source-Include',
+      displayName: 'Source Include (list of ANS fields comma separated)',
       type: 'text',
     },
     {
-      name: 'Source-Include',
-      displayName: 'Source Include (list of ANS fields comma separated)',
+      name: 'Source-Exclude',
+      displayName: 'Source Exclude (list of ANS fields comma separated)',
       type: 'text',
     },
     {
