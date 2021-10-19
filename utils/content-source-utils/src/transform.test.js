@@ -43,11 +43,21 @@ const globalContent = {
   ],
 }
 
-it('Test transform with empty data', () => {
+it('Test transform with undefined data', () => {
   const transformedANS = transform(undefined, {
     'arc-site': 'demo',
   })
-  expect(transformedANS).toBe(undefined)
+  expect(transformedANS).toEqual({})
+})
+
+it('Test transform with empty data', () => {
+  const transformedANS = transform(
+    { content_elements: [] },
+    {
+      'arc-site': 'demo',
+    },
+  )
+  expect(transformedANS).toEqual({ content_elements: [] })
 })
 
 // Every article should have a website and website_url. Only replace sections if !exist

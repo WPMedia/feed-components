@@ -13,6 +13,6 @@ export const transform = (data, query) => {
       return i
     })
     source.content_elements = transformedContent
-    return source
   }
+  return source
 }
