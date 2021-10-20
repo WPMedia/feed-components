@@ -1,6 +1,6 @@
 {
   "name": "@wpmedia/feeds-promo-items",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Shared arcio promo_items module",
   "main": "dist/feeds-promo-items.cjs.js",
   "module": "dist/feeds-promo-items.esm.js",
@@ -23,8 +23,8 @@
   "author": "Tim Kosmider <timothy.kosmider@washpost.com>",
   "license": "CC-BY-NC-ND-4.0",
   "dependencies": {
-    "@wpmedia/feeds-find-video-stream": "1.0.7",
-    "@wpmedia/feeds-resizer": "1.0.7",
+    "@wpmedia/feeds-find-video-stream": "1.0.8",
+    "@wpmedia/feeds-resizer": "1.0.8",
     "jmespath": "^0.15.0"
   }
 }
