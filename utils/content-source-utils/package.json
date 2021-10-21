@@ -1,6 +1,6 @@
 {
   "name": "@wpmedia/feeds-content-source-utils",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Shared content source globals and functions",
   "main": "dist/feeds-content-source-utils.cjs.js",
   "module": "dist/feeds-content-source-utils.esm.js",
