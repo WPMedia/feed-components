@@ -1,39 +1,48 @@
 import { CONTENT_BASE } from 'fusion:environment'
 import getProperties from 'fusion:properties'
+import {
+  defaultANSFields,
+  formatSections,
+  generateDistributor,
+  genParams,
+  transform,
+} from '@wpmedia/feeds-content-source-utils'
 
 const resolve = function resolve(key) {
   const requestUri = `${CONTENT_BASE}/content/v4/search/published`
-  const paramList = [
-    `website=${key['arc-site']}`,
-    `size=${key['Feed-Size'] || '100'}`,
-    `from=${key['Feed-Offset'] || '0'}`,
-    `_sourceExclude=${key['Source-Exclude'] || 'related_content'}`,
-    `sort=${key.Sort || 'publish_date:desc'}`,
-  ]
+  // const ansFields = [...defaultANSFields, 'content_elements']
+  const ansFields = [...defaultANSFields, 'content_elements']
 
-  if (key['Source-Include'])
-    paramList.push(`_sourceInclude=${key['Source-Include']}`)
-  if (key['Include-Distributor-Name']) {
-    paramList.push(
-      `include_distributor_name=${key['Include-Distributor-Name']}`,
-    )
-  } else if (key['Exclude-Distributor-Name']) {
-    paramList.push(
-      `exclude_distributor_name=${key['Exclude-Distributor-Name']}`,
-    )
-  } else if (key['Include-Distributor-Category']) {
-    paramList.push(
-      `include_distributor_category=${key['Include-Distributor-Category']}`,
-    )
-  } else if (key['Exclude-Distributor-Category']) {
-    paramList.push(
-      `exclude_distributor_category=${key['Exclude-Distributor-Category']}`,
-    )
+  const paramList = {
+    website: key['arc-site'],
+    size: key['Feed-Size'] || '100',
+    from: key['Feed-Offset'] || '0',
+    sort: key.Sort || 'publish_date:desc',
+  }
+  generateDistributor(key, paramList)
+
+  // limit C-API response to just this websites sections to reduce size
+  ansFields.push(`websites.${key['arc-site']}`)
+
+  if (key['Source-Exclude']) {
+    const sourceExcludes = []
+    key['Source-Exclude'].split(',').forEach((i) => {
+      if (i && ansFields.indexOf(i) !== -1) {
+        ansFields.splice(ansFields.indexOf(i), 1)
+      } else {
+        i && sourceExcludes.push(i)
+      }
+    })
+    if (sourceExcludes.length)
+      paramList._sourceExcludes = sourceExcludes.join(',')
   }
 
-  const uriParams = paramList.join('&')
-
-  const { feedDefaultQuery } = getProperties(key['arc-site'])
+  if (key['Source-Include']) {
+    key['Source-Include']
+      .split(',')
+      .forEach((i) => i && !ansFields.includes(i) && ansFields.push(i))
+  }
+  paramList._sourceIncludes = ansFields.join(',')
 
   // basic ES query
   const body = {
@@ -46,6 +55,7 @@ const resolve = function resolve(key) {
 
   // If feedDefaultQuery is set try to use it
   let feedQuery
+  const { feedDefaultQuery } = getProperties(key['arc-site'])
   if (feedDefaultQuery) {
     try {
       feedQuery = JSON.parse(feedDefaultQuery)
@@ -61,6 +71,9 @@ const resolve = function resolve(key) {
       feedQuery = JSON.parse(key['Include-Terms'])
     } catch (error) {
       console.warn(`Failed to parse Include-Terms: ${key['Include-Terms']}`)
+      const err = new Error('Invalid Include-Terms')
+      err.statusCode = 500
+      throw err
     }
   }
 
@@ -81,6 +94,9 @@ const resolve = function resolve(key) {
       body.query.bool.must_not = JSON.parse(excludeTerms)
     } catch (error) {
       console.warn(`Failed to parse Exclude-Terms: ${key['Exclude-Terms']}`)
+      const err = new Error('Invalid Exclude-Terms')
+      err.statusCode = 500
+      throw err
     }
   }
 
@@ -139,18 +155,6 @@ const resolve = function resolve(key) {
   const ExcludeSections = key['Exclude-Sections']
 
   if (Section || ExcludeSections) {
-    const formatSections = (section) => {
-      const sectionArray = section
-        .split(',')
-        .map((item) => item.trim().replace(/\/$/, ''))
-        .map((item) => (item.startsWith('/') ? item : `/${item}`))
-      return {
-        terms: {
-          'taxonomy.sections._id': sectionArray,
-        },
-      }
-    }
-
     const nested = {
       nested: {
         path: 'taxonomy.sections',
@@ -184,12 +188,13 @@ const resolve = function resolve(key) {
   }
 
   const encodedBody = encodeURI(JSON.stringify(body))
-  return `${requestUri}?body=${encodedBody}&${uriParams}`
+  return `${requestUri}?body=${encodedBody}&${genParams(paramList)}`
 }
 
 export default {
   resolve,
   schemaName: 'feeds',
+  transform,
   params: {
     Section: 'text',
     Author: 'text',
