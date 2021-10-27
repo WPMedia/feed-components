@@ -17,7 +17,7 @@
     "access": "restricted"
   },
   "author": "Cameron Woodmansee",
-  "license": "UNLICENSED",
+  "license": "CC-BY-NC-ND-4.0",
   "dependencies": {
     "xmlbuilder2": "2.1.2"
   }

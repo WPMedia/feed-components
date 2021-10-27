@@ -1,0 +1,22 @@
+{
+  "name": "@wpmedia/feeds-content-source-utils",
+  "version": "1.0.8",
+  "description": "Shared content source globals and functions",
+  "main": "dist/feeds-content-source-utils.cjs.js",
+  "module": "dist/feeds-content-source-utils.esm.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/WPMedia/feed-components.git",
+    "directory": "utils/content-source-utils"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/",
+    "access": "restricted"
+  },
+  "author": "Tim Kosmider",
+  "license": "CC-BY-NC-ND-4.0",
+  "dependencies": {}
+}

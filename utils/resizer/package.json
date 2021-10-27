@@ -1,6 +1,6 @@
 {
   "name": "@wpmedia/feeds-resizer",
-  "version": "1.0.6",
+  "version": "1.0.8",
   "description": "Utilities to manage image resizing",
   "main": "dist/feeds-resizer.cjs.js",
   "module": "dist/feeds-resizer.esm.js",
@@ -21,7 +21,7 @@
     "access": "restricted"
   },
   "author": "Cameron Woodmansee <cameron.woodmansee@washpost.com>",
-  "license": "UNLICENSED",
+  "license": "CC-BY-NC-ND-4.0",
   "dependencies": {
     "thumbor-lite": "^0.1.8"
   }
