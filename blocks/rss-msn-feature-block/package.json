@@ -1,6 +1,6 @@
 {
   "name": "@wpmedia/rss-msn-feature-block",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "description": "Fusion components for building msn-rss",
   "main": "index.js",
   "files": [
