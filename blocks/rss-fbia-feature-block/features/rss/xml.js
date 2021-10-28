@@ -178,15 +178,12 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
   function FbiaBuildContent({
     itemTitle,
     itemDescription,
-    itemCategory,
     articleStyle,
     likesAndComments,
     metaTags,
     adPlacement,
     adDensity,
     placementSection,
-    adScripts,
-    videoSelect,
     iframeHxW = {},
     raw_html_processing = 'exclulde',
   }) {
@@ -471,6 +468,36 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
       }
       return item
     }
+
+    this.table = (element) => {
+      const header = []
+      const rows = []
+      let row
+
+      element.header &&
+        element.header.forEach((headerItem) => {
+          header.push(headerItem.content)
+        })
+
+      element.rows &&
+        element.rows.forEach((tableRows) => {
+          row = []
+          tableRows.forEach((rowItem) => {
+            row.push(rowItem.content)
+          })
+          rows.push({ tr: { td: row } })
+        })
+
+      return {
+        figure: {
+          table: {
+            thead: { tr: { th: header } },
+            tbody: { '#': rows },
+          },
+        },
+      }
+    }
+
     this.buildFBContent = (
       s,
       numRows,
