@@ -178,15 +178,12 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
   function FbiaBuildContent({
     itemTitle,
     itemDescription,
-    itemCategory,
     articleStyle,
     likesAndComments,
     metaTags,
     adPlacement,
     adDensity,
     placementSection,
-    adScripts,
-    videoSelect,
     iframeHxW = {},
     raw_html_processing = 'exclulde',
   }) {
