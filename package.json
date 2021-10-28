@@ -47,7 +47,7 @@
     }
   },
   "scripts": {
-    "postinstall": "lerna bootstrap",
+    "postinstall": "lerna bootstrap && node scripts/recursive-install.js",
     "lint": "npm run lint:eslint && npm run lint:prettier",
     "lint:eslint": "eslint . --ext .js --ext .jsx",
     "lint:prettier": "prettier --check \"./{blocks,utils}/**/*.js\"",
