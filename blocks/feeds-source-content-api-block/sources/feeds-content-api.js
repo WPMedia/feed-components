@@ -10,8 +10,11 @@ import {
 
 const resolve = function resolve(key) {
   const requestUri = `${CONTENT_BASE}/content/v4/search/published`
-  // const ansFields = [...defaultANSFields, 'content_elements']
-  const ansFields = [...defaultANSFields, 'content_elements']
+  const ansFields = [
+    ...defaultANSFields,
+    'content_elements',
+    `websites.${key['arc-site']}`,
+  ]
 
   const paramList = {
     website: key['arc-site'],
@@ -20,9 +23,6 @@ const resolve = function resolve(key) {
     sort: key.Sort || 'publish_date:desc',
   }
   generateDistributor(key, paramList)
-
-  // limit C-API response to just this websites sections to reduce size
-  ansFields.push(`websites.${key['arc-site']}`)
 
   if (key['Source-Exclude']) {
     const sourceExcludes = []
