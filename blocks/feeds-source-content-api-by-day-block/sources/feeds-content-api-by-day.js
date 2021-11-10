@@ -12,7 +12,6 @@ import {
 
 const contentURL = `${CONTENT_BASE}/content/v4/search/published/`
 // Excludes content_elements
-const ansFields = [...defaultANSFields]
 
 const options = {
   gzip: true,
@@ -29,7 +28,7 @@ const fetch = async (key = {}) => {
   generateDistributor(key, paramList)
 
   // limit C-API response to just this websites sections to reduce size
-  ansFields.push(`websites.${key['arc-site']}`)
+  const ansFields = [...defaultANSFields, `websites.${key['arc-site']}`]
 
   if (key['Source-Exclude']) {
     const sourceExcludes = []
