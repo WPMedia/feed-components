@@ -27,7 +27,11 @@ const fetch = async (key = {}) => {
     auth: { bearer: ARC_ACCESS_TOKEN },
   }
 
-  const ansFields = [...defaultANSFields, 'content_elements']
+  const ansFields = [
+    ...defaultANSFields,
+    'content_elements',
+    `websites.${site}`,
+  ]
 
   const sortStories = (idsResp, collectionResp, ids, site) => {
     idsResp.content_elements.forEach((item) => {
@@ -47,9 +51,6 @@ const fetch = async (key = {}) => {
     })
     return collectionResp
   }
-
-  // limit C-API response to just this websites sections to reduce size
-  ansFields.push(`websites.${site}`)
 
   if (excludeFields) {
     excludeFields.split(',').forEach((i) => {
