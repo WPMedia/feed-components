@@ -1,5 +1,13 @@
 # @wpmedia/feeds-source-content-api-by-day3-block
 
+## 1.8.1
+
+### Patch Changes
+
+- [#550](https://github.com/WPMedia/feed-components/pull/550) [`f41e40e`](https://github.com/WPMedia/feed-components/commit/f41e40e15591c0fcf1915cb986ab8c5d769be315) Thanks [@tbrick855](https://github.com/tbrick855)! - OBF-1.8.1 hotfix
+
+* [#549](https://github.com/WPMedia/feed-components/pull/549) [`b2cceaf`](https://github.com/WPMedia/feed-components/commit/b2cceaf2b6a5ecc3c67602dd39629e6158ff1918) Thanks [@tbrick855](https://github.com/tbrick855)! - Move ansFields into fetch
+
 ## 1.8.0
 
 ### Minor Changes

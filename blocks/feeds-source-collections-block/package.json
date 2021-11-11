@@ -1,6 +1,6 @@
 {
   "name": "@wpmedia/feeds-source-collections-block",
-  "version": "1.8.0",
+  "version": "1.8.1",
   "description": "Content source to search collections by _id or alias",
   "main": "index.js",
   "files": [
