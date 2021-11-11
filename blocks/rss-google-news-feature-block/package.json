@@ -1,6 +1,6 @@
 {
   "name": "@wpmedia/rss-google-news-feature-block",
-  "version": "1.8.0",
+  "version": "1.8.1",
   "description": "Fusion components for building google-news-rss",
   "main": "index.js",
   "files": [
