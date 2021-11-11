@@ -1,5 +1,11 @@
 # @wpmedia/rss-alexa-feature-block
 
+## 1.8.1
+
+### Patch Changes
+
+- [#550](https://github.com/WPMedia/feed-components/pull/550) [`f41e40e`](https://github.com/WPMedia/feed-components/commit/f41e40e15591c0fcf1915cb986ab8c5d769be315) Thanks [@tbrick855](https://github.com/tbrick855)! - OBF-1.8.1 hotfix
+
 ## 1.8.0
 
 ### Minor Changes
