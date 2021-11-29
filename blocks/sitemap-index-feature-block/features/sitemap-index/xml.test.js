@@ -15,7 +15,7 @@ it('returns template with default values', () => {
       ],
     },
     customFields: {
-      feedPath: '/arc/outboundfeeds/sitemap',
+      feedPath: '/arc/outboundfeeds/sitemap/',
       feedName: '/sitemap-index/',
       feedParam: '&outputType=xml',
       lastMod: 'last_updated_date',
@@ -38,13 +38,13 @@ it('returns template with category in url', () => {
       ],
     },
     customFields: {
-      feedPath: '/arc/outboundfeeds/sitemap',
+      feedPath: '/arc/outboundfeeds/sitemap/',
       feedName: '/sitemap-index/',
       feedParam: '&outputType=xml',
       lastMod: 'last_updated_date',
     },
     requestUri:
-      '/arc/outboundfeeds/sitemap-index/category/sports?outputType=xml',
+      '/arc/outboundfeeds/sitemap-index/category/sports/?outputType=xml',
   })
   expect(sitemapindex).toMatchSnapshot()
 })
@@ -54,13 +54,13 @@ it('returns template with no content', () => {
     arcSite: 'the-globe',
     globalContent: {},
     customFields: {
-      feedPath: '/arc/outboundfeeds/sitemap',
+      feedPath: '/arc/outboundfeeds/sitemap/',
       feedName: '/sitemap-index/',
       feedParam: '&outputType=xml',
       lastMod: 'last_updated_date',
     },
     requestUri:
-      '/arc/outboundfeeds/sitemap-index/category/sports?outputType=xml',
+      '/arc/outboundfeeds/sitemap-index/category/sports/?outputType=xml',
   })
   expect(sitemapindex).toMatchSnapshot()
 })
