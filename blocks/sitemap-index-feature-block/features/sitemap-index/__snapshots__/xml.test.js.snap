@@ -7,23 +7,23 @@ Object {
     "sitemap": Array [
       Object {
         "lastmod": "2020-04-07T15:02:08.918Z",
-        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemapcategory/sports/?outputType=xml",
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/sports/?outputType=xml",
       },
       Object {
         "lastmod": "2020-04-07T15:02:08.918Z",
-        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemapcategory/sports/?outputType=xml&from=100",
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/sports/?outputType=xml&from=100",
       },
       Object {
         "lastmod": "2020-04-07T15:02:08.918Z",
-        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemapcategory/sports/?outputType=xml&from=200",
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/sports/?outputType=xml&from=200",
       },
       Object {
         "lastmod": "2020-04-07T15:02:08.918Z",
-        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemapcategory/sports/?outputType=xml&from=300",
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/sports/?outputType=xml&from=300",
       },
       Object {
         "lastmod": "2020-04-07T15:02:08.918Z",
-        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemapcategory/sports/?outputType=xml&from=400",
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/sports/?outputType=xml&from=400",
       },
     ],
   },
@@ -66,19 +66,19 @@ Object {
     "@xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9",
     "sitemap": Array [
       Object {
-        "loc": "http://demo-prod.origin.arcpublishing.com/?",
+        "loc": "http://demo-prod.origin.arcpublishing.com?",
       },
       Object {
-        "loc": "http://demo-prod.origin.arcpublishing.com/?from=100",
+        "loc": "http://demo-prod.origin.arcpublishing.com?from=100",
       },
       Object {
-        "loc": "http://demo-prod.origin.arcpublishing.com/?from=200",
+        "loc": "http://demo-prod.origin.arcpublishing.com?from=200",
       },
       Object {
-        "loc": "http://demo-prod.origin.arcpublishing.com/?from=300",
+        "loc": "http://demo-prod.origin.arcpublishing.com?from=300",
       },
       Object {
-        "loc": "http://demo-prod.origin.arcpublishing.com/?from=400",
+        "loc": "http://demo-prod.origin.arcpublishing.com?from=400",
       },
     ],
   },
