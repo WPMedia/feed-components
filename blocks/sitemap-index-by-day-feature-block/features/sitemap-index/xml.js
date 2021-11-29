@@ -76,14 +76,14 @@ export function SitemapIndexByDay({
       if (numSplits) {
         for (let splits = 1; splits <= numSplits; splits++) {
           arr.push({
-            loc: `${feedDomainURL}${pathValue}${section}${formattedDate}-${splits}?${
+            loc: `${feedDomainURL}${pathValue}${section}${formattedDate}-${splits}/?${
               feedParam || ''
             }`,
           })
         }
       } else {
         arr.push({
-          loc: `${feedDomainURL}${pathValue}${section}${formattedDate}?${
+          loc: `${feedDomainURL}${pathValue}${section}${formattedDate}/?${
             feedParam || ''
           }`,
         })

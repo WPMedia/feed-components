@@ -62,7 +62,7 @@ export function SitemapIndex({
         // only push from param if it's not zero
         const newParamList = [...paramList, ...(i ? [`from=${i}`] : [])]
         arr.push({
-          loc: `${feedDomainURL}${feedPath}${section}?${newParamList.join(
+          loc: `${feedDomainURL}${feedPath}${section}/?${newParamList.join(
             '&',
           )}`,
           ...(lastModDate && { lastmod: lastModDate }),
