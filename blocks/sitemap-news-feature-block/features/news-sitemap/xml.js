@@ -121,7 +121,7 @@ GoogleSitemap.propTypes = {
   customFields: PropTypes.shape({
     imageTitle: PropTypes.string.tag({
       label: 'ANS image title key',
-      group: 'Feaured Media',
+      group: 'Featured Media',
       description:
         'ANS value for associated story used for the <image:title> sitemap tag',
       defaultValue: 'title',
