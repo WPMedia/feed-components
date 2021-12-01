@@ -53,6 +53,45 @@ const articles = {
             html: '<blockquote class="twitter-tweet"><p lang="fr" dir="ltr">21. Je déploie le robot pour reconnaitre OSCAR3.<br>Retour en images sur l’exercice de recherche appliquée organisé les 30 et 31 mars par l’EMIA et le centre de recherche. Robotisation du champ de bataille : sensibiliser les élèves aux enjeux de demain. <a href="https://twitter.com/hashtag/CapaciTERRE?src=hash&amp;ref_src=twsrc%5Etfw">#CapaciTERRE</a> <a href="https://twitter.com/hashtag/Robots?src=hash&amp;ref_src=twsrc%5Etfw">#Robots</a> <a href="https://t.co/HiZ2BFOZPY">pic.twitter.com/HiZ2BFOZPY</a></p>&mdash; Saint-Cyr Coëtquidan (@SaintCyrCoet) <a href="https://twitter.com/SaintCyrCoet/status/1379457690020294665?ref_src=twsrc%5Etfw">April 6, 2021</a></blockquote>\n<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>\n',
           },
         },
+        {
+          type: 'table',
+          header: [
+            {
+              content: 'Description',
+              type: 'text',
+            },
+            {
+              content: 'Amount',
+              type: 'text',
+            },
+          ],
+          rows: [
+            [
+              {
+                content: 'apples',
+                type: 'text',
+              },
+              {
+                content: '$0.25',
+                type: 'text',
+              },
+            ],
+            [
+              { content: 'pears', type: 'text' },
+              {
+                content: '$0.50',
+                type: 'text',
+              },
+            ],
+            [
+              { content: 'oranges', type: 'text' },
+              {
+                content: '$0.70',
+                type: 'text',
+              },
+            ],
+          ],
+        },
       ],
       taxonomy: {
         primary_section: { name: 'coronvirus' },

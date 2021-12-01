@@ -2,4 +2,4 @@
 '@wpmedia/rss-fbia-feature-block': patch
 ---
 
-Added raw_html_processing customField
+Wrap table in figure tag

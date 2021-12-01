@@ -1,5 +1,25 @@
 # @wpmedia/feeds-source-content-api-by-day2-block
 
+## 1.8.1
+
+### Patch Changes
+
+- [#550](https://github.com/WPMedia/feed-components/pull/550) [`f41e40e`](https://github.com/WPMedia/feed-components/commit/f41e40e15591c0fcf1915cb986ab8c5d769be315) Thanks [@tbrick855](https://github.com/tbrick855)! - OBF-1.8.1 hotfix
+
+* [#549](https://github.com/WPMedia/feed-components/pull/549) [`b2cceaf`](https://github.com/WPMedia/feed-components/commit/b2cceaf2b6a5ecc3c67602dd39629e6158ff1918) Thanks [@tbrick855](https://github.com/tbrick855)! - Move ansFields into fetch
+
+## 1.8.0
+
+### Minor Changes
+
+- [#542](https://github.com/WPMedia/feed-components/pull/542) [`50b6282`](https://github.com/WPMedia/feed-components/commit/50b62821f9ed619088d4b9cc635c7cbf094ad84a) Thanks [@tbrick855](https://github.com/tbrick855)! - OBF-1.8
+
+### Patch Changes
+
+- [#540](https://github.com/WPMedia/feed-components/pull/540) [`e6a430a`](https://github.com/WPMedia/feed-components/commit/e6a430a721daff1505bc20fa0d99b6d4e2d189e3) Thanks [@tbrick855](https://github.com/tbrick855)! - Fix transform with empty results
+
+* [#528](https://github.com/WPMedia/feed-components/pull/528) [`a25778f`](https://github.com/WPMedia/feed-components/commit/a25778fcdabd0d0be0ab5a481a6d5b53c6df0ff4) Thanks [@tbrick855](https://github.com/tbrick855)! - Remove all websites but calling website
+
 ## 1.7.0
 
 ### Minor Changes
