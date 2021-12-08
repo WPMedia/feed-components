@@ -1,5 +1,15 @@
 # @wpmedia/feeds-source-content-api-block
 
+## 1.9.0
+
+### Minor Changes
+
+- [#557](https://github.com/WPMedia/feed-components/pull/557) [`163bd0f`](https://github.com/WPMedia/feed-components/commit/163bd0fe8c382342898d2132170a5cd379d37ff4) Thanks [@tbrick855](https://github.com/tbrick855)! - OBF-1.9
+
+### Patch Changes
+
+- [#549](https://github.com/WPMedia/feed-components/pull/549) [`b2cceaf`](https://github.com/WPMedia/feed-components/commit/b2cceaf2b6a5ecc3c67602dd39629e6158ff1918) Thanks [@tbrick855](https://github.com/tbrick855)! - Move ansFields into fetch
+
 ## 1.8.1
 
 ### Patch Changes

@@ -1,5 +1,17 @@
 # @wpmedia/sitemap-index-feature-block
 
+## 1.9.0
+
+### Minor Changes
+
+- [#557](https://github.com/WPMedia/feed-components/pull/557) [`163bd0f`](https://github.com/WPMedia/feed-components/commit/163bd0fe8c382342898d2132170a5cd379d37ff4) Thanks [@tbrick855](https://github.com/tbrick855)! - OBF-1.9
+
+### Patch Changes
+
+- [#555](https://github.com/WPMedia/feed-components/pull/555) [`3a27f49`](https://github.com/WPMedia/feed-components/commit/3a27f4942ac51b72b47672679ad8e1be0777be0c) Thanks [@tbrick855](https://github.com/tbrick855)! - Revert sitemap-index change, fix tests
+
+* [#554](https://github.com/WPMedia/feed-components/pull/554) [`e885571`](https://github.com/WPMedia/feed-components/commit/e885571451e5dde89e0e9fafa1be1252cf3b8252) Thanks [@tbrick855](https://github.com/tbrick855)! - Add trailing slash to match CDN rules
+
 ## 1.8.1
 
 ### Patch Changes
