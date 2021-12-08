@@ -7,23 +7,23 @@ Object {
     "sitemap": Array [
       Object {
         "lastmod": "2020-04-07T15:02:08.918Z",
-        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemapcategory/sports?outputType=xml",
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/sports/?outputType=xml",
       },
       Object {
         "lastmod": "2020-04-07T15:02:08.918Z",
-        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemapcategory/sports?outputType=xml&from=100",
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/sports/?outputType=xml&from=100",
       },
       Object {
         "lastmod": "2020-04-07T15:02:08.918Z",
-        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemapcategory/sports?outputType=xml&from=200",
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/sports/?outputType=xml&from=200",
       },
       Object {
         "lastmod": "2020-04-07T15:02:08.918Z",
-        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemapcategory/sports?outputType=xml&from=300",
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/sports/?outputType=xml&from=300",
       },
       Object {
         "lastmod": "2020-04-07T15:02:08.918Z",
-        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemapcategory/sports?outputType=xml&from=400",
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/sports/?outputType=xml&from=400",
       },
     ],
   },
@@ -37,23 +37,23 @@ Object {
     "sitemap": Array [
       Object {
         "lastmod": "2020-04-07T15:02:08.918Z",
-        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap?outputType=xml",
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/?outputType=xml",
       },
       Object {
         "lastmod": "2020-04-07T15:02:08.918Z",
-        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap?outputType=xml&from=100",
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/?outputType=xml&from=100",
       },
       Object {
         "lastmod": "2020-04-07T15:02:08.918Z",
-        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap?outputType=xml&from=200",
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/?outputType=xml&from=200",
       },
       Object {
         "lastmod": "2020-04-07T15:02:08.918Z",
-        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap?outputType=xml&from=300",
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/?outputType=xml&from=300",
       },
       Object {
         "lastmod": "2020-04-07T15:02:08.918Z",
-        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap?outputType=xml&from=400",
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/?outputType=xml&from=400",
       },
     ],
   },
