@@ -64,28 +64,24 @@ export function SitemapIndexByDay({
   ) => {
     const arr = []
     const now = moment.utc(new Date())
+    const parameters = feedParam ? `?${feedParam}` : ''
     const splitAllDates =
       feedDates2Split.all || feedDates2Split.All || feedDates2Split.ALL
     const feedPathKeys = Object.keys(feedPath).map((i) => parseInt(i))
-    let pathValue = '/arc/outboundfeeds/sitemap/'
+    let pathValue = '/arc/outboundfeeds/sitemap/' // This is only used if feedPath is empty
     for (let i = 0; i < maxDays; i++) {
-      const pathIndex = feedPathKeys.indexOf(i)
-      if (pathIndex !== -1) pathValue = feedPath[i]
+      if (feedPathKeys.indexOf(i) !== -1) pathValue = feedPath[i]
       const formattedDate = i === 0 ? 'latest' : now.format('YYYY-MM-DD')
       const numSplits = feedDates2Split[formattedDate] || splitAllDates
       if (numSplits) {
         for (let splits = 1; splits <= numSplits; splits++) {
           arr.push({
-            loc: `${feedDomainURL}${pathValue}${section}${formattedDate}-${splits}/?${
-              feedParam || ''
-            }`,
+            loc: `${feedDomainURL}${pathValue}${section}${formattedDate}-${splits}/${parameters}`,
           })
         }
       } else {
         arr.push({
-          loc: `${feedDomainURL}${pathValue}${section}${formattedDate}/?${
-            feedParam || ''
-          }`,
+          loc: `${feedDomainURL}${pathValue}${section}${formattedDate}/${parameters}`,
         })
       }
       now.subtract(1, 'days')
@@ -130,7 +126,7 @@ SitemapIndexByDay.propTypes = {
       defaultValue: '/sitemap-index/',
     }),
     feedParam: PropTypes.string.tag({
-      label: 'Additional URL Parameters',
+      label: 'URL Parameters',
       group: 'Format',
       description:
         'Optional parameters to append to URL. Separate values with an &, do not include a ?',

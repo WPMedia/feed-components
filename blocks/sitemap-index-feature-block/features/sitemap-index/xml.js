@@ -60,11 +60,12 @@ export function SitemapIndex({
     if (maxCount) {
       for (let i = 0; i <= maxCount; i += 100) {
         // only push from param if it's not zero
-        const newParamList = [...paramList, ...(i ? [`from=${i}`] : [])]
+        const newParamList = [...paramList, ...(i ? [`from=${i}`] : [])].join(
+          '&',
+        )
+        const parameters = newParamList ? `?${newParamList}` : ''
         arr.push({
-          loc: `${feedDomainURL}${feedPath}${section}?${newParamList.join(
-            '&',
-          )}`,
+          loc: `${feedDomainURL}${feedPath}${section}${parameters}`,
           ...(lastModDate && { lastmod: lastModDate }),
         })
       }
@@ -113,7 +114,7 @@ SitemapIndex.propTypes = {
       defaultValue: '/sitemap-index/',
     }),
     feedParam: PropTypes.string.tag({
-      label: 'Additional URL Parameters',
+      label: 'URL Parameters',
       group: 'Format',
       description: 'Optional parameters to append to URL, start with &',
       defaultValue: '&outputType=xml',
