@@ -1,6 +1,6 @@
 {
   "name": "@wpmedia/json-output-block",
-  "version": "1.8.1",
+  "version": "1.9.0",
   "description": "JSON Output Type",
   "main": "index.js",
   "files": [
