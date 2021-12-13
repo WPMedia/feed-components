@@ -2,28 +2,36 @@
 import Consumer from 'fusion:consumer'
 import { SitemapSectionFrontIndex } from './xml'
 
+const siteService = {
+  children: [
+    { _id: '/politics' },
+    { _id: '/opinion' },
+    { _id: '/economy' },
+    {
+      _id: '/sports',
+      children: [
+        { _id: '/sports/football' },
+        { _id: '/sports/baseball' },
+        { _id: '/sports/basketball' },
+      ],
+    },
+    {
+      _id: '/entertainment',
+      children: [
+        { _id: '/entertainment/tv' },
+        { _id: '/entertainment/movies' },
+      ],
+    },
+  ],
+}
+
 it('returns template with sitemap index by section links', () => {
   const sitemapsectionindex = SitemapSectionFrontIndex({
     arcSite: 'demo',
-    globalContent: {
-      children: [
-        { _id: '/politics' },
-        { _id: '/opinion' },
-        { _id: '/economy' },
-        {
-          _id: '/sports',
-          children: [
-            { _id: '/sports/football' },
-            { _id: '/sports/baseball' },
-            { _id: '/sports/basketball' },
-          ],
-        },
-        { _id: '/entertainment' },
-      ],
-    },
+    globalContent: siteService,
     customFields: {
       feedPath: '/arc/outboundfeeds/sitemap/category',
-      feedParam: 'outputType=xml',
+      feedParam: '',
     },
   })
   expect(sitemapsectionindex).toMatchSnapshot()
@@ -32,19 +40,24 @@ it('returns template with sitemap index by section links', () => {
 it('returns template with sitemap index by section links with excluded links', () => {
   const sitemapsectionindex = SitemapSectionFrontIndex({
     arcSite: 'demo',
-    globalContent: {
-      children: [
-        { _id: '/politics' },
-        { _id: '/opinion' },
-        { _id: '/economy' },
-        { _id: '/sports' },
-        { _id: '/entertainment' },
-      ],
-    },
+    globalContent: siteService,
     customFields: {
       feedPath: '/arc/outboundfeeds/sitemap/category',
       feedParam: 'outputType=xml',
-      excludeSections: '/politics,/entertainment',
+      excludeSections: '/politics,/entertainment/tv',
+    },
+  })
+  expect(sitemapsectionindex).toMatchSnapshot()
+})
+
+it('returns template with links to sections without outputType', () => {
+  const sitemapsectionindex = SitemapSectionFrontIndex({
+    arcSite: 'demo',
+    globalContent: siteService,
+    customFields: {
+      feedPath: '',
+      feedParam: '',
+      excludeSections: '',
     },
   })
   expect(sitemapsectionindex).toMatchSnapshot()

@@ -1,13 +1,90 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`returns template with links to sections without outputType 1`] = `
+Object {
+  "sitemapindex": Object {
+    "@xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9",
+    "sitemap": Array [
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/politics/",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/opinion/",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/economy/",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/sports/",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/sports/football/",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/sports/baseball/",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/sports/basketball/",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/entertainment/",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/entertainment/tv/",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/entertainment/movies/",
+      },
+    ],
+  },
+}
+`;
+
 exports[`returns template with sitemap index by section links 1`] = `
 Object {
   "sitemapindex": Object {
     "@xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9",
     "sitemap": Array [
       Object {
-        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/politics/?outputType=xml",
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/politics/",
       },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/opinion/",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/economy/",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/sports/",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/sports/football/",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/sports/baseball/",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/sports/basketball/",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/entertainment/",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/entertainment/tv/",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/entertainment/movies/",
+      },
+    ],
+  },
+}
+`;
+
+exports[`returns template with sitemap index by section links with excluded links 1`] = `
+Object {
+  "sitemapindex": Object {
+    "@xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9",
+    "sitemap": Array [
       Object {
         "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/opinion/?outputType=xml",
       },
@@ -29,24 +106,8 @@ Object {
       Object {
         "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/entertainment/?outputType=xml",
       },
-    ],
-  },
-}
-`;
-
-exports[`returns template with sitemap index by section links with excluded links 1`] = `
-Object {
-  "sitemapindex": Object {
-    "@xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9",
-    "sitemap": Array [
       Object {
-        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/opinion/?outputType=xml",
-      },
-      Object {
-        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/economy/?outputType=xml",
-      },
-      Object {
-        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/sports/?outputType=xml",
+        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/entertainment/movies/?outputType=xml",
       },
     ],
   },
