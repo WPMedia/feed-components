@@ -46,7 +46,7 @@ it('returns query with default values', () => {
     'Source-Include': '',
   })
   expect(query).toBe(
-    'undefined/content/v4/search/published?body=%7B%22query%22:%7B%22bool%22:%7B%22must%22:%5B%7B%22term%22:%7B%22type%22:%22story%22%7D%7D,%7B%22range%22:%7B%22last_updated_date%22:%7B%22gte%22:%22now-2d%22,%22lte%22:%22now%22%7D%7D%7D%5D%7D%7D%7D&website=demo&size=100&from=0&sort=publish_date:desc&_sourceIncludes=canonical_url,canonical_website,created_date,credits,description,display_date,duration,first_publish_date,headlines,last_updated_date,promo_image,promo_items,publish_date,streams,subheadlines,subtitles,subtype,taxonomy.primary_section,taxonomy.seo_keywords,taxonomy.tags,type,video_type,content_elements,websites.demo',
+    'undefined/content/v4/search/published?body=%7B%22query%22:%7B%22bool%22:%7B%22must%22:%5B%7B%22term%22:%7B%22type%22:%22story%22%7D%7D,%7B%22range%22:%7B%22last_updated_date%22:%7B%22gte%22:%22now-2d%22,%22lte%22:%22now%22%7D%7D%7D%5D%7D%7D%7D&website=demo&size=100&from=0&sort=publish_date:desc&_sourceInclude=canonical_url,canonical_website,created_date,credits,description,display_date,duration,first_publish_date,headlines,last_updated_date,promo_image,promo_items,publish_date,streams,subheadlines,subtitles,subtype,taxonomy.primary_section,taxonomy.seo_keywords,taxonomy.tags,type,video_type,content_elements,websites.demo',
   )
 })
 
@@ -73,7 +73,7 @@ it('returns query with parameter values', () => {
   })
   expect(query).toContain('&size=25')
   expect(query).toContain('&from=3')
-  expect(query).toContain('_sourceExcludes=taxonomy&')
+  expect(query).toContain('_sourceExclude=taxonomy&')
   expect(query).toContain(',source,owner')
   expect(query).not.toContain('content_elements')
   expect(query).toContain('&include_distributor_name=AP')
@@ -120,7 +120,7 @@ it('returns query by Exclude-Sections', () => {
     'Source-Include': '',
   })
   expect(query).toBe(
-    'undefined/content/v4/search/published?body=%7B%22query%22:%7B%22bool%22:%7B%22must%22:%5B%7B%22term%22:%7B%22type%22:%22story%22%7D%7D,%7B%22range%22:%7B%22last_updated_date%22:%7B%22gte%22:%22now-2d%22,%22lte%22:%22now%22%7D%7D%7D,%7B%22nested%22:%7B%22path%22:%22taxonomy.sections%22,%22query%22:%7B%22bool%22:%7B%22must%22:%5B%7B%22term%22:%7B%22taxonomy.sections._website%22:%22demo%22%7D%7D%5D%7D%7D%7D%7D%5D,%22must_not%22:%5B%7B%22nested%22:%7B%22path%22:%22taxonomy.sections%22,%22query%22:%7B%22bool%22:%7B%22must%22:%5B%7B%22terms%22:%7B%22taxonomy.sections._id%22:%5B%22/food%22,%22/politics%22%5D%7D%7D%5D%7D%7D%7D%7D%5D%7D%7D%7D&website=demo&size=100&from=0&sort=publish_date:desc&_sourceIncludes=canonical_url,canonical_website,created_date,credits,description,display_date,duration,first_publish_date,headlines,last_updated_date,promo_image,promo_items,publish_date,streams,subheadlines,subtitles,subtype,taxonomy.primary_section,taxonomy.seo_keywords,taxonomy.tags,type,video_type,content_elements,websites.demo',
+    'undefined/content/v4/search/published?body=%7B%22query%22:%7B%22bool%22:%7B%22must%22:%5B%7B%22term%22:%7B%22type%22:%22story%22%7D%7D,%7B%22range%22:%7B%22last_updated_date%22:%7B%22gte%22:%22now-2d%22,%22lte%22:%22now%22%7D%7D%7D,%7B%22nested%22:%7B%22path%22:%22taxonomy.sections%22,%22query%22:%7B%22bool%22:%7B%22must%22:%5B%7B%22term%22:%7B%22taxonomy.sections._website%22:%22demo%22%7D%7D%5D%7D%7D%7D%7D%5D,%22must_not%22:%5B%7B%22nested%22:%7B%22path%22:%22taxonomy.sections%22,%22query%22:%7B%22bool%22:%7B%22must%22:%5B%7B%22terms%22:%7B%22taxonomy.sections._id%22:%5B%22/food%22,%22/politics%22%5D%7D%7D%5D%7D%7D%7D%7D%5D%7D%7D%7D&website=demo&size=100&from=0&sort=publish_date:desc&_sourceInclude=canonical_url,canonical_website,created_date,credits,description,display_date,duration,first_publish_date,headlines,last_updated_date,promo_image,promo_items,publish_date,streams,subheadlines,subtitles,subtype,taxonomy.primary_section,taxonomy.seo_keywords,taxonomy.tags,type,video_type,content_elements,websites.demo',
   )
 })
 
@@ -142,7 +142,7 @@ it('returns query by section and Exclude-Sections', () => {
     'Source-Include': '',
   })
   expect(query).toBe(
-    'undefined/content/v4/search/published?body=%7B%22query%22:%7B%22bool%22:%7B%22must%22:%5B%7B%22term%22:%7B%22type%22:%22story%22%7D%7D,%7B%22range%22:%7B%22last_updated_date%22:%7B%22gte%22:%22now-2d%22,%22lte%22:%22now%22%7D%7D%7D,%7B%22nested%22:%7B%22path%22:%22taxonomy.sections%22,%22query%22:%7B%22bool%22:%7B%22must%22:%5B%7B%22term%22:%7B%22taxonomy.sections._website%22:%22demo%22%7D%7D,%7B%22terms%22:%7B%22taxonomy.sections._id%22:%5B%22/sports%22,%22/news%22%5D%7D%7D%5D%7D%7D%7D%7D%5D,%22must_not%22:%5B%7B%22nested%22:%7B%22path%22:%22taxonomy.sections%22,%22query%22:%7B%22bool%22:%7B%22must%22:%5B%7B%22terms%22:%7B%22taxonomy.sections._id%22:%5B%22/food%22,%22/politics%22%5D%7D%7D%5D%7D%7D%7D%7D%5D%7D%7D%7D&website=demo&size=100&from=0&sort=publish_date:desc&_sourceIncludes=canonical_url,canonical_website,created_date,credits,description,display_date,duration,first_publish_date,headlines,last_updated_date,promo_image,promo_items,publish_date,streams,subheadlines,subtitles,subtype,taxonomy.primary_section,taxonomy.seo_keywords,taxonomy.tags,type,video_type,content_elements,websites.demo',
+    'undefined/content/v4/search/published?body=%7B%22query%22:%7B%22bool%22:%7B%22must%22:%5B%7B%22term%22:%7B%22type%22:%22story%22%7D%7D,%7B%22range%22:%7B%22last_updated_date%22:%7B%22gte%22:%22now-2d%22,%22lte%22:%22now%22%7D%7D%7D,%7B%22nested%22:%7B%22path%22:%22taxonomy.sections%22,%22query%22:%7B%22bool%22:%7B%22must%22:%5B%7B%22term%22:%7B%22taxonomy.sections._website%22:%22demo%22%7D%7D,%7B%22terms%22:%7B%22taxonomy.sections._id%22:%5B%22/sports%22,%22/news%22%5D%7D%7D%5D%7D%7D%7D%7D%5D,%22must_not%22:%5B%7B%22nested%22:%7B%22path%22:%22taxonomy.sections%22,%22query%22:%7B%22bool%22:%7B%22must%22:%5B%7B%22terms%22:%7B%22taxonomy.sections._id%22:%5B%22/food%22,%22/politics%22%5D%7D%7D%5D%7D%7D%7D%7D%5D%7D%7D%7D&website=demo&size=100&from=0&sort=publish_date:desc&_sourceInclude=canonical_url,canonical_website,created_date,credits,description,display_date,duration,first_publish_date,headlines,last_updated_date,promo_image,promo_items,publish_date,streams,subheadlines,subtitles,subtype,taxonomy.primary_section,taxonomy.seo_keywords,taxonomy.tags,type,video_type,content_elements,websites.demo',
   )
 })
 
@@ -164,7 +164,7 @@ it('returns query by author', () => {
     'Source-Include': '',
   })
   expect(query).toBe(
-    'undefined/content/v4/search/published?body=%7B%22query%22:%7B%22bool%22:%7B%22must%22:%5B%7B%22term%22:%7B%22type%22:%22story%22%7D%7D,%7B%22range%22:%7B%22last_updated_date%22:%7B%22gte%22:%22now-2d%22,%22lte%22:%22now%22%7D%7D%7D,%7B%22term%22:%7B%22credits.by._id%22:%22John%20Smith%22%7D%7D%5D%7D%7D%7D&website=demo&size=100&from=0&sort=publish_date:desc&_sourceIncludes=canonical_url,canonical_website,created_date,credits,description,display_date,duration,first_publish_date,headlines,last_updated_date,promo_image,promo_items,publish_date,streams,subheadlines,subtitles,subtype,taxonomy.primary_section,taxonomy.seo_keywords,taxonomy.tags,type,video_type,content_elements,websites.demo',
+    'undefined/content/v4/search/published?body=%7B%22query%22:%7B%22bool%22:%7B%22must%22:%5B%7B%22term%22:%7B%22type%22:%22story%22%7D%7D,%7B%22range%22:%7B%22last_updated_date%22:%7B%22gte%22:%22now-2d%22,%22lte%22:%22now%22%7D%7D%7D,%7B%22term%22:%7B%22credits.by._id%22:%22John%20Smith%22%7D%7D%5D%7D%7D%7D&website=demo&size=100&from=0&sort=publish_date:desc&_sourceInclude=canonical_url,canonical_website,created_date,credits,description,display_date,duration,first_publish_date,headlines,last_updated_date,promo_image,promo_items,publish_date,streams,subheadlines,subtitles,subtype,taxonomy.primary_section,taxonomy.seo_keywords,taxonomy.tags,type,video_type,content_elements,websites.demo',
   )
 })
 
@@ -186,7 +186,7 @@ it('returns query by author with slash', () => {
     'Source-Include': '',
   })
   expect(query).toBe(
-    'undefined/content/v4/search/published?body=%7B%22query%22:%7B%22bool%22:%7B%22must%22:%5B%7B%22term%22:%7B%22type%22:%22story%22%7D%7D,%7B%22range%22:%7B%22last_updated_date%22:%7B%22gte%22:%22now-2d%22,%22lte%22:%22now%22%7D%7D%7D,%7B%22term%22:%7B%22credits.by._id%22:%22John%20Smith%22%7D%7D%5D%7D%7D%7D&website=demo&size=100&from=0&sort=publish_date:desc&_sourceIncludes=canonical_url,canonical_website,created_date,credits,description,display_date,duration,first_publish_date,headlines,last_updated_date,promo_image,promo_items,publish_date,streams,subheadlines,subtitles,subtype,taxonomy.primary_section,taxonomy.seo_keywords,taxonomy.tags,type,video_type,content_elements,websites.demo',
+    'undefined/content/v4/search/published?body=%7B%22query%22:%7B%22bool%22:%7B%22must%22:%5B%7B%22term%22:%7B%22type%22:%22story%22%7D%7D,%7B%22range%22:%7B%22last_updated_date%22:%7B%22gte%22:%22now-2d%22,%22lte%22:%22now%22%7D%7D%7D,%7B%22term%22:%7B%22credits.by._id%22:%22John%20Smith%22%7D%7D%5D%7D%7D%7D&website=demo&size=100&from=0&sort=publish_date:desc&_sourceInclude=canonical_url,canonical_website,created_date,credits,description,display_date,duration,first_publish_date,headlines,last_updated_date,promo_image,promo_items,publish_date,streams,subheadlines,subtitles,subtype,taxonomy.primary_section,taxonomy.seo_keywords,taxonomy.tags,type,video_type,content_elements,websites.demo',
   )
 })
 
@@ -208,7 +208,7 @@ it('returns query by keywords', () => {
     'Source-Include': '',
   })
   expect(query).toBe(
-    'undefined/content/v4/search/published?body=%7B%22query%22:%7B%22bool%22:%7B%22must%22:%5B%7B%22term%22:%7B%22type%22:%22story%22%7D%7D,%7B%22range%22:%7B%22last_updated_date%22:%7B%22gte%22:%22now-2d%22,%22lte%22:%22now%22%7D%7D%7D,%7B%22simple_query_string%22:%7B%22query%22:%22%5C%22washington%20football%5C%22%20%7C%20%5C%22sports%5C%22%22,%22fields%22:%5B%22taxonomy.seo_keywords%22%5D%7D%7D%5D%7D%7D%7D&website=demo&size=100&from=0&sort=publish_date:desc&_sourceIncludes=canonical_url,canonical_website,created_date,credits,description,display_date,duration,first_publish_date,headlines,last_updated_date,promo_image,promo_items,publish_date,streams,subheadlines,subtitles,subtype,taxonomy.primary_section,taxonomy.seo_keywords,taxonomy.tags,type,video_type,content_elements,websites.demo',
+    'undefined/content/v4/search/published?body=%7B%22query%22:%7B%22bool%22:%7B%22must%22:%5B%7B%22term%22:%7B%22type%22:%22story%22%7D%7D,%7B%22range%22:%7B%22last_updated_date%22:%7B%22gte%22:%22now-2d%22,%22lte%22:%22now%22%7D%7D%7D,%7B%22simple_query_string%22:%7B%22query%22:%22%5C%22washington%20football%5C%22%20%7C%20%5C%22sports%5C%22%22,%22fields%22:%5B%22taxonomy.seo_keywords%22%5D%7D%7D%5D%7D%7D%7D&website=demo&size=100&from=0&sort=publish_date:desc&_sourceInclude=canonical_url,canonical_website,created_date,credits,description,display_date,duration,first_publish_date,headlines,last_updated_date,promo_image,promo_items,publish_date,streams,subheadlines,subtitles,subtype,taxonomy.primary_section,taxonomy.seo_keywords,taxonomy.tags,type,video_type,content_elements,websites.demo',
   )
 })
 
@@ -230,7 +230,7 @@ it('returns query by tags text', () => {
     'Source-Include': '',
   })
   expect(query).toBe(
-    'undefined/content/v4/search/published?body=%7B%22query%22:%7B%22bool%22:%7B%22must%22:%5B%7B%22term%22:%7B%22type%22:%22story%22%7D%7D,%7B%22range%22:%7B%22last_updated_date%22:%7B%22gte%22:%22now-2d%22,%22lte%22:%22now%22%7D%7D%7D,%7B%22terms%22:%7B%22taxonomy.tags.text.raw%22:%5B%22football%22,%22sports%22%5D%7D%7D%5D%7D%7D%7D&website=demo&size=100&from=0&sort=publish_date:desc&_sourceIncludes=canonical_url,canonical_website,created_date,credits,description,display_date,duration,first_publish_date,headlines,last_updated_date,promo_image,promo_items,publish_date,streams,subheadlines,subtitles,subtype,taxonomy.primary_section,taxonomy.seo_keywords,taxonomy.tags,type,video_type,content_elements,websites.demo',
+    'undefined/content/v4/search/published?body=%7B%22query%22:%7B%22bool%22:%7B%22must%22:%5B%7B%22term%22:%7B%22type%22:%22story%22%7D%7D,%7B%22range%22:%7B%22last_updated_date%22:%7B%22gte%22:%22now-2d%22,%22lte%22:%22now%22%7D%7D%7D,%7B%22terms%22:%7B%22taxonomy.tags.text.raw%22:%5B%22football%22,%22sports%22%5D%7D%7D%5D%7D%7D%7D&website=demo&size=100&from=0&sort=publish_date:desc&_sourceInclude=canonical_url,canonical_website,created_date,credits,description,display_date,duration,first_publish_date,headlines,last_updated_date,promo_image,promo_items,publish_date,streams,subheadlines,subtitles,subtype,taxonomy.primary_section,taxonomy.seo_keywords,taxonomy.tags,type,video_type,content_elements,websites.demo',
   )
 })
 
@@ -252,7 +252,7 @@ it('returns query by tags slug', () => {
     'Source-Include': '',
   })
   expect(query).toBe(
-    'undefined/content/v4/search/published?body=%7B%22query%22:%7B%22bool%22:%7B%22must%22:%5B%7B%22term%22:%7B%22type%22:%22story%22%7D%7D,%7B%22range%22:%7B%22last_updated_date%22:%7B%22gte%22:%22now-2d%22,%22lte%22:%22now%22%7D%7D%7D,%7B%22terms%22:%7B%22taxonomy.tags.slug%22:%5B%22football%22,%22sports%22%5D%7D%7D%5D%7D%7D%7D&website=demo&size=100&from=0&sort=publish_date:desc&_sourceIncludes=canonical_url,canonical_website,created_date,credits,description,display_date,duration,first_publish_date,headlines,last_updated_date,promo_image,promo_items,publish_date,streams,subheadlines,subtitles,subtype,taxonomy.primary_section,taxonomy.seo_keywords,taxonomy.tags,type,video_type,content_elements,websites.demo',
+    'undefined/content/v4/search/published?body=%7B%22query%22:%7B%22bool%22:%7B%22must%22:%5B%7B%22term%22:%7B%22type%22:%22story%22%7D%7D,%7B%22range%22:%7B%22last_updated_date%22:%7B%22gte%22:%22now-2d%22,%22lte%22:%22now%22%7D%7D%7D,%7B%22terms%22:%7B%22taxonomy.tags.slug%22:%5B%22football%22,%22sports%22%5D%7D%7D%5D%7D%7D%7D&website=demo&size=100&from=0&sort=publish_date:desc&_sourceInclude=canonical_url,canonical_website,created_date,credits,description,display_date,duration,first_publish_date,headlines,last_updated_date,promo_image,promo_items,publish_date,streams,subheadlines,subtitles,subtype,taxonomy.primary_section,taxonomy.seo_keywords,taxonomy.tags,type,video_type,content_elements,websites.demo',
   )
 })
 
