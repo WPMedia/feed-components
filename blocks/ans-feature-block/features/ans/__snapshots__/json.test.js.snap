@@ -42,3 +42,24 @@ Array [
   ],
 ]
 `;
+
+exports[`returns template with no values 1`] = `
+Array [
+  Array [],
+]
+`;
+
+exports[`returns template with site service values 1`] = `
+Array [
+  Array [
+    Object {
+      "_id": "/channels",
+      "children": Array [
+        Object {
+          "_id": "/channels/subchannels",
+        },
+      ],
+    },
+  ],
+]
+`;
