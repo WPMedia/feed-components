@@ -21,6 +21,21 @@ it('returns template with default values', () => {
   expect(sitemapindex).toMatchSnapshot()
 })
 
+it('returns template without outputType', () => {
+  const sitemapindex = SitemapIndexByDay({
+    arcSite: 'demo',
+    customFields: {
+      feedPath: { 0: '/sitemap/' },
+      feedName: '/sitemap-index/',
+      feedParam: '',
+      numberOfDays: '',
+      feedDates2Split: {},
+    },
+    requestUri: '/sitemap-index/?outputType=xml',
+  })
+  expect(sitemapindex).toMatchSnapshot()
+})
+
 it('returns template with set end date 2021-04-01', () => {
   const sitemapindex = SitemapIndexByDay({
     arcSite: 'demo',

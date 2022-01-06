@@ -30,16 +30,15 @@ const fetch = async (key = {}) => {
   const ansFields = [...defaultANSFields, `websites.${key['arc-site']}`]
 
   if (key['Source-Exclude']) {
-    const sourceExcludes = []
+    const sourceExclude = []
     key['Source-Exclude'].split(',').forEach((i) => {
       if (i && ansFields.indexOf(i) !== -1) {
         ansFields.splice(ansFields.indexOf(i), 1)
       } else {
-        i && sourceExcludes.push(i)
+        i && sourceExclude.push(i)
       }
     })
-    if (sourceExcludes.length)
-      paramList._sourceExcludes = sourceExcludes.join(',')
+    if (sourceExclude.length) paramList._sourceExclude = sourceExclude.join(',')
   }
 
   if (key['Source-Include']) {
@@ -47,7 +46,7 @@ const fetch = async (key = {}) => {
       .split(',')
       .forEach((i) => i && !ansFields.includes(i) && ansFields.push(i))
   }
-  paramList._sourceIncludes = ansFields.join(',')
+  paramList._sourceInclude = ansFields.join(',')
 
   // basic ES query
   const body = {
