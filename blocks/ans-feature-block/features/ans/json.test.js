@@ -2,15 +2,6 @@
 import Consumer from 'fusion:consumer'
 import { ANSFeed } from './json'
 
-it('returns template with no values', () => {
-  const ans = ANSFeed({
-    arcSite: 'the-globe',
-    globalContent: {},
-    customFields: {},
-  })
-  expect(ans).toMatchSnapshot()
-})
-
 it('returns template with default values', () => {
   const ans = ANSFeed({
     arcSite: 'the-globe',
@@ -48,20 +39,6 @@ it('returns template with default values', () => {
             url: 'https://arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png',
           },
         },
-      ],
-    },
-    customFields: {},
-  })
-  expect(ans).toMatchSnapshot()
-})
-
-it('returns template with site service values', () => {
-  const ans = ANSFeed({
-    arcSite: 'the-globe',
-    globalContent: {
-      _id: '/',
-      children: [
-        { _id: '/channels', children: [{ _id: '/channels/subchannels' }] },
       ],
     },
     customFields: {},
