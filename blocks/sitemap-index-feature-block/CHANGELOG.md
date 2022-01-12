@@ -1,5 +1,11 @@
 # @wpmedia/sitemap-index-feature-block
 
+## 1.9.1
+
+### Patch Changes
+
+- [#565](https://github.com/WPMedia/feed-components/pull/565) [`e9bb6c9`](https://github.com/WPMedia/feed-components/commit/e9bb6c99acf5996f94a1f2f3405c92bcdc6c0903) Thanks [@tbrick855](https://github.com/tbrick855)! - Make outputType optional
+
 ## 1.9.0
 
 ### Minor Changes

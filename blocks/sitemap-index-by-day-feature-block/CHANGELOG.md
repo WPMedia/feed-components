@@ -1,5 +1,11 @@
 # @wpmedia/sitemap-index-by-day-feature-block
 
+## 1.9.1
+
+### Patch Changes
+
+- [#565](https://github.com/WPMedia/feed-components/pull/565) [`b92583c`](https://github.com/WPMedia/feed-components/commit/b92583c89fcf41541d4c91b632aad2842cefb44e) Thanks [@tbrick855](https://github.com/tbrick855)! - Make URL parameters optional
+
 ## 1.9.0
 
 ### Minor Changes

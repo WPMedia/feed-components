@@ -1,5 +1,11 @@
 # @wpmedia/feeds-source-content-api-by-day2-block
 
+## 1.9.1
+
+### Patch Changes
+
+- [#565](https://github.com/WPMedia/feed-components/pull/565) [`d88fa8f`](https://github.com/WPMedia/feed-components/commit/d88fa8f3126dfc6e2694ca27620376b8503b7b99) Thanks [@tbrick855](https://github.com/tbrick855)! - Use \_sourceInclude and \_sourceExclude parameters
+
 ## 1.9.0
 
 ### Minor Changes
