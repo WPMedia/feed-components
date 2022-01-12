@@ -1,5 +1,15 @@
 # @wpmedia/sitemaps-feature-block
 
+## 1.9.0
+
+### Minor Changes
+
+- [#557](https://github.com/WPMedia/feed-components/pull/557) [`163bd0f`](https://github.com/WPMedia/feed-components/commit/163bd0fe8c382342898d2132170a5cd379d37ff4) Thanks [@tbrick855](https://github.com/tbrick855)! - OBF-1.9
+
+### Patch Changes
+
+- [#546](https://github.com/WPMedia/feed-components/pull/546) [`5c9a728`](https://github.com/WPMedia/feed-components/commit/5c9a728520c98cfa1bcd7f0d339d0a5f5e2cb8ac) Thanks [@tbrick855](https://github.com/tbrick855)! - Wrap table in figure tag
+
 ## 1.8.1
 
 ### Patch Changes
