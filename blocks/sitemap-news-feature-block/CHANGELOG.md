@@ -1,5 +1,11 @@
 # @wpmedia/sitemaps-news-feature-block
 
+## 1.10.0
+
+### Minor Changes
+
+- [#569](https://github.com/WPMedia/feed-components/pull/569) [`e52fa97`](https://github.com/WPMedia/feed-components/commit/e52fa974ed35d909a391ee60b2b595d8124390cd) Thanks [@malavikakoppula](https://github.com/malavikakoppula)! - OBF-1.10
+
 ## 1.9.0
 
 ### Minor Changes
