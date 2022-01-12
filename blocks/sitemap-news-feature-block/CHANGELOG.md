@@ -1,5 +1,15 @@
 # @wpmedia/sitemaps-news-feature-block
 
+## 1.9.0
+
+### Minor Changes
+
+- [#557](https://github.com/WPMedia/feed-components/pull/557) [`163bd0f`](https://github.com/WPMedia/feed-components/commit/163bd0fe8c382342898d2132170a5cd379d37ff4) Thanks [@tbrick855](https://github.com/tbrick855)! - OBF-1.9
+
+### Patch Changes
+
+- [#553](https://github.com/WPMedia/feed-components/pull/553) [`3feaf73`](https://github.com/WPMedia/feed-components/commit/3feaf735edfbe6c33480063c36fbb4c54ff6f40a) Thanks [@tbrick855](https://github.com/tbrick855)! - Fix customField group name
+
 ## 1.8.1
 
 ### Patch Changes

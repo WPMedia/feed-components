@@ -1,5 +1,11 @@
 # @wpmedia/ans-feature-block
 
+## 1.9.0
+
+### Minor Changes
+
+- [#557](https://github.com/WPMedia/feed-components/pull/557) [`163bd0f`](https://github.com/WPMedia/feed-components/commit/163bd0fe8c382342898d2132170a5cd379d37ff4) Thanks [@tbrick855](https://github.com/tbrick855)! - OBF-1.9
+
 ## 1.8.1
 
 ### Patch Changes
