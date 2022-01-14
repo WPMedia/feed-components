@@ -1,5 +1,15 @@
 # @wpmedia/feeds-source-content-api-by-day3-block
 
+## 1.10.0
+
+### Minor Changes
+
+- [#569](https://github.com/WPMedia/feed-components/pull/569) [`e52fa97`](https://github.com/WPMedia/feed-components/commit/e52fa974ed35d909a391ee60b2b595d8124390cd) Thanks [@malavikakoppula](https://github.com/malavikakoppula)! - OBF-1.10
+
+### Patch Changes
+
+- [#565](https://github.com/WPMedia/feed-components/pull/565) [`d88fa8f`](https://github.com/WPMedia/feed-components/commit/d88fa8f3126dfc6e2694ca27620376b8503b7b99) Thanks [@tbrick855](https://github.com/tbrick855)! - Use \_sourceInclude and \_sourceExclude parameters
+
 ## 1.9.0
 
 ### Minor Changes
