@@ -1,8 +1,8 @@
 # Feed-Components
 
-This is the lerna-managed monorepo for the blocks that make up Outbound Feeds (OBF).
+This is the monorepo for the blocks that make up Outbound Feeds (OBF).
 
-This repo contains the OBF Blocks, utilities and their dependencies.  It is used by the Arc I/O team to develop OBF.  Clients do not need this repo to use OBF or run OBF locally.  We have made this repo available so you can see the code and to copy it if you would like to create custom blocks.
+This repo contains the OBF Blocks, utilities and dependencies.  It is used by the Arc I/O team to develop OBF.  Clients do not need this repo to use OBF or run OBF locally.  We have made this repo available so you can see the code and to copy blocks if you would like to create custom feeds.
 
 The steps to download and build your local OBF repo are [here](https://redirector.arcpublishing.com/alc/arc-products/arcio/user-docs/setup-a-new-outbound-feeds-repo/)
 
@@ -12,7 +12,7 @@ You can find more information about custom development in [ALC](https://redirect
 
 All of the published blocks are located in the blocks directory.  Each block mirrors the structure of the component in the fusion repo.  For example, a feature block will have a features directory and a source block will have a sources directory. More details can be found [here](https://redirector.arcpublishing.com/alc/arc-products/arcio/user-docs/feature-blocks-architecture/)
 
-All content source blocks start with feeds-source.  If the block has the work output in the name it is an output type.  All other blocks are feature blocks.  The xml output type can be found in the utils directory.  It is not included in the blocks.json, instead it's loaded via the repos package.json.  More details can be found [here](https://redirector.arcpublishing.com/alc/arc-products/arcio/user-docs/outbound-feeds-development-content-source/)
+All content source blocks start with feeds-source.  If the block has the word output in the name it is an output type.  All other blocks are feature blocks.  The xml output type can be found in the utils directory.  It is not included in the blocks.json, instead it's loaded via the repos package.json.  More details can be found [here](https://redirector.arcpublishing.com/alc/arc-products/arcio/user-docs/outbound-feeds-development-content-source/)
 
 ## Utils
 
