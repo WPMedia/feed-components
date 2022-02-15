@@ -66,11 +66,15 @@ const fetch = async (key = {}) => {
       .forEach((i) => i && !ansFields.includes(i) && ansFields.push(i))
   }
 
+  // If excluding content_elements, don't call the IDS endpoint
+  const makeIDsCall = ansFields.includes('content_elements')
+
   const collectionResp = await request({
     uri: `${CONTENT_BASE}/content/v4/collections`,
     qs: qs,
     ...options,
   })
+  if (!makeIDsCall) return collectionResp
   const ids = await collectionResp.content_elements.map((item) => {
     return item._id
   })
