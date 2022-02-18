@@ -74,10 +74,10 @@ const fetch = async (key = {}) => {
     qs: qs,
     ...options,
   })
-  if (!makeIDsCall) return collectionResp
   const ids = await collectionResp.content_elements.map((item) => {
     return item._id
   })
+  if (!makeIDsCall || ids.length === 0) return collectionResp
   const idsResp = await request({
     uri: `${CONTENT_BASE}/content/v4/ids`,
     qs: {
