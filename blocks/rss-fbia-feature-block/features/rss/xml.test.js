@@ -235,7 +235,7 @@ it('returns FB-IA template with include value', () => {
       adDensity: 'low',
       placementSection: '<script>myscript()</script>',
       adScripts:
-        '<figure class="op-tracker"><iframe><script>alert("hi");</script></iframe></figure>',
+        '<figure class="op-tracker"><iframe><script>alert("<<invalid.tag>>","<<headlines.basic>>","<<>>");</script></iframe></figure>',
       iframeHxW: { width: '560' },
       raw_html_processing: 'include',
     },
