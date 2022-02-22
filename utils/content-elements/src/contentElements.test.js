@@ -18,10 +18,66 @@ it('handle empty text content element', () => {
   expect(text).toBe('')
 })
 
-it('generate text content element', () => {
-  const ce = [{ type: 'text', content: '<i>this is text</i><br />' }]
+it('generate text content element, handle <i> and bad <br> tags', () => {
+  const ce = [{ type: 'text', content: '<i>this is text</i><br>' }]
   const text = MyBuildContent.parse(ce, 'all', domain)
-  expect(text).toBe('<p><i>this is text</i><br /></p>')
+  expect(text).toBe('<p><i>this is text</i><br/></p>')
+})
+
+it('generate text content element add domain to <a> tag href', () => {
+  const ce = [
+    {
+      type: 'text',
+      content:
+        'Some initial text <a href="/this-is-a-link">this is text</a> and something <em>at</em> the end',
+    },
+  ]
+  const text = MyBuildContent.parse(ce, 'all', domain)
+  expect(text).toBe(
+    '<p>Some initial text <a href="https://www.example.com/this-is-a-link">this is text</a> and something <em>at</em> the end</p>',
+  )
+})
+
+it('generate text content element add protocal to <a> href tag', () => {
+  const ce = [
+    {
+      type: 'text',
+      content:
+        'Some initial text <a href="//www.example.com/this-is-a-link">this is text</a> and something <em>at</em> the end',
+    },
+  ]
+  const text = MyBuildContent.parse(ce, 'all', domain)
+  expect(text).toBe(
+    '<p>Some initial text <a href="https://www.example.com/this-is-a-link">this is text</a> and something <em>at</em> the end</p>',
+  )
+})
+
+it('generate text content element add domain to <img> tag src', () => {
+  const ce = [
+    {
+      type: 'text',
+      content:
+        'Some initial text <img src="/this-is-an-image.jpg" /> and something <em>at</em> the end',
+    },
+  ]
+  const text = MyBuildContent.parse(ce, 'all', domain)
+  expect(text).toBe(
+    '<p>Some initial text <img src="https://www.example.com/this-is-an-image.jpg"/> and something <em>at</em> the end</p>',
+  )
+})
+
+it('generate text content element add protocal to <img> src tag', () => {
+  const ce = [
+    {
+      type: 'text',
+      content:
+        'Some initial text <img src="//www.example.com/this-is-an-image.jpg"/> and something <em>at</em> the end',
+    },
+  ]
+  const text = MyBuildContent.parse(ce, 'all', domain)
+  expect(text).toBe(
+    '<p>Some initial text <img src="https://www.example.com/this-is-an-image.jpg"/> and something <em>at</em> the end</p>',
+  )
 })
 
 it('generate one text content element', () => {
@@ -505,7 +561,7 @@ it('generate quote content element', () => {
   ]
   const text = MyBuildContent.parse(ce, 'all', domain, resizerKey, resizerURL)
   expect(text).toBe(
-    '<blockquote><h2>Autonomus Vehicles</h2><p>“Automated vehicle technology is evolving on a very public stage and, as a result, it is affecting how consumers feel about it. Having the opportunity to interact with partially or fully automated vehicle technology will help remove some of the mystery for consumers and open the door for greater acceptance.”</p><ul><li>corgi</li><li>dalmation</li></ul><p class="citation">Greg Brannon, AAA Director of Automotive Engineering and Industry Relations</p></blockquote>',
+    '<blockquote><h2>Autonomus Vehicles</h2><p>&#x201C;Automated vehicle technology is evolving on a very public stage and, as a result, it is affecting how consumers feel about it. Having the opportunity to interact with partially or fully automated vehicle technology will help remove some of the mystery for consumers and open the door for greater acceptance.&#x201D;</p><ul><li>corgi</li><li>dalmation</li></ul><p class="citation">Greg Brannon, AAA Director of Automotive Engineering and Industry Relations</p></blockquote>',
   )
 })
 
