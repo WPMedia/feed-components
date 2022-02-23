@@ -23,27 +23,28 @@ export function BuildContent() {
   //
   this.fixRelativeLinks = (element, domain) => {
     const item = cheerio.load(element, null, false)
-    // replace all a href // with https://
-    item('a[href^="//"]').each(function () {
-      const oldUrl = item(this).attr('href')
-      item(this).attr('href', absoluteUrl(oldUrl, domain))
+    let found = false
+
+    // look for <a> and <img> without FQDN urls
+    const patternArray = [
+      ['a[href^="//"]', 'href'],
+      ['a[href^="/"]', 'href'],
+      ['img[src^="//"]', 'src'],
+      ['img[src^="/"]', 'src'],
+    ]
+    patternArray.forEach(([pattern, attrib]) => {
+      item(pattern).each(function () {
+        found = true
+        const oldUrl = item(this).attr(attrib)
+        item(this).attr(attrib, absoluteUrl(oldUrl, domain))
+      })
     })
-    // replace all a href / with https://www.example.com
-    item('a[href^="/"]').each(function () {
-      const oldUrl = item(this).attr('href')
-      item(this).attr('href', absoluteUrl(oldUrl, domain))
-    })
-    // replace all img src // with https://
-    item('img[src^="//"]').each(function () {
-      const oldUrl = item(this).attr('src')
-      item(this).attr('src', absoluteUrl(oldUrl, domain))
-    })
-    // replace all img src / with https://www.example.com
-    item('img[src^="/"]').each(function () {
-      const oldUrl = item(this).attr('src')
-      item(this).attr('src', absoluteUrl(oldUrl, domain))
-    })
-    return item.xml()
+
+    if (found) {
+      return item.xml()
+    } else {
+      return element
+    }
   }
 
   // A constructor to allow prototypal inheritance to override the behavior of member functions
