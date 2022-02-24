@@ -36,7 +36,7 @@ likesAndComments: Enable or disable, defaults to disable
 adPlacement: Enables automatic placement of ads within this article. This parameter is optional and defaults to false if you do not specify
 adDensity: How frequently you would like ads to appear in your article: default (<250 word gap), medium (350 word gap), low (>450 word gap)
 placementSection: Enter Javascript that goes between <section class="op-ad-template"></section> in beginning of the body\'s header for recirculation ads that come from Facebook advertisers; leave blank if not used.,
-adScripts: Javascript wrapped in the <figure class=‘op-tracker’> tag can be added to the article for ads and analytics. Multiple scripts can be included, usually each in the own iframe
+adScripts: Enter third party scripts wrapped in a <figure class=‘op-tracker’> tag. It will be added to the end of the article body. Multiple scripts can be included, usually each in its own iframe. If you need to reference data from the ANS content, use place holders in the format of <<ANS_field>> like <<taxonomy.primary_section._id>>
 iframeHxW: Height and/or width to use in oembed iframes
 raw_html_processing: should raw_html be excluded, included or wrapped in <figure><iframe> tags
 
