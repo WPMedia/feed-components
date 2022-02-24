@@ -59,8 +59,8 @@ const sitemapTemplate = (
         ...{ lastmod: s[lastMod] },
         ...(changeFreq !== 'Exclude from sitemap' &&
           changeFreq !== 'Exclude field' && {
-            changefreq: changeFreq,
-          }),
+          changefreq: changeFreq,
+        }),
         ...(priority !== 'Exclude from sitemap' &&
           priority !== 'Exclude field' && { priority: priority }),
         'news:news': {
@@ -77,8 +77,8 @@ const sitemapTemplate = (
           }),
           ...(s.taxonomy &&
             s.taxonomy.stock_symbols && {
-              'news:stock_tickers': s.taxonomy.stock_symbols.join(','),
-            }),
+            'news:stock_tickers': s.taxonomy.stock_symbols.join(','),
+          }),
         },
         ...(img && {
           '#': img,
@@ -155,4 +155,5 @@ GoogleSitemap.propTypes = {
   }),
 }
 GoogleSitemap.label = 'Sitemap News'
+GoogleSitemap.icon = 'browser-page-hierarchy'
 export default Consumer(GoogleSitemap)

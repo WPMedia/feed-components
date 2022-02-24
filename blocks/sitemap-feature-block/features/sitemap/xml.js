@@ -46,8 +46,8 @@ const sitemapTemplate = (
         ...{ lastmod: s[lastMod] },
         ...(changeFreq !== 'Exclude field' &&
           changeFreq !== 'Exclude from sitemap' && {
-            changefreq: changeFreq,
-          }),
+          changefreq: changeFreq,
+        }),
         ...(priority !== 'Exclude field' &&
           changeFreq !== 'Exclude from sitemap' && { priority: priority }),
         ...(img && {
@@ -93,4 +93,5 @@ Sitemap.propTypes = {
   }),
 }
 Sitemap.label = 'Sitemap Standard'
+Sitemap.icon = 'browser-page-hierarchy'
 export default Consumer(Sitemap)

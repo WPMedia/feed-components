@@ -41,33 +41,33 @@ const sitemapTemplate = (
           }),
           ...(img &&
             img.url && {
-              'video:thumbnail_loc': buildResizerURL(
-                img.url,
-                resizerKey,
-                resizerURL,
-                resizerWidth,
-                resizerHeight,
-              ),
-            }),
+            'video:thumbnail_loc': buildResizerURL(
+              img.url,
+              resizerKey,
+              resizerURL,
+              resizerWidth,
+              resizerHeight,
+            ),
+          }),
           ...(videoTitle &&
             (title = jmespath.search(v, videoTitle)) &&
             title && {
-              'video:title': { $: title },
-            }),
+            'video:title': { $: title },
+          }),
           ...(videoDescription &&
             (description = jmespath.search(v, videoDescription)) &&
             description && {
-              'video:description': {
-                $: description,
-              },
-            }),
+            'video:description': {
+              $: description,
+            },
+          }),
           ...((category = jmespath.search(
             v,
             'taxonomy.primary_section.name',
           )) &&
             category && {
-              'video:category': category,
-            }),
+            'video:category': category,
+          }),
         },
         ...{ lastmod: v[lastMod] },
       }
@@ -115,4 +115,5 @@ VideoSitemap.propTypes = {
   }),
 }
 VideoSitemap.label = 'Sitemap Video'
+VideoSitemap.icon = 'browser-page-hierarchy'
 export default Consumer(VideoSitemap)

@@ -51,8 +51,8 @@ const rssTemplate = (
     }),
     ...(channelUpdatePeriod &&
       channelUpdatePeriod !== 'Exclude field' && {
-        '@xmlns:sy': 'http://purl.org/rss/1.0/modules/syndication/',
-      }),
+      '@xmlns:sy': 'http://purl.org/rss/1.0/modules/syndication/',
+    }),
     '@xmlns:media': 'http://search.yahoo.com/mrss/',
     '@version': '2.0',
     channel: {
@@ -75,12 +75,12 @@ const rssTemplate = (
       ...(channelTTL && { ttl: channelTTL }),
       ...(channelUpdatePeriod &&
         channelUpdatePeriod !== 'Exclude Field' && {
-          'sy:updatePeriod': channelUpdatePeriod,
-        }),
+        'sy:updatePeriod': channelUpdatePeriod,
+      }),
       ...(channelUpdateFrequency &&
         channelUpdatePeriod !== 'Exclude field' && {
-          'sy:updateFrequency': channelUpdateFrequency,
-        }),
+        'sy:updateFrequency': channelUpdateFrequency,
+      }),
       ...(channelLogo && {
         image: {
           url: buildResizerURL(channelLogo, resizerKey, resizerURL),
@@ -119,8 +119,8 @@ const rssTemplate = (
           ...(itemCredits &&
             (author = jmespath.search(s, itemCredits)) &&
             author.length && {
-              'dc:creator': { $: author.join(', ') },
-            }),
+            'dc:creator': { $: author.join(', ') },
+          }),
           pubDate: moment
             .utc(s[pubDate])
             .format('ddd, DD MMM YYYY HH:mm:ss ZZ'),
@@ -139,10 +139,10 @@ const rssTemplate = (
               videoSelect,
             )) &&
             body && {
-              'content:encoded': {
-                $: body,
-              },
-            }),
+            'content:encoded': {
+              $: body,
+            },
+          }),
           ...(img && { '#': img }),
         }
       }),
@@ -224,4 +224,5 @@ FlipboardRss.propTypes = {
 }
 
 FlipboardRss.label = 'RSS Flipboard'
+FlipboardRss.icon = 'arc-rss'
 export default Consumer(FlipboardRss)

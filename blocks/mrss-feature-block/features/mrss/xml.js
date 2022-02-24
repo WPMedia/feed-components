@@ -167,8 +167,8 @@ export function Mrss({ globalContent, customFields, arcSite, requestUri }) {
             'taxonomy.primary_section.name',
           )) &&
             primarySection && {
-              'media:category': primarySection,
-            }),
+            'media:category': primarySection,
+          }),
         },
       }))
     }
@@ -178,7 +178,7 @@ export function Mrss({ globalContent, customFields, arcSite, requestUri }) {
   // can't return null for xml return type, must return valid xml template
   return rssTemplate(
     jmespath.search(globalContent, 'playlistItems || content_elements || []') ||
-      [],
+    [],
     {
       ...customFields,
       requestPath,
@@ -220,4 +220,5 @@ Mrss.propTypes = {
   }),
 }
 Mrss.label = 'MRSS'
+Mrss.icon = 'arc-rss'
 export default Consumer(Mrss)

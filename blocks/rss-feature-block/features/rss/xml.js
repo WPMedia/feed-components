@@ -52,8 +52,8 @@ const rssTemplate = (
     }),
     ...(channelUpdatePeriod &&
       channelUpdatePeriod !== 'Exclude field' && {
-        '@xmlns:sy': 'http://purl.org/rss/1.0/modules/syndication/',
-      }),
+      '@xmlns:sy': 'http://purl.org/rss/1.0/modules/syndication/',
+    }),
     '@version': '2.0',
     ...(includePromo && {
       '@xmlns:media': 'http://search.yahoo.com/mrss/',
@@ -78,12 +78,12 @@ const rssTemplate = (
       ...(channelTTL && { ttl: channelTTL }),
       ...(channelUpdatePeriod &&
         channelUpdatePeriod !== 'Exclude field' && {
-          'sy:updatePeriod': channelUpdatePeriod,
-        }),
+        'sy:updatePeriod': channelUpdatePeriod,
+      }),
       ...(channelUpdateFrequency &&
         channelUpdatePeriod !== 'Exclude field' && {
-          'sy:updateFrequency': channelUpdateFrequency,
-        }),
+        'sy:updateFrequency': channelUpdateFrequency,
+      }),
       ...(channelLogo && {
         image: {
           url: buildResizerURL(channelLogo, resizerKey, resizerURL),
@@ -119,8 +119,8 @@ const rssTemplate = (
           ...(itemCredits &&
             (author = jmespath.search(s, itemCredits)) &&
             author.length && {
-              'dc:creator': { $: author.join(', ') },
-            }),
+            'dc:creator': { $: author.join(', ') },
+          }),
           ...(itemDescription && {
             description: { $: jmespath.search(s, itemDescription) || '' },
           }),
@@ -142,10 +142,10 @@ const rssTemplate = (
               videoSelect,
             )) &&
             body && {
-              'content:encoded': {
-                $: body,
-              },
-            }),
+            'content:encoded': {
+              $: body,
+            },
+          }),
           ...(includePromo && img && { '#': img }),
         }
       }),
@@ -187,4 +187,5 @@ Rss.propTypes = {
   }),
 }
 Rss.label = 'RSS Standard'
+Rss.icon = 'arc-rss'
 export default Consumer(Rss)
