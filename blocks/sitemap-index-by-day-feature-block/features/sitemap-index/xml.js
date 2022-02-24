@@ -142,4 +142,5 @@ SitemapIndexByDay.propTypes = {
   }),
 }
 SitemapIndexByDay.label = 'Sitemap Index By Day'
+SitemapIndexByDay.icon = 'browser-page-hierarchy'
 export default Consumer(SitemapIndexByDay)

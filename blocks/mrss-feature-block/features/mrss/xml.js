@@ -220,4 +220,5 @@ Mrss.propTypes = {
   }),
 }
 Mrss.label = 'MRSS'
+Mrss.icon = 'arc-rss'
 export default Consumer(Mrss)

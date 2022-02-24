@@ -187,4 +187,5 @@ Rss.propTypes = {
   }),
 }
 Rss.label = 'RSS Standard'
+Rss.icon = 'arc-rss'
 export default Consumer(Rss)

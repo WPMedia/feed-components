@@ -673,4 +673,5 @@ FbiaRss.propTypes = {
 }
 
 FbiaRss.label = 'RSS FBIA'
+FbiaRss.icon = 'arc-rss'
 export default Consumer(FbiaRss)

@@ -155,4 +155,5 @@ GoogleSitemap.propTypes = {
   }),
 }
 GoogleSitemap.label = 'Sitemap News'
+GoogleSitemap.icon = 'browser-page-hierarchy'
 export default Consumer(GoogleSitemap)

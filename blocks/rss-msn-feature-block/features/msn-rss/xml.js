@@ -278,4 +278,5 @@ MsnRss.propTypes = {
 }
 
 MsnRss.label = 'RSS MSN'
+MsnRss.icon = 'arc-rss'
 export default Consumer(MsnRss)

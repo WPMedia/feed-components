@@ -109,4 +109,5 @@ SitemapSectionFrontIndex.propTypes = {
   }),
 }
 SitemapSectionFrontIndex.label = 'Sitemap Section Front Index'
+SitemapSectionFrontIndex.icon = 'browser-page-hierarchy'
 export default Consumer(SitemapSectionFrontIndex)
