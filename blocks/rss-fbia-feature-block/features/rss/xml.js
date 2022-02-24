@@ -435,7 +435,7 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
     }
     // override text for raw_html processing
     // add id's to <p id=XYZ123> tag
-    this.text = (element) => {
+    this.text = (element, domain) => {
       // handle text, raw_html
       // all have a string in element.content
       // this is also used by buildContentQuote
@@ -451,14 +451,14 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
                   iframe: {
                     ...(width && { '@width': width }),
                     ...(height && { '@height': height }),
-                    '#': element.content,
+                    '#': this.fixRelativeLinks(element.content, domain),
                   },
                 },
               }
               break
             case 'include':
               item = {
-                '#': element.content,
+                '#': this.fixRelativeLinks(element.content, domain),
               }
               break
           }
@@ -466,7 +466,7 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
           item = {
             p: {
               '@id': element._id,
-              '#': element.content,
+              '#': this.fixRelativeLinks(element.content, domain),
             },
           }
         }
