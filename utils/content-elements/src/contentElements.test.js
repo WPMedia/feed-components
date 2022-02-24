@@ -18,8 +18,8 @@ it('handle empty text content element', () => {
   expect(text).toBe('')
 })
 
-it('generate text content element, handle <i> and bad <br> tags', () => {
-  const ce = [{ type: 'text', content: '<i>this is text</i><br>' }]
+it('generate text content element, handle <i> and <br> tags', () => {
+  const ce = [{ type: 'text', content: '<i>this is text</i><br/>' }]
   const text = MyBuildContent.parse(ce, 'all', domain)
   expect(text).toBe('<p><i>this is text</i><br/></p>')
 })
@@ -561,7 +561,7 @@ it('generate quote content element', () => {
   ]
   const text = MyBuildContent.parse(ce, 'all', domain, resizerKey, resizerURL)
   expect(text).toBe(
-    '<blockquote><h2>Autonomus Vehicles</h2><p>&#x201C;Automated vehicle technology is evolving on a very public stage and, as a result, it is affecting how consumers feel about it. Having the opportunity to interact with partially or fully automated vehicle technology will help remove some of the mystery for consumers and open the door for greater acceptance.&#x201D;</p><ul><li>corgi</li><li>dalmation</li></ul><p class="citation">Greg Brannon, AAA Director of Automotive Engineering and Industry Relations</p></blockquote>',
+    '<blockquote><h2>Autonomus Vehicles</h2><p>“Automated vehicle technology is evolving on a very public stage and, as a result, it is affecting how consumers feel about it. Having the opportunity to interact with partially or fully automated vehicle technology will help remove some of the mystery for consumers and open the door for greater acceptance.”</p><ul><li>corgi</li><li>dalmation</li></ul><p class="citation">Greg Brannon, AAA Director of Automotive Engineering and Industry Relations</p></blockquote>',
   )
 })
 
