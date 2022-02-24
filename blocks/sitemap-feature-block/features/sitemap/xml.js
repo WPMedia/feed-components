@@ -46,8 +46,8 @@ const sitemapTemplate = (
         ...{ lastmod: s[lastMod] },
         ...(changeFreq !== 'Exclude field' &&
           changeFreq !== 'Exclude from sitemap' && {
-          changefreq: changeFreq,
-        }),
+            changefreq: changeFreq,
+          }),
         ...(priority !== 'Exclude field' &&
           changeFreq !== 'Exclude from sitemap' && { priority: priority }),
         ...(img && {
