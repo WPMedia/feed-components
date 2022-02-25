@@ -26,11 +26,7 @@ const sitemapSectionTemplate = ({
   },
 })
 
-export function SitemapSection({
-  globalContent,
-  customFields,
-  arcSite,
-}) {
+export function SitemapSection({ globalContent, customFields, arcSite }) {
   const { feedDomainURL = '' } = getProperties(arcSite)
   const { children: sections } = globalContent
   const { excludeLinks = true } = customFields
@@ -59,11 +55,11 @@ export function SitemapSection({
         accum.push({
           loc: `${domain}${feedPath}${sectionId}/${parameters}`,
           ...(changeFreq !== 'Exclude field' &&
-          changeFreq !== 'Exclude from sitemap' && {
-            changefreq: changeFreq,
-          }),
-        ...(priority !== 'Exclude field' &&
-          changeFreq !== 'Exclude from sitemap' && { priority: priority }),
+            changeFreq !== 'Exclude from sitemap' && {
+              changefreq: changeFreq,
+            }),
+          ...(priority !== 'Exclude field' &&
+            changeFreq !== 'Exclude from sitemap' && { priority: priority }),
         })
         if (section.children?.length) {
           const subSections = buildSitemapSectionLinks(
@@ -120,16 +116,40 @@ SitemapSection.propTypes = {
       description: 'Should links be excluded from the output',
       defaultValue: true,
     }),
-    priority: PropTypes.oneOf(['0.0', '0.1', '0.2', '0.3', '0.4', '0.5', '0.6', '0.7', '0.8', '0.9', '1.0', 'Exclude field']).tag({
+    priority: PropTypes.oneOf([
+      '0.0',
+      '0.1',
+      '0.2',
+      '0.3',
+      '0.4',
+      '0.5',
+      '0.6',
+      '0.7',
+      '0.8',
+      '0.9',
+      '1.0',
+      'Exclude field',
+    ]).tag({
       label: 'priority',
       group: 'Format',
-      description: 'What is the priority of the content in the sitemap, hint for bots',
+      description:
+        'What is the priority of the content in the sitemap, hint for bots',
       defaultValue: '0.5',
     }),
-    changeFreq: PropTypes.oneOf(['always', 'hourly', 'daily', 'weekly', 'monthly', 'yearly', 'never', 'Exclude field']).tag({
+    changeFreq: PropTypes.oneOf([
+      'always',
+      'hourly',
+      'daily',
+      'weekly',
+      'monthly',
+      'yearly',
+      'never',
+      'Exclude field',
+    ]).tag({
       label: 'change frequency',
       group: 'Format',
-      description: 'What is the expected Change frequency of the sitemap, hint for bots',
+      description:
+        'What is the expected Change frequency of the sitemap, hint for bots',
       defaultValue: 'always',
       ordered: false,
     }),
