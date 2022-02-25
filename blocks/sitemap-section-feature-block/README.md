@@ -5,10 +5,6 @@ This Sitemap identifies the url of every section in Site Service.
 
 This feed can be used to generate links to sitemaps like
 
-`http://wwww.example.com/arc/outboundfeeds/sitemap/category/{category}/`
-
-or it can be used to link directory to website sections like
-
 `http://wwww.example.com/{category}/`
 
 Requires a Site Service Content Source like this one from themes

@@ -1,6 +1,7 @@
 import PropTypes from 'fusion:prop-types'
 import Consumer from 'fusion:consumer'
 import getProperties from 'fusion:properties'
+import { generatePropsForFeed } from '@wpmedia/feeds-prop-types'
 
 const sitemapSectionTemplate = ({
   feedPath,
@@ -94,14 +95,14 @@ SitemapSection.propTypes = {
       label: 'Feed Path',
       group: 'Format',
       description: 'Relative URL path used in the generated link',
-      defaultValue: '/arc/outboundfeeds/sitemap/category',
+      defaultValue: '',
     }),
     feedParam: PropTypes.string.tag({
       label: 'URL Parameters',
       group: 'Format',
       description:
         'Optional parameters to append to URL, join multiple parameters with &',
-      defaultValue: 'outputType=xml',
+      defaultValue: '',
     }),
     excludeSections: PropTypes.string.tag({
       label: 'Section IDs to exclude',
@@ -116,43 +117,7 @@ SitemapSection.propTypes = {
       description: 'Should links be excluded from the output',
       defaultValue: true,
     }),
-    priority: PropTypes.oneOf([
-      '0.0',
-      '0.1',
-      '0.2',
-      '0.3',
-      '0.4',
-      '0.5',
-      '0.6',
-      '0.7',
-      '0.8',
-      '0.9',
-      '1.0',
-      'Exclude field',
-    ]).tag({
-      label: 'priority',
-      group: 'Format',
-      description:
-        'What is the priority of the content in the sitemap, hint for bots',
-      defaultValue: '0.5',
-    }),
-    changeFreq: PropTypes.oneOf([
-      'always',
-      'hourly',
-      'daily',
-      'weekly',
-      'monthly',
-      'yearly',
-      'never',
-      'Exclude field',
-    ]).tag({
-      label: 'change frequency',
-      group: 'Format',
-      description:
-        'What is the expected Change frequency of the sitemap, hint for bots',
-      defaultValue: 'always',
-      ordered: false,
-    }),
+    ...generatePropsForFeed('sitemap', PropTypes, ['includePromo','promoItemsJmespath','resizerKVP','lastMod']),
   }),
 }
 SitemapSection.label = 'Sitemap Section'
