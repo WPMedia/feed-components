@@ -19,6 +19,6 @@ Requires a Site Service Content Source like this one from themes
 - feedPath - path to use to call feed used to display sitemap. default - /arc/outboundfeeds/sitemap/category
 - feedParam - Additional params to add to sitemap request. default - outputType=xml
 - excludeSections - sections to exclude from results
-  -excludeLinks - exclude links from output
+- excludeLinks - exclude links from output
 - priority - What is the priority of the sitemap
 - changeFreq - What is the change frequency of the Sitemap
