@@ -3,7 +3,7 @@
 Sitemaps provide search engines with metadata regarding the specific news content on a website. Using the Sitemap, bots can quickly find the news articles contained on a site.
 This Sitemap identifies the url of every section in Site Service.
 
-This feed can be used to generate links to sitemaps like
+This feed can be used to generate links to section fronts like
 
 `http://wwww.example.com/{category}/`
 
