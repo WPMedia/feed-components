@@ -1,0 +1,24 @@
+{
+  "name": "@wpmedia/sitemap-section-feature-block",
+  "version": "1.11.0",
+  "description": "sitemaps section using Site Service",
+  "main": "index.js",
+  "files": [
+    "features"
+  ],
+  "license": "CC-BY-NC-ND-4.0",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/WPMedia/feed-components.git",
+    "directory": "blocks/sitemaps-section-feature-block"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/",
+    "access": "public"
+  },
+  "author": "Emily Nielson",
+  "contributors": [
+    "Tim Kosmider"
+  ],
+  "homepage": "https://github.com/WPMedia/feed-components#readme"
+}
