@@ -117,7 +117,12 @@ SitemapSection.propTypes = {
       description: 'Should links be excluded from the output',
       defaultValue: true,
     }),
-    ...generatePropsForFeed('sitemap', PropTypes, ['includePromo','promoItemsJmespath','resizerKVP','lastMod']),
+    ...generatePropsForFeed('sitemap', PropTypes, [
+      'includePromo',
+      'promoItemsJmespath',
+      'resizerKVP',
+      'lastMod',
+    ]),
   }),
 }
 SitemapSection.label = 'Sitemap Section'
