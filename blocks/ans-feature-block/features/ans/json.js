@@ -27,6 +27,7 @@ export function ANSFeed({ globalContent = {}, customFields, arcSite }) {
     }
   }
 
+  let contentType
   let contentMap = []
   if (
     globalContent?.type === 'results' ||
@@ -37,6 +38,7 @@ export function ANSFeed({ globalContent = {}, customFields, arcSite }) {
     contentMap = globalContent.children
   } else {
     contentMap = [globalContent]
+    contentType = 'item'
   }
 
   const resizedContent = contentMap.map((i) => {
@@ -77,6 +79,7 @@ export function ANSFeed({ globalContent = {}, customFields, arcSite }) {
       (i.promo_image = resizeImage(i.promo_image))
     return i
   })
+  if (contentType === 'item') return resizedContent || {}
   return [resizedContent || []]
 }
 

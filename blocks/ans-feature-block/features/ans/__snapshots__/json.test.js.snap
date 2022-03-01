@@ -2,38 +2,34 @@
 
 exports[`ANS undefined test 1`] = `
 Array [
-  Array [
-    Object {},
-  ],
+  Object {},
 ]
 `;
 
 exports[`returns ANS for story 1`] = `
 Array [
-  Array [
-    Object {
-      "_id": "ABCD1234",
-      "content_elements": Array [
-        Object {
-          "content": "body goes here",
-          "type": "text",
-        },
-        Object {
-          "content": "second paragraph goes here",
-          "type": "text",
-        },
-      ],
-      "last_updated_date": "2020-04-07T15:02:08.918Z",
-      "promo_items": Object {
-        "basic": Object {
-          "title": "Hand Washing",
-          "url": "hi/abcdefghijklmnopqrstuvwxyz=/arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png",
-        },
+  Object {
+    "_id": "ABCD1234",
+    "content_elements": Array [
+      Object {
+        "content": "body goes here",
+        "type": "text",
       },
-      "type": "story",
-      "website_url": "/food/2020/04/07/tips-for-safe-hand-washing",
+      Object {
+        "content": "second paragraph goes here",
+        "type": "text",
+      },
+    ],
+    "last_updated_date": "2020-04-07T15:02:08.918Z",
+    "promo_items": Object {
+      "basic": Object {
+        "title": "Hand Washing",
+        "url": "hi/abcdefghijklmnopqrstuvwxyz=/arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png",
+      },
     },
-  ],
+    "type": "story",
+    "website_url": "/food/2020/04/07/tips-for-safe-hand-washing",
+  },
 ]
 `;
 
