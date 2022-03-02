@@ -93,4 +93,5 @@ Sitemap.propTypes = {
   }),
 }
 Sitemap.label = 'Sitemap Standard'
+Sitemap.icon = 'browser-page-hierarchy'
 export default Consumer(Sitemap)

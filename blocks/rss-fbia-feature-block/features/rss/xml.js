@@ -180,6 +180,21 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
   } catch {
     metaTags = ''
   }
+  // Look for placeholders like <<_id>> in adscripts, returns an array | null
+  // can't use {{}} since fusion strips them out
+  const adScripts = customFields.adScripts ?? ''
+  const adScriptPlaceholders = adScripts.match(/(<<.*?>>)/gm)
+
+  const replacePlaceholders = (s) => {
+    if (adScripts && adScriptPlaceholders) {
+      return adScriptPlaceholders.reduce((acc, tag) => {
+        const ansField = tag.slice(2, -2)
+        const ansValue = (ansField && jmespath.search(s, ansField)) || ''
+        return acc.replace(tag, ansValue)
+      }, adScripts)
+    }
+    return adScripts
+  }
 
   function FbiaBuildContent({
     itemTitle,
@@ -272,7 +287,6 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
         jmespath.search(s, 'taxonomy.primary_section.name') || ''
       const header = []
       let description, author
-      const adScripts = customFields.adScripts || '' // Add custom analytics scripts here as an xml string
       if (placementSection)
         header.push({
           section: {
@@ -365,7 +379,7 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
           header: {
             '#': header,
           },
-          '#': ['<tHe_BoDy_GoEs_HeRe/>', ...(adScripts && [adScripts])],
+          '#': ['<tHe_BoDy_GoEs_HeRe/>', '<tHe_AdScRiPt_GoEs_HeRe/>'],
           footer: {
             '#': {
               ...(authorDescription.length && {
@@ -421,7 +435,7 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
     }
     // override text for raw_html processing
     // add id's to <p id=XYZ123> tag
-    this.text = (element) => {
+    this.text = (element, domain) => {
       // handle text, raw_html
       // all have a string in element.content
       // this is also used by buildContentQuote
@@ -437,14 +451,14 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
                   iframe: {
                     ...(width && { '@width': width }),
                     ...(height && { '@height': height }),
-                    '#': element.content,
+                    '#': this.fixRelativeLinks(element.content, domain),
                   },
                 },
               }
               break
             case 'include':
               item = {
-                '#': element.content,
+                '#': this.fixRelativeLinks(element.content, domain),
               }
               break
           }
@@ -452,7 +466,7 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
           item = {
             p: {
               '@id': element._id,
-              '#': element.content,
+              '#': this.fixRelativeLinks(element.content, domain),
             },
           }
         }
@@ -556,7 +570,9 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
         resizerHeight,
         videoSelect,
       )
-      return htmlBody.replace('<tHe_BoDy_GoEs_HeRe/>', parsedBody)
+      return htmlBody
+        .replace('<tHe_BoDy_GoEs_HeRe/>', parsedBody)
+        .replace('<tHe_AdScRiPt_GoEs_HeRe/>', replacePlaceholders(s)) // Add custom analytics scripts here as an xml string
     }
   }
 
@@ -622,14 +638,14 @@ FbiaRss.propTypes = {
       label: 'Facebook Ad',
       group: 'Facebook Options',
       description:
-        'Enter Javascript that goes between <section class="op-ad-template"></section> in beginning of the body\'s header for recirculation ads that come from Facebook advertisers; leave blank if not used.',
+        'Enter Facebook ad tag that goes between <section class="op-ad-template"></section> tag. It will be added to the beginning of the body\'s header for recirculation ads that come from Facebook advertisers; leave blank if not used.',
       defaultValue: '',
     }),
-    adScripts: PropTypes.string.tag({
+    adScripts: PropTypes.json.tag({
       label: 'Analytic Scripts',
       group: 'Facebook Options',
       description:
-        'Javascript wrapped in the <figure class=‘op-tracker’> tag can be added to the article for ads and analytics. Multiple scripts can be included, usually each in the own iframe',
+        'Enter third party scripts wrapped in a <figure class=‘op-tracker’> tag. It will be added to the end of the article body. Multiple scripts can be included, usually each in its own iframe. If you need to reference data from the ANS content, use place holders in the format of <<ANS_field>> like <<taxonomy.primary_section._id>>',
       defaultValue: '',
     }),
     iframeHxW: PropTypes.kvp.tag({
@@ -657,4 +673,5 @@ FbiaRss.propTypes = {
 }
 
 FbiaRss.label = 'RSS FBIA'
+FbiaRss.icon = 'arc-rss'
 export default Consumer(FbiaRss)

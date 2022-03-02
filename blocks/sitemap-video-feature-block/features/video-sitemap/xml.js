@@ -115,4 +115,5 @@ VideoSitemap.propTypes = {
   }),
 }
 VideoSitemap.label = 'Sitemap Video'
+VideoSitemap.icon = 'browser-page-hierarchy'
 export default Consumer(VideoSitemap)

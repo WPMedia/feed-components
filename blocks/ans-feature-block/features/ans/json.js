@@ -84,4 +84,5 @@ export function ANSFeed({ globalContent = {}, customFields, arcSite }) {
 }
 
 ANSFeed.label = 'ANS'
+ANSFeed.icon = 'arc-json'
 export default Consumer(ANSFeed)
