@@ -18,10 +18,66 @@ it('handle empty text content element', () => {
   expect(text).toBe('')
 })
 
-it('generate text content element', () => {
-  const ce = [{ type: 'text', content: '<i>this is text</i><br />' }]
+it('generate text content element, handle <i> and <br> tags', () => {
+  const ce = [{ type: 'text', content: '<i>this is text</i><br/>' }]
   const text = MyBuildContent.parse(ce, 'all', domain)
-  expect(text).toBe('<p><i>this is text</i><br /></p>')
+  expect(text).toBe('<p><i>this is text</i><br/></p>')
+})
+
+it('generate text content element add domain to <a> tag href', () => {
+  const ce = [
+    {
+      type: 'text',
+      content:
+        'Some initial text <a href="/this-is-a-link">this is text</a> and something <em>at</em> the end',
+    },
+  ]
+  const text = MyBuildContent.parse(ce, 'all', domain)
+  expect(text).toBe(
+    '<p>Some initial text <a href="https://www.example.com/this-is-a-link">this is text</a> and something <em>at</em> the end</p>',
+  )
+})
+
+it('generate text content element add protocal to <a> href tag', () => {
+  const ce = [
+    {
+      type: 'text',
+      content:
+        'Some initial text <a href="//www.example.com/this-is-a-link">this is text</a> and something <em>at</em> the end',
+    },
+  ]
+  const text = MyBuildContent.parse(ce, 'all', domain)
+  expect(text).toBe(
+    '<p>Some initial text <a href="https://www.example.com/this-is-a-link">this is text</a> and something <em>at</em> the end</p>',
+  )
+})
+
+it('generate text content element add domain to <img> tag src', () => {
+  const ce = [
+    {
+      type: 'text',
+      content:
+        'Some initial text <img src="/this-is-an-image.jpg" /> and something <em>at</em> the end',
+    },
+  ]
+  const text = MyBuildContent.parse(ce, 'all', domain)
+  expect(text).toBe(
+    '<p>Some initial text <img src="https://www.example.com/this-is-an-image.jpg"/> and something <em>at</em> the end</p>',
+  )
+})
+
+it('generate text content element add protocal to <img> src tag', () => {
+  const ce = [
+    {
+      type: 'text',
+      content:
+        'Some initial text <img src="//www.example.com/this-is-an-image.jpg"/> and something <em>at</em> the end',
+    },
+  ]
+  const text = MyBuildContent.parse(ce, 'all', domain)
+  expect(text).toBe(
+    '<p>Some initial text <img src="https://www.example.com/this-is-an-image.jpg"/> and something <em>at</em> the end</p>',
+  )
 })
 
 it('generate one text content element', () => {

@@ -1,6 +1,79 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`returns template with default values 1`] = `
+exports[`ANS undefined test 1`] = `
+Array [
+  Object {},
+]
+`;
+
+exports[`returns ANS for story 1`] = `
+Array [
+  Object {
+    "_id": "ABCD1234",
+    "content_elements": Array [
+      Object {
+        "content": "body goes here",
+        "type": "text",
+      },
+      Object {
+        "content": "second paragraph goes here",
+        "type": "text",
+      },
+    ],
+    "last_updated_date": "2020-04-07T15:02:08.918Z",
+    "promo_items": Object {
+      "basic": Object {
+        "title": "Hand Washing",
+        "url": "hi/abcdefghijklmnopqrstuvwxyz=/arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png",
+      },
+    },
+    "type": "story",
+    "website_url": "/food/2020/04/07/tips-for-safe-hand-washing",
+  },
+]
+`;
+
+exports[`returns ANS from navigation set 1`] = `
+Array [
+  Array [
+    Object {
+      "_id": "/channels",
+      "_website": "demo",
+      "children": Array [
+        Object {
+          "_id": "/channels/ms-teams",
+          "_website": "demo",
+          "children": Array [],
+          "inactive": false,
+          "name": "MS Teams",
+          "node_type": "section",
+        },
+        Object {
+          "_id": "/channels/slack",
+          "_website": "demo",
+          "children": Array [],
+          "inactive": false,
+          "name": "Slack",
+          "node_type": "section",
+        },
+        Object {
+          "_id": "/channels/twitter",
+          "_website": "demo",
+          "children": Array [],
+          "inactive": false,
+          "name": "Twitter",
+          "node_type": "section",
+        },
+      ],
+      "inactive": false,
+      "name": "Channels",
+      "node_type": "section",
+    },
+  ],
+]
+`;
+
+exports[`returns ANS from results set 1`] = `
 Array [
   Array [
     Object {

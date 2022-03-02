@@ -1,5 +1,15 @@
 # @wpmedia/sitemaps-feature-block
 
+## 1.10.0
+
+### Minor Changes
+
+- [#569](https://github.com/WPMedia/feed-components/pull/569) [`e52fa97`](https://github.com/WPMedia/feed-components/commit/e52fa974ed35d909a391ee60b2b595d8124390cd) Thanks [@malavikakoppula](https://github.com/malavikakoppula)! - OBF-1.10
+
+### Patch Changes
+
+- [#565](https://github.com/WPMedia/feed-components/pull/565) [`b92583c`](https://github.com/WPMedia/feed-components/commit/b92583c89fcf41541d4c91b632aad2842cefb44e) Thanks [@tbrick855](https://github.com/tbrick855)! - Make URL parameters optional
+
 ## 1.9.0
 
 ### Minor Changes

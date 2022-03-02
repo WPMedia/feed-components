@@ -13,6 +13,7 @@ const siteService = {
         { _id: '/sports/football' },
         { _id: '/sports/baseball' },
         { _id: '/sports/basketball' },
+        { _id: 'link-CYAF5RAZGN023DTGKNWW4GWRMG', node_type: 'link' },
       ],
     },
     {

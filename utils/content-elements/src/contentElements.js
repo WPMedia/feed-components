@@ -2,21 +2,51 @@
 
 import { buildResizerURL } from '@wpmedia/feeds-resizer'
 import { findVideo } from '@wpmedia/feeds-find-video-stream'
-const { fragment } = require('xmlbuilder2')
+import * as cheerio from 'cheerio'
 const { decode } = require('he')
 const jmespath = require('jmespath')
+const { fragment } = require('xmlbuilder2')
 
 export const absoluteUrl = (url, domain) => {
   // if url isn't fully qualified, try to make it one
   if (url && url.startsWith('//')) {
     url = `${domain.substring(0, domain.indexOf('//'))}${url}`
-  } else if (url && !url.startsWith('http')) {
+  } else if (url && url.startsWith('/')) {
     url = `${domain}${url}`
   }
   return url
 }
 
 export function BuildContent() {
+  // RSS src and href should be fully qualified urls. Fix links that start
+  // with // or /
+  //
+  this.fixRelativeLinks = (element, domain) => {
+    const item = cheerio.load(element, null, false)
+    let found = false
+
+    // look for <a> and <img> without FQDN urls
+    const patternArray = [
+      ['a[href^="//"]', 'href'],
+      ['a[href^="/"]', 'href'],
+      ['img[src^="//"]', 'src'],
+      ['img[src^="/"]', 'src'],
+    ]
+    patternArray.forEach(([pattern, attrib]) => {
+      item(pattern).each(function () {
+        found = true
+        const oldUrl = item(this).attr(attrib)
+        item(this).attr(attrib, absoluteUrl(oldUrl, domain))
+      })
+    })
+
+    if (found) {
+      return item.xml()
+    } else {
+      return element
+    }
+  }
+
   // A constructor to allow prototypal inheritance to override the behavior of member functions
   this.correction = (element) =>
     element.text && {
@@ -153,13 +183,13 @@ export function BuildContent() {
     return item
   }
 
-  this.text = (element) => {
+  this.text = (element, domain) => {
     // handle text, raw_html
     // all have a string in element.content
     // this is also used by buildContentQuote
     let item
     if (element.content && typeof element.content === 'string') {
-      item = { p: element.content }
+      item = { p: this.fixRelativeLinks(element.content, domain) }
     }
     return item
   }
@@ -188,7 +218,7 @@ export function BuildContent() {
     return { '#': embed }
   }
 
-  this.quote = (element) => {
+  this.quote = (element, domain) => {
     const quoteArray = []
 
     element.content_elements.forEach((quoteItem) => {
@@ -200,7 +230,7 @@ export function BuildContent() {
           quoteArray.push(this.list(quoteItem))
           break
         default:
-          quoteArray.push(this.text(quoteItem))
+          quoteArray.push(this.text(quoteItem, domain))
       }
     })
     const citation = jmespath.search(element, 'citation.content')
@@ -332,22 +362,22 @@ export function BuildContent() {
             item = this.oembed(element)
             break
           case 'quote':
-            item = this.quote(element)
+            item = this.quote(element, domain)
             break
           case 'raw_html':
-            item = this.text(element)
+            item = this.text(element, domain)
             break
           case 'table':
             item = this.table(element)
             break
           case 'text':
-            item = this.text(element)
+            item = this.text(element, domain)
             break
           case 'video':
             item = this.video(element, videoSelect)
             break
           default:
-            item = this.text(element)
+            item = this.text(element, domain)
             break
         }
 
