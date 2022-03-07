@@ -641,11 +641,11 @@ FbiaRss.propTypes = {
         'Enter Facebook ad tag that goes between <section class="op-ad-template"></section> tag. It will be added to the beginning of the body\'s header for recirculation ads that come from Facebook advertisers; leave blank if not used.',
       defaultValue: '',
     }),
-    adScripts: PropTypes.json.tag({
+    adScripts: PropTypes.string.tag({
       label: 'Analytic Scripts',
       group: 'Facebook Options',
       description:
-        'Enter third party scripts wrapped in a <figure class=‘op-tracker’> tag. It will be added to the end of the article body. Multiple scripts can be included, usually each in its own iframe. If you need to reference data from the ANS content, use place holders in the format of <<ANS_field>> like <<taxonomy.primary_section._id>>',
+        'Enter third party scripts wrapped in a <figure class="op-tracker"> tag. It will be added to the end of the article body. Multiple scripts can be included, usually each in its own iframe. If you need to reference data from the ANS content, use place holders in the format of <<ANS_field>> like <<taxonomy.primary_section._id>>',
       defaultValue: '',
     }),
     iframeHxW: PropTypes.kvp.tag({
