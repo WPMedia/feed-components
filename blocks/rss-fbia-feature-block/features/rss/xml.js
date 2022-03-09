@@ -9,6 +9,12 @@ import { BuildPromoItems } from '@wpmedia/feeds-promo-items'
 import { generatePropsForFeed } from '@wpmedia/feeds-prop-types'
 import { buildResizerURL } from '@wpmedia/feeds-resizer'
 import { convert, fragment } from 'xmlbuilder2'
+/****************
+ * If you are building a custom fb-ia format be sure to
+ * add moment and xmlbuilder2 to your repo's dependencies
+ * There is an issue with newer versions of xmlbuilder2.  You must
+ * only use version 2.1.7 like this "xmlbuilder2": "2.1.7"
+ */
 import URL from 'url'
 const jmespath = require('jmespath')
 
@@ -76,7 +82,7 @@ const rssTemplate = (
       ...(channelCategory && { category: channelCategory }),
       ...(channelCopyright && {
         copyright: channelCopyright,
-      }), // TODO Add default logic
+      }),
       ...(channelTTL && { ttl: channelTTL }),
       ...(channelUpdatePeriod &&
         channelUpdatePeriod !== 'Exclude field' && {
@@ -185,9 +191,16 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
     adDensity,
     placementSection,
     iframeHxW = {},
-    raw_html_processing = 'exclulde',
+    raw_html_processing = 'exclude',
   }) {
     BuildContent.call(this)
+
+    /**********
+     * FBIA <content:encoded> contains a complete html document
+     * buildHTMLHead generates the <head> tag and its contents
+     * buildHTMLBody generates the <body> tag and its contents
+     * buildFBContent combines them together
+     */
 
     this.buildHTMLHead = (s, domain, resizerWidth, resizerHeight) => {
       const img =
@@ -259,7 +272,7 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
         jmespath.search(s, 'taxonomy.primary_section.name') || ''
       const header = []
       let description, author
-      const adScripts = customFields.adScripts || ''
+      const adScripts = customFields.adScripts || '' // Add custom analytics scripts here as an xml string
       if (placementSection)
         header.push({
           section: {
@@ -367,6 +380,7 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
       }
     }
 
+    // override image to wrap in <figure class="op-vertical-below op-small">
     this.image = (
       element,
       resizerKey,
@@ -405,6 +419,8 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
         },
       }
     }
+    // override text for raw_html processing
+    // add id's to <p id=XYZ123> tag
     this.text = (element) => {
       // handle text, raw_html
       // all have a string in element.content
@@ -443,9 +459,10 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
       }
       return item
     }
+    // override oembed wrap in <figure class="op-interactive">
     // noinspection SpellCheckingInspection
     this.oembed = (element) => {
-      const embed = element.raw_oembed.html // wrap in <figure class="op-interactive">
+      const embed = element.raw_oembed.html
       const { width = 0, height = 0 } = iframeHxW
 
       return {
@@ -459,6 +476,7 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
         },
       }
     }
+    // override header limit to h1 and h2
     this.header = (element) => {
       let item
       if (element.content && typeof element.content === 'string') {
@@ -469,6 +487,7 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
       return item
     }
 
+    // override table wrap in <figure>
     this.table = (element) => {
       const header = []
       const rows = []

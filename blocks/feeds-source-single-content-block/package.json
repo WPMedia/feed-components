@@ -1,0 +1,28 @@
+{
+  "name": "@wpmedia/feeds-source-single-content-block",
+  "version": "1.10.0",
+  "description": "content source to get by _id or website_url",
+  "main": "index.js",
+  "files": [
+    "sources"
+  ],
+  "license": "CC-BY-NC-ND-4.0",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/WPMedia/feed-components.git",
+    "directory": "blocks/feeds-source-single-content-block"
+  },
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/",
+    "access": "public"
+  },
+  "author": "Cameron Woodmansee",
+  "contributors": [
+    "Iyob Beyene <iyob.beyene@washpost.com>",
+    "Tim Kosmider <tim.kosmider@washpost.com>"
+  ],
+  "homepage": "https://github.com/WPMedia/feed-components#readme",
+  "devDependencies": {
+    "prop-types": "^15.7.2"
+  }
+}

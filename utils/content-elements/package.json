@@ -1,6 +1,6 @@
 {
   "name": "@wpmedia/feeds-content-elements",
-  "version": "1.0.8",
+  "version": "1.0.10",
   "description": "Shared arcio content_elements module",
   "main": "dist/feeds-content-elements.cjs.js",
   "module": "dist/feeds-content-elements.esm.js",
@@ -25,6 +25,7 @@
   "dependencies": {
     "@wpmedia/feeds-find-video-stream": "1.0.8",
     "@wpmedia/feeds-resizer": "1.0.8",
+    "cheerio": "^1.0.0-rc.10",
     "he": "^1.2.0",
     "jmespath": "^0.15.0",
     "xmlbuilder2": "2.1.2"

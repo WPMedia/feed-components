@@ -3,7 +3,7 @@ import getProperties from 'fusion:properties'
 import { resizerKey } from 'fusion:environment'
 import { buildResizerURL } from '@wpmedia/feeds-resizer'
 
-export function ANSFeed({ globalContent, customFields, arcSite }) {
+export function ANSFeed({ globalContent = {}, customFields, arcSite }) {
   const { resizerURL = '', feedDomainURL = '' } = getProperties(arcSite)
   const { width = 0, height = 0 } = customFields.resizerKVP || {}
 
@@ -27,7 +27,21 @@ export function ANSFeed({ globalContent, customFields, arcSite }) {
     }
   }
 
-  const resizedContent = globalContent.content_elements.map((i) => {
+  let contentType
+  let contentMap = []
+  if (
+    globalContent?.type === 'results' ||
+    globalContent?.type === 'collection'
+  ) {
+    contentMap = globalContent.content_elements
+  } else if (globalContent?.children) {
+    contentMap = globalContent.children
+  } else {
+    contentMap = [globalContent]
+    contentType = 'item'
+  }
+
+  const resizedContent = contentMap.map((i) => {
     i.promo_items &&
       Object.keys(i.promo_items).forEach((e) => {
         const promo = i.promo_items[e]
@@ -65,6 +79,7 @@ export function ANSFeed({ globalContent, customFields, arcSite }) {
       (i.promo_image = resizeImage(i.promo_image))
     return i
   })
+  if (contentType === 'item') return resizedContent || {}
   return [resizedContent || []]
 }
 
