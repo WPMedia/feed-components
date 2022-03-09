@@ -1,5 +1,15 @@
 # @wpmedia/sitemaps-feature-block
 
+## 1.11.0
+
+### Minor Changes
+
+- [#593](https://github.com/WPMedia/feed-components/pull/593) [`ffb80f9`](https://github.com/WPMedia/feed-components/commit/ffb80f9cbf48ca3835f7fa90af79699796f67d07) Thanks [@emilynielson](https://github.com/emilynielson)! - OBF 1.11
+
+### Patch Changes
+
+- [#578](https://github.com/WPMedia/feed-components/pull/578) [`7d1b3d0`](https://github.com/WPMedia/feed-components/commit/7d1b3d06b9495eb45c445b0fba5a755c3522debb) Thanks [@tbrick855](https://github.com/tbrick855)! - xmlbuilder2 must use only 2.1.7
+
 ## 1.10.0
 
 ### Minor Changes
