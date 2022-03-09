@@ -1,5 +1,17 @@
 # @wpmedia/ans-feature-block
 
+## 1.11.0
+
+### Minor Changes
+
+- [#593](https://github.com/WPMedia/feed-components/pull/593) [`ffb80f9`](https://github.com/WPMedia/feed-components/commit/ffb80f9cbf48ca3835f7fa90af79699796f67d07) Thanks [@emilynielson](https://github.com/emilynielson)! - OBF 1.11
+
+### Patch Changes
+
+- [#588](https://github.com/WPMedia/feed-components/pull/588) [`afe1718`](https://github.com/WPMedia/feed-components/commit/afe171809689989d581669b1edc07183065745a0) Thanks [@tbrick855](https://github.com/tbrick855)! - single item should return object not array
+
+* [#573](https://github.com/WPMedia/feed-components/pull/573) [`9f7b366`](https://github.com/WPMedia/feed-components/commit/9f7b3669b18cdb77d25ebec257e346965a8b2d93) Thanks [@tbrick855](https://github.com/tbrick855)! - Support single content types in ANS
+
 ## 1.10.0
 
 ### Minor Changes

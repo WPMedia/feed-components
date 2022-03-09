@@ -1,5 +1,15 @@
 # @wpmedia/sitemap-section-index-feature-block
 
+## 1.11.0
+
+### Minor Changes
+
+- [#593](https://github.com/WPMedia/feed-components/pull/593) [`ffb80f9`](https://github.com/WPMedia/feed-components/commit/ffb80f9cbf48ca3835f7fa90af79699796f67d07) Thanks [@emilynielson](https://github.com/emilynielson)! - OBF 1.11
+
+### Patch Changes
+
+- [#576](https://github.com/WPMedia/feed-components/pull/576) [`b0ff339`](https://github.com/WPMedia/feed-components/commit/b0ff33902ef9c9e56f59c5832e153ca13c2e4d57) Thanks [@tbrick855](https://github.com/tbrick855)! - Exclude links in sitemap-section-index
+
 ## 1.10.0
 
 ### Minor Changes
