@@ -1,5 +1,11 @@
 # @wpmedia/rss-alexa-feature-block
 
+## 1.11.0
+
+### Minor Changes
+
+- [#593](https://github.com/WPMedia/feed-components/pull/593) [`ffb80f9`](https://github.com/WPMedia/feed-components/commit/ffb80f9cbf48ca3835f7fa90af79699796f67d07) Thanks [@emilynielson](https://github.com/emilynielson)! - OBF 1.11
+
 ## 1.10.0
 
 ### Minor Changes
