@@ -36,8 +36,15 @@ likesAndComments: Enable or disable, defaults to disable
 adPlacement: Enables automatic placement of ads within this article. This parameter is optional and defaults to false if you do not specify
 adDensity: How frequently you would like ads to appear in your article: default (<250 word gap), medium (350 word gap), low (>450 word gap)
 placementSection: Enter Javascript that goes between <section class="op-ad-template"></section> in beginning of the body\'s header for recirculation ads that come from Facebook advertisers; leave blank if not used.,
-adScripts: Enter third party scripts wrapped in a <figure class=‘op-tracker’> tag. It will be added to the end of the article body. Multiple scripts can be included, usually each in its own iframe. If you need to reference data from the ANS content, use place holders in the format of <<ANS_field>> like <<taxonomy.primary_section._id>>
+adScripts: Enter third party scripts wrapped in a <figure class=‘op-tracker’> tag. It will be added to the end of the article body. Multiple scripts can be included, usually each in its own iframe. If you need to reference data from the ANS content, use place holders in the format of <<ANS_field>> like <<taxonomy.primary_section.\_id>>
+`<figure class="op-tracker"><iframe><script>console.log("_id=<<_id>> headlines=<<headlines.basic>> primary_section=<<taxonomy.sections[0]._id>> junk=<<invalid.field>> empty=<<>>");</script></iframe></figure>`
 iframeHxW: Height and/or width to use in oembed iframes
 raw_html_processing: should raw_html be excluded, included or wrapped in <figure><iframe> tags
 
 ### Usage
+
+To use this feature in your repo, add the dependencies to your repos package.json
+"jmespath": "^0.15.0",
+"moment": "^2.24.0",
+"xmlbuilder2": "2.1.7",
+For xmlbuilder2 be sure to use version <= 2.1.7 or >= 3.0.0
