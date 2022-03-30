@@ -65,7 +65,7 @@ Object {
           },
         },
       ],
-      "language": "en",
+      "language": "es",
       "lastBuildDate": StringMatching /\\\\w\\+, \\\\d\\+ \\\\w\\+ \\\\d\\{4\\} \\\\d\\{2\\}:\\\\d\\{2\\}:\\\\d\\{2\\} \\\\\\+0000/,
       "link": "http://demo-prod.origin.arcpublishing.com",
       "sy:updateFrequency": "1",
@@ -176,7 +176,6 @@ Object {
           "pubDate": "Tue, 07 Apr 2020 15:02:08 +0000",
         },
       ],
-      "language": "en",
       "lastBuildDate": StringMatching /\\\\w\\+, \\\\d\\+ \\\\w\\+ \\\\d\\{4\\} \\\\d\\{2\\}:\\\\d\\{2\\}:\\\\d\\{2\\} \\\\\\+0000/,
       "link": "http://demo-prod.origin.arcpublishing.com",
       "title": Object {

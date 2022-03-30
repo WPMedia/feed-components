@@ -25,7 +25,7 @@
   "dependencies": {
     "@wpmedia/feeds-content-elements": "^1.0.10",
     "@wpmedia/feeds-promo-items": "1.0.8",
-    "@wpmedia/feeds-prop-types": "1.0.8",
+    "@wpmedia/feeds-prop-types": "1.0.10",
     "@wpmedia/feeds-resizer": "^1.0.8",
     "jmespath": "^0.15.0",
     "moment": "^2.24.0"

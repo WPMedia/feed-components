@@ -38,7 +38,7 @@ const rssTemplate = (
     videoSelect,
     domain,
     feedTitle,
-    feedLanguage,
+    channelLanguage,
     msnBuildContent,
     PromoItems,
   },
@@ -69,7 +69,10 @@ const rssTemplate = (
       lastBuildDate: moment
         .utc(new Date())
         .format('ddd, DD MMM YYYY HH:mm:ss ZZ'),
-      ...(feedLanguage && { language: feedLanguage }),
+      ...(channelLanguage &&
+        channelLanguage.toLowerCase() !== 'exclude' && {
+          language: channelLanguage,
+        }),
       ...(channelCategory && { category: channelCategory }),
       ...(channelCopyright && {
         copyright: channelCopyright,
@@ -164,6 +167,7 @@ export function MsnRss({ globalContent, customFields, arcSite, requestUri }) {
     feedTitle = '',
     feedLanguage = '',
   } = getProperties(arcSite)
+  const channelLanguage = customFields.channelLanguage || feedLanguage
   const { width = 0, height = 0 } = customFields.resizerKVP || {}
   const requestPath = new URL.URL(requestUri, feedDomainURL).pathname
 
@@ -265,7 +269,7 @@ export function MsnRss({ globalContent, customFields, arcSite, requestUri }) {
     resizerHeight: height,
     domain: feedDomainURL,
     feedTitle,
-    feedLanguage,
+    channelLanguage,
     msnBuildContent,
     PromoItems,
   })

@@ -53,6 +53,7 @@ it('returns Flipboard template with default values', () => {
     customFields: {
       channelTitle: '',
       channelDescription: '',
+      channelLanguage: '',
       channelCopyright: '',
       channelTTL: '1',
       channelUpdatePeriod: 'hourly',
@@ -93,6 +94,7 @@ it('returns Flipboard template with custom values', () => {
     customFields: {
       channelTitle: 'The Daily Prophet',
       channelDescription: "All the news that's fit to print",
+      channelLanguage: 'es',
       channelCopyright: '2020 The Washington Post LLC',
       channelTTL: '60',
       channelUpdatePeriod: 'weekly',
@@ -134,6 +136,7 @@ it('returns Flipboard template with empty values', () => {
     customFields: {
       channelTitle: '',
       channelDescription: '',
+      channelLanguage: 'exclude',
       channelCopyright: '',
       channelTTL: '',
       channelUpdatePeriod: '',

@@ -50,7 +50,7 @@ const rssTemplate = (
     resizerHeight,
     domain,
     feedTitle,
-    feedLanguage,
+    channelLanguage,
     rssBuildContent,
   },
 ) => ({
@@ -63,13 +63,15 @@ const rssTemplate = (
       lastBuildDate: moment
         .utc(new Date())
         .format('ddd, DD MMM YYYY HH:mm:ss ZZ'),
-      ...(feedLanguage && { language: feedLanguage }),
+      ...(channelLanguage &&
+        channelLanguage.toLowerCase() !== 'exclude' && {
+          language: channelLanguage,
+        }),
       ...(channelCategory && { category: channelCategory }),
       ...(channelCopyright && {
         copyright: channelCopyright,
       }),
       ...(channelTTL && { ttl: channelTTL }),
-
       ...(channelLogo && {
         image: {
           url: buildResizerURL(channelLogo, resizerKey, resizerURL),
@@ -123,7 +125,7 @@ export function Rss({ globalContent, customFields, arcSite }) {
     feedTitle = '',
     feedLanguage = '',
   } = getProperties(arcSite)
-
+  const channelLanguage = customFields.channelLanguage || feedLanguage
   const rssBuildContent = new BuildContent()
 
   // can't return null for xml return type, must return valid xml template
@@ -134,7 +136,7 @@ export function Rss({ globalContent, customFields, arcSite }) {
     resizerHeight: 0,
     domain: feedDomainURL,
     feedTitle,
-    feedLanguage,
+    channelLanguage,
     rssBuildContent,
   })
 }

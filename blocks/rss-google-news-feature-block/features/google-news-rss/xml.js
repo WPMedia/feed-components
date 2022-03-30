@@ -38,7 +38,7 @@ const rssTemplate = (
     videoSelect,
     domain,
     feedTitle,
-    feedLanguage,
+    channelLanguage,
     googleBuildContent,
     PromoItems,
   },
@@ -65,7 +65,10 @@ const rssTemplate = (
       lastBuildDate: moment
         .utc(new Date())
         .format('ddd, DD MMM YYYY HH:mm:ss ZZ'),
-      ...(feedLanguage && { language: feedLanguage }),
+      ...(channelLanguage &&
+        channelLanguage.toLowerCase() !== 'exclude' && {
+          language: channelLanguage,
+        }),
       ...(channelCategory && { category: channelCategory }),
       ...(channelCopyright && {
         copyright: channelCopyright,
@@ -162,6 +165,7 @@ export function GoogleNewsRss({
     feedTitle = '',
     feedLanguage = '',
   } = getProperties(arcSite)
+  const channelLanguage = customFields.channelLanguage || feedLanguage
   const { width = 0, height = 0 } = customFields.resizerKVP || {}
   const requestPath = new URL.URL(requestUri, feedDomainURL).pathname
 
@@ -211,7 +215,7 @@ export function GoogleNewsRss({
     resizerHeight: height,
     domain: feedDomainURL,
     feedTitle,
-    feedLanguage,
+    channelLanguage,
     googleBuildContent,
     PromoItems,
   })

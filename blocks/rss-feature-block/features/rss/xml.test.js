@@ -52,6 +52,7 @@ it('returns RSS template with default values', () => {
     customFields: {
       channelTitle: '',
       channelDescription: '',
+      channelLanguage: '',
       channelCopyright: '',
       channelTTL: '1',
       channelUpdatePeriod: 'hourly',
@@ -94,6 +95,7 @@ it('returns RSS template with custom values', () => {
       channelTitle: 'The Daily Prophet',
       channelDescription: "All the news that's fit to print",
       channelCopyright: '2020 The Washington Post LLC',
+      channelLanguage: 'es',
       channelTTL: '60',
       channelUpdatePeriod: 'weekly',
       channelUpdateFrequency: '1',
@@ -135,6 +137,7 @@ it('returns RSS template with empty values', () => {
     customFields: {
       channelTitle: '',
       channelDescription: '',
+      channelLanguage: 'exclude',
       channelCopyright: '',
       channelTTL: '',
       channelUpdatePeriod: '',
