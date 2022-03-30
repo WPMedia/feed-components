@@ -122,4 +122,5 @@ SitemapIndex.propTypes = {
   }),
 }
 SitemapIndex.label = 'Sitemap Index'
+SitemapIndex.icon = 'browser-page-hierarchy'
 export default Consumer(SitemapIndex)

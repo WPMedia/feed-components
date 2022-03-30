@@ -224,4 +224,5 @@ GoogleNewsRss.propTypes = {
 }
 
 GoogleNewsRss.label = 'RSS Google News'
+GoogleNewsRss.icon = 'arc-rss'
 export default Consumer(GoogleNewsRss)

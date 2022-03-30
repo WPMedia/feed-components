@@ -164,4 +164,5 @@ Rss.propTypes = {
   }),
 }
 Rss.label = 'RSS Alexa'
+Rss.icon = 'arc-rss'
 export default Consumer(Rss)

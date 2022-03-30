@@ -224,4 +224,5 @@ FlipboardRss.propTypes = {
 }
 
 FlipboardRss.label = 'RSS Flipboard'
+FlipboardRss.icon = 'arc-rss'
 export default Consumer(FlipboardRss)

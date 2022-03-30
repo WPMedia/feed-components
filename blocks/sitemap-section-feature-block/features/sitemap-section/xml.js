@@ -1,32 +1,33 @@
 import PropTypes from 'fusion:prop-types'
 import Consumer from 'fusion:consumer'
 import getProperties from 'fusion:properties'
+import { generatePropsForFeed } from '@wpmedia/feeds-prop-types'
 
-const sitemapIndexTemplate = ({
+const sitemapSectionTemplate = ({
   feedPath,
   feedParam,
   excludeSections,
   domain,
   sections,
+  priority,
+  changeFreq,
   buildIndexes,
 }) => ({
-  sitemapindex: {
+  urlset: {
     '@xmlns': 'http://www.sitemaps.org/schemas/sitemap/0.9',
-    sitemap: buildIndexes(
+    url: buildIndexes(
       sections,
       excludeSections,
       domain,
       feedPath,
       feedParam,
+      priority,
+      changeFreq,
     ),
   },
 })
 
-export function SitemapSectionFrontIndex({
-  globalContent,
-  customFields,
-  arcSite,
-}) {
+export function SitemapSection({ globalContent, customFields, arcSite }) {
   const { feedDomainURL = '' } = getProperties(arcSite)
   const { children: sections } = globalContent
   const { excludeLinks = true } = customFields
@@ -35,12 +36,14 @@ export function SitemapSectionFrontIndex({
     if (excludeLinks && section.node_type === 'link') return true
   }
 
-  const buildSitemapIndexLinks = (
+  const buildSitemapSectionLinks = (
     sections,
     excludeSections,
     domain,
     feedPath,
     feedParam,
+    priority,
+    changeFreq,
   ) => {
     const parameters = feedParam ? `?${feedParam}` : ''
     return sections.reduce((accum, section) => {
@@ -52,14 +55,22 @@ export function SitemapSectionFrontIndex({
       ) {
         accum.push({
           loc: `${domain}${feedPath}${sectionId}/${parameters}`,
+          ...(changeFreq !== 'Exclude field' &&
+            changeFreq !== 'Exclude from sitemap' && {
+              changefreq: changeFreq,
+            }),
+          ...(priority !== 'Exclude field' &&
+            changeFreq !== 'Exclude from sitemap' && { priority: priority }),
         })
         if (section.children?.length) {
-          const subSections = buildSitemapIndexLinks(
+          const subSections = buildSitemapSectionLinks(
             section.children,
             excludeSections,
             domain,
             feedPath,
             feedParam,
+            changeFreq,
+            priority,
           )
           accum.push(...subSections)
         }
@@ -69,29 +80,29 @@ export function SitemapSectionFrontIndex({
   }
 
   // can't return null for xml return type, must return valid xml template
-  return sitemapIndexTemplate({
+  return sitemapSectionTemplate({
     ...customFields,
     excludeSections: (customFields.excludeSections || '').split(','),
     domain: feedDomainURL,
     sections,
-    buildIndexes: buildSitemapIndexLinks,
+    buildIndexes: buildSitemapSectionLinks,
   })
 }
 
-SitemapSectionFrontIndex.propTypes = {
+SitemapSection.propTypes = {
   customFields: PropTypes.shape({
     feedPath: PropTypes.string.tag({
       label: 'Feed Path',
       group: 'Format',
       description: 'Relative URL path used in the generated link',
-      defaultValue: '/arc/outboundfeeds/sitemap/category',
+      defaultValue: '',
     }),
     feedParam: PropTypes.string.tag({
       label: 'URL Parameters',
       group: 'Format',
       description:
         'Optional parameters to append to URL, join multiple parameters with &',
-      defaultValue: 'outputType=xml',
+      defaultValue: '',
     }),
     excludeSections: PropTypes.string.tag({
       label: 'Section IDs to exclude',
@@ -106,8 +117,14 @@ SitemapSectionFrontIndex.propTypes = {
       description: 'Should links be excluded from the output',
       defaultValue: true,
     }),
+    ...generatePropsForFeed('sitemap', PropTypes, [
+      'includePromo',
+      'promoItemsJmespath',
+      'resizerKVP',
+      'lastMod',
+    ]),
   }),
 }
-SitemapSectionFrontIndex.label = 'Sitemap Section Front Index'
-SitemapSectionFrontIndex.icon = 'browser-page-hierarchy'
-export default Consumer(SitemapSectionFrontIndex)
+SitemapSection.label = 'Sitemap Section'
+SitemapSection.icon = 'browser-page-hierarchy'
+export default Consumer(SitemapSection)
