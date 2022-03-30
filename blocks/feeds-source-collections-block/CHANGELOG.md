@@ -1,5 +1,15 @@
 # @wpmedia/feeds-source-collections-block
 
+## 1.12.0
+
+### Minor Changes
+
+- [#601](https://github.com/WPMedia/feed-components/pull/601) [`317a2c1`](https://github.com/WPMedia/feed-components/commit/317a2c125a07699e3ff616d651c712ca8005dc48) Thanks [@tbrick855](https://github.com/tbrick855)! - OBF-1.12
+
+### Patch Changes
+
+- [#590](https://github.com/WPMedia/feed-components/pull/590) [`924ef36`](https://github.com/WPMedia/feed-components/commit/924ef36421bab5d07766c63b6d3baa42a5a6923f) Thanks [@tbrick855](https://github.com/tbrick855)! - Prevent 404 on empty collection
+
 ## 1.11.0
 
 ### Minor Changes
