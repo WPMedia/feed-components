@@ -31,7 +31,7 @@ it('returns template with sitemap by section links', () => {
     arcSite: 'demo',
     globalContent: siteService,
     customFields: {
-      feedPath: '/arc/outboundfeeds/sitemap/category',
+      feedPath: '',
       feedParam: '',
       priority: '0.5',
       changeFreq: 'always',
@@ -60,9 +60,6 @@ it('returns template with links to sections without outputType', () => {
     arcSite: 'demo',
     globalContent: siteService,
     customFields: {
-      feedPath: '',
-      feedParam: '',
-      excludeSections: '',
       priority: '',
       changeFreq: '',
     },
