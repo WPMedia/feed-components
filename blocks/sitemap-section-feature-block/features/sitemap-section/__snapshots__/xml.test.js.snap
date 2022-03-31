@@ -67,52 +67,52 @@ Object {
     "url": Array [
       Object {
         "changefreq": "always",
-        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/politics/",
+        "loc": "http://demo-prod.origin.arcpublishing.com/politics/",
         "priority": "0.5",
       },
       Object {
         "changefreq": "always",
-        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/opinion/",
+        "loc": "http://demo-prod.origin.arcpublishing.com/opinion/",
         "priority": "0.5",
       },
       Object {
         "changefreq": "always",
-        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/economy/",
+        "loc": "http://demo-prod.origin.arcpublishing.com/economy/",
         "priority": "0.5",
       },
       Object {
         "changefreq": "always",
-        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/sports/",
+        "loc": "http://demo-prod.origin.arcpublishing.com/sports/",
         "priority": "0.5",
       },
       Object {
         "changefreq": "0.5",
-        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/sports/football/",
+        "loc": "http://demo-prod.origin.arcpublishing.com/sports/football/",
         "priority": "always",
       },
       Object {
         "changefreq": "0.5",
-        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/sports/baseball/",
+        "loc": "http://demo-prod.origin.arcpublishing.com/sports/baseball/",
         "priority": "always",
       },
       Object {
         "changefreq": "0.5",
-        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/sports/basketball/",
+        "loc": "http://demo-prod.origin.arcpublishing.com/sports/basketball/",
         "priority": "always",
       },
       Object {
         "changefreq": "always",
-        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/entertainment/",
+        "loc": "http://demo-prod.origin.arcpublishing.com/entertainment/",
         "priority": "0.5",
       },
       Object {
         "changefreq": "0.5",
-        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/entertainment/tv/",
+        "loc": "http://demo-prod.origin.arcpublishing.com/entertainment/tv/",
         "priority": "always",
       },
       Object {
         "changefreq": "0.5",
-        "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/entertainment/movies/",
+        "loc": "http://demo-prod.origin.arcpublishing.com/entertainment/movies/",
         "priority": "always",
       },
     ],
