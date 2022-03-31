@@ -1,5 +1,21 @@
 # @wpmedia/sitemaps-feature-block
 
+## 1.12.0
+
+### Minor Changes
+
+- [#601](https://github.com/WPMedia/feed-components/pull/601) [`317a2c1`](https://github.com/WPMedia/feed-components/commit/317a2c125a07699e3ff616d651c712ca8005dc48) Thanks [@tbrick855](https://github.com/tbrick855)! - OBF-1.12
+
+### Patch Changes
+
+- [#591](https://github.com/WPMedia/feed-components/pull/591) [`69d6d48`](https://github.com/WPMedia/feed-components/commit/69d6d480a53b202e863c87a4bba70d939bd1185b) Thanks [@tbrick855](https://github.com/tbrick855)! - Fix customField type
+
+* [#590](https://github.com/WPMedia/feed-components/pull/590) [`1f1d3cb`](https://github.com/WPMedia/feed-components/commit/1f1d3cb1e4c56bf4fa20c1a25a878ae2450b4205) Thanks [@tbrick855](https://github.com/tbrick855)! - Added icons to feature blocks
+
+- [#590](https://github.com/WPMedia/feed-components/pull/590) [`fac5c47`](https://github.com/WPMedia/feed-components/commit/fac5c47cef9260ad87395bbab750c1d25b6d4574) Thanks [@tbrick855](https://github.com/tbrick855)! - Add support for <<>> placeholders in adScripts
+
+* [#590](https://github.com/WPMedia/feed-components/pull/590) [`7c5bb9e`](https://github.com/WPMedia/feed-components/commit/7c5bb9e59e9486ac9f98e4df50e64680c16551d6) Thanks [@tbrick855](https://github.com/tbrick855)! - AIO-742 fix relative links in a and img tags
+
 ## 1.11.0
 
 ### Minor Changes

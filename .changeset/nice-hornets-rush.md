@@ -2,4 +2,4 @@
 '@wpmedia/rss-fbia-feature-block': patch
 ---
 
-Add support for <<>> placeholders in adScripts
+Support xmlbuilder2@3.x.x versions
