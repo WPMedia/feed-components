@@ -15,6 +15,9 @@ const resolve = function resolve(key) {
     'content_elements',
     `websites.${key['arc-site']}`,
   ]
+  // resolvers only support text or number, turn into bool.
+  const sitemapAtRoot =
+    key['Sitemap-at-root'] && key['Sitemap-at-root'].toLowerCase() !== 'false'
 
   const paramList = {
     website: key['arc-site'],
@@ -150,7 +153,8 @@ const resolve = function resolve(key) {
   }
 
   // if Section and/or Exclude-Sections append section query to basic query
-  const { Section } = key
+  const Section =
+    key.Section && sitemapAtRoot ? key.Section.replace(/-/g, '/') : key.Section
   const ExcludeSections = key['Exclude-Sections']
 
   if (Section || ExcludeSections) {
@@ -208,6 +212,7 @@ export default {
     Sort: 'text',
     'Source-Exclude': 'text',
     'Source-Include': 'text',
+    'Sitemap-at-root': 'text',
     'Include-Distributor-Name': 'text',
     'Exclude-Distributor-Name': 'text',
     'Include-Distributor-Category': 'text',
