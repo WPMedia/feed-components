@@ -54,7 +54,7 @@ export function SitemapSection({ globalContent, customFields, arcSite }) {
         !checkForLinks(section)
       ) {
         accum.push({
-          loc: `${domain}${feedPath}${sectionId}/${parameters}`,
+          loc: `${domain}${feedPath ?? ''}${sectionId}/${parameters}`,
           ...(changeFreq !== 'Exclude field' &&
             changeFreq !== 'Exclude from sitemap' && {
               changefreq: changeFreq,

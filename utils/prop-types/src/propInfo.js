@@ -122,6 +122,16 @@ export const propInfo = {
         defaultValue: '',
       },
     },
+    channelLanguage: {
+      type: 'string',
+      tag: {
+        label: 'RSS Language',
+        group: 'Channel',
+        description:
+          'ISO-639 Language code, if blank uses value from feedLanguage in blocks.json. Use Exclude to remove this field.',
+        defaultValue: '',
+      },
+    },
     channelCopyright: {
       type: 'string',
       tag: {

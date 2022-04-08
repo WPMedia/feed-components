@@ -8,4 +8,4 @@
 '@wpmedia/rss-msn-feature-block': patch
 ---
 
-AIO-742 fix relative links in a and img tags
+Add channelLanguage customField

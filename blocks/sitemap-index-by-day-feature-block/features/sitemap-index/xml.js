@@ -7,19 +7,19 @@ import URL from 'url'
 const sitemapIndexTemplate = ({
   maxDays,
   feedPath,
+  feedExtension,
   feedParam,
   feedDates2Split,
   section,
-  domain,
   buildIndexes,
 }) => ({
   sitemapindex: {
     '@xmlns': 'http://www.sitemaps.org/schemas/sitemap/0.9',
     sitemap: buildIndexes(
       maxDays,
-      domain,
       feedPath,
       section,
+      feedExtension,
       feedParam,
       feedDates2Split,
     ),
@@ -56,15 +56,16 @@ export function SitemapIndexByDay({
 
   const buildIndexes = (
     maxDays,
-    feedDomainUrl,
     feedPath,
     section,
+    feedExtension,
     feedParam,
     feedDates2Split,
   ) => {
     const arr = []
     const now = moment.utc(new Date())
     const parameters = feedParam ? `?${feedParam}` : ''
+    const extension = feedExtension || '/'
     const splitAllDates =
       feedDates2Split.all || feedDates2Split.All || feedDates2Split.ALL
     const feedPathKeys = Object.keys(feedPath).map((i) => parseInt(i))
@@ -76,12 +77,12 @@ export function SitemapIndexByDay({
       if (numSplits) {
         for (let splits = 1; splits <= numSplits; splits++) {
           arr.push({
-            loc: `${feedDomainURL}${pathValue}${section}${formattedDate}-${splits}/${parameters}`,
+            loc: `${feedDomainURL}${pathValue}${section}${formattedDate}-${splits}${extension}${parameters}`,
           })
         }
       } else {
         arr.push({
-          loc: `${feedDomainURL}${pathValue}${section}${formattedDate}/${parameters}`,
+          loc: `${feedDomainURL}${pathValue}${section}${formattedDate}${extension}${parameters}`,
         })
       }
       now.subtract(1, 'days')
@@ -93,7 +94,6 @@ export function SitemapIndexByDay({
   return sitemapIndexTemplate({
     ...customFields,
     section,
-    domain: feedDomainURL,
     maxDays,
     buildIndexes,
   })
@@ -124,6 +124,13 @@ SitemapIndexByDay.propTypes = {
       group: 'Format',
       description: 'Name of the sitemap-index feed in the URL',
       defaultValue: '/sitemap-index/',
+    }),
+    feedExtension: PropTypes.string.tag({
+      label: 'URL extention',
+      group: 'Format',
+      description:
+        'Optional file extention to append to URL. Set if sitemaps are redirected from root. For example .xml',
+      defaultValue: '',
     }),
     feedParam: PropTypes.string.tag({
       label: 'URL Parameters',

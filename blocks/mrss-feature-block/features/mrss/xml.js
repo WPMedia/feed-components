@@ -29,7 +29,7 @@ const rssTemplate = (
     resizerHeight,
     domain,
     feedTitle,
-    feedLanguage,
+    channelLanguage,
     PromoItems,
   },
 ) => ({
@@ -47,6 +47,10 @@ const rssTemplate = (
       },
       description: channelDescription || feedTitle,
       pubDate: moment.utc(Date.now()).format('ddd, DD MMM YYYY HH:mm:ss ZZ'),
+      ...(channelLanguage &&
+        channelLanguage.toLowerCase() !== 'exclude' && {
+          language: channelLanguage,
+        }),
       ...(channelLogo && {
         image: {
           url: buildResizerURL(channelLogo, resizerKey, resizerURL),
@@ -100,6 +104,7 @@ export function Mrss({ globalContent, customFields, arcSite, requestUri }) {
     feedTitle = '',
     feedLanguage = '',
   } = getProperties(arcSite)
+  const channelLanguage = customFields.channelLanguage || feedLanguage
   const { width = 0, height = 0 } = customFields.resizerKVP || {}
   const requestPath = new URL.URL(requestUri, feedDomainURL).pathname
 
@@ -187,7 +192,7 @@ export function Mrss({ globalContent, customFields, arcSite, requestUri }) {
       resizerHeight: height,
       domain: feedDomainURL,
       feedTitle,
-      feedLanguage,
+      channelLanguage,
       PromoItems,
     },
   )

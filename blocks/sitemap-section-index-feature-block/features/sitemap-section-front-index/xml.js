@@ -4,6 +4,8 @@ import getProperties from 'fusion:properties'
 
 const sitemapIndexTemplate = ({
   feedPath,
+  feedAtRoot,
+  feedExtension,
   feedParam,
   excludeSections,
   domain,
@@ -17,6 +19,8 @@ const sitemapIndexTemplate = ({
       excludeSections,
       domain,
       feedPath,
+      feedAtRoot,
+      feedExtension,
       feedParam,
     ),
   },
@@ -40,18 +44,24 @@ export function SitemapSectionFrontIndex({
     excludeSections,
     domain,
     feedPath,
+    feedAtRoot,
+    feedExtension,
     feedParam,
   ) => {
     const parameters = feedParam ? `?${feedParam}` : ''
+    const matchTerm = feedAtRoot ? /\//g : ''
+    const replaceTerm = feedAtRoot ? '-' : ''
     return sections.reduce((accum, section) => {
-      const sectionId = section._id || ''
+      const sectionId = (section._id || '').replace(matchTerm, replaceTerm)
       if (
         sectionId &&
         !excludeSections.includes(sectionId) &&
         !checkForLinks(section)
       ) {
         accum.push({
-          loc: `${domain}${feedPath}${sectionId}/${parameters}`,
+          loc: `${domain}${feedPath}${sectionId}${
+            feedExtension || '/'
+          }${parameters}`,
         })
         if (section.children?.length) {
           const subSections = buildSitemapIndexLinks(
@@ -59,6 +69,8 @@ export function SitemapSectionFrontIndex({
             excludeSections,
             domain,
             feedPath,
+            feedAtRoot,
+            feedExtension,
             feedParam,
           )
           accum.push(...subSections)
@@ -85,6 +97,20 @@ SitemapSectionFrontIndex.propTypes = {
       group: 'Format',
       description: 'Relative URL path used in the generated link',
       defaultValue: '/arc/outboundfeeds/sitemap/category',
+    }),
+    feedAtRoot: PropTypes.bool.tag({
+      label: 'Sitemap at root',
+      group: 'Format',
+      description:
+        'Set if sitemaps are redirected from root. This will replace slashes with dashes',
+      defaultValue: false,
+    }),
+    feedExtension: PropTypes.string.tag({
+      label: 'URL extention',
+      group: 'Format',
+      description:
+        'Optional file extention to append to URL. Set if sitemaps are redirected from root. For example .xml',
+      defaultValue: '',
     }),
     feedParam: PropTypes.string.tag({
       label: 'URL Parameters',

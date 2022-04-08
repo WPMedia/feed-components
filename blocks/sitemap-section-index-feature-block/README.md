@@ -7,9 +7,9 @@ This feed can be used to generate links to sitemaps like
 
 `http://wwww.example.com/arc/outboundfeeds/sitemap/category/{category}/`
 
-or it can be used to link directory to website sections like
+or it can be used to generate links to sitemaps at root like
 
-`http://wwww.example.com/{category}/`
+`http://wwww.example.com/sitemap-category-{category}.xml`
 
 Requires a Site Service Content Source like this one from themes
 "@wpmedia/site-hierarchy-content-block"
@@ -17,5 +17,7 @@ Requires a Site Service Content Source like this one from themes
 ## Custom Fields
 
 - feedPath - path to use to call feed used to display sitemap. default - /arc/outboundfeeds/sitemap/category
+- feedAtRoot - boolean should it replace / for -
+- feedExtension - add extention like .xml to end of url || /
 - feedParam - Additional params to add to sitemap request. default - outputType=xml
 - excludeSections - sections to exclude from results
