@@ -103,3 +103,21 @@ it('returns template with empty values', () => {
   })
   expect(sitemapindex).toMatchSnapshot()
 })
+
+it('sitemaps at root', () => {
+  const sitemapindex = SitemapIndexByDay({
+    requestUri: '/sitemap-index/?outputType=xml',
+    arcSite: 'demo',
+    customFields: {
+      feedPath: {
+        0: '/sitemap-',
+      },
+      feedName: '/sitemap-index/',
+      feedExtension: '.xml',
+      feedParam: '',
+      numberOfDays: '5',
+      feedDates2Split: { '2021-04-06': 2 },
+    },
+  })
+  expect(sitemapindex).toMatchSnapshot()
+})

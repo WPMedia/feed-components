@@ -40,6 +40,46 @@ Object {
 }
 `;
 
+exports[`returns template with sitemap at root 1`] = `
+Object {
+  "sitemapindex": Object {
+    "@xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9",
+    "sitemap": Array [
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/sitemap-category-politics.xml",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/sitemap-category-opinion.xml",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/sitemap-category-economy.xml",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/sitemap-category-sports.xml",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/sitemap-category-sports-football.xml",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/sitemap-category-sports-baseball.xml",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/sitemap-category-sports-basketball.xml",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/sitemap-category-entertainment.xml",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/sitemap-category-entertainment-tv.xml",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/sitemap-category-entertainment-movies.xml",
+      },
+    ],
+  },
+}
+`;
+
 exports[`returns template with sitemap index by section links 1`] = `
 Object {
   "sitemapindex": Object {

@@ -12,6 +12,12 @@ Since this format doesn't need a content source, it can be created as a page.
 
 - numberOfDays - The number of links (days back) to generate. Optionally if a valid date is entered in YYYY-MM-DD format it will be used to calculate the maxDays.
 
-- feedPath - The path to the format to use in the generated links. Defaults to `/arc/outboundfeeds/sitemap-by-day/`
+- feedPath - kvp of number of days and the path to use
+  Defaults to { 0:'/arc/outboundfeeds/sitemap/', 2:'/arc/outboundfeeds/sitemap2', 7:'/arc/outboundfeeds/sitemap3'}
 
 - feedName - The name of the feed used in the resolver. Defaults to `/sitemap-index/` This is used to split the requestURI to get anything in the path after the feed like a section. If a request is made using `/arc/outboundfeeds/sitemap-index/category/sports`. This will be split on `/sitemap-index/` which results in an array of `['/arc/outboundfeeds', 'category/sports']` the second array element, if any, will be appended to the generated sitemap url.
+
+- feedExtension - file extention like .xml to add to urls, otherwise they end in '/'
+- feedParams - optional url parameters separated with '&' no leading '?'
+- feedDates2Split - kvp of dates to split and number of splits like
+  { '2022-03-14': '2'} to create /sitemap/2022-03-14-1, sitemap/2022-03-14-2
