@@ -13,7 +13,7 @@ import { convert, fragment } from 'xmlbuilder2'
  * If you are building a custom fb-ia format be sure to
  * add moment and xmlbuilder2 to your repo's dependencies
  * There is an issue with newer versions of xmlbuilder2.  You must
- * only use version 2.1.7 like this "xmlbuilder2": "2.1.7"
+ * use version <= 2.1.7 or version >= 3.0.0 like this "xmlbuilder2": "2.1.7"
  */
 import URL from 'url'
 const jmespath = require('jmespath')
@@ -46,7 +46,7 @@ const rssTemplate = (
     resizerHeight,
     domain,
     feedTitle,
-    feedLanguage,
+    channelLanguage,
     promoItemsJmespath = 'promo_items.basic || promo_items.lead_art',
     PromoItems,
     fbiaBuildContent,
@@ -78,7 +78,10 @@ const rssTemplate = (
       lastBuildDate: moment
         .utc(new Date())
         .format('ddd, DD MMM YYYY HH:mm:ss ZZ'),
-      ...(feedLanguage && { language: feedLanguage }),
+      ...(channelLanguage &&
+        channelLanguage.toLowerCase() !== 'exclude' && {
+          language: channelLanguage,
+        }),
       ...(channelCategory && { category: channelCategory }),
       ...(channelCopyright && {
         copyright: channelCopyright,
@@ -170,6 +173,7 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
     feedTitle = '',
     feedLanguage = '',
   } = getProperties(arcSite)
+  const channelLanguage = customFields.channelLanguage || feedLanguage
   const { width = 0, height = 0 } = customFields.resizerKVP || {}
   const requestPath = new URL.URL(requestUri, feedDomainURL).pathname
   let metaTags
@@ -182,7 +186,7 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
   }
   // Look for placeholders like <<_id>> in adscripts, returns an array | null
   // can't use {{}} since fusion strips them out
-  const adScripts = customFields.adScripts ?? ''
+  const adScripts = customFields.adScripts ?? '' // Add your custom analystics logic here
   const adScriptPlaceholders = adScripts.match(/(<<.*?>>)/gm)
 
   const replacePlaceholders = (s) => {
@@ -291,7 +295,7 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
         header.push({
           section: {
             '@class': 'op-ad-template',
-            '#': [placementSection],
+            '!': ['tHe_FbAd_GoEs_HeRe'],
           },
         })
 
@@ -379,7 +383,7 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
           header: {
             '#': header,
           },
-          '#': ['<tHe_BoDy_GoEs_HeRe/>', '<tHe_AdScRiPt_GoEs_HeRe/>'],
+          '!': ['tHe_BoDy_GoEs_HeRe', 'tHe_AdScRiPt_GoEs_HeRe'],
           footer: {
             '#': {
               ...(authorDescription.length && {
@@ -571,8 +575,9 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
         videoSelect,
       )
       return htmlBody
-        .replace('<tHe_BoDy_GoEs_HeRe/>', parsedBody)
-        .replace('<tHe_AdScRiPt_GoEs_HeRe/>', replacePlaceholders(s)) // Add custom analytics scripts here as an xml string
+        .replace('<!--tHe_BoDy_GoEs_HeRe-->', parsedBody)
+        .replace('<!--tHe_AdScRiPt_GoEs_HeRe-->', replacePlaceholders(s)) // analytics scripts processed here
+        .replace('<!--tHe_FbAd_GoEs_HeRe-->', placementSection)
     }
   }
 
@@ -592,7 +597,7 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
     resizerHeight: height,
     domain: feedDomainURL,
     feedTitle,
-    feedLanguage,
+    channelLanguage,
     fbiaBuildContent,
     PromoItems,
   })

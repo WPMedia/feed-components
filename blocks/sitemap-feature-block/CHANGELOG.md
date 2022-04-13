@@ -1,5 +1,15 @@
 # @wpmedia/sitemaps-feature-block
 
+## 1.12.0
+
+### Minor Changes
+
+- [#601](https://github.com/WPMedia/feed-components/pull/601) [`317a2c1`](https://github.com/WPMedia/feed-components/commit/317a2c125a07699e3ff616d651c712ca8005dc48) Thanks [@tbrick855](https://github.com/tbrick855)! - OBF-1.12
+
+### Patch Changes
+
+- [#590](https://github.com/WPMedia/feed-components/pull/590) [`1f1d3cb`](https://github.com/WPMedia/feed-components/commit/1f1d3cb1e4c56bf4fa20c1a25a878ae2450b4205) Thanks [@tbrick855](https://github.com/tbrick855)! - Added icons to feature blocks
+
 ## 1.11.0
 
 ### Minor Changes

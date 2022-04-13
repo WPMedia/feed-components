@@ -125,3 +125,31 @@ Object {
   },
 }
 `;
+
+exports[`sitemaps at root 1`] = `
+Object {
+  "sitemapindex": Object {
+    "@xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9",
+    "sitemap": Array [
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/sitemap-latest.xml",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/sitemap-2021-04-08.xml",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/sitemap-2021-04-07.xml",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/sitemap-2021-04-06-1.xml",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/sitemap-2021-04-06-2.xml",
+      },
+      Object {
+        "loc": "http://demo-prod.origin.arcpublishing.com/sitemap-2021-04-05.xml",
+      },
+    ],
+  },
+}
+`;
