@@ -1,5 +1,17 @@
 # @wpmedia/sitemaps-feature-block
 
+## 1.13.0
+
+### Minor Changes
+
+- [#622](https://github.com/WPMedia/feed-components/pull/622) [`3bd7b3a`](https://github.com/WPMedia/feed-components/commit/3bd7b3a0a8ae15b96fab6574062c96b5ca0af6f7) Thanks [@tbrick855](https://github.com/tbrick855)! - OBF-1.13
+
+### Patch Changes
+
+- [#603](https://github.com/WPMedia/feed-components/pull/603) [`d6abd1b`](https://github.com/WPMedia/feed-components/commit/d6abd1b87d40b2508fa4f5f5b59ca45b1ca9ccbd) Thanks [@tbrick855](https://github.com/tbrick855)! - Add channelLanguage customField
+
+* [#600](https://github.com/WPMedia/feed-components/pull/600) [`fc324d2`](https://github.com/WPMedia/feed-components/commit/fc324d29a50a779617a75982f6c97e3791ec83f1) Thanks [@tbrick855](https://github.com/tbrick855)! - Support xmlbuilder2@3.x.x versions
+
 ## 1.12.0
 
 ### Minor Changes

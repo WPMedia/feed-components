@@ -1,5 +1,15 @@
 # @wpmedia/mrss-feature-block
 
+## 1.13.0
+
+### Minor Changes
+
+- [#622](https://github.com/WPMedia/feed-components/pull/622) [`3bd7b3a`](https://github.com/WPMedia/feed-components/commit/3bd7b3a0a8ae15b96fab6574062c96b5ca0af6f7) Thanks [@tbrick855](https://github.com/tbrick855)! - OBF-1.13
+
+### Patch Changes
+
+- [#603](https://github.com/WPMedia/feed-components/pull/603) [`d6abd1b`](https://github.com/WPMedia/feed-components/commit/d6abd1b87d40b2508fa4f5f5b59ca45b1ca9ccbd) Thanks [@tbrick855](https://github.com/tbrick855)! - Add channelLanguage customField
+
 ## 1.12.0
 
 ### Minor Changes

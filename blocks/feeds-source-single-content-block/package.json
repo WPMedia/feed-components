@@ -1,6 +1,6 @@
 {
   "name": "@wpmedia/feeds-source-single-content-block",
-  "version": "1.12.0",
+  "version": "1.13.0",
   "description": "content source to get by _id or website_url",
   "main": "index.js",
   "files": [
