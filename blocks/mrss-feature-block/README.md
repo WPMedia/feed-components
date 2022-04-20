@@ -16,6 +16,7 @@ feedResizer
 
 channelTitle: defaults to global website name
 channelDescription: defaults to global website name + "News Feed"
+channelLanguage: defaults to feedLanguage, use Exclude to remove field
 channelCopyright: defaults to Copyright YYYY global website name
 channelTTL: number of mins, defaults to 1
 channelUpdatePeriod: update period hours, days, weeks, months, years. Defaults to hours

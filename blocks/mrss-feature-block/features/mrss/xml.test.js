@@ -103,6 +103,7 @@ it.only('returns MRSS template with default values', () => {
     customFields: {
       channelTitle: '',
       channelDescription: '',
+      channelLanguage: 'es',
       channelLogo: '',
       imageCaption: 'subheadlines.basic || caption',
       imageCredits: 'credits.by[].name',
@@ -134,6 +135,7 @@ it.only('returns MRSS template without values', () => {
     customFields: {
       channelTitle: '',
       channelDescription: '',
+      channelLanguage: '',
       channelLogo: '',
       imageCaption: '',
       imageCredits: '',

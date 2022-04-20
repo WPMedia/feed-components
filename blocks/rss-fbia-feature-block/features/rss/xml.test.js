@@ -117,6 +117,7 @@ it('returns FB-IA template with default values', () => {
     customFields: {
       channelTitle: '',
       channelDescription: '',
+      channelLanguage: '',
       channelCopyright: '',
       channelTTL: '1',
       channelUpdatePeriod: 'hourly',
@@ -163,6 +164,7 @@ it('returns FB-IA template with custom values', () => {
     customFields: {
       channelTitle: 'Facebook Instant Articles Feed',
       channelDescription: 'Only the best for FB',
+      channelLanguage: 'es',
       channelCopyright: 'Copyright 2021',
       channelTTL: '5',
       channelUpdatePeriod: 'weekly',
@@ -212,6 +214,7 @@ it('returns FB-IA template with include value', () => {
     customFields: {
       channelTitle: 'Facebook Instant Articles Feed',
       channelDescription: 'Only the best for FB',
+      channelLanguage: 'fr',
       channelCopyright: 'Copyright 2021',
       channelTTL: '5',
       channelUpdatePeriod: 'weekly',
@@ -261,6 +264,7 @@ it('returns FB-IA template with empty values', () => {
     customFields: {
       channelTitle: '',
       channelDescription: '',
+      channelLanguage: 'exclude',
       channelCopyright: '',
       channelTTL: '',
       channelUpdatePeriod: '',

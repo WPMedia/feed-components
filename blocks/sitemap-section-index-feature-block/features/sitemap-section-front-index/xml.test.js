@@ -63,3 +63,18 @@ it('returns template with links to sections without outputType', () => {
   })
   expect(sitemapsectionindex).toMatchSnapshot()
 })
+
+it('returns template with sitemap at root', () => {
+  const sitemapsectionindex = SitemapSectionFrontIndex({
+    arcSite: 'demo',
+    globalContent: siteService,
+    customFields: {
+      feedPath: '/sitemap-category',
+      feedAtRoot: true,
+      feedExtension: '.xml',
+      feedParam: '',
+      excludeSections: '',
+    },
+  })
+  expect(sitemapsectionindex).toMatchSnapshot()
+})

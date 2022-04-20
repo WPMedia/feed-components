@@ -37,7 +37,7 @@ const rssTemplate = (
     resizerHeight,
     domain,
     feedTitle,
-    feedLanguage,
+    channelLanguage,
     flipboardBuildContent,
     videoSelect,
     PromoItems,
@@ -64,10 +64,13 @@ const rssTemplate = (
         '@type': 'application/rss+xml',
       },
       description: { $: channelDescription || `${feedTitle} News Feed` },
-      ...(feedLanguage && { language: feedLanguage }),
       lastBuildDate: moment
         .utc(new Date())
         .format('ddd, DD MMM YYYY HH:mm:ss ZZ'),
+      ...(channelLanguage &&
+        channelLanguage.toLowerCase() !== 'exclude' && {
+          language: channelLanguage,
+        }),
       ...(channelCategory && { category: channelCategory }),
       ...(channelCopyright && {
         copyright: channelCopyright,
@@ -162,6 +165,7 @@ export function FlipboardRss({
     feedTitle = '',
     feedLanguage = '',
   } = getProperties(arcSite)
+  const channelLanguage = customFields.channelLanguage || feedLanguage
   const { width = 0, height = 0 } = customFields.resizerKVP || {}
   const requestPath = new URL.URL(requestUri, feedDomainURL).pathname
   const PromoItems = new BuildPromoItems()
@@ -211,7 +215,7 @@ export function FlipboardRss({
     resizerHeight: height,
     domain: feedDomainURL,
     feedTitle,
-    feedLanguage,
+    channelLanguage,
     flipboardBuildContent,
     PromoItems,
   })
