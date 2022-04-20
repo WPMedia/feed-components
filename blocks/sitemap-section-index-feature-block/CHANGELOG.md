@@ -1,5 +1,15 @@
 # @wpmedia/sitemap-section-index-feature-block
 
+## 1.13.0
+
+### Minor Changes
+
+- [#622](https://github.com/WPMedia/feed-components/pull/622) [`3bd7b3a`](https://github.com/WPMedia/feed-components/commit/3bd7b3a0a8ae15b96fab6574062c96b5ca0af6f7) Thanks [@tbrick855](https://github.com/tbrick855)! - OBF-1.13
+
+### Patch Changes
+
+- [#609](https://github.com/WPMedia/feed-components/pull/609) [`881da34`](https://github.com/WPMedia/feed-components/commit/881da34e5931a3d87d688f59cce9369cf834ba47) Thanks [@tbrick855](https://github.com/tbrick855)! - Support sitemap-at-root.xml url format
+
 ## 1.12.0
 
 ### Minor Changes
