@@ -1,5 +1,11 @@
 # @wpmedia/json-output-block
 
+## 1.13.0
+
+### Minor Changes
+
+- [#622](https://github.com/WPMedia/feed-components/pull/622) [`3bd7b3a`](https://github.com/WPMedia/feed-components/commit/3bd7b3a0a8ae15b96fab6574062c96b5ca0af6f7) Thanks [@tbrick855](https://github.com/tbrick855)! - OBF-1.13
+
 ## 1.12.0
 
 ### Minor Changes
