@@ -92,3 +92,14 @@ it('returns template with empty values', () => {
   })
   expect(googleSitemap).toMatchSnapshot()
 })
+
+it('returns template with langauge', () => {
+  const googleSitemap = GoogleSitemap({
+    arcSite: 'the-globe',
+    globalContent: articles,
+    customFields: {
+      newsLanguage: 'es',
+    },
+  })
+  expect(googleSitemap).toMatchSnapshot()
+})

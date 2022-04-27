@@ -1,6 +1,6 @@
 {
   "name": "@wpmedia/feeds-source-content-api-by-day-block",
-  "version": "1.12.0",
+  "version": "1.13.0",
   "description": "content source to search by a single day, for sitemap/YYYY-MM-DD",
   "main": "index.js",
   "files": [
@@ -20,7 +20,7 @@
   "homepage": "https://github.com/WPMedia/feed-components#readme",
   "dependencies": {
     "@wpmedia/feeds-content-source-utils": "1.0.8",
-    "moment": "^2.29.1"
+    "moment": "^2.29.2"
   },
   "devDependencies": {
     "prop-types": "^15.7.2"

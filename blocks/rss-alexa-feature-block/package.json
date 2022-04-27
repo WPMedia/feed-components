@@ -1,6 +1,6 @@
 {
   "name": "@wpmedia/rss-alexa-feature-block",
-  "version": "1.12.0",
+  "version": "1.13.0",
   "description": "Fusion components for building rss alexa feed",
   "main": "index.js",
   "files": [
@@ -28,6 +28,6 @@
     "@wpmedia/feeds-resizer": "^1.0.8",
     "cheerio": "^1.0.0-rc.10",
     "jmespath": "^0.15.0",
-    "moment": "^2.24.0"
+    "moment": "^2.29.2"
   }
 }
