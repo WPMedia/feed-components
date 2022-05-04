@@ -97,3 +97,40 @@ Object {
   },
 }
 `;
+
+exports[`returns template with langauge 1`] = `
+Object {
+  "urlset": Object {
+    "@xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9",
+    "@xmlns:news": "http://www.google.com/schemas/sitemap-news/0.9",
+    "url": Array [
+      Object {
+        "changefreq": undefined,
+        "lastmod": undefined,
+        "loc": "http://demo-prod.origin.arcpublishing.com/food/2020/04/07/tips-for-safe-hand-washing",
+        "news:news": Object {
+          "news:publication": Object {
+            "news:language": "es",
+            "news:name": "google news",
+          },
+          "news:publication_date": undefined,
+        },
+        "priority": undefined,
+      },
+      Object {
+        "changefreq": undefined,
+        "lastmod": undefined,
+        "loc": "http://demo-prod.origin.arcpublishing.com/food/2021/04/07/best-sourdough-recipes",
+        "news:news": Object {
+          "news:publication": Object {
+            "news:language": "es",
+            "news:name": "google news",
+          },
+          "news:publication_date": undefined,
+        },
+        "priority": undefined,
+      },
+    ],
+  },
+}
+`;

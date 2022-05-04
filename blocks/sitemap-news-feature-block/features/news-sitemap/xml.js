@@ -20,7 +20,7 @@ const sitemapTemplate = (
     newsTitle,
     domain,
     feedTitle,
-    feedLanguage,
+    newsLanguage,
     resizerURL,
     resizerWidth,
     resizerHeight,
@@ -66,7 +66,10 @@ const sitemapTemplate = (
         'news:news': {
           'news:publication': {
             'news:name': publicationName || feedTitle,
-            ...(feedLanguage && { 'news:language': feedLanguage }),
+            ...(newsLanguage &&
+              newsLanguage.toLowerCase() !== 'exclude' && {
+                'news:language': newsLanguage,
+              }),
           },
           'news:publication_date': s[lastMod],
           ...(title && {
@@ -96,6 +99,7 @@ export function GoogleSitemap({ globalContent, customFields, arcSite }) {
     feedLanguage = '',
   } = getProperties(arcSite)
   const { width = 0, height = 0 } = customFields.resizerKVP || {}
+  const newsLanguage = customFields.newsLanguage || feedLanguage
   const newsKeywordsJmespath =
     customFields.newsKeywords === 'tags'
       ? 'taxonomy.tags[*].text'
@@ -108,7 +112,7 @@ export function GoogleSitemap({ globalContent, customFields, arcSite }) {
     ...customFields,
     domain: feedDomainURL,
     feedTitle,
-    feedLanguage,
+    newsLanguage,
     resizerURL,
     resizerWidth: width,
     resizerHeight: height,
@@ -137,6 +141,13 @@ GoogleSitemap.propTypes = {
       label: 'Publication Name',
       group: 'Field Mapping',
       description: 'What name should be used in <news:name> news-sitemap tag',
+      defaultValue: '',
+    }),
+    newsLanguage: PropTypes.string.tag({
+      label: 'Language',
+      group: 'Field Mapping',
+      description:
+        'ISO-639 Language code, if blank uses value from feedLanguage in blocks.json. Use Exclude to remove this field.',
       defaultValue: '',
     }),
     newsTitle: PropTypes.string.tag({
