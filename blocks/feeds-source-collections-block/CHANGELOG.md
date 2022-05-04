@@ -1,5 +1,11 @@
 # @wpmedia/feeds-source-collections-block
 
+## 1.14.0
+
+### Minor Changes
+
+- [#629](https://github.com/WPMedia/feed-components/pull/629) [`6ea29e5`](https://github.com/WPMedia/feed-components/commit/6ea29e5324f5489407badfe280d15fe5b9fc50a2) Thanks [@tbrick855](https://github.com/tbrick855)! - OBF-1.14
+
 ## 1.13.0
 
 ### Minor Changes

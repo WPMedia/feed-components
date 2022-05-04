@@ -1,6 +1,6 @@
 {
   "name": "@wpmedia/feeds-source-content-api-by-day3-block",
-  "version": "1.13.0",
+  "version": "1.14.0",
   "description": "content source to search by a single day, for sitemap/YYYY-MM-DD with 24 hour (86400) ttl.",
   "main": "index.js",
   "files": [
