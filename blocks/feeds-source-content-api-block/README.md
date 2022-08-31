@@ -30,7 +30,7 @@ Creates an ElasticSearch DSL syntax to query Content-API
 
 ### Usage
 
-Default query: [{"term":{"type": "story"}},{"range":{"last_updated_date:{"gte":"now-2d","lte":"now"}}}]
+Default query: [{"term":{"type": "story"}},{"range":{"last_updated_date":{"gte":"now-2d","lte":"now"}}}]
 You can create a feedDefaultQuery in blocks.json to override the default query.
 If no value in passed in Include-Terms the default query will be used.
 
