@@ -1,5 +1,15 @@
 # @wpmedia/rss-feature-block
 
+## 1.14.0
+
+### Minor Changes
+
+- [#629](https://github.com/WPMedia/feed-components/pull/629) [`6ea29e5`](https://github.com/WPMedia/feed-components/commit/6ea29e5324f5489407badfe280d15fe5b9fc50a2) Thanks [@tbrick855](https://github.com/tbrick855)! - OBF-1.14
+
+### Patch Changes
+
+- [#627](https://github.com/WPMedia/feed-components/pull/627) [`e6220e1`](https://github.com/WPMedia/feed-components/commit/e6220e1a83fc9da3065b5f60cfbd5c298555815a) Thanks [@tbrick855](https://github.com/tbrick855)! - Update moment js
+
 ## 1.13.0
 
 ### Minor Changes

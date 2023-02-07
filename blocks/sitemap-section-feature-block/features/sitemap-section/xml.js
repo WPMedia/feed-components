@@ -69,8 +69,8 @@ export function SitemapSection({ globalContent, customFields, arcSite }) {
             domain,
             feedPath,
             feedParam,
-            changeFreq,
             priority,
+            changeFreq,
           )
           accum.push(...subSections)
         }

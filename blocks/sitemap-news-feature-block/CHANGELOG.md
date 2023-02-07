@@ -1,5 +1,15 @@
 # @wpmedia/sitemaps-news-feature-block
 
+## 1.14.0
+
+### Minor Changes
+
+- [#629](https://github.com/WPMedia/feed-components/pull/629) [`6ea29e5`](https://github.com/WPMedia/feed-components/commit/6ea29e5324f5489407badfe280d15fe5b9fc50a2) Thanks [@tbrick855](https://github.com/tbrick855)! - OBF-1.14
+
+### Patch Changes
+
+- [#626](https://github.com/WPMedia/feed-components/pull/626) [`d1426f0`](https://github.com/WPMedia/feed-components/commit/d1426f0fe59342a0782238e71f3cf3c9f959ebb2) Thanks [@tbrick855](https://github.com/tbrick855)! - Add language customField to sitemap-news
+
 ## 1.13.0
 
 ### Minor Changes
