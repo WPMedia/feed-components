@@ -1,5 +1,11 @@
 # @wpmedia/sitemap-section-feature-block
 
+## 1.14.1
+
+### Patch Changes
+
+- [#635](https://github.com/WPMedia/feed-components/pull/635) [`8ec24f0`](https://github.com/WPMedia/feed-components/commit/8ec24f0433204a1017cb5d4b580c6118fae35c7b) Thanks [@blakeganderson](https://github.com/blakeganderson)! - Fixed order of mapping priority and changeFreq
+
 ## 1.14.0
 
 ### Minor Changes
