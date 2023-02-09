@@ -23,7 +23,7 @@
   ],
   "homepage": "https://github.com/WPMedia/feed-components#readme",
   "dependencies": {
-    "moment": "^2.29.2"
+    "moment": "^2.29.4"
   },
   "devDependencies": {
     "prop-types": "^15.7.2"
