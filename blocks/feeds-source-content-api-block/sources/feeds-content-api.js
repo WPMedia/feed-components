@@ -6,7 +6,8 @@ import {
   generateDistributor,
   genParams,
   transform,
-} from '@wpmedia/feeds-content-source-utils'
+} from './content-source-utils/src'
+  //} from '@wpmedia/feeds-content-source-utils'
 
 const resolve = function resolve(key) {
   const requestUri = `${CONTENT_BASE}/content/v4/search/published`
@@ -187,6 +188,7 @@ const resolve = function resolve(key) {
 
     body.query.bool.must.push({
       bool: {
+        minimum_should_match: 1,
         should: [
           {
             terms: {
