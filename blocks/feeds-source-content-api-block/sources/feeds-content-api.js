@@ -134,9 +134,49 @@ const resolve = function resolve(key) {
     const cleanTagsText = tagsText.replace(/\//g, '').replace(/%20/g, '+')
 
     body.query.bool.must.push({
-      terms: {
-        'taxonomy.tags.text.raw': cleanTagsText.split(','),
-      },
+      bool: {
+        should: [
+          {
+            terms: {
+              'taxonomy.tags.text.raw': cleanTagsText.split(','),
+            }
+          },
+          {
+            "nested": {
+              "ignore_unmapped": true,
+              "path": "variations.variants",
+              "query": {
+                "bool": {
+                  "must": [
+                    {
+                      "term": {
+                        "variations.variants.websites": key['arc-site']
+                      }
+                    },
+                    {
+                      "nested": {
+                        "ignore_unmapped": true,
+                        "path": "variations.variants.content.taxonomy.tags",
+                        "query": {
+                          "bool": {
+                            "must": [
+                              {
+                                terms: {
+                                  "variations.variants.content.taxonomy.tags.text.raw": cleanTagsText.split(',')
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      }
     })
   }
 
@@ -146,10 +186,50 @@ const resolve = function resolve(key) {
     const cleanTagsSlug = tagsSlug.replace(/\//g, '')
 
     body.query.bool.must.push({
-      terms: {
-        'taxonomy.tags.slug': cleanTagsSlug.split(','),
-      },
-    })
+      bool: {
+        should: [
+          {
+            terms: {
+              'taxonomy.tags.slug': cleanTagsSlug.split(','),
+            }
+          },
+          {
+            "nested": {
+              "ignore_unmapped": true,
+              "path": "variations.variants",
+              "query": {
+                "bool": {
+                  "must": [
+                    {
+                      "term": {
+                        "variations.variants.websites": key['arc-site']
+                      }
+                    },
+                    {
+                      "nested": {
+                        "ignore_unmapped": true,
+                        "path": "variations.variants.content.taxonomy.tags",
+                        "query": {
+                          "bool": {
+                            "must": [
+                              {
+                                terms: {
+                                  "variations.variants.content.taxonomy.tags.slug": cleanTagsSlug.split(',')
+                                }
+                              }
+                            ]
+                          }
+                        }
+                      }
+                    }
+                  ]
+                }
+              }
+            }
+          }
+        ]
+      }
+    });
   }
 
   // if Section and/or Exclude-Sections append section query to basic query
