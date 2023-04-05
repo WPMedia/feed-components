@@ -135,6 +135,7 @@ const resolve = function resolve(key) {
 
     body.query.bool.must.push({
       bool: {
+        minimum_should_match: 1,
         should: [
           {
             terms: {
