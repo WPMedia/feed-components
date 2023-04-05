@@ -6,8 +6,7 @@ import {
   generateDistributor,
   genParams,
   transform,
-} from './content-source-utils/src'
-  //} from '@wpmedia/feeds-content-source-utils'
+} from '@wpmedia/feeds-content-source-utils'
 
 const resolve = function resolve(key) {
   const requestUri = `${CONTENT_BASE}/content/v4/search/published`
