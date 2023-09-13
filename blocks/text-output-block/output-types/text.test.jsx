@@ -4,21 +4,17 @@
  * https://jestjs.io/docs/en/configuration.html#testenvironment-string
  * @jest-environment node
  */
-import React from "react";
-import { shallow } from "enzyme";
-import TextOutputType from "./text";
+// eslint-disable-next-line no-unused-vars
+import Consumer from 'fusion:consumer'
+import {TextOutputType} from "./text";
 
-describe("the text output type", () => {
-	it("should render", () => {
-		const wrapper = shallow(<TextOutputType />);
-		expect(wrapper).toBeDefined();
-	});
+it('should match the snapshot', () => {
+	const videoSitemap = TextOutputType("hello world")
+	expect(videoSitemap).toMatchSnapshot()
+	})
 
-	describe("renders a page", () => {
-		const wrapper = shallow(<TextOutputType>hello world</TextOutputType>);
-
-		it("should render the childs plain", () => {
-			expect(wrapper.text()).toEqual("hello world");
-		});
-	});
+it("should render array of children as plain text", () => {
+	const videoSitemap = TextOutputType(["hello world", "print output"])
+	expect(videoSitemap).toEqual("hello world\nprint output");
 });
+

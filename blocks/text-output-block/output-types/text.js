@@ -1,18 +1,19 @@
 import PropTypes from 'prop-types'
+import Consumer from 'fusion:consumer'
 
-const TextOutputType = ({ children }) => {
-  const generateText = (child) => {
+export function TextOutputType(children){
+	  const generateText = (child) => {
     if (Array.isArray(child)) return child.map(generateText).join('\n')
     return child
   }
   return generateText(children)
-}
+};
 
-TextOutputType.contentType = 'text/plain'
-TextOutputType.fallback = false
+TextOutputType.contentType = "text/plain";
+
+TextOutputType.fallback = false;
 
 TextOutputType.propTypes = {
-  children: PropTypes.node,
+	children: PropTypes.node,
 }
-
-export default TextOutputType
+export default Consumer(TextOutputType)
