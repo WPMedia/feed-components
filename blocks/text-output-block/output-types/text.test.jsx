@@ -5,8 +5,7 @@
  * @jest-environment node
  */
 // eslint-disable-next-line no-unused-vars
-import Consumer from 'fusion:consumer'
-import { TextOutputType } from './text'
+import TextOutputType from './text'
 
 it('should match the snapshot', () => {
   const videoSitemap = TextOutputType('hello world')

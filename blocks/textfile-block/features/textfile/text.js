@@ -1,7 +1,6 @@
 import PropTypes from 'fusion:prop-types'
-import Consumer from 'fusion:consumer'
 
-export function Textfile({ customFields }) {
+const Textfile = ({ customFields }) => {
   const { Text = '' } = customFields || {}
   return Text
 }
@@ -16,4 +15,4 @@ Textfile.propTypes = {
     Text: PropTypes.richtext,
   }),
 }
-export default Consumer(Textfile)
+export default Textfile
