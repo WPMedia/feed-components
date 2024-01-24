@@ -1,6 +1,6 @@
 {
   "name": "@wpmedia/textfile-block",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Fusion News Theme text file block",
   "license": "CC-BY-NC-ND-4.0",
   "main": "index.js",
