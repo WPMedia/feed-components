@@ -1,11 +1,11 @@
-import { create } from 'xmlbuilder2';
+import { create } from 'xmlbuilder2'
 
 export const XmlOutput = ({ children }) => {
   return children
     ? create({ invalidCharReplacement: '' }, children[0])
         .dec({ encoding: 'UTF-8' })
         .end()
-    : null;
-};
+    : null
+}
 
-XmlOutput.contentType = 'application/xml';
+XmlOutput.contentType = 'application/xml'
