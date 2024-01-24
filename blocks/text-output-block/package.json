@@ -1,6 +1,6 @@
 {
   "name": "@wpmedia/text-output-block",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Fusion News Theme text output block",
   "main": "index.js",
   "files": [

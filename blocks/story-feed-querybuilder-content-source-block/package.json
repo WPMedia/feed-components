@@ -1,6 +1,6 @@
 {
   "name": "@wpmedia/story-feed-querybuilder-content-source-block",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "Content source block to use with queryBuilder integration",
   "main": "index.js",
   "files": [
