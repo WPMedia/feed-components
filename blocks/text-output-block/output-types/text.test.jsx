@@ -13,6 +13,8 @@ it('should match the snapshot', () => {
 })
 
 it('should render array of children as plain text', () => {
-  const videoSitemap = TextOutputType({ children: ['hello world', 'print output']})
+  const videoSitemap = TextOutputType({
+    children: ['hello world', 'print output'],
+  })
   expect(videoSitemap).toEqual('hello world\nprint output')
 })
