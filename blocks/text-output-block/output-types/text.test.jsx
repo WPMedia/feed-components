@@ -8,11 +8,11 @@
 import TextOutputType from './text'
 
 it('should match the snapshot', () => {
-  const videoSitemap = TextOutputType('hello world')
+  const videoSitemap = TextOutputType({ children: 'hello world' })
   expect(videoSitemap).toMatchSnapshot()
 })
 
 it('should render array of children as plain text', () => {
-  const videoSitemap = TextOutputType(['hello world', 'print output'])
+  const videoSitemap = TextOutputType({ children: ['hello world', 'print output']})
   expect(videoSitemap).toEqual('hello world\nprint output')
 })
