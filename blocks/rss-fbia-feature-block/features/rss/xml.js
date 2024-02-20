@@ -347,6 +347,7 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
                 resizerURL,
                 resizerWidth,
                 resizerHeight,
+                image,
               ),
             },
             ...(customFields.imageCaption &&
@@ -417,6 +418,7 @@ export function FbiaRss({ globalContent, customFields, arcSite, requestUri }) {
                 resizerURL,
                 resizerWidth,
                 resizerHeight,
+                element,
               ),
             },
           },

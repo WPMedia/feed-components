@@ -1,7 +1,15 @@
-import request from 'request-promise-native'
-import { CONTENT_BASE, ARC_ACCESS_TOKEN } from 'fusion:environment'
-import getProperties from 'fusion:properties'
+import axios from 'axios'
 import moment from 'moment'
+
+import {
+  ARC_ACCESS_TOKEN,
+  CONTENT_BASE,
+  RESIZER_TOKEN_VERSION,
+  resizerKey,
+} from 'fusion:environment'
+import getProperties from 'fusion:properties'
+
+import signImagesInANSObject from '@wpmedia/arc-themes-components/src/utils/sign-images-in-ans-object'
 import {
   defaultANSFields,
   formatSections,
@@ -9,17 +17,17 @@ import {
   transform,
   validANSDates,
 } from '@wpmedia/feeds-content-source-utils'
-
-const contentURL = `${CONTENT_BASE}/content/v4/search/published/`
-// Excludes content_elements
+import { fetch as resizerFetch } from '@wpmedia/signing-service-content-source-block'
 
 const options = {
-  gzip: true,
-  json: true,
-  auth: { bearer: ARC_ACCESS_TOKEN },
+  headers: {
+    'content-type': 'application/json',
+    Authorization: `Bearer ${ARC_ACCESS_TOKEN}`,
+  },
+  method: 'GET',
 }
 
-const fetch = async (key = {}) => {
+const fetch = async (key, { cachedCall }) => {
   const paramList = {
     website: key['arc-site'],
     size: 100,
@@ -178,17 +186,24 @@ const fetch = async (key = {}) => {
 
   paramList.body = JSON.stringify(body)
 
-  const getResp = (contentURL, paramList, options) => {
-    return request({
-      uri: contentURL,
-      qs: paramList,
-      ...options,
-    })
-  }
-
   let allContentElements = []
   while (true) {
-    const scanResp = await getResp(contentURL, paramList, options)
+    const scanResp = await axios({
+      url: `${CONTENT_BASE}/content/v4/search/published/?${new URLSearchParams(paramList).toString()}`,
+      ...options,
+    })
+      .then((result) => {
+        if (resizerKey) {
+          return result
+        }
+        return signImagesInANSObject(
+          cachedCall,
+          resizerFetch,
+          RESIZER_TOKEN_VERSION,
+        )(result)
+      })
+      .then(({ data }) => data)
+      .catch((error) => console.log('== error ==', error))
 
     allContentElements = allContentElements.concat(scanResp.content_elements)
     if (

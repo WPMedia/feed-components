@@ -21,6 +21,7 @@ export function ANSFeed({ globalContent = {}, customFields, arcSite }) {
           resizerURL,
           width,
           height,
+          img,
         )
       }
       return img

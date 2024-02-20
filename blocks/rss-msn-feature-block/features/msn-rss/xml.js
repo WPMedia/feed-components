@@ -244,6 +244,7 @@ export function MsnRss({ globalContent, customFields, arcSite, requestUri }) {
                 resizerURL,
                 resizerWidth,
                 resizerHeight,
+                element,
               ),
               alt: element.caption || '',
               ...(element.height && {
