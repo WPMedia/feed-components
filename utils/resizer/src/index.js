@@ -1,6 +1,6 @@
 import { RESIZER_TOKEN_VERSION } from 'fusion:environment'
 
-import { imageANSToImageSrc } from '@wpmedia/arc-themes-components'
+import imageANSToImageSrc from '@wpmedia/arc-themes-components/src/utils/image-ans-to-image-src'
 
 import calculateWidthAndHeight from './calculateWidthAndHeight'
 
@@ -38,7 +38,6 @@ export function buildResizerURL(
         smart: true,
       },
     )
-    console.log(defaultSrc)
     return defaultSrc
   } else {
     if (resizerKey) {
