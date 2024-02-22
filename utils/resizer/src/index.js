@@ -46,7 +46,7 @@ export function buildResizerURL(
         const thumbor = new Thumbor(resizerKey, resizerURL)
         let imgSrc = _url.replace(/^http[s]?:\/\//, '').replaceAll(' ', '%20')
         if (imgSrc.includes('?')) {
-          imgSrc = imgSrc.replace('?', '%3F')
+          imgSrc = imgSrc.replaceAll('?', '%3F')
         }
 
         return thumbor.setImagePath(imgSrc).resize(width, height).buildUrl()
