@@ -44,7 +44,7 @@ export function buildResizerURL(
       if (_url && typeof window === 'undefined') {
         const Thumbor = require('thumbor-lite')
         const thumbor = new Thumbor(resizerKey, resizerURL)
-        let imgSrc = _url.replace(/^http[s]?:\/\//, '').replace(' ', '%20')
+        let imgSrc = _url.replace(/^http[s]?:\/\//, '').replaceAll(' ', '%20')
         if (imgSrc.includes('?')) {
           imgSrc = imgSrc.replace('?', '%3F')
         }
