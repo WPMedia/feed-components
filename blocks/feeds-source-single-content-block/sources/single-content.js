@@ -1,18 +1,52 @@
+import axios from 'axios'
+
+import {
+  ARC_ACCESS_TOKEN,
+  CONTENT_BASE,
+  RESIZER_TOKEN_VERSION,
+  resizerKey,
+} from 'fusion:environment'
+
+import signImagesInANSObject from '@wpmedia/arc-themes-components/src/utils/sign-images-in-ans-object'
+import { fetch as resizerFetch } from '@wpmedia/signing-service-content-source-block'
+
 const params = {
   _id: 'text',
   website_url: 'text',
 }
 
-const resolve = (key = {}) => {
-  const site = key['arc-site']
-  const { website_url: websiteUrl, _id: id } = key
-  return `/content/v4/?${id ? `_id=${id}` : `website_url=${websiteUrl}`}${
-    site ? `&website=${site}` : ''
-  }`
+const fetch = (key, { cachedCall }) => {
+  const urlSearch = new URLSearchParams({
+    ...(key['_id'] ? { _id: key['_id'] } : { website_url: key['website_url'] }),
+    ...(key['arc-site'] ? { website: key['arc-site'] } : {}),
+  })
+
+  const ret = axios({
+    url: `${CONTENT_BASE}/content/v4/?${urlSearch.toString()}`,
+    headers: {
+      'content-type': 'application/json',
+      Authorization: `Bearer ${ARC_ACCESS_TOKEN}`,
+    },
+    method: 'GET',
+  })
+    .then((result) => {
+      if (resizerKey) {
+        return result
+      }
+      return signImagesInANSObject(
+        cachedCall,
+        resizerFetch,
+        RESIZER_TOKEN_VERSION,
+      )(result)
+    })
+    .then(({ data }) => data)
+    .catch((error) => console.log('== error ==', error))
+
+  return ret
 }
 
 export default {
-  schemaName: 'ans-item',
+  fetch,
   params,
-  resolve,
+  schemaName: 'ans-item',
 }
