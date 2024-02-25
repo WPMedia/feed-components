@@ -9,7 +9,7 @@ import {
 } from 'fusion:environment'
 import getProperties from 'fusion:properties'
 
-import { signImagesInANSObject } from '@wpmedia/feeds-resizer'
+import { signImagesInANSObject, resizerFetch } from '@wpmedia/feeds-resizer'
 import {
   defaultANSFields,
   formatSections,
@@ -17,7 +17,6 @@ import {
   transform,
   validANSDates,
 } from '@wpmedia/feeds-content-source-utils'
-import { fetch as resizerFetch } from '@wpmedia/signing-service-content-source-block'
 
 const options = {
   headers: {

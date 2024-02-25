@@ -10,8 +10,7 @@ import {
   defaultANSFields,
   formatSections,
 } from '@wpmedia/feeds-content-source-utils'
-import { signImagesInANSObject } from '@wpmedia/feeds-resizer'
-import { fetch as resizerFetch } from '@wpmedia/signing-service-content-source-block'
+import { signImagesInANSObject, resizerFetch } from '@wpmedia/feeds-resizer'
 
 const generateDistributor = ({
   'Include-Distributor-Name': include_distributor_name,

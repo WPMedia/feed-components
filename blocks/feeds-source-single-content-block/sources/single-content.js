@@ -7,8 +7,7 @@ import {
   resizerKey,
 } from 'fusion:environment'
 
-import { signImagesInANSObject } from '@wpmedia/feeds-resizer'
-import { fetch as resizerFetch } from '@wpmedia/signing-service-content-source-block'
+import { signImagesInANSObject, resizerFetch } from '@wpmedia/feeds-resizer'
 
 const params = {
   _id: 'text',

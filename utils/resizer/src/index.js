@@ -2,6 +2,8 @@ import { RESIZER_TOKEN_VERSION } from 'fusion:environment'
 
 import imageANSToImageSrc from './image-ans-to-image-src'
 import signImagesInANSObject from './sign-images-in-ans-object'
+import handleFetchError from './handle-fetch-error'
+import signingService from './signing-service'
 
 import calculateWidthAndHeight from './calculateWidthAndHeight'
 
@@ -58,4 +60,4 @@ export function buildResizerURL(
   return null
 }
 
-export { imageANSToImageSrc, signImagesInANSObject }
+export { imageANSToImageSrc, signImagesInANSObject, handleFetchError, signingService}
