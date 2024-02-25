@@ -1,6 +1,7 @@
 import { RESIZER_TOKEN_VERSION } from 'fusion:environment'
 
-import imageANSToImageSrc from '@wpmedia/arc-themes-components/src/utils/image-ans-to-image-src'
+import imageANSToImageSrc from './image-ans-to-image-src'
+import signImagesInANSObject from './sign-images-in-ans-object'
 
 import calculateWidthAndHeight from './calculateWidthAndHeight'
 
@@ -56,3 +57,5 @@ export function buildResizerURL(
   }
   return null
 }
+
+export { imageANSToImageSrc, signImagesInANSObject }

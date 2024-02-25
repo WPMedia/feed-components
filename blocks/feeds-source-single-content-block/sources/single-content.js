@@ -7,7 +7,7 @@ import {
   resizerKey,
 } from 'fusion:environment'
 
-import signImagesInANSObject from '@wpmedia/arc-themes-components/src/utils/sign-images-in-ans-object'
+import { signImagesInANSObject } from '@wpmedia/feeds-resizer'
 import { fetch as resizerFetch } from '@wpmedia/signing-service-content-source-block'
 
 const params = {

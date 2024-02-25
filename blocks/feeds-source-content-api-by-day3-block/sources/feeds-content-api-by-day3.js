@@ -9,7 +9,7 @@ import {
 } from 'fusion:environment'
 import getProperties from 'fusion:properties'
 
-import signImagesInANSObject from '@wpmedia/arc-themes-components/src/utils/sign-images-in-ans-object'
+import { signImagesInANSObject } from '@wpmedia/feeds-resizer'
 import {
   defaultANSFields,
   formatSections,
