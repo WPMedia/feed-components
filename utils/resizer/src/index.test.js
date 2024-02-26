@@ -1,3 +1,7 @@
+jest.mock('fusion:environment', () => ({
+    RESIZER_TOKEN_VERSION: 1, 
+}));
+// eslint-disable-next-line import/first
 import { buildResizerURL } from '.'; // Adjust the path as necessary
 
 
@@ -26,8 +30,9 @@ describe('buildResizerURL', () => {
 
     it('formats URL correctly for ANS image with auth token', () => {
         const ansImage = {
-        auth: { 'token_v1': 'someAuthToken' },
+            auth: { 1: 'someAuthToken' },
         };
+
         require('./calculateWidthAndHeight').default.mockReturnValue({ width: 100, height: 100 });
 
         const result = buildResizerURL(

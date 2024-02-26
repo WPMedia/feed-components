@@ -32,7 +32,6 @@ export function buildResizerURL(
       height,
       ansImage,
     })
-
     const defaultSrc = formatSrc(
       resizerURL.concat('/', imageANSToImageSrc(ansImage)),
       {
@@ -57,7 +56,6 @@ export function buildResizerURL(
     }
     return _url
   }
-  return null
 }
 
 export { imageANSToImageSrc, signImagesInANSObject, handleFetchError, resizerFetch }
