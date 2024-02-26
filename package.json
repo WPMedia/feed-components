@@ -2,10 +2,12 @@
   "name": "@feed-components/root",
   "version:": "1.0.0",
   "private": true,
-  "workspaces": [
-    "blocks/*",
-    "utils/*"
-  ],
+  "workspaces": {
+    "packages": [
+      "blocks/*",
+      "utils/*"
+    ]
+  },
   "preconstruct": {
     "distFilenameStrategy": "unscoped-package-name",
     "packages": [
@@ -48,7 +50,6 @@
     }
   },
   "scripts": {
-    "postinstall": "preconstruct dev",
     "lint": "npm run lint:eslint && npm run lint:prettier",
     "lint:eslint": "eslint . --ext .js --ext .jsx",
     "lint:prettier": "prettier --check \"./{blocks,utils}/**/*.js\"",
