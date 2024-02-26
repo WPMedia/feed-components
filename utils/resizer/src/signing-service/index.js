@@ -13,7 +13,7 @@ const params = {
 	serviceVersion: "text",
 };
 
-const fetch = ({
+export const fetch = ({
 	id,
 	service = SIGNING_SERVICE_DEFAULT_APP,
 	serviceVersion = RESIZER_TOKEN_VERSION,
