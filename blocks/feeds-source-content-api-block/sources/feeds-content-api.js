@@ -9,78 +9,63 @@ import getProperties from 'fusion:properties'
 import {
   defaultANSFields,
   formatSections,
+  generateDistributor,
+  genParams,
+  transform,
 } from '@wpmedia/feeds-content-source-utils'
 import { signImagesInANSObject, resizerFetch } from '@wpmedia/feeds-resizer'
 
-const generateDistributor = ({
-  'Include-Distributor-Name': include_distributor_name,
-  'Exclude-Distributor-Name': exclude_distributor_name,
-  'Include-Distributor-Category': include_distributor_category,
-  'Exclude-Distributor-Category': exclude_distributor_category,
-}) => {
-  if (include_distributor_name) {
-    return { include_distributor_name }
-  } else if (exclude_distributor_name) {
-    return { exclude_distributor_name }
-  } else if (include_distributor_category) {
-    return { include_distributor_category }
-  } else if (exclude_distributor_category) {
-    return { exclude_distributor_category }
-  }
-  return {}
-}
 
 const fetch = (key, { cachedCall }) => {
-  const {
-    'arc-site': website,
-    Author: author,
-    'Exclude-Sections': excludeSections,
-    'Exclude-Terms': excludeTerms,
-    'Feed-Offset': from = '0',
-    'Feed-Size': size = 100,
-    'Include-Terms': includeTerms,
-    Keywords: keywords,
-    Section: section,
-    'Sitemap-at-root': sitemapAtRoot = 'false',
-    Sort: sort = 'publish_date:desc',
-    'Source-Exclude': sourceExclude,
-    'Source-Include': sourceInclude,
-    'Tags-Slug': tagsSlug,
-    'Tags-Text': tagsText,
-  } = key
-
-  const sourceExcludes = []
-  const hasSitemapAtRoot = sitemapAtRoot.toLowerCase() !== 'false'
+  const requestUri = `${CONTENT_BASE}/content/v4/search/published`
   const ansFields = [
     ...defaultANSFields,
     'content_elements',
-    `websites.${website}`,
+    `websites.${key['arc-site']}`,
   ]
+  // resolvers only support text or number, turn into bool.
+  const sitemapAtRoot =
+    key['Sitemap-at-root'] && key['Sitemap-at-root'].toLowerCase() !== 'false'
 
-  if (sourceExclude) {
-    sourceExclude.split(',').forEach((i) => {
-      if (i) {
-        if (ansFields.indexOf(i) !== -1) {
-          ansFields.splice(ansFields.indexOf(i), 1)
-        } else {
-          sourceExcludes.push(i)
-        }
+  const paramList = {
+    website: key['arc-site'],
+    size: key['Feed-Size'] || '100',
+    from: key['Feed-Offset'] || '0',
+    sort: key.Sort || 'publish_date:desc',
+  }
+  generateDistributor(key, paramList)
+
+  if (key['Source-Exclude']) {
+    const sourceExclude = []
+    key['Source-Exclude'].split(',').forEach((i) => {
+      if (i && ansFields.indexOf(i) !== -1) {
+        ansFields.splice(ansFields.indexOf(i), 1)
+      } else {
+        i && sourceExclude.push(i)
       }
     })
-    if (sourceExcludes?.length)
-      paramList._sourceExclude = sourceExcludes.join(',')
+    if (sourceExclude.length) paramList._sourceExclude = sourceExclude.join(',')
   }
 
-  if (sourceInclude) {
-    sourceInclude
+  if (key['Source-Include']) {
+    key['Source-Include']
       .split(',')
       .forEach((i) => i && !ansFields.includes(i) && ansFields.push(i))
   }
+  paramList._sourceInclude = ansFields.join(',')
 
-  let feedQuery = []
-  const { feedDefaultQuery } = getProperties(website)
+  // basic ES query
+  const body = {
+    query: {
+      bool: {
+        must: [],
+      },
+    },
+  }
 
   // If feedDefaultQuery is set try to use it
+  let feedQuery
+  const { feedDefaultQuery } = getProperties(key['arc-site'])
   if (feedDefaultQuery) {
     try {
       feedQuery = JSON.parse(feedDefaultQuery)
@@ -88,18 +73,20 @@ const fetch = (key, { cachedCall }) => {
       console.warn(`Failed to parse feedDefaultQuery: ${feedDefaultQuery}`)
     }
   }
+
   // process the must query terms passed as json string
   // if nothing passed or not valid json use [{"term": {"type":"story"}}, {"term": {"revision.published":true}}]
-  if (includeTerms) {
+  if (key['Include-Terms']) {
     try {
-      feedQuery = JSON.parse(includeTerms)
+      feedQuery = JSON.parse(key['Include-Terms'])
     } catch (error) {
-      console.warn(`Failed to parse Include-Terms: ${includeTerms}`)
+      console.warn(`Failed to parse Include-Terms: ${key['Include-Terms']}`)
       const err = new Error('Invalid Include-Terms')
       err.statusCode = 500
       throw err
     }
   }
+
   // default query
   if (!feedQuery) {
     feedQuery = [
@@ -108,75 +95,77 @@ const fetch = (key, { cachedCall }) => {
     ]
   }
 
-  const body = {
-    query: {
-      bool: {
-        must: feedQuery,
-      },
-    },
-  }
+  body.query.bool.must = feedQuery
 
   // process the not query terms passed as object
+  const excludeTerms = key['Exclude-Terms']
   if (excludeTerms) {
     try {
       body.query.bool.must_not = JSON.parse(excludeTerms)
     } catch (error) {
-      console.warn(`Failed to parse Exclude-Terms: ${excludeTerms}`)
+      console.warn(`Failed to parse Exclude-Terms: ${key['Exclude-Terms']}`)
       const err = new Error('Invalid Exclude-Terms')
       err.statusCode = 500
       throw err
     }
   }
+
   // Append Author to basic query
-  if (author) {
+  const { Author } = key
+  if (Author) {
+    const author = Author.replace(/\//g, '')
+
     body.query.bool.must.push({
       term: {
-        'credits.by._id': author.replace(/\//g, ''),
+        'credits.by._id': author,
       },
     })
   }
 
   // Append Keywords to basic query
   // AIO-243 use simple_query_string to support multiple phrases using "phrase 1" | "phrase 2"
-  if (keywords) {
+  const { Keywords } = key
+  if (Keywords) {
+    const keywords = Keywords.replace(/\//g, '').replace(/%20/g, '+')
+
     body.query.bool.must.push({
       simple_query_string: {
-        query: `"${keywords
-          .replace(/\//g, '')
-          .replace(/%20/g, '+')
-          .split(',')
-          .join('" | "')}"`,
+        query: `"${keywords.split(',').join('" | "')}"`,
         fields: ['taxonomy.seo_keywords'],
       },
     })
   }
 
   // Append Tags text to basic query
+  const tagsText = key['Tags-Text']
   if (tagsText) {
+    const cleanTagsText = tagsText.replace(/\//g, '').replace(/%20/g, '+')
+
     body.query.bool.must.push({
       terms: {
-        'taxonomy.tags.text.raw': tagsText
-          .replace(/\//g, '')
-          .replace(/%20/g, '+')
-          .split(','),
+        'taxonomy.tags.text.raw': cleanTagsText.split(','),
       },
     })
   }
 
   // Append Tags slug to basic query
+  const tagsSlug = key['Tags-Slug']
   if (tagsSlug) {
+    const cleanTagsSlug = tagsSlug.replace(/\//g, '')
+
     body.query.bool.must.push({
       terms: {
-        'taxonomy.tags.slug': tagsSlug.replace(/\//g, '').split(','),
+        'taxonomy.tags.slug': cleanTagsSlug.split(','),
       },
     })
   }
 
   // if Section and/or Exclude-Sections append section query to basic query
-  const cleanSection =
-    section && hasSitemapAtRoot ? section.replace(/-/g, '/') : section
+  const Section =
+    key.Section && sitemapAtRoot ? key.Section.replace(/-/g, '/') : key.Section
+  const ExcludeSections = key['Exclude-Sections']
 
-  if (cleanSection || excludeSections) {
+  if (Section || ExcludeSections) {
     const nested = {
       nested: {
         path: 'taxonomy.sections',
@@ -185,7 +174,7 @@ const fetch = (key, { cachedCall }) => {
             must: [
               {
                 term: {
-                  'taxonomy.sections._website': website,
+                  'taxonomy.sections._website': key['arc-site'],
                 },
               },
             ],
@@ -196,34 +185,23 @@ const fetch = (key, { cachedCall }) => {
 
     const mustNested = JSON.parse(JSON.stringify(nested))
 
-    if (cleanSection && cleanSection !== '/') {
-      mustNested.nested.query.bool.must.push(formatSections(cleanSection))
+    if (Section && Section !== '/') {
+      mustNested.nested.query.bool.must.push(formatSections(Section))
     }
     body.query.bool.must.push(mustNested)
 
-    if (excludeSections && excludeSections !== '/') {
+    if (ExcludeSections && ExcludeSections !== '/') {
       const notNested = JSON.parse(JSON.stringify(nested))
-      notNested.nested.query.bool.must = [formatSections(excludeSections)]
+      notNested.nested.query.bool.must = [formatSections(ExcludeSections)]
       if (!body.query.bool.must_not) body.query.bool.must_not = []
       body.query.bool.must_not.push(notNested)
     }
   }
 
-  const urlSearch = new URLSearchParams({
-    body: JSON.stringify(body),
-    from,
-    size,
-    sort,
-    website,
-    ...generateDistributor(key),
-    ...(sourceExcludes?.length
-      ? { _sourceExclude: sourceExcludes.join(',') }
-      : {}),
-    _sourceInclude: ansFields.join(','),
-  })
+  const encodedBody = encodeURI(JSON.stringify(body))
 
   const ret = axios({
-    url: `${CONTENT_BASE}/content/v4/search/published?${urlSearch.toString()}`,
+    url: `${requestUri}?body=${encodedBody}&${genParams(paramList)}`,
     headers: {
       'content-type': 'application/json',
       Authorization: `Bearer ${ARC_ACCESS_TOKEN}`,
@@ -249,25 +227,26 @@ const fetch = (key, { cachedCall }) => {
 export default {
   fetch,
   schemaName: 'feeds',
+  transform,
   params: {
-    Author: 'text',
-    'Exclude-Distributor-Category': 'text',
-    'Exclude-Distributor-Name': 'text',
-    'Exclude-Sections': 'text',
-    'Exclude-Terms': 'text',
-    'Feed-Offset': 'text',
-    'Feed-Size': 'text',
-    'Include-Distributor-Category': 'text',
-    'Include-Distributor-Name': 'text',
-    'Include-Terms': 'text',
-    Keywords: 'text',
     Section: 'text',
-    'Sitemap-at-root': 'text',
+    Author: 'text',
+    Keywords: 'text',
+    'Tags-Text': 'text',
+    'Tags-Slug': 'text',
+    'Include-Terms': 'text',
+    'Exclude-Terms': 'text',
+    'Exclude-Sections': 'text',
+    'Feed-Size': 'text',
+    'Feed-Offset': 'text',
     Sort: 'text',
     'Source-Exclude': 'text',
     'Source-Include': 'text',
-    'Tags-Slug': 'text',
-    'Tags-Text': 'text',
+    'Sitemap-at-root': 'text',
+    'Include-Distributor-Name': 'text',
+    'Exclude-Distributor-Name': 'text',
+    'Include-Distributor-Category': 'text',
+    'Exclude-Distributor-Category': 'text',
   },
   ttl: 300,
 }
