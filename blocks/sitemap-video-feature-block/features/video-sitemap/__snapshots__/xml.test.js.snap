@@ -1,38 +1,38 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`returns template with default values 1`] = `
-Object {
-  "urlset": Object {
+{
+  "urlset": {
     "@xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9",
     "@xmlns:video": "http://www.google.com/schemas/sitemap-video/1.1",
-    "url": Array [
-      Object {
+    "url": [
+      {
         "lastmod": "2020-04-16T19:55:14Z",
         "loc": "http://demo-prod.origin.arcpublishing.com/video/2020/04/16/inexact-odyssey-a-volcom-snowboarding-film/",
-        "video:video": Object {
+        "video:video": {
           "video:category": "Video",
           "video:content_loc": "https://d3ujdjwa458jgt.cloudfront.net/out/v1/87998c783fb94bf0b965847d5c8b4392/index.m3u8",
-          "video:description": Object {
+          "video:description": {
             "$": "Video Description",
           },
           "video:duration": 789,
           "video:thumbnail_loc": "hi/abcdefghijklmnopqrstuvwxyz=/dv8csq7v0ltdn.cloudfront.net/04-16-2020/t_95d8de29ea3b41caac132f0462c5c71a_name_file_1920x1080_5400_v4_.jpg",
-          "video:title": Object {
+          "video:title": {
             "$": "Inexact Odyssey, A Volcom Snowboarding Film",
           },
         },
       },
-      Object {
+      {
         "lastmod": "2021-04-16T19:55:14Z",
         "loc": "http://demo-prod.origin.arcpublishing.com/video/2020/04/16/inexact-odyssey-a-volcom-snowboarding-film/",
-        "video:video": Object {
+        "video:video": {
           "video:category": "Video",
           "video:content_loc": "https://d3ujdjwa458jgt.cloudfront.net/out/v1/87998c783fb94bf0b965847d5c8b4392/index.m3u8",
-          "video:description": Object {
+          "video:description": {
             "$": "Video Description",
           },
           "video:duration": 789,
-          "video:title": Object {
+          "video:title": {
             "$": "Inexact Odyssey, A Volcom Snowboarding Film",
           },
         },
@@ -43,24 +43,24 @@ Object {
 `;
 
 exports[`returns template with empty values 1`] = `
-Object {
-  "urlset": Object {
+{
+  "urlset": {
     "@xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9",
     "@xmlns:video": "http://www.google.com/schemas/sitemap-video/1.1",
-    "url": Array [
-      Object {
+    "url": [
+      {
         "lastmod": undefined,
         "loc": "http://demo-prod.origin.arcpublishing.com/video/2020/04/16/inexact-odyssey-a-volcom-snowboarding-film/",
-        "video:video": Object {
+        "video:video": {
           "video:category": "Video",
           "video:content_loc": "https://d3ujdjwa458jgt.cloudfront.net/out/v1/87998c783fb94bf0b965847d5c8b4392/index.m3u8",
           "video:duration": 789,
         },
       },
-      Object {
+      {
         "lastmod": undefined,
         "loc": "http://demo-prod.origin.arcpublishing.com/video/2020/04/16/inexact-odyssey-a-volcom-snowboarding-film/",
-        "video:video": Object {
+        "video:video": {
           "video:category": "Video",
           "video:content_loc": "https://d3ujdjwa458jgt.cloudfront.net/out/v1/87998c783fb94bf0b965847d5c8b4392/index.m3u8",
           "video:duration": 789,
@@ -72,38 +72,38 @@ Object {
 `;
 
 exports[`returns template with headlines.title, description.basic 2000 values 1`] = `
-Object {
-  "urlset": Object {
+{
+  "urlset": {
     "@xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9",
     "@xmlns:video": "http://www.google.com/schemas/sitemap-video/1.1",
-    "url": Array [
-      Object {
+    "url": [
+      {
         "lastmod": "2020-04-16T19:55:14Z",
         "loc": "http://demo-prod.origin.arcpublishing.com/video/2020/04/16/inexact-odyssey-a-volcom-snowboarding-film/",
-        "video:video": Object {
+        "video:video": {
           "video:category": "Video",
           "video:content_loc": "https://d3ujdjwa458jgt.cloudfront.net/out/v1/87998c783fb94bf0b965847d5c8b4392/index.m3u8",
-          "video:description": Object {
+          "video:description": {
             "$": "Video Description",
           },
           "video:duration": 789,
           "video:thumbnail_loc": "hi/abcdefghijklmnopqrstuvwxyz=/dv8csq7v0ltdn.cloudfront.net/04-16-2020/t_95d8de29ea3b41caac132f0462c5c71a_name_file_1920x1080_5400_v4_.jpg",
-          "video:title": Object {
+          "video:title": {
             "$": "Ababe beso bela",
           },
         },
       },
-      Object {
+      {
         "lastmod": "2021-04-16T19:55:14Z",
         "loc": "http://demo-prod.origin.arcpublishing.com/video/2020/04/16/inexact-odyssey-a-volcom-snowboarding-film/",
-        "video:video": Object {
+        "video:video": {
           "video:category": "Video",
           "video:content_loc": "https://d3ujdjwa458jgt.cloudfront.net/out/v1/87998c783fb94bf0b965847d5c8b4392/index.m3u8",
-          "video:description": Object {
+          "video:description": {
             "$": "Video Description",
           },
           "video:duration": 789,
-          "video:title": Object {
+          "video:title": {
             "$": "Ababe beso bela",
           },
         },
@@ -114,25 +114,25 @@ Object {
 `;
 
 exports[`returns template with subheadlines.basic values 1`] = `
-Object {
-  "urlset": Object {
+{
+  "urlset": {
     "@xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9",
     "@xmlns:video": "http://www.google.com/schemas/sitemap-video/1.1",
-    "url": Array [
-      Object {
+    "url": [
+      {
         "lastmod": "2020-04-16T19:55:25Z",
         "loc": "http://demo-prod.origin.arcpublishing.com/video/2020/04/16/inexact-odyssey-a-volcom-snowboarding-film/",
-        "video:video": Object {
+        "video:video": {
           "video:category": "Video",
           "video:content_loc": "https://d3ujdjwa458jgt.cloudfront.net/out/v1/87998c783fb94bf0b965847d5c8b4392/index.m3u8",
           "video:duration": 789,
           "video:thumbnail_loc": "hi/abcdefghijklmnopqrstuvwxyz=/dv8csq7v0ltdn.cloudfront.net/04-16-2020/t_95d8de29ea3b41caac132f0462c5c71a_name_file_1920x1080_5400_v4_.jpg",
         },
       },
-      Object {
+      {
         "lastmod": "2021-04-16T19:55:25Z",
         "loc": "http://demo-prod.origin.arcpublishing.com/video/2020/04/16/inexact-odyssey-a-volcom-snowboarding-film/",
-        "video:video": Object {
+        "video:video": {
           "video:category": "Video",
           "video:content_loc": "https://d3ujdjwa458jgt.cloudfront.net/out/v1/87998c783fb94bf0b965847d5c8b4392/index.m3u8",
           "video:duration": 789,

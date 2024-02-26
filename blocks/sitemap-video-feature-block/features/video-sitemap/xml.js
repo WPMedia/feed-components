@@ -47,6 +47,7 @@ const sitemapTemplate = (
                 resizerURL,
                 resizerWidth,
                 resizerHeight,
+                img,
               ),
             }),
           ...(videoTitle &&

@@ -190,6 +190,7 @@ export function GoogleNewsRss({
                 resizerURL,
                 resizerWidth,
                 resizerHeight,
+                element,
               ),
               alt: element.caption || '',
               ...(element.height && {
