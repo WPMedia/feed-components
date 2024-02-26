@@ -1,6 +1,9 @@
 import { RESIZER_TOKEN_VERSION } from 'fusion:environment'
 
-import imageANSToImageSrc from '@wpmedia/arc-themes-components/src/utils/image-ans-to-image-src'
+import imageANSToImageSrc from './image-ans-to-image-src'
+import signImagesInANSObject from './sign-images-in-ans-object'
+import handleFetchError from './handle-fetch-error'
+import { fetch as resizerFetch } from './signing-service'
 
 import calculateWidthAndHeight from './calculateWidthAndHeight'
 
@@ -15,7 +18,7 @@ const formatSrc = (srcWithResizerUrl, resizedOptions) => {
   )
 }
 
-export function buildResizerURL(
+function buildResizerURL(
   _url,
   resizerKey,
   resizerURL,
@@ -29,7 +32,6 @@ export function buildResizerURL(
       height,
       ansImage,
     })
-
     const defaultSrc = formatSrc(
       resizerURL.concat('/', imageANSToImageSrc(ansImage)),
       {
@@ -54,5 +56,6 @@ export function buildResizerURL(
     }
     return _url
   }
-  return null
 }
+
+export { buildResizerURL, imageANSToImageSrc, signImagesInANSObject, handleFetchError, resizerFetch }

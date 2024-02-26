@@ -9,7 +9,7 @@ import {
 } from 'fusion:environment'
 import getProperties from 'fusion:properties'
 
-import signImagesInANSObject from '@wpmedia/arc-themes-components/src/utils/sign-images-in-ans-object'
+import { signImagesInANSObject, resizerFetch } from '@wpmedia/feeds-resizer'
 import {
   defaultANSFields,
   formatSections,
@@ -17,7 +17,6 @@ import {
   transform,
   validANSDates,
 } from '@wpmedia/feeds-content-source-utils'
-import { fetch as resizerFetch } from '@wpmedia/signing-service-content-source-block'
 
 const options = {
   headers: {
@@ -202,6 +201,7 @@ const fetch = async (key, { cachedCall }) => {
           RESIZER_TOKEN_VERSION,
         )(result)
       })
+      .then(({data, ...rest}) => ({ ...rest, data: transform(data, key), }))
       .then(({ data }) => data)
       .catch((error) => console.log('== error ==', error))
 
@@ -220,7 +220,6 @@ const fetch = async (key, { cachedCall }) => {
 export default {
   fetch,
   schemaName: 'feeds',
-  transform,
   params: [
     {
       name: 'dateField',

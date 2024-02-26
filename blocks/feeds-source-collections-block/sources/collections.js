@@ -7,9 +7,8 @@ import {
   resizerKey,
 } from 'fusion:environment'
 
-import signImagesInANSObject from '@wpmedia/arc-themes-components/src/utils/sign-images-in-ans-object'
+import { signImagesInANSObject, resizerFetch } from '@wpmedia/feeds-resizer'
 import { defaultANSFields } from '@wpmedia/feeds-content-source-utils'
-import { fetch as resizerFetch } from '@wpmedia/signing-service-content-source-block'
 
 const sortStories = (idsResp, collectionResp, ids, site) => {
   idsResp.content_elements.forEach((item) => {
