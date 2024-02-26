@@ -18,7 +18,7 @@ const formatSrc = (srcWithResizerUrl, resizedOptions) => {
   )
 }
 
-export function buildResizerURL(
+function buildResizerURL(
   _url,
   resizerKey,
   resizerURL,
@@ -58,4 +58,4 @@ export function buildResizerURL(
   }
 }
 
-export { imageANSToImageSrc, signImagesInANSObject, handleFetchError, resizerFetch }
+export { buildResizerURL, imageANSToImageSrc, signImagesInANSObject, handleFetchError, resizerFetch }
