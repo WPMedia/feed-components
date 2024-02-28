@@ -2,11 +2,10 @@
   "name": "@wpmedia/feeds-promo-items",
   "version": "1.0.8",
   "description": "Shared arcio promo_items module",
-  "main": "dist/feeds-promo-items.cjs.js",
-  "module": "dist/feeds-promo-items.esm.js",
   "source": "index.js",
+  "main": "src/index.js",
   "files": [
-    "dist"
+    "src/**/!(*.test).js"
   ],
   "scripts": {
     "clean": "rm -rf dist"

@@ -2,11 +2,10 @@
   "name": "@wpmedia/feeds-find-video-stream",
   "version": "1.0.8",
   "description": "Utility to search video stream for desired encoding",
-  "main": "dist/feeds-find-video-stream.cjs.js",
-  "module": "dist/feeds-find-video-stream.esm.js",
   "source": "index.js",
+  "main": "src/index.js",
   "files": [
-    "dist"
+    "src/**/!(*.test).js"
   ],
   "scripts": {
     "clean": "rm -rf dist"

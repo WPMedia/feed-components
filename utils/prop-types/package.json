@@ -2,8 +2,10 @@
   "name": "@wpmedia/feeds-prop-types",
   "version": "1.0.10",
   "description": "Shared fusion prop-type tag info",
-  "main": "dist/feeds-prop-types.cjs.js",
-  "module": "dist/feeds-prop-types.esm.js",
+  "main": "src/index.js",
+  "files": [
+    "src/**/!(*.test).js"
+  ],
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
