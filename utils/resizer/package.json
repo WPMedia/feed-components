@@ -3,6 +3,7 @@
   "version": "1.0.8",
   "description": "Utilities to manage image resizing",
   "source": "index.js",
+  "type": "module",
   "main": "src/index.js",
   "files": [
     "src/**/!(*.test).js"

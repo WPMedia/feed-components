@@ -3,6 +3,7 @@
   "version": "1.0.8",
   "description": "Utility to search video stream for desired encoding",
   "source": "index.js",
+  "type": "module",
   "main": "src/index.js",
   "files": [
     "src/**/!(*.test).js"
@@ -22,6 +23,6 @@
   "author": "Tim Kosmider <timothy.kosmider@washpost.com>",
   "license": "CC-BY-NC-ND-4.0",
   "dependencies": {
-    "jmespath": "^0.15.0"
+    "jmespath": "^0.16.0"
   }
 }
