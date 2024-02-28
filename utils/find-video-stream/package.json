@@ -4,7 +4,7 @@
   "description": "Utility to search video stream for desired encoding",
   "source": "index.js",
   "type": "module",
-  "exports": "src/index.js",
+  "exports": "./src/index.js",
   "files": [
     "src/**/!(*.test).js"
   ],

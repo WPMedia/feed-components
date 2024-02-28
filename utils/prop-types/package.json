@@ -3,7 +3,7 @@
   "version": "1.0.10",
   "description": "Shared fusion prop-type tag info",
   "type": "module",
-  "exports": "src/index.js",
+  "exports": "./src/index.js",
   "files": [
     "src/**/!(*.test).js"
   ],
