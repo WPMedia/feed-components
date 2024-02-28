@@ -2,8 +2,7 @@
   "name": "@wpmedia/feeds-prop-types",
   "version": "1.0.10",
   "description": "Shared fusion prop-type tag info",
-  "type": "module",
-  "exports": "./src/index.js",
+  "main": "src/index.js",
   "files": [
     "src/**/!(*.test).js"
   ],
@@ -21,7 +20,7 @@
   },
   "author": "Cameron Woodmansee",
   "license": "CC-BY-NC-ND-4.0",
-  "devDependencies": {
-    "prop-types": "^15.8.1"
+  "dependencies": {
+    "prop-types": "^15.7.2"
   }
 }

@@ -7,7 +7,7 @@ import { BuildPromoItems } from '@wpmedia/feeds-promo-items'
 import { generatePropsForFeed } from '@wpmedia/feeds-prop-types'
 import { buildResizerURL } from '@wpmedia/feeds-resizer'
 import URL from 'url'
-import jmespath from 'jmespath'
+const jmespath = require('jmespath')
 
 const rssTemplate = (
   elements,
