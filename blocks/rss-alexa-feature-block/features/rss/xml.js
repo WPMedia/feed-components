@@ -1,15 +1,13 @@
-import PropTypes from 'fusion:prop-types'
-import Consumer from 'fusion:consumer'
+import cheerio from 'cheerio'
+import jmespath from 'jmespath'
 import moment from 'moment'
+import Consumer from 'fusion:consumer'
+import PropTypes from 'fusion:prop-types'
 import getProperties from 'fusion:properties'
 import { resizerKey } from 'fusion:environment'
 import { BuildContent } from '@wpmedia/feeds-content-elements'
 import { generatePropsForFeed } from '@wpmedia/feeds-prop-types'
 import { buildResizerURL } from '@wpmedia/feeds-resizer'
-
-const jmespath = require('jmespath')
-
-const cheerio = require('cheerio')
 
 export const getURLType = (url) => {
   const imgRegex = /jpe?g|png|webp/i

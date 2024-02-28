@@ -4,7 +4,7 @@ import getProperties from 'fusion:properties'
 import { resizerKey } from 'fusion:environment'
 import { BuildPromoItems } from '@wpmedia/feeds-promo-items'
 import { generatePropsForFeed } from '@wpmedia/feeds-prop-types'
-const jmespath = require('jmespath')
+import jmespath from 'jmespath'
 
 const sitemapTemplate = (
   elements,

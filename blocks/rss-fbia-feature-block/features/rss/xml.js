@@ -16,7 +16,7 @@ import { convert, fragment } from 'xmlbuilder2'
  * use version <= 2.1.7 or version >= 3.0.0 like this "xmlbuilder2": "2.1.7"
  */
 import URL from 'url'
-const jmespath = require('jmespath')
+import jmespath from 'jmespath'
 
 const rssTemplate = (
   elements,
