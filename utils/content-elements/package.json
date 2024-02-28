@@ -3,8 +3,7 @@
   "version": "1.0.10",
   "description": "Shared arcio content_elements module",
   "source": "index.js",
-  "type": "module",
-  "exports": "./src/index.js",
+  "main": "src/index.js",
   "files": [
     "src/**/!(*.test).js"
   ],
@@ -25,9 +24,9 @@
   "dependencies": {
     "@wpmedia/feeds-find-video-stream": "^1.0.8",
     "@wpmedia/feeds-resizer": "^1.0.8 || ^2.0.0",
-    "cheerio": "^1.0.0-rc.12",
+    "cheerio": "^1.0.0-rc.10",
     "he": "^1.2.0",
-    "jmespath": "^0.16.0",
-    "xmlbuilder2": "3.1.1"
+    "jmespath": "^0.15.0",
+    "xmlbuilder2": "2.1.2"
   }
 }
