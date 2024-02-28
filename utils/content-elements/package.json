@@ -2,11 +2,10 @@
   "name": "@wpmedia/feeds-content-elements",
   "version": "1.0.10",
   "description": "Shared arcio content_elements module",
-  "main": "dist/feeds-content-elements.cjs.js",
-  "module": "dist/feeds-content-elements.esm.js",
   "source": "index.js",
+  "main": "src/index.js",
   "files": [
-    "dist"
+    "src/**/!(*.test).js"
   ],
   "scripts": {
     "clean": "rm -rf dist"
