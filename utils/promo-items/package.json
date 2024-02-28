@@ -4,7 +4,7 @@
   "description": "Shared arcio promo_items module",
   "source": "index.js",
   "type": "module",
-  "exports": "src/index.js",
+  "exports": "./src/index.js",
   "files": [
     "src/**/!(*.test).js"
   ],
