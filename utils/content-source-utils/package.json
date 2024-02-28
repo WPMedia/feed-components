@@ -3,7 +3,7 @@
   "version": "1.0.8",
   "description": "Shared content source globals and functions",
   "type": "module",
-  "main": "src/index.js",
+  "exports": "src/index.js",
   "files": [
     "src/**/!(*.test).js"
   ],

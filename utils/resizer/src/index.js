@@ -1,3 +1,4 @@
+import Thumbor from 'thumbor-lite'
 import { RESIZER_TOKEN_VERSION } from 'fusion:environment'
 
 import imageANSToImageSrc from './image-ans-to-image-src'
@@ -44,7 +45,6 @@ function buildResizerURL(
   } else {
     if (resizerKey) {
       if (_url && typeof window === 'undefined') {
-        const Thumbor = require('thumbor-lite')
         const thumbor = new Thumbor(resizerKey, resizerURL)
         let imgSrc = _url.replace(/^http[s]?:\/\//, '').replaceAll(' ', '%20')
         if (imgSrc.includes('?')) {
@@ -58,4 +58,10 @@ function buildResizerURL(
   }
 }
 
-export { buildResizerURL, imageANSToImageSrc, signImagesInANSObject, handleFetchError, resizerFetch }
+export {
+  buildResizerURL,
+  imageANSToImageSrc,
+  signImagesInANSObject,
+  handleFetchError,
+  resizerFetch,
+}
