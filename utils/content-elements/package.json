@@ -27,7 +27,7 @@
     "@wpmedia/feeds-resizer": "^1.0.8 || ^2.0.0",
     "cheerio": "^1.0.0-rc.12",
     "he": "^1.2.0",
-    "jmespath": "^0.15.0",
-    "xmlbuilder2": "2.1.2"
+    "jmespath": "^0.16.0",
+    "xmlbuilder2": "3.1.1"
   }
 }
