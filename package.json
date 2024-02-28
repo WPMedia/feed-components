@@ -8,12 +8,6 @@
       "utils/*"
     ]
   },
-  "preconstruct": {
-    "distFilenameStrategy": "unscoped-package-name",
-    "packages": [
-      "utils/*"
-    ]
-  },
   "dependencies": {
     "react": "^18.2.0"
   },
@@ -24,7 +18,6 @@
     "@changesets/changelog-github": "^0.5.0",
     "@changesets/cli": "^2.27.1",
     "@manypkg/cli": "^0.21.2",
-    "@preconstruct/cli": "^2.8.3",
     "babel-jest": "^29.7.0",
     "eslint": "^8.56.0",
     "eslint-config-prettier": "^9.1.0",
@@ -55,12 +48,11 @@
     "lint:prettier": "prettier --check \"./{blocks,utils}/**/*.js\"",
     "prettier": "prettier --write \"**/*.{js,jsx}\"",
     "test": "jest --config=jest.config.js",
-    "ci": "npm run build && npm run lint && npm run test",
-    "build": "preconstruct build",
+    "ci": "npm run lint && npm run test",
     "release:snapshotDev": "changeset version --snapshot canary",
-    "release:develop": "preconstruct build && changeset publish --tag canary",
+    "release:develop": "changeset publish --tag canary",
     "release:snapshotSandbox": "changeset version --snapshot beta",
-    "release:sandbox": "preconstruct build && changeset publish --tag beta",
-    "release:prod": "preconstruct build && changeset publish --tag stable"
+    "release:sandbox": "changeset publish --tag beta",
+    "release:prod": "changeset publish --tag stable"
   }
 }
