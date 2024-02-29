@@ -20,7 +20,7 @@
   },
   "author": "Cameron Woodmansee",
   "license": "CC-BY-NC-ND-4.0",
-  "dependencies": {
+  "devDependencies": {
     "prop-types": "^15.7.2"
   }
 }
