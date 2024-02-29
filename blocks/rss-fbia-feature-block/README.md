@@ -47,5 +47,5 @@ raw_html_processing: should raw_html be excluded, included or wrapped in <figure
 To use this feature in your repo, add the dependencies to your repos package.json
 "jmespath": "^0.15.0",
 "moment": "^2.24.0",
-"xmlbuilder2": "2.1.7",
+"xmlbuilder2": "^3.1.1",
 For xmlbuilder2 be sure to use version <= 2.1.7 or >= 3.0.0
