@@ -1,4 +1,4 @@
-import jmespath from 'jmespath'
+const jmespath = require('jmespath')
 
 import { buildResizerURL } from '@wpmedia/feeds-resizer'
 import { findVideo } from '@wpmedia/feeds-find-video-stream'

@@ -7,9 +7,9 @@ import { BuildContent } from '@wpmedia/feeds-content-elements'
 import { generatePropsForFeed } from '@wpmedia/feeds-prop-types'
 import { buildResizerURL } from '@wpmedia/feeds-resizer'
 
-import jmespath from 'jmespath'
+const jmespath = require('jmespath')
 
-import cheerio from 'cheerio'
+const cheerio = require('cheerio')
 
 export const getURLType = (url) => {
   const imgRegex = /jpe?g|png|webp/i

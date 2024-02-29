@@ -6,5 +6,6 @@ export default {
       format: 'es',
     },
   ],
-  external: (id) => id.match(/^@wpmedia/i),
+  external: (id) =>
+    id.match(/^@wpmedia/i) || id.match(/^axios$/i) || id.match(/^fusion:/i),
 }
