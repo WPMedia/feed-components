@@ -2,11 +2,13 @@
   "name": "@wpmedia/feeds-prop-types",
   "version": "1.0.10",
   "description": "Shared fusion prop-type tag info",
-  "main": "src/index.js",
+  "main": "dist/es/index.js",
+  "type": "module",
   "files": [
-    "src/**/!(*.test).js"
+    "dist"
   ],
   "scripts": {
+    "build": "rollup -c",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -21,6 +23,7 @@
   "author": "Cameron Woodmansee",
   "license": "CC-BY-NC-ND-4.0",
   "devDependencies": {
-    "prop-types": "^15.7.2"
+    "prop-types": "^15.7.2",
+    "rollup": "^4.12.0"
   }
 }

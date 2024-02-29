@@ -2,11 +2,13 @@
   "name": "@wpmedia/feeds-content-source-utils",
   "version": "1.0.8",
   "description": "Shared content source globals and functions",
-  "main": "src/index.js",
+  "main": "dist/es/index.js",
+  "type": "module",
   "files": [
-    "src/**/!(*.test).js"
+    "dist"
   ],
   "scripts": {
+    "build": "rollup -c",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,5 +22,7 @@
   },
   "author": "Tim Kosmider",
   "license": "CC-BY-NC-ND-4.0",
-  "dependencies": {}
+  "devDependencies": {
+    "rollup": "^4.12.0"
+  }
 }

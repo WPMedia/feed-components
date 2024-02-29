@@ -2,12 +2,13 @@
   "name": "@wpmedia/feeds-find-video-stream",
   "version": "1.0.8",
   "description": "Utility to search video stream for desired encoding",
-  "source": "index.js",
-  "main": "src/index.js",
+  "main": "dist/es/index.js",
+  "type": "module",
   "files": [
-    "src/**/!(*.test).js"
+    "dist"
   ],
   "scripts": {
+    "build": "rollup -c",
     "clean": "rm -rf dist"
   },
   "repository": {
@@ -23,5 +24,8 @@
   "license": "CC-BY-NC-ND-4.0",
   "dependencies": {
     "jmespath": "^0.15.0"
+  },
+  "devDependencies": {
+    "rollup": "^4.12.0"
   }
 }
