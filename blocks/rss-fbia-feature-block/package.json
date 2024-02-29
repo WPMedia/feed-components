@@ -33,6 +33,6 @@
     "@wpmedia/feeds-resizer": "^1.0.8 || ^2.0.0",
     "jmespath": "^0.15.0",
     "moment": "^2.29.4",
-    "xmlbuilder2": "2.1.7"
+    "xmlbuilder2": "^3.1.1"
   }
 }
