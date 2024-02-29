@@ -23,6 +23,9 @@
     "Tim Kosmider <tim.kosmider@washpost.com>"
   ],
   "homepage": "https://github.com/WPMedia/feed-components#readme",
+  "scripts": {
+    "build": ""
+  },
   "dependencies": {
     "jmespath": "^0.15.0",
     "@wpmedia/feeds-find-video-stream": "^1.0.8",

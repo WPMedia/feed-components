@@ -2,12 +2,13 @@
   "name": "@wpmedia/feeds-promo-items",
   "version": "1.0.8",
   "description": "Shared arcio promo_items module",
-  "source": "index.js",
-  "main": "src/index.js",
+  "main": "dist/es/index.js",
+  "type": "module",
   "files": [
-    "src/**/!(*.test).js"
+    "dist"
   ],
   "scripts": {
+    "build": "rollup -c",
     "clean": "rm -rf dist"
   },
   "repository": {
@@ -25,5 +26,8 @@
     "@wpmedia/feeds-find-video-stream": "^1.0.8",
     "@wpmedia/feeds-resizer": "^1.0.8 || ^2.0.0",
     "jmespath": "^0.15.0"
+  },
+  "devDependencies": {
+    "rollup": "^4.12.0"
   }
 }

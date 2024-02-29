@@ -2,12 +2,13 @@
   "name": "@wpmedia/feeds-content-elements",
   "version": "1.0.10",
   "description": "Shared arcio content_elements module",
-  "source": "index.js",
-  "main": "src/index.js",
+  "main": "dist/es/index.js",
+  "type": "module",
   "files": [
-    "src/**/!(*.test).js"
+    "dist"
   ],
   "scripts": {
+    "build": "rollup -c",
     "clean": "rm -rf dist"
   },
   "repository": {
@@ -28,5 +29,8 @@
     "he": "^1.2.0",
     "jmespath": "^0.15.0",
     "xmlbuilder2": "2.1.2"
+  },
+  "devDependencies": {
+    "rollup": "^4.12.0"
   }
 }

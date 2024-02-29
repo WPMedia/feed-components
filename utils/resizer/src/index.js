@@ -1,11 +1,13 @@
+import Thumbor from 'thumbor-lite'
+
 import { RESIZER_TOKEN_VERSION } from 'fusion:environment'
 
-import imageANSToImageSrc from './image-ans-to-image-src'
-import signImagesInANSObject from './sign-images-in-ans-object'
-import handleFetchError from './handle-fetch-error'
-import { fetch as resizerFetch } from './signing-service'
-
 import calculateWidthAndHeight from './calculateWidthAndHeight'
+
+import handleFetchError from './handle-fetch-error/index.js'
+import imageANSToImageSrc from './image-ans-to-image-src/index.js'
+import signImagesInANSObject from './sign-images-in-ans-object/index.js'
+import { fetch as resizerFetch } from './signing-service/index.js'
 
 const formatSrc = (srcWithResizerUrl, resizedOptions) => {
   return srcWithResizerUrl.concat(
@@ -44,7 +46,6 @@ function buildResizerURL(
   } else {
     if (resizerKey) {
       if (_url && typeof window === 'undefined') {
-        const Thumbor = require('thumbor-lite')
         const thumbor = new Thumbor(resizerKey, resizerURL)
         let imgSrc = _url.replace(/^http[s]?:\/\//, '').replaceAll(' ', '%20')
         if (imgSrc.includes('?')) {
@@ -58,4 +59,10 @@ function buildResizerURL(
   }
 }
 
-export { buildResizerURL, imageANSToImageSrc, signImagesInANSObject, handleFetchError, resizerFetch }
+export {
+  buildResizerURL,
+  imageANSToImageSrc,
+  signImagesInANSObject,
+  handleFetchError,
+  resizerFetch,
+}
