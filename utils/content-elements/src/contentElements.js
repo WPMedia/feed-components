@@ -1,6 +1,6 @@
 import { buildResizerURL } from '@wpmedia/feeds-resizer'
 import { findVideo } from '@wpmedia/feeds-find-video-stream'
-const cheerio = require('cheerio')
+import * as cheerio from 'cheerio'
 const { decode } = require('he')
 const jmespath = require('jmespath')
 const { fragment } = require('xmlbuilder2')
