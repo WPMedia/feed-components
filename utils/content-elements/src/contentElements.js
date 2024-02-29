@@ -3,7 +3,7 @@ import { findVideo } from '@wpmedia/feeds-find-video-stream'
 import * as cheerio from 'cheerio'
 import { decode } from 'he'
 import jmespath from 'jmespath'
-import { fragment } from 'xmlbuilder2'
+const { fragment } = require('xmlbuilder2')
 
 export const absoluteUrl = (url, domain) => {
   // if url isn't fully qualified, try to make it one
