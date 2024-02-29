@@ -5,7 +5,7 @@ import { resizerKey } from 'fusion:environment'
 import { buildResizerURL } from '@wpmedia/feeds-resizer'
 import { generatePropsForFeed } from '@wpmedia/feeds-prop-types'
 import { findVideo } from '@wpmedia/feeds-find-video-stream'
-import jmespath from 'jmespath'
+const jmespath = require('jmespath')
 
 const sitemapTemplate = (
   elements,

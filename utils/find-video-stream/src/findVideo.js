@@ -1,4 +1,4 @@
-import jmespath from 'jmespath'
+const jmespath = require('jmespath')
 
 export function formatSearchObject(searchObject) {
   /* convert Object into a string usable by jmespath

@@ -1,4 +1,4 @@
-import jmespath from 'jmespath'
+const jmespath = require('jmespath')
 import moment from 'moment'
 import URL from 'url'
 

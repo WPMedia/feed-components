@@ -8,7 +8,7 @@ import { BuildContent } from '@wpmedia/feeds-content-elements'
 import { BuildPromoItems } from '@wpmedia/feeds-promo-items'
 import { generatePropsForFeed } from '@wpmedia/feeds-prop-types'
 import { buildResizerURL } from '@wpmedia/feeds-resizer'
-import { convert, fragment } from 'xmlbuilder2'
+const { convert, fragment } = require('xmlbuilder2')
 /****************
  * If you are building a custom fb-ia format be sure to
  * add moment and xmlbuilder2 to your repo's dependencies
@@ -16,7 +16,7 @@ import { convert, fragment } from 'xmlbuilder2'
  * use version <= 2.1.7 or version >= 3.0.0 like this "xmlbuilder2": "2.1.7"
  */
 import URL from 'url'
-import jmespath from 'jmespath'
+const jmespath = require('jmespath')
 
 const rssTemplate = (
   elements,

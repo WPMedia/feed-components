@@ -1,8 +1,8 @@
 import { buildResizerURL } from '@wpmedia/feeds-resizer'
 import { findVideo } from '@wpmedia/feeds-find-video-stream'
-import * as cheerio from 'cheerio'
-import { decode } from 'he'
-import jmespath from 'jmespath'
+const cheerio = require('cheerio')
+const { decode } = require('he')
+const jmespath = require('jmespath')
 const { fragment } = require('xmlbuilder2')
 
 export const absoluteUrl = (url, domain) => {
