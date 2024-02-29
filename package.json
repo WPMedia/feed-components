@@ -43,6 +43,7 @@
     }
   },
   "scripts": {
+    "postinstall": "npm run build --workspaces",
     "build": "npm i && npm run build --workspaces",
     "lint": "npm run lint:eslint && npm run lint:prettier",
     "lint:eslint": "eslint . --ext .js --ext .jsx",
