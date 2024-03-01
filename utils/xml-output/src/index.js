@@ -1,4 +1,4 @@
-const { create } = require('xmlbuilder2')
+import { create } from 'xmlbuilder2'
 
 export const XmlOutput = ({ children }) => {
   return children
