@@ -8,7 +8,7 @@ import { BuildContent } from '@wpmedia/feeds-content-elements'
 import { BuildPromoItems } from '@wpmedia/feeds-promo-items'
 import { generatePropsForFeed } from '@wpmedia/feeds-prop-types'
 import { buildResizerURL } from '@wpmedia/feeds-resizer'
-const { convert, fragment } = require('xmlbuilder2')
+import { convert, fragment } from 'xmlbuilder2'
 /****************
  * If you are building a custom fb-ia format be sure to
  * add moment and xmlbuilder2 to your repo's dependencies
