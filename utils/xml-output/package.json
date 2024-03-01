@@ -23,7 +23,7 @@
   "author": "Cameron Woodmansee",
   "license": "CC-BY-NC-ND-4.0",
   "dependencies": {
-    "xmlbuilder2": "^3.1.1"
+    "xmlbuilder2": "2.1.7"
   },
   "devDependencies": {
     "rollup": "^4.12.0"
