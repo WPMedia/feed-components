@@ -28,7 +28,7 @@
     "cheerio": "1.0.0-rc.10",
     "he": "^1.2.0",
     "jmespath": "^0.15.0",
-    "xmlbuilder2": "2.1.7"
+    "xmlbuilder2": "2.1.2"
   },
   "devDependencies": {
     "rollup": "^4.12.0"
