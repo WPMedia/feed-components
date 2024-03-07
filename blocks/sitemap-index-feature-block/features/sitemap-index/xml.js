@@ -2,7 +2,6 @@ import PropTypes from 'fusion:prop-types'
 import Consumer from 'fusion:consumer'
 import getProperties from 'fusion:properties'
 import URL from 'url'
-
 const jmespath = require('jmespath')
 
 const sitemapIndexTemplate = ({

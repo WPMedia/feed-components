@@ -1,8 +1,24 @@
 /* eslint-disable no-unused-vars */
 // Leave CONTENT_BASE here. Without it fusion will not add a bearer token
-import { CONTENT_BASE, VIDEO_BASE } from 'fusion:environment'
+import axios from 'axios'
 
-const resolve = function resolve(key) {
+import {
+  ARC_ACCESS_TOKEN,
+  CONTENT_BASE,
+  VIDEO_BASE,
+  RESIZER_TOKEN_VERSION,
+  resizerKey,
+} from 'fusion:environment'
+
+import { signImagesInANSObject, resizerFetch } from '@wpmedia/feeds-resizer'
+
+const params = {
+  Uuids: 'text',
+  Playlist: 'text',
+  Count: 'text',
+}
+
+const fetch = (key, { cachedCall }) => {
   let requestUri, uriParams
   if (key) {
     if (key.Uuids) {
@@ -13,15 +29,34 @@ const resolve = function resolve(key) {
       uriParams = `name=${key.Playlist}&count=${key.Count || 10}`
     }
   }
-  return `${requestUri}?${uriParams}`
+  const url = `${requestUri}?${uriParams}`
+
+  const ret = axios({
+    url,
+    headers: {
+      'content-type': 'application/json',
+      Authorization: `Bearer ${ARC_ACCESS_TOKEN}`,
+    },
+    method: 'GET',
+  })
+    .then((result) => {
+      if (resizerKey) {
+        return result
+      }
+      return signImagesInANSObject(
+        cachedCall,
+        resizerFetch,
+        RESIZER_TOKEN_VERSION,
+      )(result)
+    })
+    .then(({ data }) => data)
+    .catch((error) => console.log('== error ==', error))
+
+  return ret
 }
 
 export default {
-  resolve,
+  fetch,
   schemaName: 'feeds',
-  params: {
-    Uuids: 'text',
-    Playlist: 'text',
-    Count: 'text',
-  },
+  params
 }

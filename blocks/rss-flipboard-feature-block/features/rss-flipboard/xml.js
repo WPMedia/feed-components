@@ -191,6 +191,7 @@ export function FlipboardRss({
                 resizerURL,
                 resizerWidth,
                 resizerHeight,
+                element,
               ),
               ...(element.width && { width: resizerWidth || element.width }),
               ...(element.height && {

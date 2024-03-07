@@ -1,4 +1,10 @@
-import { CONTENT_BASE } from 'fusion:environment'
+import axios from 'axios'
+import {
+  ARC_ACCESS_TOKEN,
+  CONTENT_BASE,
+  RESIZER_TOKEN_VERSION,
+  resizerKey,
+} from 'fusion:environment'
 import getProperties from 'fusion:properties'
 import {
   defaultANSFields,
@@ -7,8 +13,10 @@ import {
   genParams,
   transform,
 } from '@wpmedia/feeds-content-source-utils'
+import { signImagesInANSObject, resizerFetch } from '@wpmedia/feeds-resizer'
 
-const resolve = function resolve(key) {
+
+const fetch = (key, { cachedCall }) => {
   const requestUri = `${CONTENT_BASE}/content/v4/search/published`
   const ansFields = [
     ...defaultANSFields,
@@ -191,13 +199,35 @@ const resolve = function resolve(key) {
   }
 
   const encodedBody = encodeURI(JSON.stringify(body))
-  return `${requestUri}?body=${encodedBody}&${genParams(paramList)}`
+
+  const ret = axios({
+    url: `${requestUri}?body=${encodedBody}&${genParams(paramList)}`,
+    headers: {
+      'content-type': 'application/json',
+      Authorization: `Bearer ${ARC_ACCESS_TOKEN}`,
+    },
+    method: 'GET',
+  })
+    .then((result) => {
+      if (resizerKey) {
+        return result
+      }
+      return signImagesInANSObject(
+        cachedCall,
+        resizerFetch,
+        RESIZER_TOKEN_VERSION,
+      )(result)
+    })
+    .then(({data, ...rest}) => ({ ...rest, data: transform(data, key), }))
+    .then(({ data }) => data)
+    .catch((error) => console.log('== error ==', error))
+
+  return ret
 }
 
 export default {
-  resolve,
+  fetch,
   schemaName: 'feeds',
-  transform,
   params: {
     Section: 'text',
     Author: 'text',

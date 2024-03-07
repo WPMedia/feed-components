@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`invalid date format, should return 2 1`] = `
-Object {
-  "sitemapindex": Object {
+{
+  "sitemapindex": {
     "@xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9",
-    "sitemap": Array [
-      Object {
+    "sitemap": [
+      {
         "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap-news/latest/?outputType=xml",
       },
-      Object {
+      {
         "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap-news/2021-04-08/?outputType=xml",
       },
     ],
@@ -17,14 +17,14 @@ Object {
 `;
 
 exports[`invalid date, should return 2 1`] = `
-Object {
-  "sitemapindex": Object {
+{
+  "sitemapindex": {
     "@xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9",
-    "sitemap": Array [
-      Object {
+    "sitemap": [
+      {
         "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap-news/latest/?outputType=xml",
       },
-      Object {
+      {
         "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap-news/2021-04-08/?outputType=xml",
       },
     ],
@@ -33,14 +33,14 @@ Object {
 `;
 
 exports[`returns template with default values 1`] = `
-Object {
-  "sitemapindex": Object {
+{
+  "sitemapindex": {
     "@xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9",
-    "sitemap": Array [
-      Object {
+    "sitemap": [
+      {
         "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/latest/?outputType=xml",
       },
-      Object {
+      {
         "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/2021-04-08/?outputType=xml",
       },
     ],
@@ -49,14 +49,14 @@ Object {
 `;
 
 exports[`returns template with empty values 1`] = `
-Object {
-  "sitemapindex": Object {
+{
+  "sitemapindex": {
     "@xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9",
-    "sitemap": Array [
-      Object {
+    "sitemap": [
+      {
         "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/latest/",
       },
-      Object {
+      {
         "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/2021-04-08/",
       },
     ],
@@ -65,44 +65,44 @@ Object {
 `;
 
 exports[`returns template with set end date 2021-04-01 1`] = `
-Object {
-  "sitemapindex": Object {
+{
+  "sitemapindex": {
     "@xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9",
-    "sitemap": Array [
-      Object {
+    "sitemap": [
+      {
         "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/latest/?outputType=xml",
       },
-      Object {
+      {
         "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/2021-04-08/?outputType=xml",
       },
-      Object {
+      {
         "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap2/2021-04-07/?outputType=xml",
       },
-      Object {
+      {
         "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap2/2021-04-06-1/?outputType=xml",
       },
-      Object {
+      {
         "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap2/2021-04-06-2/?outputType=xml",
       },
-      Object {
+      {
         "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap2/2021-04-06-3/?outputType=xml",
       },
-      Object {
+      {
         "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap2/2021-04-06-4/?outputType=xml",
       },
-      Object {
+      {
         "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap2/2021-04-05/?outputType=xml",
       },
-      Object {
+      {
         "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap2/2021-04-04/?outputType=xml",
       },
-      Object {
+      {
         "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap2/2021-04-03/?outputType=xml",
       },
-      Object {
+      {
         "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap3/2021-04-02/?outputType=xml",
       },
-      Object {
+      {
         "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap3/2021-04-01/?outputType=xml",
       },
     ],
@@ -111,14 +111,14 @@ Object {
 `;
 
 exports[`returns template without outputType 1`] = `
-Object {
-  "sitemapindex": Object {
+{
+  "sitemapindex": {
     "@xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9",
-    "sitemap": Array [
-      Object {
+    "sitemap": [
+      {
         "loc": "http://demo-prod.origin.arcpublishing.com/sitemap/latest/",
       },
-      Object {
+      {
         "loc": "http://demo-prod.origin.arcpublishing.com/sitemap/2021-04-08/",
       },
     ],
@@ -127,26 +127,26 @@ Object {
 `;
 
 exports[`sitemaps at root 1`] = `
-Object {
-  "sitemapindex": Object {
+{
+  "sitemapindex": {
     "@xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9",
-    "sitemap": Array [
-      Object {
+    "sitemap": [
+      {
         "loc": "http://demo-prod.origin.arcpublishing.com/sitemap-latest.xml",
       },
-      Object {
+      {
         "loc": "http://demo-prod.origin.arcpublishing.com/sitemap-2021-04-08.xml",
       },
-      Object {
+      {
         "loc": "http://demo-prod.origin.arcpublishing.com/sitemap-2021-04-07.xml",
       },
-      Object {
+      {
         "loc": "http://demo-prod.origin.arcpublishing.com/sitemap-2021-04-06-1.xml",
       },
-      Object {
+      {
         "loc": "http://demo-prod.origin.arcpublishing.com/sitemap-2021-04-06-2.xml",
       },
-      Object {
+      {
         "loc": "http://demo-prod.origin.arcpublishing.com/sitemap-2021-04-05.xml",
       },
     ],

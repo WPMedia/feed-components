@@ -1,14 +1,16 @@
-import PropTypes from 'fusion:prop-types'
-import Consumer from 'fusion:consumer'
+const jmespath = require('jmespath')
 import moment from 'moment'
-import getProperties from 'fusion:properties'
-import { resizerKey } from 'fusion:environment'
+import URL from 'url'
+
 import { BuildContent } from '@wpmedia/feeds-content-elements'
 import { BuildPromoItems } from '@wpmedia/feeds-promo-items'
 import { generatePropsForFeed } from '@wpmedia/feeds-prop-types'
 import { buildResizerURL } from '@wpmedia/feeds-resizer'
-import URL from 'url'
-const jmespath = require('jmespath')
+
+import { resizerKey } from 'fusion:environment'
+import Consumer from 'fusion:consumer'
+import PropTypes from 'fusion:prop-types'
+import getProperties from 'fusion:properties'
 
 const rssTemplate = (
   elements,
@@ -95,11 +97,11 @@ const rssTemplate = (
         },
       }),
 
-      item: elements.map((s) => {
+      item: elements.map((ans) => {
         let author, body, category
-        const url = `${domain}${s.website_url || s.canonical_url || ''}`
+        const url = `${domain}${ans.website_url || ans.canonical_url || ''}`
         const img = PromoItems.mediaTag({
-          ans: s,
+          ans,
           promoItemsJmespath,
           resizerKey,
           resizerURL,
@@ -112,7 +114,7 @@ const rssTemplate = (
         })
         return {
           ...(itemTitle && {
-            title: { $: jmespath.search(s, itemTitle) || '' },
+            title: { $: jmespath.search(ans, itemTitle) || '' },
           }),
           link: url,
           guid: {
@@ -120,22 +122,22 @@ const rssTemplate = (
             '@isPermaLink': true,
           },
           ...(itemCredits &&
-            (author = jmespath.search(s, itemCredits)) &&
+            (author = jmespath.search(ans, itemCredits)) &&
             author.length && {
               'dc:creator': { $: author.join(', ') },
             }),
           ...(itemDescription && {
-            description: { $: jmespath.search(s, itemDescription) || '' },
+            description: { $: jmespath.search(ans, itemDescription) || '' },
           }),
           pubDate: moment
-            .utc(s[pubDate])
+            .utc(ans[pubDate])
             .format('ddd, DD MMM YYYY HH:mm:ss ZZ'),
           ...(itemCategory &&
-            (category = jmespath.search(s, itemCategory)) &&
+            (category = jmespath.search(ans, itemCategory)) &&
             category && { category: category }),
           ...(includeContent !== 0 &&
             (body = rssBuildContent.parse(
-              s.content_elements || [],
+              ans.content_elements || [],
               includeContent,
               domain,
               resizerKey,
@@ -163,6 +165,7 @@ export function Rss({ globalContent, customFields, arcSite, requestUri }) {
     feedTitle = '',
     feedLanguage = '',
   } = getProperties(arcSite)
+
   const channelLanguage = customFields.channelLanguage || feedLanguage
   const { width = 0, height = 0 } = customFields.resizerKVP || {}
   const requestPath = new URL.URL(requestUri, feedDomainURL).pathname
