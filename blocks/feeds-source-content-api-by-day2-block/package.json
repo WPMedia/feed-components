@@ -1,6 +1,6 @@
 {
   "name": "@wpmedia/feeds-source-content-api-by-day2-block",
-  "version": "1.15.0",
+  "version": "2.0.0",
   "description": "content source to search by a single day, 1 hour TTL",
   "main": "index.js",
   "files": [
@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@wpmedia/feeds-content-source-utils": "^1.0.8",
-    "@wpmedia/feeds-resizer": "^1.0.8 || ^2.0.0",
+    "@wpmedia/feeds-resizer": "^2.0.0",
     "axios": "^1.6.7",
     "moment": "^2.29.4"
   },
