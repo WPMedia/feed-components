@@ -1,6 +1,6 @@
 {
   "name": "@wpmedia/ans-feature-block",
-  "version": "1.15.0",
+  "version": "2.0.0",
   "description": "Fusion components for building ANS feeds",
   "main": "index.js",
   "files": [
@@ -25,6 +25,6 @@
     "build": ""
   },
   "dependencies": {
-    "@wpmedia/feeds-resizer": "^1.0.8 || ^2.0.0"
+    "@wpmedia/feeds-resizer": "^2.0.0"
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@wpmedia/feeds-content-elements",
-  "version": "1.0.10",
+  "version": "2.0.0",
   "description": "Shared arcio content_elements module",
   "main": "dist/es/index.js",
   "type": "module",
@@ -24,7 +24,7 @@
   "license": "CC-BY-NC-ND-4.0",
   "dependencies": {
     "@wpmedia/feeds-find-video-stream": "^1.0.8",
-    "@wpmedia/feeds-resizer": "^1.0.8 || ^2.0.0",
+    "@wpmedia/feeds-resizer": "^2.0.0",
     "cheerio": "1.0.0-rc.10",
     "he": "^1.2.0",
     "jmespath": "^0.15.0",

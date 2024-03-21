@@ -1,6 +1,6 @@
 {
   "name": "@wpmedia/feeds-source-single-content-block",
-  "version": "1.15.0",
+  "version": "2.0.0",
   "description": "content source to get by _id or website_url",
   "main": "index.js",
   "files": [
@@ -26,7 +26,7 @@
     "build": ""
   },
   "dependencies": {
-    "@wpmedia/feeds-resizer": "^1.0.8 || ^2.0.0",
+    "@wpmedia/feeds-resizer": "^2.0.0",
     "axios": "^1.6.7"
   },
   "devDependencies": {
