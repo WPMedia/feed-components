@@ -12,7 +12,6 @@ import PropTypes from 'fusion:prop-types'
 import getProperties from 'fusion:properties'
 const jmespath = require('jmespath')
 
-
 const rssTemplate = (
   elements,
   {

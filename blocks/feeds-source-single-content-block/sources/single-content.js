@@ -20,7 +20,7 @@ const fetch = (key, { cachedCall }) => {
     ...(key['_id'] ? { _id: key['_id'] } : { website_url: key['website_url'] }),
     ...(key['arc-site'] ? { website: key['arc-site'] } : {}),
   })
-/* eslint-enable dot-notation */
+  /* eslint-enable dot-notation */
   const ret = axios({
     url: `${CONTENT_BASE}/content/v4/?${urlSearch.toString()}`,
     headers: {
