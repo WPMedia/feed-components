@@ -58,5 +58,5 @@ const fetch = (key, { cachedCall }) => {
 export default {
   fetch,
   schemaName: 'feeds',
-  params
+  params,
 }
