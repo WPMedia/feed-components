@@ -1,4 +1,3 @@
-const jmespath = require('jmespath')
 import moment from 'moment'
 import URL from 'url'
 
@@ -11,6 +10,8 @@ import { resizerKey } from 'fusion:environment'
 import Consumer from 'fusion:consumer'
 import PropTypes from 'fusion:prop-types'
 import getProperties from 'fusion:properties'
+const jmespath = require('jmespath')
+
 
 const rssTemplate = (
   elements,
