@@ -1,7 +1,7 @@
-const jmespath = require('jmespath')
-
 import { buildResizerURL } from '@wpmedia/feeds-resizer'
 import { findVideo } from '@wpmedia/feeds-find-video-stream'
+const jmespath = require('jmespath')
+
 
 export function BuildPromoItems() {
   // A constructor to allow prototypal inheritance to override the behavior of member functions
