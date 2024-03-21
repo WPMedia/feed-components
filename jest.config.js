@@ -18,5 +18,5 @@ module.exports = {
   coverageDirectory: 'coverage',
   transform: {
     '^.+\\.jsx?$': 'babel-jest',
-  }
+  },
 }

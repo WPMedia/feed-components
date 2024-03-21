@@ -3,6 +3,7 @@ module.exports = {
   plugins: ['standard', 'prettier', 'react'],
   rules: {
     'react/prop-types': 'warn',
+    'object-shorthand': 'off',
   },
   settings: {
     react: {
@@ -12,7 +13,6 @@ module.exports = {
   overrides: [
     {
       files: ['*.test.js', '__mocks__/**'],
-      
     },
   ],
   env: {

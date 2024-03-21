@@ -1,6 +1,6 @@
 {
   "name": "@wpmedia/feeds-promo-items",
-  "version": "1.0.8",
+  "version": "2.0.0",
   "description": "Shared arcio promo_items module",
   "main": "dist/es/index.js",
   "type": "module",
@@ -24,7 +24,7 @@
   "license": "CC-BY-NC-ND-4.0",
   "dependencies": {
     "@wpmedia/feeds-find-video-stream": "^1.0.8",
-    "@wpmedia/feeds-resizer": "^1.0.8 || ^2.0.0",
+    "@wpmedia/feeds-resizer": "^2.0.0",
     "jmespath": "^0.15.0"
   },
   "devDependencies": {

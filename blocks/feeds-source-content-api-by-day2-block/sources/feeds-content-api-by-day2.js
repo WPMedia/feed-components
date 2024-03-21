@@ -201,7 +201,7 @@ const fetch = async (key, { cachedCall }) => {
           RESIZER_TOKEN_VERSION,
         )(result)
       })
-      .then(({data, ...rest}) => ({ ...rest, data: transform(data, key), }))
+      .then(({ data, ...rest }) => ({ ...rest, data: transform(data, key) }))
       .then(({ data }) => data)
       .catch((error) => console.log('== error ==', error))
 
