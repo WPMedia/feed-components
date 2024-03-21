@@ -20,5 +20,8 @@
   "contributors": [
     "Tim Kosmider"
   ],
-  "homepage": "https://github.com/WPMedia/feed-components#readme"
+  "homepage": "https://github.com/WPMedia/feed-components#readme",
+  "scripts": {
+    "build": ""
+  }
 }

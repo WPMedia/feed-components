@@ -2,9 +2,13 @@
   "name": "@wpmedia/feeds-xml-output",
   "version": "1.1.0",
   "description": "For use in creating an XML output type",
-  "main": "dist/feeds-xml-output.cjs.js",
-  "module": "dist/feeds-xml-output.esm.js",
+  "main": "dist/es/index.js",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
   "scripts": {
+    "build": "rollup -c",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,5 +24,8 @@
   "license": "CC-BY-NC-ND-4.0",
   "dependencies": {
     "xmlbuilder2": "2.1.2"
+  },
+  "devDependencies": {
+    "rollup": "^4.12.0"
   }
 }

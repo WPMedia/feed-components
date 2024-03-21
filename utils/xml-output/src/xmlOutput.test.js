@@ -1,4 +1,8 @@
 import { XmlOutput } from './index'
+const { JSDOM } = require('jsdom')
+
+const dom = new JSDOM()
+global.DOMParser = dom.window.DOMParser
 
 const exampleData = [
   {

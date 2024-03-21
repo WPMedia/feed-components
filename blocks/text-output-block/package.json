@@ -17,6 +17,7 @@
     "access": "public"
   },
   "scripts": {
+    "build": "",
     "test": "echo \"Error: run tests from root\" && exit 1",
     "lint": "eslint --ext js --ext jsx features"
   },

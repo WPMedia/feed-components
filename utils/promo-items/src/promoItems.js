@@ -1,5 +1,3 @@
-'use strict'
-
 import { buildResizerURL } from '@wpmedia/feeds-resizer'
 import { findVideo } from '@wpmedia/feeds-find-video-stream'
 const jmespath = require('jmespath')
@@ -178,6 +176,7 @@ export function BuildPromoItems() {
           resizerURL,
           resizerWidth,
           resizerHeight,
+          element,
         ),
         type: `image/${
           ((match = element.url.match(imageRegex)) &&
@@ -213,7 +212,7 @@ export function BuildPromoItems() {
     if (element && element.streams) {
       const thumbnail = jmespath.search(
         element,
-        'promo_items.basic.url || promo_items.lead_art.url || promo_image.url',
+        'promo_items.basic || promo_items.lead_art || promo_image',
       )
       const title = jmespath.search(element, 'headlines.basic')
       const caption = jmespath.search(
@@ -225,13 +224,14 @@ export function BuildPromoItems() {
       const videoStream = findVideo(element, videoSelect)
       if (videoStream) {
         return {
-          ...(thumbnail && {
+          ...(thumbnail?.url && {
             thumbnail: buildResizerURL(
-              thumbnail,
+              thumbnail.url,
               resizerKey,
               resizerURL,
               resizerWidth,
               resizerHeight,
+              thumbnail,
             ),
           }),
           url: videoStream.url,

@@ -1,23 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`returns MRSS template with default values 1`] = `
-Object {
-  "rss": Object {
+{
+  "rss": {
     "@version": "2.0",
     "@xmlns:atom": "http://www.w3.org/2005/Atom",
     "@xmlns:media": "http://search.yahoo.com/mrss/",
-    "channel": Object {
-      "atom:link": Object {
+    "channel": {
+      "atom:link": {
         "@href": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/mrss/",
         "@rel": "self",
         "@type": "application/rss+xml",
       },
       "description": "google news",
-      "item": Array [
-        Object {
-          "#": Array [
-            Object {
-              "media:content": Object {
+      "item": [
+        {
+          "#": [
+            {
+              "media:content": {
                 "@bitrate": 2000,
                 "@duration": 789,
                 "@fileSize": 3368020,
@@ -28,26 +28,26 @@ Object {
                 "@width": 1280,
                 "media:category": "Video",
                 "media:keywords": "sample,demo",
-                "media:thumbnail": Object {
+                "media:thumbnail": {
                   "@url": "hi/abcdefghijklmnopqrstuvwxyz=/dv8csq7v0ltdn.cloudfront.net/04-16-2020/t_95d8de29ea3b41caac132f0462c5c71a_name_file_1920x1080_5400_v4_.jpg",
                 },
-                "media:title": Object {
+                "media:title": {
                   "$": "Inexact Odyssey, A Volcom Snowboarding Film",
                 },
               },
             },
           ],
-          "description": Object {
+          "description": {
             "$": "",
           },
-          "guid": Object {
+          "guid": {
             "#": "http://demo-prod.origin.arcpublishing.com/video/2020/04/16/inexact-odyssey-a-volcom-snowboarding-film/",
             "@isPermaLink": false,
           },
           "link": "http://demo-prod.origin.arcpublishing.com/video/2020/04/16/inexact-odyssey-a-volcom-snowboarding-film/",
           "pubDate": "Thu, 16 Apr 2020 19:55:25 +0000",
           "referenceid": undefined,
-          "title": Object {
+          "title": {
             "$": "Inexact Odyssey, A Volcom Snowboarding Film",
           },
         },
@@ -62,23 +62,23 @@ Object {
 `;
 
 exports[`returns MRSS template without values 1`] = `
-Object {
-  "rss": Object {
+{
+  "rss": {
     "@version": "2.0",
     "@xmlns:atom": "http://www.w3.org/2005/Atom",
     "@xmlns:media": "http://search.yahoo.com/mrss/",
-    "channel": Object {
-      "atom:link": Object {
+    "channel": {
+      "atom:link": {
         "@href": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/mrss/",
         "@rel": "self",
         "@type": "application/rss+xml",
       },
       "description": "google news",
-      "item": Array [
-        Object {
-          "#": Array [
-            Object {
-              "media:content": Object {
+      "item": [
+        {
+          "#": [
+            {
+              "media:content": {
                 "@bitrate": 2000,
                 "@duration": 789,
                 "@fileSize": 3368020,
@@ -89,16 +89,16 @@ Object {
                 "@width": 1280,
                 "media:category": "Video",
                 "media:keywords": "sample,demo",
-                "media:thumbnail": Object {
+                "media:thumbnail": {
                   "@url": "hi/abcdefghijklmnopqrstuvwxyz=/dv8csq7v0ltdn.cloudfront.net/04-16-2020/t_95d8de29ea3b41caac132f0462c5c71a_name_file_1920x1080_5400_v4_.jpg",
                 },
-                "media:title": Object {
+                "media:title": {
                   "$": "Inexact Odyssey, A Volcom Snowboarding Film",
                 },
               },
             },
           ],
-          "guid": Object {
+          "guid": {
             "#": "http://demo-prod.origin.arcpublishing.com/video/2020/04/16/inexact-odyssey-a-volcom-snowboarding-film/",
             "@isPermaLink": false,
           },

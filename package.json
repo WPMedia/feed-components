@@ -8,38 +8,34 @@
       "utils/*"
     ]
   },
-  "preconstruct": {
-    "distFilenameStrategy": "unscoped-package-name",
-    "packages": [
-      "utils/*"
-    ]
-  },
   "dependencies": {
-    "@babel/core": "^7.8.6",
-    "@babel/preset-env": "^7.8.6",
-    "@babel/preset-react": "^7.8.3",
-    "@changesets/changelog-github": "^0.4.0",
-    "@changesets/cli": "^2.7.1",
-    "@manypkg/cli": "^0.17.0",
-    "@preconstruct/cli": "^2.0.0",
-    "eslint": "^7.2.0",
-    "eslint-config-prettier": "^8.0.0",
-    "eslint-config-standard": "^16.0.2",
-    "eslint-plugin-import": "^2.20.1",
-    "eslint-plugin-jest": "^24.0.0",
-    "eslint-plugin-node": "^11.0.0",
-    "eslint-plugin-prettier": "^3.1.2",
-    "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-react": "^7.18.3",
+    "react": "^18.2.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.23.9",
+    "@babel/preset-env": "^7.23.9",
+    "@babel/preset-react": "^7.23.3",
+    "@changesets/changelog-github": "^0.5.0",
+    "@changesets/cli": "^2.27.1",
+    "@manypkg/cli": "^0.21.2",
+    "babel-jest": "^29.7.0",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-config-standard": "^17.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-jest": "^27.6.3",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^5.1.3",
+    "eslint-plugin-promise": "^6.1.1",
+    "eslint-plugin-react": "^7.33.2",
     "eslint-plugin-standard": "^5.0.0",
-    "husky": "^6.0.0",
-    "jest": "^26.0.1",
-    "jest-watch-typeahead": "^0.6.0",
-    "lerna": "^4.0.0",
-    "prettier": "^2.0.5",
-    "pretty-quick": "^3.0.0",
-    "react": "^17.0.1",
-    "typescript": "^4.0.2"
+    "husky": "^9.0.10",
+    "jest": "^29.7.0",
+    "jest-watch-typeahead": "^2.2.2",
+    "jsdom": "^24.0.0",
+    "lerna": "^8.1.2",
+    "prettier": "^3.2.5",
+    "pretty-quick": "^4.0.0"
   },
   "husky": {
     "hooks": {
@@ -47,18 +43,17 @@
     }
   },
   "scripts": {
-    "postinstall": "lerna bootstrap && node scripts/recursive-install.js",
+    "build": "npm run build --workspaces",
     "lint": "npm run lint:eslint && npm run lint:prettier",
     "lint:eslint": "eslint . --ext .js --ext .jsx",
     "lint:prettier": "prettier --check \"./{blocks,utils}/**/*.js\"",
     "prettier": "prettier --write \"**/*.{js,jsx}\"",
     "test": "jest --config=jest.config.js",
-    "ci": "npm run build && npm run lint && npm run test",
-    "build": "preconstruct build",
+    "ci": "npm run lint && npm run build && npm run test",
     "release:snapshotDev": "changeset version --snapshot canary",
-    "release:develop": "preconstruct build && changeset publish --tag canary",
+    "release:develop": "changeset publish --tag canary",
     "release:snapshotSandbox": "changeset version --snapshot beta",
-    "release:sandbox": "preconstruct build && changeset publish --tag beta",
-    "release:prod": "preconstruct build && changeset publish --tag stable"
+    "release:sandbox": "changeset publish --tag beta",
+    "release:prod": "changeset publish --tag stable"
   }
 }

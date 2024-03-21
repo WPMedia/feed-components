@@ -47,14 +47,14 @@ function _stringify(value) {
   return Array.isArray(value)
     ? `[${value.map(_stringify).join(',')}]`
     : value instanceof Object
-    ? `{${Object.keys(value)
-        .filter(ignorePropTypeMethods)
-        .filter(exists)
-        .map((key) => {
-          return `"${key}":${_stringify(value[key])}`
-        })
-        .join(',')}}`
-    : JSON.stringify(value)
+      ? `{${Object.keys(value)
+          .filter(ignorePropTypeMethods)
+          .filter(exists)
+          .map((key) => {
+            return `"${key}":${_stringify(value[key])}`
+          })
+          .join(',')}}`
+      : JSON.stringify(value)
 }
 FusionPropTypes.stringify = function stringify(value, replacer, space) {
   const str = _stringify(value)

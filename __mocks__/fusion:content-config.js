@@ -23,8 +23,8 @@ module.exports = (options, ...moreSchemas) => {
   const args = !(options instanceof Object)
     ? { schemas: [options].concat(...moreSchemas) }
     : Array.isArray(options)
-    ? { schemas: options.concat(...moreSchemas) }
-    : options
+      ? { schemas: options.concat(...moreSchemas) }
+      : options
 
   return taggablePrimitive(instance, 'contentConfig', args)
 }
