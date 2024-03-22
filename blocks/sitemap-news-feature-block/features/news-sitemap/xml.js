@@ -99,7 +99,7 @@ export function GoogleSitemap({ globalContent, customFields, arcSite }) {
     feedTitle = '',
     feedLanguage = '',
   } = getProperties(arcSite)
-  resizerURL = resizerURLs?.[ENVIRONMENT] || resizerURL;
+  resizerURL = resizerURLs?.[ENVIRONMENT] || resizerURL
   const { width = 0, height = 0 } = customFields.resizerKVP || {}
   const newsLanguage = customFields.newsLanguage || feedLanguage
   const newsKeywordsJmespath =

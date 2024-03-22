@@ -128,7 +128,7 @@ export function Rss({ globalContent, customFields, arcSite }) {
   } = getProperties(arcSite)
   const channelLanguage = customFields.channelLanguage || feedLanguage
   const rssBuildContent = new BuildContent()
-  resizerURL = resizerURLs?.[ENVIRONMENT] || resizerURL;
+  resizerURL = resizerURLs?.[ENVIRONMENT] || resizerURL
 
   // can't return null for xml return type, must return valid xml template
   return rssTemplate(globalContent.content_elements || [], {

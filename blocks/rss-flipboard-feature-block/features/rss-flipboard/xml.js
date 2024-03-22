@@ -166,7 +166,7 @@ export function FlipboardRss({
     feedTitle = '',
     feedLanguage = '',
   } = getProperties(arcSite)
-  resizerURL = resizerURLs?.[ENVIRONMENT] || resizerURL;
+  resizerURL = resizerURLs?.[ENVIRONMENT] || resizerURL
   const channelLanguage = customFields.channelLanguage || feedLanguage
   const { width = 0, height = 0 } = customFields.resizerKVP || {}
   const requestPath = new URL.URL(requestUri, feedDomainURL).pathname

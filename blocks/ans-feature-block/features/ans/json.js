@@ -5,9 +5,9 @@ import { buildResizerURL } from '@wpmedia/feeds-resizer'
 
 export function ANSFeed({ globalContent = {}, customFields, arcSite }) {
   let { resizerURL = '' } = getProperties(arcSite)
-  const { feedDomainURL = '', resizerURLs = {}, } = getProperties(arcSite)
+  const { feedDomainURL = '', resizerURLs = {} } = getProperties(arcSite)
   const { width = 0, height = 0 } = customFields.resizerKVP || {}
-  resizerURL = resizerURLs?.[ENVIRONMENT] || resizerURL;
+  resizerURL = resizerURLs?.[ENVIRONMENT] || resizerURL
 
   const resizeImage = (img) => {
     if (img && img.url) {

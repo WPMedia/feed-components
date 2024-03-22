@@ -79,7 +79,7 @@ const sitemapTemplate = (
 export function VideoSitemap({ globalContent, customFields, arcSite }) {
   let { resizerURL = '' } = getProperties(arcSite)
   const { resizerURLs = {}, feedDomainURL = '' } = getProperties(arcSite)
-  resizerURL = resizerURLs?.[ENVIRONMENT] || resizerURL;
+  resizerURL = resizerURLs?.[ENVIRONMENT] || resizerURL
   const { width = 0, height = 0 } = customFields.resizerKVP || {}
 
   // can't return null for xml return type, must return valid xml template
