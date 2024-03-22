@@ -2,7 +2,7 @@ import PropTypes from 'fusion:prop-types'
 import Consumer from 'fusion:consumer'
 import moment from 'moment'
 import getProperties from 'fusion:properties'
-import { resizerKey } from 'fusion:environment'
+import { resizerKey, ENVIRONMENT } from 'fusion:environment'
 import { BuildContent } from '@wpmedia/feeds-content-elements'
 import { BuildPromoItems } from '@wpmedia/feeds-promo-items'
 import { generatePropsForFeed } from '@wpmedia/feeds-prop-types'
@@ -159,12 +159,15 @@ export function GoogleNewsRss({
   arcSite,
   requestUri,
 }) {
+  let { resizerURL = '' } = getProperties(arcSite)
   const {
-    resizerURL = '',
+    resizerURLs = {},
     feedDomainURL = 'http://localhost.com',
     feedTitle = '',
     feedLanguage = '',
   } = getProperties(arcSite)
+  resizerURL = resizerURLs?.[ENVIRONMENT] || resizerURL;
+
   const channelLanguage = customFields.channelLanguage || feedLanguage
   const { width = 0, height = 0 } = customFields.resizerKVP || {}
   const requestPath = new URL.URL(requestUri, feedDomainURL).pathname

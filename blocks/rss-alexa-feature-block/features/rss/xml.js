@@ -2,7 +2,7 @@ import PropTypes from 'fusion:prop-types'
 import Consumer from 'fusion:consumer'
 import moment from 'moment'
 import getProperties from 'fusion:properties'
-import { resizerKey } from 'fusion:environment'
+import { resizerKey, ENVIRONMENT } from 'fusion:environment'
 import { BuildContent } from '@wpmedia/feeds-content-elements'
 import { generatePropsForFeed } from '@wpmedia/feeds-prop-types'
 import { buildResizerURL } from '@wpmedia/feeds-resizer'
@@ -119,14 +119,16 @@ const rssTemplate = (
 })
 
 export function Rss({ globalContent, customFields, arcSite }) {
+  let { resizerURL = '' } = getProperties(arcSite)
   const {
-    resizerURL = '',
+    resizerURLs = {},
     feedDomainURL = '',
     feedTitle = '',
     feedLanguage = '',
   } = getProperties(arcSite)
   const channelLanguage = customFields.channelLanguage || feedLanguage
   const rssBuildContent = new BuildContent()
+  resizerURL = resizerURLs?.[ENVIRONMENT] || resizerURL;
 
   // can't return null for xml return type, must return valid xml template
   return rssTemplate(globalContent.content_elements || [], {

@@ -1,7 +1,7 @@
 import PropTypes from 'fusion:prop-types'
 import Consumer from 'fusion:consumer'
 import getProperties from 'fusion:properties'
-import { resizerKey } from 'fusion:environment'
+import { resizerKey, ENVIRONMENT } from 'fusion:environment'
 import { BuildPromoItems } from '@wpmedia/feeds-promo-items'
 import { generatePropsForFeed } from '@wpmedia/feeds-prop-types'
 const jmespath = require('jmespath')
@@ -92,12 +92,14 @@ const sitemapTemplate = (
 })
 
 export function GoogleSitemap({ globalContent, customFields, arcSite }) {
+  let { resizerURL = '' } = getProperties(arcSite)
   const {
-    resizerURL = '',
+    resizerURLs = {},
     feedDomainURL = '',
     feedTitle = '',
     feedLanguage = '',
   } = getProperties(arcSite)
+  resizerURL = resizerURLs?.[ENVIRONMENT] || resizerURL;
   const { width = 0, height = 0 } = customFields.resizerKVP || {}
   const newsLanguage = customFields.newsLanguage || feedLanguage
   const newsKeywordsJmespath =

@@ -1,7 +1,7 @@
 import PropTypes from 'fusion:prop-types'
 import Consumer from 'fusion:consumer'
 import getProperties from 'fusion:properties'
-import { resizerKey } from 'fusion:environment'
+import { resizerKey, ENVIRONMENT } from 'fusion:environment'
 import { buildResizerURL } from '@wpmedia/feeds-resizer'
 import { generatePropsForFeed } from '@wpmedia/feeds-prop-types'
 import { findVideo } from '@wpmedia/feeds-find-video-stream'
@@ -77,7 +77,9 @@ const sitemapTemplate = (
 })
 
 export function VideoSitemap({ globalContent, customFields, arcSite }) {
-  const { resizerURL = '', feedDomainURL = '' } = getProperties(arcSite)
+  let { resizerURL = '' } = getProperties(arcSite)
+  const { resizerURLs = {}, feedDomainURL = '' } = getProperties(arcSite)
+  resizerURL = resizerURLs?.[ENVIRONMENT] || resizerURL;
   const { width = 0, height = 0 } = customFields.resizerKVP || {}
 
   // can't return null for xml return type, must return valid xml template
