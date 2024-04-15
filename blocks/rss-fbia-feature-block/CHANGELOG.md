@@ -1,5 +1,11 @@
 # @wpmedia/sitemaps-feature-block
 
+## 2.0.1
+
+### Patch Changes
+
+- [#700](https://github.com/WPMedia/feed-components/pull/700) [`24e05ef`](https://github.com/WPMedia/feed-components/commit/24e05ef845b678e208b9a74a636eb11252ec288b) Thanks [@rmbrntt](https://github.com/rmbrntt)! - Add support for a resizerURLs object that can specify a url per environment
+
 ## 2.0.0
 
 ### Major Changes
