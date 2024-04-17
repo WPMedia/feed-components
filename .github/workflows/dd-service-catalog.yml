@@ -30,7 +30,7 @@ jobs:
           slack-support-channel: 'https://washpost.enterprise.slack.com/archives/C0169HVBN2C'
           repo: https://github.com/WPMedia/feed-components
           tags: |
-            - 'application:Arc Themes Blocks'
+            - 'application:Arc Feed Components'
             - infrastructure:packages
             - language:nodejs
             - division:arc
