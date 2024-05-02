@@ -26,7 +26,7 @@ const signImagesInANSObject =
 					independent: true,
 				})
 					.then((auth) => ({ id, auth }))
-					.catch((e) => ({})),
+					.catch(() => ({})),
 			),
 		).then((authResults) => {
 			const replaced = authResults
