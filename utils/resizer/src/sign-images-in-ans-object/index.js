@@ -4,9 +4,6 @@ const signImagesInANSObject =
     const replacements = new Set()
 
     const stringData = JSON.stringify(data, (key, value) => {
-      if (value === null || typeof value === 'undefined') {
-        return value
-      }
       const { _id, type, auth, url } = value
       if (!auth?.[resizerAppVersion] && type === 'image') {
         replacements.add(_id || url)
@@ -27,14 +24,23 @@ const signImagesInANSObject =
           query: { id },
           ttl: 31536000,
           independent: true,
-        }).then((auth) => ({ id, auth })),
+        })
+          .then((auth) => ({ id, auth }))
+          .catch(() => ({})),
       ),
     ).then((authResults) => {
-      const replaced = authResults.reduce(
-        (accumulator, { id, auth }) =>
-          accumulator.replace(new RegExp(`__replaceMe${id}__`, 'g'), auth.hash),
-        stringData,
-      )
+      const replaced = authResults
+        .filter(({ id, auth }) => id && auth)
+        .reduce(
+          (accumulator, { id, auth }) =>
+            accumulator.replace(
+              new RegExp(`__replaceMe${id}__`, 'g'),
+              auth.hash,
+            ),
+          stringData,
+        )
+        .replace(/,*\s*"\d+"\s*:\s*"__replaceMe[^_]+__"/g, '')
+        .replace(/,"auth"\s*:\s*{\s*}/g, '')
       return {
         data: JSON.parse(replaced),
         ...rest,
