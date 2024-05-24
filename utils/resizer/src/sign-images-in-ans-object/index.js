@@ -4,6 +4,9 @@ const signImagesInANSObject =
     const replacements = new Set()
 
     const stringData = JSON.stringify(data, (key, value) => {
+      if (value === null) {
+				return value;
+			}
       const { _id, type, auth, url } = value
       if (!auth?.[resizerAppVersion] && type === 'image') {
         replacements.add(_id || url)

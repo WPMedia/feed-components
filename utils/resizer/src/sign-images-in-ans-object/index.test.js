@@ -171,4 +171,19 @@ describe('Sign Images In ANS Object', () => {
 
     expect(signedData).toMatchObject(data)
   })
+
+  it("does not fail when null values are present", async () => {
+		const signIt = signImagesInANSObject(cachedCall, fetcher, 2)
+
+		const { data: signedData } = await signIt({
+			data: {
+				...data,
+				testKey: null,
+			},
+		})
+
+		expect(cachedCall).toHaveBeenCalledTimes(3)
+
+		expect(signedData).toMatchObject(data)
+	})
 })
