@@ -1,37 +1,15 @@
-const calculateWidthAndHeight = ({
-  aspectRatio = '',
-  width,
-  height,
-  ansImage = {},
-}) => {
-  if (width && height) {
-    return { width, height }
-  }
+const calculateWidthAndHeight = ({ width, height, ansImage = {} }) => {
+  const parsedWidth = parseInt(width) || 0
+  const parsedHeight = parseInt(height) || 0
 
-  const [w, h] = aspectRatio.split(':')
-  const imageWidth = ansImage?.width || width
-  const imageHeight = ansImage?.height || height
-
-  if (aspectRatio && imageWidth) {
-    const calculatedHeight = (h / w) * imageWidth
+  if (!parsedWidth && !parsedHeight) {
     return {
-      width: imageWidth,
-      height: Math.floor(calculatedHeight),
+      width: parseInt(ansImage?.width) || null,
+      height: parseInt(ansImage?.height) || null,
     }
   }
 
-  if (aspectRatio && imageHeight) {
-    const calculatedWidth = (w / h) * imageHeight
-    return {
-      width: Math.floor(calculatedWidth),
-      height: imageHeight,
-    }
-  }
-
-  return {
-    width: imageWidth || null,
-    height: imageHeight || null,
-  }
+  return { width: parsedWidth || null, height: parsedHeight || null }
 }
 
 export default calculateWidthAndHeight
