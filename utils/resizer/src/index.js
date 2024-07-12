@@ -8,14 +8,14 @@ import signImagesInANSObject from './sign-images-in-ans-object/index.js'
 import { fetch as resizerFetch } from './signing-service/index.js'
 
 const formatSrc = (srcWithResizerUrl, resizedOptions) => {
-  return srcWithResizerUrl.concat(
-    '?',
-    new URLSearchParams({
-      ...resizedOptions,
-      width: Math.floor(resizedOptions.width),
-      height: Math.floor(resizedOptions.height),
-    }).toString(),
-  )
+  const { width, height, ...options } = resizedOptions
+  const url = new URL(srcWithResizerUrl)
+  Object.entries({
+    ...options,
+    ...(width && width !== '0' ? { width: Math.floor(width) } : {}),
+    ...(height && height !== '0' ? { height: Math.floor(height) } : {}),
+  }).forEach(([key, value]) => url.searchParams.set(key, value))
+  return url.toString()
 }
 
 function buildResizerURL(
