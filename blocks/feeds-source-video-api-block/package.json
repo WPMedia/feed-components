@@ -22,7 +22,7 @@
     "build": ""
   },
   "dependencies": {
-    "@wpmedia/feeds-resizer": "^2.0.0",
+    "@wpmedia/feeds-resizer": "2.0.0",
     "axios": "^1.6.7"
   },
   "devDependencies": {
