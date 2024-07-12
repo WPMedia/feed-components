@@ -12,8 +12,8 @@ const formatSrc = (srcWithResizerUrl, resizedOptions) => {
   const url = new URL(srcWithResizerUrl)
   Object.entries({
     ...options,
-    ...(width ?? { width: Math.floor(width) }),
-    ...(height ?? { height: Math.floor(height) }),
+    ...(width && width !== '0' ? { width: Math.floor(width) } : {}),
+    ...(height && height !== '0' ? { height: Math.floor(height) } : {}),
   }).forEach(([key, value]) => url.searchParams.set(key, value))
   return url.toString()
 }
