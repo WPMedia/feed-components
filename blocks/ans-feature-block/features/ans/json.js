@@ -1,5 +1,6 @@
 import Consumer from 'fusion:consumer'
 import getProperties from 'fusion:properties'
+import PropTypes from 'fusion:prop-types'
 import { resizerKey, ENVIRONMENT } from 'fusion:environment'
 import { buildResizerURL } from '@wpmedia/feeds-resizer'
 
@@ -88,4 +89,14 @@ export function ANSFeed({ globalContent = {}, customFields, arcSite }) {
 
 ANSFeed.label = 'ANS'
 ANSFeed.icon = 'arc-json'
+ANSFeed.propTypes = {
+  customFields: PropTypes.shape({
+    resizerKVP: PropTypes.kvp.tag({
+      label: 'Image height and or width',
+      description: 'Height and width to resize all images to',
+      defaultValue: { width: 0, height: 0 },
+    }),
+  }),
+};
+
 export default Consumer(ANSFeed)
