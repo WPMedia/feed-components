@@ -1,5 +1,14 @@
 # @wpmedia/sitemaps-news-feature-block
 
+## 2.0.2
+
+### Patch Changes
+
+- [#711](https://github.com/WPMedia/feed-components/pull/711) [`9c233c4`](https://github.com/WPMedia/feed-components/commit/9c233c4c7cc360008918141b5c51b434736bba04) Thanks [@nschubach](https://github.com/nschubach)! - Pin dependencies
+
+- Updated dependencies [[`9c233c4`](https://github.com/WPMedia/feed-components/commit/9c233c4c7cc360008918141b5c51b434736bba04)]:
+  - @wpmedia/feeds-promo-items@2.0.1
+
 ## 2.0.1
 
 ### Patch Changes
