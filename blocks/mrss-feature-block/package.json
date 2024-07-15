@@ -1,6 +1,6 @@
 {
   "name": "@wpmedia/mrss-feature-block",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Fusion components for building rss",
   "main": "index.js",
   "files": [
@@ -25,9 +25,9 @@
     "build": ""
   },
   "dependencies": {
-    "@wpmedia/feeds-promo-items": "2.0.0",
+    "@wpmedia/feeds-promo-items": "2.0.1",
     "@wpmedia/feeds-prop-types": "2.0.0",
-    "@wpmedia/feeds-resizer": "2.0.0",
+    "@wpmedia/feeds-resizer": "2.0.1",
     "jmespath": "^0.15.0",
     "moment": "^2.29.4"
   }
