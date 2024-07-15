@@ -1,5 +1,16 @@
 # @wpmedia/ans-feature-block
 
+## 2.0.2
+
+### Patch Changes
+
+- [#711](https://github.com/WPMedia/feed-components/pull/711) [`9c233c4`](https://github.com/WPMedia/feed-components/commit/9c233c4c7cc360008918141b5c51b434736bba04) Thanks [@nschubach](https://github.com/nschubach)! - Pin dependencies
+
+- [#714](https://github.com/WPMedia/feed-components/pull/714) [`e03db78`](https://github.com/WPMedia/feed-components/commit/e03db78283d8d464a0abd415f7ca4e24ab614e06) Thanks [@vgalatro](https://github.com/vgalatro)! - Added missing custom field
+
+- Updated dependencies [[`9c233c4`](https://github.com/WPMedia/feed-components/commit/9c233c4c7cc360008918141b5c51b434736bba04), [`6138434`](https://github.com/WPMedia/feed-components/commit/613843452b6e5b5b25c6b095c5794e6d8fb704d5)]:
+  - @wpmedia/feeds-resizer@2.0.1
+
 ## 2.0.1
 
 ### Patch Changes
