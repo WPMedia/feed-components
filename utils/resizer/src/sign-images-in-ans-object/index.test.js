@@ -3,7 +3,6 @@ import signImagesInANSObject from '.'
 const data = {
   _id: '43UU6MCQERAMRPTD23B3CEXE7E',
   type: 'story',
-  undefinedValue: undefined,
   content_elements: [
     {
       _id: 'LJJSIEXMZ5FTDBP7PFHXI5A4XY',
@@ -71,9 +70,12 @@ const idAuthMap = {
   },
 }
 
-const fetcher = jest.fn((id) => idAuthMap[id])
+const fetcher = jest.fn((id) => Promise.resolve(idAuthMap[id]))
 const cachedCall = jest.fn((cacheId, fetchMethod, options) =>
   Promise.resolve(fetchMethod(options.query.id)),
+)
+const failingCachedCall = jest.fn((cacheId, fetchMethod, options) =>
+  Promise.reject(fetchMethod(options.query.id)),
 )
 
 describe('Sign Images In ANS Object', () => {
@@ -158,5 +160,30 @@ describe('Sign Images In ANS Object', () => {
     expect(signedData.promo_items.lead_art.promo_items.basic.auth[2]).toBe(
       '545c018dbf2bbc8e4488c7546167e6afacc259cf4fe0b2f28c8043990f689e41',
     )
+  })
+
+  it('returns unmodified data for a failing fetch service', async () => {
+    const signIt = signImagesInANSObject(failingCachedCall, fetcher, 2)
+
+    const { data: signedData } = await signIt({ data })
+
+    expect(failingCachedCall).toHaveBeenCalledTimes(3)
+
+    expect(signedData).toMatchObject(data)
+  })
+
+  it('does not fail when null values are present', async () => {
+    const signIt = signImagesInANSObject(cachedCall, fetcher, 2)
+
+    const { data: signedData } = await signIt({
+      data: {
+        ...data,
+        testKey: null,
+      },
+    })
+
+    expect(cachedCall).toHaveBeenCalledTimes(3)
+
+    expect(signedData).toMatchObject(data)
   })
 })

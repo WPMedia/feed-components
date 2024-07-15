@@ -25,6 +25,6 @@
     "build": ""
   },
   "dependencies": {
-    "@wpmedia/feeds-resizer": "^2.0.0"
+    "@wpmedia/feeds-resizer": "2.0.0"
   }
 }
