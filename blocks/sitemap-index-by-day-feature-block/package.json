@@ -1,6 +1,6 @@
 {
   "name": "@wpmedia/sitemap-index-by-day-feature-block",
-  "version": "1.14.0",
+  "version": "2.0.0",
   "description": "Fusion feature for building sitemap-index by day",
   "main": "index.js",
   "files": [
@@ -22,8 +22,11 @@
     "Cameron Woodmansee <cameron.woodmansee@washpost.com>"
   ],
   "homepage": "https://github.com/WPMedia/feed-components#readme",
+  "scripts": {
+    "build": ""
+  },
   "dependencies": {
-    "moment": "^2.29.2"
+    "moment": "^2.29.4"
   },
   "devDependencies": {
     "prop-types": "^15.7.2"

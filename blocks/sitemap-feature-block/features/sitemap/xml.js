@@ -1,7 +1,7 @@
 import PropTypes from 'fusion:prop-types'
 import Consumer from 'fusion:consumer'
 import getProperties from 'fusion:properties'
-import { resizerKey } from 'fusion:environment'
+import { resizerKey, ENVIRONMENT } from 'fusion:environment'
 import { generatePropsForFeed } from '@wpmedia/feeds-prop-types'
 import { BuildPromoItems } from '@wpmedia/feeds-promo-items'
 
@@ -59,7 +59,10 @@ const sitemapTemplate = (
 })
 
 export function Sitemap({ globalContent, customFields, arcSite }) {
-  const { resizerURL = '', feedDomainURL = '' } = getProperties(arcSite)
+  let { resizerURL = '' } = getProperties(arcSite)
+  const { resizerURLs = {}, feedDomainURL = '' } = getProperties(arcSite)
+  resizerURL = resizerURLs?.[ENVIRONMENT] || resizerURL
+
   const { width = 0, height = 0 } = customFields.resizerKVP || {}
 
   const PromoItems = new BuildPromoItems()

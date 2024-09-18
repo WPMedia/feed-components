@@ -1,11 +1,14 @@
 import Consumer from 'fusion:consumer'
 import getProperties from 'fusion:properties'
-import { resizerKey } from 'fusion:environment'
+import PropTypes from 'fusion:prop-types'
+import { resizerKey, ENVIRONMENT } from 'fusion:environment'
 import { buildResizerURL } from '@wpmedia/feeds-resizer'
 
 export function ANSFeed({ globalContent = {}, customFields, arcSite }) {
-  const { resizerURL = '', feedDomainURL = '' } = getProperties(arcSite)
+  let { resizerURL = '' } = getProperties(arcSite)
+  const { feedDomainURL = '', resizerURLs = {} } = getProperties(arcSite)
   const { width = 0, height = 0 } = customFields.resizerKVP || {}
+  resizerURL = resizerURLs?.[ENVIRONMENT] || resizerURL
 
   const resizeImage = (img) => {
     if (img && img.url) {
@@ -21,6 +24,7 @@ export function ANSFeed({ globalContent = {}, customFields, arcSite }) {
           resizerURL,
           width,
           height,
+          img,
         )
       }
       return img
@@ -85,4 +89,14 @@ export function ANSFeed({ globalContent = {}, customFields, arcSite }) {
 
 ANSFeed.label = 'ANS'
 ANSFeed.icon = 'arc-json'
+ANSFeed.propTypes = {
+  customFields: PropTypes.shape({
+    resizerKVP: PropTypes.kvp.tag({
+      label: 'Image height and or width',
+      description: 'Height and width to resize all images to',
+      defaultValue: { width: 0, height: 0 },
+    }),
+  }),
+}
+
 export default Consumer(ANSFeed)

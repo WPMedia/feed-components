@@ -1,56 +1,85 @@
-import request from 'request-promise-native'
-import { CONTENT_BASE, ARC_ACCESS_TOKEN } from 'fusion:environment'
+import axios from 'axios'
+
+import {
+  ARC_ACCESS_TOKEN,
+  CONTENT_BASE,
+  RESIZER_TOKEN_VERSION,
+  resizerKey,
+} from 'fusion:environment'
+
+import { signImagesInANSObject, resizerFetch } from '@wpmedia/feeds-resizer'
 import { defaultANSFields } from '@wpmedia/feeds-content-source-utils'
 
-const fetch = async (key = {}) => {
+const sortStories = (idsResp, collectionResp, ids, site) => {
+  idsResp.content_elements.forEach((item) => {
+    const storyIndex = ids.indexOf(item._id)
+    // transform websites to sections
+    if (item?.websites?.[site]?.website_section && !item?.taxonomy?.sections) {
+      if (!item.taxonomy) item.taxonomy = {}
+      item.taxonomy.sections = [item.websites[site].website_section]
+    }
+    if (item?.websites?.[site]?.website_url)
+      item.website_url = item.websites[site].website_url
+    item.website = site
+    collectionResp.content_elements.splice(storyIndex, 1, item)
+  })
+  return collectionResp
+}
+
+const fetch = async (key, { cachedCall }) => {
   const {
     'arc-site': site,
     _id,
     content_alias: contentAlias,
-    from,
-    size,
+    from = 0,
+    size = 20,
     includeFields,
     excludeFields,
   } = key
-  const qs = {
+
+  const collectionsQuery = new URLSearchParams({
     website: site,
-    from: from || 0,
-    size: size || 20,
+    from,
+    size,
     published: true,
     ...(_id && { _id: _id.replace(/\//g, '') }),
     ...(contentAlias && { content_alias: contentAlias.replace(/\/$/, '') }),
-  }
+  })
 
   const options = {
-    gzip: true,
-    json: true,
-    auth: { bearer: ARC_ACCESS_TOKEN },
+    headers: {
+      'content-type': 'application/json',
+      Authorization: `Bearer ${ARC_ACCESS_TOKEN}`,
+    },
+    method: 'GET',
   }
+
+  const collectionResp = await axios({
+    url: `${CONTENT_BASE}/content/v4/collections?${collectionsQuery.toString()}`,
+    ...options,
+  })
+    .then((result) => {
+      if (resizerKey) {
+        return result
+      }
+      return signImagesInANSObject(
+        cachedCall,
+        resizerFetch,
+        RESIZER_TOKEN_VERSION,
+      )(result)
+    })
+    .then(({ data }) => data)
+    .catch((error) => console.log('== error ==', error))
+
+  const ids = await collectionResp.content_elements.map((item) => {
+    return item._id
+  })
 
   const ansFields = [
     ...defaultANSFields,
     'content_elements',
     `websites.${site}`,
   ]
-
-  const sortStories = (idsResp, collectionResp, ids, site) => {
-    idsResp.content_elements.forEach((item) => {
-      const storyIndex = ids.indexOf(item._id)
-      // transform websites to sections
-      if (
-        item?.websites?.[site]?.website_section &&
-        !item?.taxonomy?.sections
-      ) {
-        if (!item.taxonomy) item.taxonomy = {}
-        item.taxonomy.sections = [item.websites[site].website_section]
-      }
-      if (item?.websites?.[site]?.website_url)
-        item.website_url = item.websites[site].website_url
-      item.website = site
-      collectionResp.content_elements.splice(storyIndex, 1, item)
-    })
-    return collectionResp
-  }
 
   if (excludeFields) {
     excludeFields.split(',').forEach((i) => {
@@ -65,28 +94,21 @@ const fetch = async (key = {}) => {
       .split(',')
       .forEach((i) => i && !ansFields.includes(i) && ansFields.push(i))
   }
-
   // If excluding content_elements, don't call the IDS endpoint
-  const makeIDsCall = ansFields.includes('content_elements')
+  if (!ansFields.includes('content_elements') || ids.length === 0)
+    return collectionResp
 
-  const collectionResp = await request({
-    uri: `${CONTENT_BASE}/content/v4/collections`,
-    qs: qs,
+  const idsQuery = new URLSearchParams({
+    ids: ids.join(','),
+    website: site,
+    included_fields: ansFields.join(','),
+  })
+  const idsResp = await axios({
+    url: `${CONTENT_BASE}/content/v4/ids?${idsQuery.toString()}`,
     ...options,
   })
-  const ids = await collectionResp.content_elements.map((item) => {
-    return item._id
-  })
-  if (!makeIDsCall || ids.length === 0) return collectionResp
-  const idsResp = await request({
-    uri: `${CONTENT_BASE}/content/v4/ids`,
-    qs: {
-      ids: ids.join(','),
-      website: site,
-      included_fields: ansFields.join(','),
-    },
-    ...options,
-  })
+    .then(({ data }) => data)
+    .catch((error) => console.log('== error ==', error))
   return await sortStories(idsResp, collectionResp, ids, site)
 }
 

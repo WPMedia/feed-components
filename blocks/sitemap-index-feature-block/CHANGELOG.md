@@ -1,5 +1,27 @@
 # @wpmedia/sitemap-index-feature-block
 
+## 2.0.1
+
+### Patch Changes
+
+- [#700](https://github.com/WPMedia/feed-components/pull/700) [`24e05ef`](https://github.com/WPMedia/feed-components/commit/24e05ef845b678e208b9a74a636eb11252ec288b) Thanks [@rmbrntt](https://github.com/rmbrntt)! - Add support for a resizerURLs object that can specify a url per environment
+
+## 2.0.0
+
+### Major Changes
+
+- [#665](https://github.com/WPMedia/feed-components/pull/665) [`c39ce40`](https://github.com/WPMedia/feed-components/commit/c39ce40bc95a95755bff01b4616a170e69572995) Thanks [@nschubach](https://github.com/nschubach)! - Adds resizer v2 support.
+
+## 1.15.0
+
+### Minor Changes
+
+- [#658](https://github.com/WPMedia/feed-components/pull/658) [`a5039bd`](https://github.com/WPMedia/feed-components/commit/a5039bd9ec2f74f876a3fdf0718e0fbd6c5c05b8) Thanks [@vgalatro](https://github.com/vgalatro)! - OBF 1.15 release
+
+### Patch Changes
+
+- [#660](https://github.com/WPMedia/feed-components/pull/660) [`ca229d0`](https://github.com/WPMedia/feed-components/commit/ca229d0826e865a1ce682812918a2c46980367df) Thanks [@vgalatro](https://github.com/vgalatro)! - OBF 1.15.1 to sandbox
+
 ## 1.14.0
 
 ### Minor Changes

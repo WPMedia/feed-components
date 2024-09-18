@@ -1,5 +1,21 @@
 # @wpmedia/feeds-xml-output
 
+## 2.0.0
+
+### Major Changes
+
+- [#665](https://github.com/WPMedia/feed-components/pull/665) [`c39ce40`](https://github.com/WPMedia/feed-components/commit/c39ce40bc95a95755bff01b4616a170e69572995) Thanks [@nschubach](https://github.com/nschubach)! - Adds resizer v2 support.
+
+## 1.1.0
+
+### Minor Changes
+
+- [#658](https://github.com/WPMedia/feed-components/pull/658) [`a5039bd`](https://github.com/WPMedia/feed-components/commit/a5039bd9ec2f74f876a3fdf0718e0fbd6c5c05b8) Thanks [@vgalatro](https://github.com/vgalatro)! - OBF 1.15 release
+
+### Patch Changes
+
+- [#656](https://github.com/WPMedia/feed-components/pull/656) [`3285622`](https://github.com/WPMedia/feed-components/commit/3285622f7b4c5a816d25d6fbefb8c17e0e6ad530) Thanks [@vgalatro](https://github.com/vgalatro)! - Corrected options parameter for building xml
+
 ## 0.3.0
 
 ### Minor Changes

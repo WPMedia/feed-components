@@ -1,6 +1,6 @@
 # Sitemap
 
-Sitemaps provide search engines with metadata regarding the specific news content on a website. Using the Sitemap, bots can quickly find the news articles contained on a site
+Sitemaps provide search engines with metadata regarding the specific news content on a website. Using the Sitemap, bots can quickly find the news articles contained on a site.
 These Sitemaps identify the url and publication date of every article.
 
 ## Custom Fields

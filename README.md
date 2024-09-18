@@ -22,3 +22,16 @@ There are a set of common utilities used in the blocks.  These are located in th
 
 If you would like to create a custom block, you can start with one of the existing OBF blocks or create something new.  More details can be found [here](https://redirector.arcpublishing.com/alc/arc-products/arcio/user-docs/ejecting-a-block/)
 
+## Local Development
+preconstruct is used to handle the dependency of packages depending on one another. It's set as postinstall and will likely run. If not follow the below:
+After `npm i`
+Run `npm run postinstall`
+```
+> postinstall
+> preconstruct dev
+
+🎁 info project is valid!
+🎁 success created links!
+```
+
+That should resolve any missing module/import errors from dependencies in the utils called in blocks.

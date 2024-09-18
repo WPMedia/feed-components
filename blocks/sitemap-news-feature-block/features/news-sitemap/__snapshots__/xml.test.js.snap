@@ -1,18 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`returns template with default values 1`] = `
-Object {
-  "urlset": Object {
+{
+  "urlset": {
     "@xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9",
     "@xmlns:image": "http://www.google.com/schemas/sitemap-image/1.1",
     "@xmlns:news": "http://www.google.com/schemas/sitemap-news/0.9",
-    "url": Array [
-      Object {
-        "#": Array [
-          Object {
-            "image:image": Object {
+    "url": [
+      {
+        "#": [
+          {
+            "image:image": {
               "image:loc": "hi/abcdefghijklmnopqrstuvwxyz=/arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/STORY_ONE_IMAGE.png",
-              "image:title": Object {
+              "image:title": {
                 "$": "Hand Washing",
               },
             },
@@ -21,35 +21,35 @@ Object {
         "changefreq": "always",
         "lastmod": "2018-10-05T14:28:25.674Z",
         "loc": "http://demo-prod.origin.arcpublishing.com/food/2020/04/07/tips-for-safe-hand-washing",
-        "news:news": Object {
-          "news:keywords": Object {
+        "news:news": {
+          "news:keywords": {
             "$": "animal videos",
           },
-          "news:publication": Object {
+          "news:publication": {
             "news:language": "en",
             "news:name": "google news",
           },
           "news:publication_date": "2018-10-05T14:28:25.674Z",
-          "news:title": Object {
+          "news:title": {
             "$": "dog running outside enjoying the sunny day",
           },
         },
         "priority": "0.5",
       },
-      Object {
+      {
         "changefreq": "always",
         "lastmod": "2021-11-15T12:18:25.674Z",
         "loc": "http://demo-prod.origin.arcpublishing.com/food/2021/04/07/best-sourdough-recipes",
-        "news:news": Object {
-          "news:keywords": Object {
+        "news:news": {
+          "news:keywords": {
             "$": "food videos",
           },
-          "news:publication": Object {
+          "news:publication": {
             "news:language": "en",
             "news:name": "google news",
           },
           "news:publication_date": "2021-11-15T12:18:25.674Z",
-          "news:title": Object {
+          "news:title": {
             "$": "Best Sourdough you have ever made",
           },
         },
@@ -61,18 +61,18 @@ Object {
 `;
 
 exports[`returns template with empty values 1`] = `
-Object {
-  "urlset": Object {
+{
+  "urlset": {
     "@xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9",
     "@xmlns:image": "http://www.google.com/schemas/sitemap-image/1.1",
     "@xmlns:news": "http://www.google.com/schemas/sitemap-news/0.9",
-    "url": Array [
-      Object {
+    "url": [
+      {
         "changefreq": "",
         "lastmod": undefined,
         "loc": "http://demo-prod.origin.arcpublishing.com/food/2020/04/07/tips-for-safe-hand-washing",
-        "news:news": Object {
-          "news:publication": Object {
+        "news:news": {
+          "news:publication": {
             "news:language": "en",
             "news:name": "google news",
           },
@@ -80,12 +80,12 @@ Object {
         },
         "priority": "",
       },
-      Object {
+      {
         "changefreq": "",
         "lastmod": undefined,
         "loc": "http://demo-prod.origin.arcpublishing.com/food/2021/04/07/best-sourdough-recipes",
-        "news:news": Object {
-          "news:publication": Object {
+        "news:news": {
+          "news:publication": {
             "news:language": "en",
             "news:name": "google news",
           },
@@ -99,17 +99,17 @@ Object {
 `;
 
 exports[`returns template with langauge 1`] = `
-Object {
-  "urlset": Object {
+{
+  "urlset": {
     "@xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9",
     "@xmlns:news": "http://www.google.com/schemas/sitemap-news/0.9",
-    "url": Array [
-      Object {
+    "url": [
+      {
         "changefreq": undefined,
         "lastmod": undefined,
         "loc": "http://demo-prod.origin.arcpublishing.com/food/2020/04/07/tips-for-safe-hand-washing",
-        "news:news": Object {
-          "news:publication": Object {
+        "news:news": {
+          "news:publication": {
             "news:language": "es",
             "news:name": "google news",
           },
@@ -117,12 +117,12 @@ Object {
         },
         "priority": undefined,
       },
-      Object {
+      {
         "changefreq": undefined,
         "lastmod": undefined,
         "loc": "http://demo-prod.origin.arcpublishing.com/food/2021/04/07/best-sourdough-recipes",
-        "news:news": Object {
-          "news:publication": Object {
+        "news:news": {
+          "news:publication": {
             "news:language": "es",
             "news:name": "google news",
           },

@@ -1,56 +1,56 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`returns template with links to sections without outputType 1`] = `
-Object {
-  "urlset": Object {
+{
+  "urlset": {
     "@xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9",
-    "url": Array [
-      Object {
+    "url": [
+      {
         "changefreq": "",
         "loc": "http://demo-prod.origin.arcpublishing.com/politics/",
         "priority": "",
       },
-      Object {
+      {
         "changefreq": "",
         "loc": "http://demo-prod.origin.arcpublishing.com/opinion/",
         "priority": "",
       },
-      Object {
+      {
         "changefreq": "",
         "loc": "http://demo-prod.origin.arcpublishing.com/economy/",
         "priority": "",
       },
-      Object {
+      {
         "changefreq": "",
         "loc": "http://demo-prod.origin.arcpublishing.com/sports/",
         "priority": "",
       },
-      Object {
+      {
         "changefreq": "",
         "loc": "http://demo-prod.origin.arcpublishing.com/sports/football/",
         "priority": "",
       },
-      Object {
+      {
         "changefreq": "",
         "loc": "http://demo-prod.origin.arcpublishing.com/sports/baseball/",
         "priority": "",
       },
-      Object {
+      {
         "changefreq": "",
         "loc": "http://demo-prod.origin.arcpublishing.com/sports/basketball/",
         "priority": "",
       },
-      Object {
+      {
         "changefreq": "",
         "loc": "http://demo-prod.origin.arcpublishing.com/entertainment/",
         "priority": "",
       },
-      Object {
+      {
         "changefreq": "",
         "loc": "http://demo-prod.origin.arcpublishing.com/entertainment/tv/",
         "priority": "",
       },
-      Object {
+      {
         "changefreq": "",
         "loc": "http://demo-prod.origin.arcpublishing.com/entertainment/movies/",
         "priority": "",
@@ -61,56 +61,56 @@ Object {
 `;
 
 exports[`returns template with sitemap by section links 1`] = `
-Object {
-  "urlset": Object {
+{
+  "urlset": {
     "@xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9",
-    "url": Array [
-      Object {
+    "url": [
+      {
         "changefreq": "always",
         "loc": "http://demo-prod.origin.arcpublishing.com/politics/",
         "priority": "0.5",
       },
-      Object {
+      {
         "changefreq": "always",
         "loc": "http://demo-prod.origin.arcpublishing.com/opinion/",
         "priority": "0.5",
       },
-      Object {
+      {
         "changefreq": "always",
         "loc": "http://demo-prod.origin.arcpublishing.com/economy/",
         "priority": "0.5",
       },
-      Object {
+      {
         "changefreq": "always",
         "loc": "http://demo-prod.origin.arcpublishing.com/sports/",
         "priority": "0.5",
       },
-      Object {
+      {
         "changefreq": "always",
         "loc": "http://demo-prod.origin.arcpublishing.com/sports/football/",
         "priority": "0.5",
       },
-      Object {
+      {
         "changefreq": "always",
         "loc": "http://demo-prod.origin.arcpublishing.com/sports/baseball/",
         "priority": "0.5",
       },
-      Object {
+      {
         "changefreq": "always",
         "loc": "http://demo-prod.origin.arcpublishing.com/sports/basketball/",
         "priority": "0.5",
       },
-      Object {
+      {
         "changefreq": "always",
         "loc": "http://demo-prod.origin.arcpublishing.com/entertainment/",
         "priority": "0.5",
       },
-      Object {
+      {
         "changefreq": "always",
         "loc": "http://demo-prod.origin.arcpublishing.com/entertainment/tv/",
         "priority": "0.5",
       },
-      Object {
+      {
         "changefreq": "always",
         "loc": "http://demo-prod.origin.arcpublishing.com/entertainment/movies/",
         "priority": "0.5",
@@ -121,46 +121,46 @@ Object {
 `;
 
 exports[`returns template with sitemap by section links with excluded links 1`] = `
-Object {
-  "urlset": Object {
+{
+  "urlset": {
     "@xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9",
-    "url": Array [
-      Object {
+    "url": [
+      {
         "changefreq": "always",
         "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/opinion/?outputType=xml",
         "priority": "0.5",
       },
-      Object {
+      {
         "changefreq": "always",
         "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/economy/?outputType=xml",
         "priority": "0.5",
       },
-      Object {
+      {
         "changefreq": "always",
         "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/sports/?outputType=xml",
         "priority": "0.5",
       },
-      Object {
+      {
         "changefreq": "always",
         "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/sports/football/?outputType=xml",
         "priority": "0.5",
       },
-      Object {
+      {
         "changefreq": "always",
         "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/sports/baseball/?outputType=xml",
         "priority": "0.5",
       },
-      Object {
+      {
         "changefreq": "always",
         "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/sports/basketball/?outputType=xml",
         "priority": "0.5",
       },
-      Object {
+      {
         "changefreq": "always",
         "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/entertainment/?outputType=xml",
         "priority": "0.5",
       },
-      Object {
+      {
         "changefreq": "always",
         "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/entertainment/movies/?outputType=xml",
         "priority": "0.5",
@@ -171,38 +171,38 @@ Object {
 `;
 
 exports[`returns template without priority or change frequency 1`] = `
-Object {
-  "urlset": Object {
+{
+  "urlset": {
     "@xmlns": "http://www.sitemaps.org/schemas/sitemap/0.9",
-    "url": Array [
-      Object {
+    "url": [
+      {
         "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/politics/?outputType=xml",
       },
-      Object {
+      {
         "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/opinion/?outputType=xml",
       },
-      Object {
+      {
         "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/economy/?outputType=xml",
       },
-      Object {
+      {
         "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/sports/?outputType=xml",
       },
-      Object {
+      {
         "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/sports/football/?outputType=xml",
       },
-      Object {
+      {
         "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/sports/baseball/?outputType=xml",
       },
-      Object {
+      {
         "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/sports/basketball/?outputType=xml",
       },
-      Object {
+      {
         "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/entertainment/?outputType=xml",
       },
-      Object {
+      {
         "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/entertainment/tv/?outputType=xml",
       },
-      Object {
+      {
         "loc": "http://demo-prod.origin.arcpublishing.com/arc/outboundfeeds/sitemap/category/entertainment/movies/?outputType=xml",
       },
     ],

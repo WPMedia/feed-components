@@ -1,5 +1,3 @@
-'use strict'
-
 import { buildResizerURL } from '@wpmedia/feeds-resizer'
 import { findVideo } from '@wpmedia/feeds-find-video-stream'
 import * as cheerio from 'cheerio'
@@ -101,6 +99,7 @@ export function BuildContent() {
           resizerURL,
           resizeWidth,
           resizeHeight,
+          element,
         ),
         alt: element.caption || '',
         ...(element.height && { height: resizeHeight || element.height }),

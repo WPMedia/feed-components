@@ -1,23 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`returns Alexa template with custom values 1`] = `
-Object {
-  "rss": Object {
+{
+  "rss": {
     "@version": "2.0",
-    "channel": Object {
+    "channel": {
       "category": "news",
       "copyright": "2020 The Washington Post LLC",
       "description": "All the news that's fit to print",
-      "image": Object {
+      "image": {
         "link": "http://demo-prod.origin.arcpublishing.com",
         "title": "The Daily Prophet",
         "url": "hi/abcdefghijklmnopqrstuvwxyz=/arc-anglerfish-arc2-prod-demo.s3.amazonaws.com/public/JTWX7EUOLJE4FCHYGN2COQAERY.png",
       },
-      "item": Array [
-        Object {
+      "item": [
+        {
           "category": "coronvirus",
           "description": "try singing the happy birthday songbe sure to wash your thumbs",
-          "enclosure": Object {
+          "enclosure": {
             "@type": "audio/mp3",
             "@url": "https://clark.com/wp-content/uploads/2021/01/Ask-Clark_GameStop_2021.mp3?_=4",
           },
@@ -26,7 +26,7 @@ Object {
           "pubDate": "2020-04-07T15:02:08.918Z",
           "title": "Tips for Safe Hand washing",
         },
-        Object {
+        {
           "description": "",
           "guid": "ABCD",
           "link": "http://demo-prod.origin.arcpublishing.com",
@@ -45,14 +45,14 @@ Object {
 `;
 
 exports[`returns Alexa template with default values 1`] = `
-Object {
-  "rss": Object {
+{
+  "rss": {
     "@version": "2.0",
-    "channel": Object {
-      "item": Array [
-        Object {
+    "channel": {
+      "item": [
+        {
           "description": "",
-          "enclosure": Object {
+          "enclosure": {
             "@type": "audio/mp3",
             "@url": "https://clark.com/wp-content/uploads/2021/01/Ask-Clark_GameStop_2021.mp3?_=4",
           },
@@ -61,7 +61,7 @@ Object {
           "pubDate": "2020-04-07T15:02:08.918Z",
           "title": "Tips for Safe Hand washing",
         },
-        Object {
+        {
           "description": "",
           "guid": "ABCD",
           "link": "http://demo-prod.origin.arcpublishing.com",
@@ -79,18 +79,18 @@ Object {
 `;
 
 exports[`returns Alexa template with empty values 1`] = `
-Object {
-  "rss": Object {
+{
+  "rss": {
     "@version": "2.0",
-    "channel": Object {
-      "item": Array [
-        Object {
+    "channel": {
+      "item": [
+        {
           "description": "try singing the happy birthday songbe sure to wash your thumbs",
           "guid": undefined,
           "link": "http://demo-prod.origin.arcpublishing.com/food/2020/04/07/tips-for-safe-hand-washing",
           "pubDate": "2020-04-07T15:02:08.918Z",
         },
-        Object {
+        {
           "description": "",
           "guid": "ABCD",
           "link": "http://demo-prod.origin.arcpublishing.com",

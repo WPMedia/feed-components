@@ -1,5 +1,19 @@
 # @wpmedia/feeds-resizer
 
+## 2.0.1
+
+### Patch Changes
+
+- [#711](https://github.com/WPMedia/feed-components/pull/711) [`9c233c4`](https://github.com/WPMedia/feed-components/commit/9c233c4c7cc360008918141b5c51b434736bba04) Thanks [@nschubach](https://github.com/nschubach)! - Pin dependencies
+
+- [#710](https://github.com/WPMedia/feed-components/pull/710) [`6138434`](https://github.com/WPMedia/feed-components/commit/613843452b6e5b5b25c6b095c5794e6d8fb704d5) Thanks [@nschubach](https://github.com/nschubach)! - Update size calculation
+
+## 2.0.0
+
+### Major Changes
+
+- [#665](https://github.com/WPMedia/feed-components/pull/665) [`c39ce40`](https://github.com/WPMedia/feed-components/commit/c39ce40bc95a95755bff01b4616a170e69572995) Thanks [@nschubach](https://github.com/nschubach)! - Adds resizer v2 support.
+
 ## 0.3.0
 
 ### Minor Changes
