@@ -146,45 +146,46 @@ const fetch = (key, { cachedCall }) => {
         should: [
           {
             terms: {
-              "taxonomy.tags.text.raw": cleanTagsText.split(',')
-            }
+              'taxonomy.tags.text.raw': cleanTagsText.split(','),
+            },
           },
           {
             nested: {
               ignore_unmapped: true,
-              path: "variations.variants",
+              path: 'variations.variants',
               query: {
                 bool: {
                   must: [
                     {
                       term: {
-                        "variations.variants.websites": key['arc-site']
-                      }
+                        'variations.variants.websites': key['arc-site'],
+                      },
                     },
                     {
                       nested: {
                         ignore_unmapped: true,
-                        path: "variations.variants.content.taxonomy.tags",
+                        path: 'variations.variants.content.taxonomy.tags',
                         query: {
                           bool: {
                             must: [
                               {
                                 terms: {
-                                  "variations.variants.content.taxonomy.tags.text.raw": cleanTagsText.split(',')
-                                }
-                              }
-                            ]
-                          }
-                        }
-                      }
-                    }
-                  ]
-                }
-              }
-            }
-          }
-        ]
-      }
+                                  'variations.variants.content.taxonomy.tags.text.raw':
+                                    cleanTagsText.split(','),
+                                },
+                              },
+                            ],
+                          },
+                        },
+                      },
+                    },
+                  ],
+                },
+              },
+            },
+          },
+        ],
+      },
     })
   }
 
@@ -199,46 +200,47 @@ const fetch = (key, { cachedCall }) => {
         should: [
           {
             terms: {
-              "taxonomy.tags.slug": cleanTagsSlug.split(',')
-            }
+              'taxonomy.tags.slug': cleanTagsSlug.split(','),
+            },
           },
           {
             nested: {
               ignore_unmapped: true,
-              path: "variations.variants",
+              path: 'variations.variants',
               query: {
                 bool: {
                   must: [
                     {
                       term: {
-                        "variations.variants.websites": key['arc-site']
-                      }
+                        'variations.variants.websites': key['arc-site'],
+                      },
                     },
                     {
                       nested: {
                         ignore_unmapped: true,
-                        path: "variations.variants.content.taxonomy.tags",
+                        path: 'variations.variants.content.taxonomy.tags',
                         query: {
                           bool: {
                             must: [
                               {
                                 terms: {
-                                  "variations.variants.content.taxonomy.tags.slug": cleanTagsSlug.split(',')
-                                }
-                              }
-                            ]
-                          }
-                        }
-                      }
-                    }
-                  ]
-                }
-              }
-            }
-          }
-        ]
-      }
-    });
+                                  'variations.variants.content.taxonomy.tags.slug':
+                                    cleanTagsSlug.split(','),
+                                },
+                              },
+                            ],
+                          },
+                        },
+                      },
+                    },
+                  ],
+                },
+              },
+            },
+          },
+        ],
+      },
+    })
   }
 
   // if Section and/or Exclude-Sections append section query to basic query
