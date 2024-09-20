@@ -141,8 +141,50 @@ const fetch = (key, { cachedCall }) => {
     const cleanTagsText = tagsText.replace(/\//g, '').replace(/%20/g, '+')
 
     body.query.bool.must.push({
-      terms: {
-        'taxonomy.tags.text.raw': cleanTagsText.split(','),
+      bool: {
+        minimum_should_match: 1,
+        should: [
+          {
+            terms: {
+              'taxonomy.tags.text.raw': cleanTagsText.split(','),
+            },
+          },
+          {
+            nested: {
+              ignore_unmapped: true,
+              path: 'variations.variants',
+              query: {
+                bool: {
+                  must: [
+                    {
+                      term: {
+                        'variations.variants.websites': key['arc-site'],
+                      },
+                    },
+                    {
+                      nested: {
+                        ignore_unmapped: true,
+                        path: 'variations.variants.content.taxonomy.tags',
+                        query: {
+                          bool: {
+                            must: [
+                              {
+                                terms: {
+                                  'variations.variants.content.taxonomy.tags.text.raw':
+                                    cleanTagsText.split(','),
+                                },
+                              },
+                            ],
+                          },
+                        },
+                      },
+                    },
+                  ],
+                },
+              },
+            },
+          },
+        ],
       },
     })
   }
@@ -153,8 +195,50 @@ const fetch = (key, { cachedCall }) => {
     const cleanTagsSlug = tagsSlug.replace(/\//g, '')
 
     body.query.bool.must.push({
-      terms: {
-        'taxonomy.tags.slug': cleanTagsSlug.split(','),
+      bool: {
+        minimum_should_match: 1,
+        should: [
+          {
+            terms: {
+              'taxonomy.tags.slug': cleanTagsSlug.split(','),
+            },
+          },
+          {
+            nested: {
+              ignore_unmapped: true,
+              path: 'variations.variants',
+              query: {
+                bool: {
+                  must: [
+                    {
+                      term: {
+                        'variations.variants.websites': key['arc-site'],
+                      },
+                    },
+                    {
+                      nested: {
+                        ignore_unmapped: true,
+                        path: 'variations.variants.content.taxonomy.tags',
+                        query: {
+                          bool: {
+                            must: [
+                              {
+                                terms: {
+                                  'variations.variants.content.taxonomy.tags.slug':
+                                    cleanTagsSlug.split(','),
+                                },
+                              },
+                            ],
+                          },
+                        },
+                      },
+                    },
+                  ],
+                },
+              },
+            },
+          },
+        ],
       },
     })
   }
